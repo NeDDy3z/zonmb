@@ -18,7 +18,6 @@
             if (isset($_GET['success'])) {
                 $success = $_GET['success'];
 
-
                 if (str_contains(needle: 'login-success', haystack: $success)) {
                     echo '<p class="success-message">Přihlášení proběhlo úspěšně</p>';
                 }

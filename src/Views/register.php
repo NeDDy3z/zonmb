@@ -39,6 +39,9 @@
                 if (str_contains(needle: 'invalid-username-size', haystack:  $error)) {
                     echo '<p class="error-message">Jméno musí mít délku minimálně 3 a maxilmálně 30 znkaů</p>';
                 }
+                if (str_contains(needle: 'username-taken', haystack:  $error)) {
+                    echo '<p class="error-message">Uživatelské jméno již existuje</p>';
+                }
                 if (str_contains(needle: 'invalid-password-size', haystack: $error)) {
                     echo '<p class="error-message">Heslo musí být dlouhé minimálně 5 a maximálně 100 znaků</p>';
                 }

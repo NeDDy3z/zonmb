@@ -4,17 +4,18 @@ namespace Controllers;
 
 use Exception;
 use http\Header;
+use Logic\DatabaseException;
 use Logic\IncorrectInputException;
 use Logic\Router;
 use Models\DatabaseConnector;
 
 class RegisterController {
 
+    private string $page = 'src/Views/register.php';
+
     // Render user page
     public function render(): void {
-        $title = "ZONMB - Registrace"; // Page title
-
-        require 'src/Views/register.php'; // Load page content
+        require_once $this->page; // Load page content
     }
 
     /**
@@ -27,8 +28,8 @@ class RegisterController {
             $passConf = $_POST['password-confirm'] ?? null;
             $pfpPath = $_POST['profile-image-path'] ?? null;
 
-            // Check every input
-            if ($this->checkUsername($username) && $this->checkPassword($password, $passConf) /*&& $this->checkImage($_FILES['profile-image'])*/) {
+            // validate every input
+            if ($this->validateUsername($username) && $this->validatePassword($password, $passConf) /*&& $this->validateImage($_FILES['profile-image'])*/) {
 
                 // Hash password
                 $password = password_hash(password: $password, algo: PASSWORD_DEFAULT);
@@ -46,11 +47,12 @@ class RegisterController {
 
     /**
      * @throws IncorrectInputException
+     * @throws DatabaseException
      */
-    private function checkUsername(string $username): bool {
+    private function validateUsername(string $username): bool {
         $error = null;
 
-        // Check if its empty
+        // Validate if its empty
         if ($username == null || $username == '') {
             $error .= 'empty-values.';
         }
@@ -60,7 +62,10 @@ class RegisterController {
         }
         // Regex
         if (!preg_match('/^[a-zA-Z0-9._]+$/', $username)) {
-            $error .= 'invalid-username-regex';
+            $error .= 'invalid-username-regex.';
+        }
+        if (count(DatabaseConnector::existsUser($username)) > 0) {
+            $error .= 'username-taken';
         }
 
         if ($error) throw new IncorrectInputException($error);
@@ -70,10 +75,10 @@ class RegisterController {
     /**
      * @throws IncorrectInputException
      */
-    private function checkPassword(string $password, string $passwordConfirm): bool {
+    private function validatePassword(string $password, string $passwordConfirm): bool {
         $error = null;
 
-        // Check if its empty
+        // validate if its empty
         if ($password == null || $passwordConfirm == null || $password == '' || $passwordConfirm == '') {
             $error .= 'empty-values.';
         }
@@ -100,19 +105,19 @@ class RegisterController {
     /**
      * @throws IncorrectInputException
      */
-    private function checkImage($image): bool {
+    private function validateImage($image): bool {
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
             // Get image file info
             $fileTmp = $_FILES['image']['tmp_name'];
-            $fileType = mime_content_type($fileTmp); // Check MIME type
+            $fileType = mime_content_type($fileTmp); // validate MIME type
             $imageSize = getimagesize($fileTmp); // Get image dimensions
 
-            // Check if the file is PNG or JPG
+            // validate if the file is PNG or JPG
             $validTypes = ['image/png', 'image/jpeg'];
             if (!in_array($fileType, $validTypes)) {
                 throw new IncorrectInputException('Invalid image type. Only PNG and JPG are allowed.');
             } elseif ($imageSize[0] > 512 || $imageSize[1] > 512) {
-                // Check if the image exceeds the dimensions of 512x512 pixels
+                // validate if the image exceeds the dimensions of 512x512 pixels
                 echo "Image exceeds the maximum allowed dimensions of 512x512 pixels.";
             } else {
                 echo "Image is valid!";

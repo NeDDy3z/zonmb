@@ -31,13 +31,16 @@
     $path = strtok(string: $path, token: '?'); // strip path of arguments
 
     // Routing
+    session_start();
     try {
         switch ($path) {
             case '/' :
+                $title = 'ZONMB';
                 $controller = new HomepageController();
                 break;
 
             case '/user' :
+                $title = 'ZONMB - Uživatel';
                 $controller = new UserController();
 
                 if (!isset($_SESSION['user'])) {
@@ -47,6 +50,7 @@
                 break;
 
             case '/login' :
+                $title = 'ZONMB - Přihlášení';
                 $controller = new LoginController();
 
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -54,7 +58,14 @@
                 }
                 break;
 
+            case '/logout':
+                session_unset();
+                session_destroy();
+
+                Router::redirect('', 'popup', 'Odhlášení proběhlo úspěšně');
+
             case '/register' :
+                $title = 'ZONMB - Registrace';
                 $controller = new RegisterController();
 
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -63,19 +74,24 @@
                 break;
 
             case '/news':
+                $title = 'ZONMB - Novinky';
                 $controller = new NewsController();
                 break;
 
             default:
+                $title = 'ZONMB - Chyba';
                 http_response_code(404);
                 $controller = new ErrorController();
                 break;
         }
 
+        // Set global title
+        global $title;
+
         // Render webpage content
-        require 'src/Views/Templates/header.php'; // head
+        require_once 'src/Views/Templates/header.php'; // head
         $controller->render(); // main content
-        require 'src/Views/Templates/footer.php'; // foot
+        require_once 'src/Views/Templates/footer.php'; // foot
 
     } catch (Exception $e) {
         $error_msg = 'Server Error 500. An error has occurred during the webpage rendering - redirecting back to the homepage. Error message: '. $e->getMessage();

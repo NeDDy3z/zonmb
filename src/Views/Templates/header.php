@@ -17,8 +17,8 @@
                 <nav>
                     <a href="."><img src="assets/images/logo-wide.png" alt="ZONMB"></a>
                     <ul>
-                        <li><a href="news">Novinky</a></li>
-                        <li><a href="user"><?php echo $username ?? 'Uživatel'; ?></a></li>
+                        <li><a href="./news">Novinky</a></li>
+                        <li><a href="./user"><?php echo $username ?? 'Uživatel'; ?></a></li>
                     </ul>
                 </nav>
             </div>
