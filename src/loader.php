@@ -9,7 +9,12 @@ $exclude = [
     'Views',
 ];
 
-function loadPHPfiles($directory, $exclude): void {
+/**
+ * @param string $directory
+ * @param array<string> $exclude
+ * @return void
+ */
+function loadPHPfiles(string $directory, array $exclude): void {
     if ($fileHandling = opendir($directory)) {
         while (false !== ($file = readdir($fileHandling))) {
             // Skip these directories, linux or whatever is the reason
@@ -26,11 +31,11 @@ function loadPHPfiles($directory, $exclude): void {
 
             // Folder = go through it again
             if (is_dir($path)) {
-                loadPHPfiles($path, $exclude);
+                loadPHPfiles(directory: $path, exclude: $exclude);
             }
 
             // If it's a PHP file, include it
-            elseif (pathinfo($file, PATHINFO_EXTENSION) === 'php') {
+            elseif (pathinfo(path: $file, flags: PATHINFO_EXTENSION) === 'php') {
                 require_once $path;
             }
         }
@@ -39,4 +44,4 @@ function loadPHPfiles($directory, $exclude): void {
     }
 }
 
-loadPHPfiles($scriptsDirectory, $exclude);
+loadPHPfiles(directory: $scriptsDirectory, exclude: $exclude);

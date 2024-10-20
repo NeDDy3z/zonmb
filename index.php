@@ -21,13 +21,12 @@
 
     // Session & get urls
     $url = $_SERVER['REQUEST_URI'];
-    $path = parse_url(url: $url, component:  PHP_URL_PATH); // Get path
+    $path = strval(parse_url(url: $url, component:  PHP_URL_PATH)); // Get path
     $query = parse_url(url: $url, component:  PHP_URL_QUERY); // Get queries
     $controller = null;
 
     // Get path
-    $path = (str_contains(haystack: $path, needle: '/~vanekeri')) ?
-        str_replace(search: '/~vanekeri', replace: '', subject: $_SERVER['REQUEST_URI']) : $path; // remove subpage
+    $path = (str_contains(haystack: $path, needle: '/~vanekeri')) ? str_replace(search: '/~vanekeri', replace: '', subject: $_SERVER['REQUEST_URI']) : $path; // remove subpage
     $path = strtok(string: $path, token: '?'); // strip path of arguments
 
     // Routing
