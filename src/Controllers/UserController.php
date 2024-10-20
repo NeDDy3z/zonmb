@@ -1,12 +1,13 @@
 <?php
 
-namespace Controllers;
+namespace Zonmb\Controllers;
 
-class UserController implements IController {
+use Zonmb\Logic\Router;
+
+class UserController {
 
     private string $page = 'src/Views/user.php'; // Import page content
 
-    // Render user page
     public function render(): void {
         require_once $this->page; // Load page content
     }
@@ -14,9 +15,9 @@ class UserController implements IController {
     // Logout function
     public function logout(): void
     {
-        session_destroy(); // Destroy session
         session_unset();
+        session_destroy();
 
-        Router::redirect(path: '', query: 'success', parameters: 'Odhlášení proběhlo úspěšně');
+        Router::redirect('', 'popup', 'Odhlášení proběhlo úspěšně');
     }
 }

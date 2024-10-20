@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-namespace Logic;
+namespace Zonmb\Logic;
 
 use JetBrains\PhpStorm\NoReturn;
 
@@ -13,7 +14,6 @@ class Router
      * @param int $responseCode
      * @return void
      */
-    #[NoReturn]
     public static function redirect(string $path, ?string $query = null, ?string $parameters = null, int $responseCode = 200): void
     {
         $resultQuery = '';

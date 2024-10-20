@@ -1,15 +1,15 @@
 <?php
+declare(strict_types=1);
 
-namespace Controllers;
+namespace Zonmb\Controllers;
 
 use Exception;
-use http\Header;
-use Logic\DatabaseException;
-use Logic\IncorrectInputException;
-use Logic\Router;
-use Models\DatabaseConnector;
+use Zonmb\Logic\DatabaseException;
+use Zonmb\Logic\IncorrectInputException;
+use Zonmb\Logic\Router;
+use Zonmb\Models\DatabaseConnector;
 
-class RegisterController implements IController {
+class RegisterController {
 
     private string $page = 'src/Views/register.php';
 

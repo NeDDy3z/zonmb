@@ -1,9 +1,9 @@
 <?php
+declare(strict_types=1);
 
-namespace Models;
+namespace Zonmb\Models;
 
-use Logic\DatabaseException;
-use mysql_xdevapi\Exception;
+use Zonmb\Logic\DatabaseException;
 use mysqli;
 use mysqli_sql_exception;
 
@@ -53,7 +53,7 @@ class DatabaseConnector
 
     /**
      * @param string $table
-     * @param array $items
+     * @param array<string> $items
      * @param string|null $conditions
      * @return array<int<0, max>|array<string, float|int|string|null>>
      * @throws DatabaseException
@@ -87,7 +87,7 @@ class DatabaseConnector
     /**
      * @param string $table
      * @param array<string> $items
-     * @param array<string> $values
+     * @param array<int, string|null> $values
      * @return void
      * @throws DatabaseException
      */
@@ -113,7 +113,8 @@ class DatabaseConnector
 
     // User manipulation
     /**
-     * @return array<string>
+     * @param string $username
+     * @return array<array<string, float|int|string|null>|int<0, max>>
      * @throws DatabaseException
      */
     public static function selectUser(string $username): array {
@@ -125,7 +126,7 @@ class DatabaseConnector
     }
 
     /**
-     * @return array<string>
+     * @return array<array<string, float|int|string|null>|int<0, max>>
      * @throws DatabaseException
      */
     public static function selectUsers(): array {
@@ -137,7 +138,8 @@ class DatabaseConnector
     }
 
     /**
-     * @return array<string>
+     * @param string $username
+     * @return array<array<string, float|int|string|null>|int<0, max>>
      * @throws DatabaseException
      */
     public static function existsUser(string $username): array {
@@ -148,8 +150,12 @@ class DatabaseConnector
         );
     }
 
+
     /**
-     * @returns void
+     * @param string $username
+     * @param string $password
+     * @param string|null $profile_image_path
+     * @return void
      * @throws DatabaseException
      */
     public static function insertUser(string $username, string $password, ?string $profile_image_path = 'DEFAULT'): void {

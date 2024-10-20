@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
-namespace Controllers;
+namespace Zonmb\Controllers;
 
-class ErrorController implements IController {
+class ErrorController {
 
     private string $path = 'src/Views/error.php';
 

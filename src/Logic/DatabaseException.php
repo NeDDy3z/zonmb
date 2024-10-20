@@ -1,14 +1,21 @@
 <?php
+declare(strict_types=1);
 
-namespace Logic;
+namespace Zonmb\Logic;
 
 use Exception;
-use Models\DatabaseConnector;
 use Throwable;
+use Zonmb\Models\DatabaseConnector;
+
 
 class DatabaseException extends Exception
 {
-    public function __construct($message, $code = 0, Throwable $previous = null) {
+    /**
+     * @param string $message
+     * @param int $code
+     * @param Throwable|null $previous
+     */
+    public function __construct(string $message, int $code = 0, Throwable $previous = null) {
         DatabaseConnector::isOpenThenClose();
         parent::__construct($message, $code, $previous);
     }

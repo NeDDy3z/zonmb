@@ -1,21 +1,21 @@
 <?php
     declare(strict_types=1);
 
-    namespace src;
+    namespace Zonmb;
 
-    // Initialize config file
+    // Initialize config file & load all scripts
     require 'config.php';
     require_once 'src/loader.php';
 
-    use Controllers\ErrorController;
-    use Controllers\HomepageController;
-    use Controllers\UserController;
-    use Controllers\LoginController;
-    use Controllers\RegisterController;
-    use Controllers\NewsController;
     use Exception;
-    use Logic\Router;
-    use Models\DatabaseConnector;
+    use Zonmb\Controllers\HomepageController;
+    use Zonmb\Controllers\UserController;
+    use Zonmb\Controllers\ErrorController;
+    use Zonmb\Controllers\LoginController;
+    use Zonmb\Controllers\RegisterController;
+    use Zonmb\Controllers\NewsController;
+    use Zonmb\Logic\Router;
+    use Zonmb\Models\DatabaseConnector;
 
     DatabaseConnector::init();
 
@@ -45,7 +45,6 @@
                 if (!isset($_SESSION['user'])) {
                     Router::redirect('login');
                 }
-
                 break;
 
             case '/login' :
@@ -58,10 +57,14 @@
                 break;
 
             case '/logout':
-                session_unset();
-                session_destroy();
+                $controller = new UserController();
 
-                Router::redirect('', 'popup', 'Odhlášení proběhlo úspěšně');
+                if (!isset($_SESSION['username'])) {
+                    Router::redirect('');
+                } else {
+                    $controller->logout();
+                }
+                break;
 
             case '/register' :
                 $title = 'ZONMB - Registrace';

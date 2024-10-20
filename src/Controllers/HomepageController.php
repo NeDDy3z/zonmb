@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-namespace Controllers;
+namespace Zonmb\Controllers;
 
 class HomepageController implements IController {
 

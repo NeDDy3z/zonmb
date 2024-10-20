@@ -2,46 +2,42 @@
 // This script is used for loading all logical .php files into the project (apply require_once on them)
 // Makes the index.php much more clean :3
 
-$scriptsDirectory = __DIR__;
+$srcDirectory = __DIR__;
 
-$exclude = [
-    'loader.php',
-    'Views',
+$projectFiles = [
+    'Controllers' => [
+        'IController.php', // Has priority
+        'ErrorController.php',
+        'HomepageController.php',
+        'LoginController.php',
+        'NewsController.php',
+        'RegisterController.php',
+        'UserController.php',
+    ],
+    'Logic' => [
+        'DatabaseException.php',
+        'IncorrectInputException.php',
+        'Router.php',
+        'User.php',
+    ],
+    'Models' => [
+        'DatabaseConnector.php',
+    ],
 ];
 
 /**
- * @param string $directory
- * @param array<string> $exclude
+ * @param array<string|mixed> $projectFiles
+ * @param string $rootDirectory
  * @return void
  */
-function loadPHPfiles(string $directory, array $exclude): void {
-    if ($fileHandling = opendir($directory)) {
-        while (false !== ($file = readdir($fileHandling))) {
-            // Skip these directories, linux or whatever is the reason
-            if ($file == '.' || $file == '..') {
-                continue;
-            }
-
-            $path = $directory . '/' . $file; // Get full path of the script/folder
-
-            // Skip if its in excluded
-            if (in_array($file, $exclude)) {
-                continue;
-            }
-
-            // Folder = go through it again
-            if (is_dir($path)) {
-                loadPHPfiles(directory: $path, exclude: $exclude);
-            }
-
-            // If it's a PHP file, include it
-            elseif (pathinfo(path: $file, flags: PATHINFO_EXTENSION) === 'php') {
-                require_once $path;
-            }
+function loadPHPfiles(array $projectFiles, string $rootDirectory): void {
+    $i = 0;
+    foreach ($projectFiles as $dir) {
+        $i += 1;
+        foreach ($dir as $file) {
+            require_once $rootDirectory .'/'. array_keys($projectFiles)[$i - 1] .'/'. $file;
         }
-
-        closedir($fileHandling);
     }
 }
 
-loadPHPfiles(directory: $scriptsDirectory, exclude: $exclude);
+loadPHPfiles(projectFiles: $projectFiles, rootDirectory: $srcDirectory);

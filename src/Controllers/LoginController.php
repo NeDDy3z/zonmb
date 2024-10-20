@@ -1,10 +1,11 @@
 <?php
+declare(strict_types=1);
 
-namespace Controllers;
+namespace Zonmb\Controllers;
 
-use Logic\DatabaseException;
-use Logic\Router;
-use Models\DatabaseConnector;
+use Zonmb\Logic\DatabaseException;
+use Zonmb\Logic\Router;
+use Zonmb\Models\DatabaseConnector;
 
 class LoginController implements IController {
 
@@ -19,7 +20,7 @@ class LoginController implements IController {
      */
     public function login(): void
     {
-        if (isset($_POST)) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $username = $_POST['username'];
             $password = $_POST['password'];
 
@@ -37,7 +38,10 @@ class LoginController implements IController {
             }
 
             // Validate password
-            if ($this->validateUserCredentials($username, $databaseData['username'], $password, $databaseData['password'])) {
+            if ($this->validateUserCredentials(
+                username: $username, databaseUsername: $databaseData['username'],
+                password: $password, databasePassword:  $databaseData['password']
+            )) {
                 $_SESSION['valid'] = true;
                 $_SESSION['timeout'] = time();
                 $_SESSION['username'] = $_POST['username'];
