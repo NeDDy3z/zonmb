@@ -1,0 +1,129 @@
+main {
+    max-width: 100vw;
+    min-height: 80vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    div.container {
+        max-width: 90vw;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 800px) {
+    main > div.container {
+        max-width: 60vw;
+    }
+}
+
+
+
+/* Homepage */
+div.container > section.homepage {
+    margin-bottom: 2rem;
+    text-align: center;
+
+    #about {
+        text-align: center;
+    }
+
+    #contact {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        text-align: left;
+
+        h1 {
+            text-align: center;
+        }
+
+        ul {
+            display: flex;
+            list-style: none;
+
+            li {
+                padding: .75rem 0;
+                padding-right: .5rem;
+            }
+        }
+
+        #map iframe {
+            height: 15rem;
+            width: 100%;
+
+            border: none;
+            border-radius: 1rem;
+        }
+    }
+}
+
+@media (min-width: 800px) {
+    div.container > section.homepage {
+        text-align: left;
+
+        #contact {
+            flex-direction: row;
+            justify-content: space-between;
+
+            #map {
+                width: 90%;
+            }
+        }
+    }
+}
+
+
+
+
+/* Register and Login forms */
+form.login-register {
+    width: 20rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    input, button {
+        margin-bottom: 1rem;
+    }
+
+    input {
+        padding: .5rem 1rem;
+
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        outline: white 1px solid;
+        transition: outline-color 0.3s ease;
+
+    }
+
+    input:hover, input:focus {
+        outline: var(--link-hover) 1px solid;
+        transition: outline-color 0.3s ease;
+    }
+
+    input[type="file"] {
+        font-weight: normal;
+
+        button {
+            color: red;
+        }
+    }
+
+    button {
+        padding: .6rem .5rem;
+    }
+
+    .error-message, .success-message {
+        text-align: center;
+    }
+}
