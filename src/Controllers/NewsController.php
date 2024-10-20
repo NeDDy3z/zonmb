@@ -2,9 +2,11 @@
 
 namespace Controllers;
 
-class NewsController {
+class NewsController implements IController {
 
-    // Render user page
+    private string $page = 'src/Views/news.php';
+
     public function render(): void {
+        require_once $this->page; // Load page content
     }
 }

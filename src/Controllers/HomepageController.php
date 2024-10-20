@@ -3,9 +3,10 @@
 namespace Controllers;
 
 class HomepageController implements IController {
-    public function render(): void {
-        $title = "ZONMB";
 
-        require 'src/Views/homepage.php'; // Import page content
+    private string $path = 'src/Views/homepage.php';
+
+    public function render(): void {
+        require_once $this->path; // Load page content
     }
 }

@@ -55,7 +55,7 @@ class DatabaseConnector
      * @param string $table
      * @param array $items
      * @param string|null $conditions
-     * @return array
+     * @return array<int<0, max>|array<string, float|int|string|null>>
      * @throws DatabaseException
      */
     private static function select(string $table, array $items, ?string $conditions): array {
@@ -86,8 +86,8 @@ class DatabaseConnector
 
     /**
      * @param string $table
-     * @param array $items
-     * @param array $values
+     * @param array<string> $items
+     * @param array<string> $values
      * @return void
      * @throws DatabaseException
      */
@@ -113,6 +113,7 @@ class DatabaseConnector
 
     // User manipulation
     /**
+     * @return array<string>
      * @throws DatabaseException
      */
     public static function selectUser(string $username): array {
@@ -124,6 +125,7 @@ class DatabaseConnector
     }
 
     /**
+     * @return array<string>
      * @throws DatabaseException
      */
     public static function selectUsers(): array {
@@ -135,6 +137,7 @@ class DatabaseConnector
     }
 
     /**
+     * @return array<string>
      * @throws DatabaseException
      */
     public static function existsUser(string $username): array {
@@ -146,6 +149,7 @@ class DatabaseConnector
     }
 
     /**
+     * @returns void
      * @throws DatabaseException
      */
     public static function insertUser(string $username, string $password, ?string $profile_image_path = 'DEFAULT'): void {

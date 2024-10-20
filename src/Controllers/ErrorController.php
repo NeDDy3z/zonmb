@@ -2,10 +2,11 @@
 
 namespace Controllers;
 
-class ErrorController {
-    public function render(): void {
-        $title = "ZONMB";
+class ErrorController implements IController {
 
-        require 'src/Views/error.php'; // Import page content
+    private string $path = 'src/Views/error.php';
+
+    public function render(): void {
+        require_once $this->path; // Load page content
     }
 }

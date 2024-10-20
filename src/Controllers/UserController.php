@@ -2,25 +2,21 @@
 
 namespace Controllers;
 
-class UserController {
+class UserController implements IController {
+
+    private string $page = 'src/Views/user.php'; // Import page content
 
     // Render user page
     public function render(): void {
-        $title = "ZONMB - Uživatel";
-
-        require 'src/Views/user.php'; // Import page content
-    }
-
-    public function login()
-    {
-
+        require_once $this->page; // Load page content
     }
 
     // Logout function
-    public function logout()
+    public function logout(): void
     {
         session_destroy(); // Destroy session
-        header('Location: /'); // Redirect to home
-        exit();
+        session_unset();
+
+        Router::redirect(path: '', query: 'success', parameters: 'Odhlášení proběhlo úspěšně');
     }
 }

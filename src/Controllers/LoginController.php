@@ -6,14 +6,12 @@ use Logic\DatabaseException;
 use Logic\Router;
 use Models\DatabaseConnector;
 
-class LoginController {
+class LoginController implements IController {
 
-    // Render user page
-    public function render(): void
-    {
-        $title = "ZONMB - Přihlášení";
+    private string $path = 'src/Views/login.php';
 
-        require 'src/Views/login.php'; // Import page content
+    public function render(): void {
+        require_once $this->path; // Load page content
     }
 
     /**

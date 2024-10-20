@@ -9,11 +9,10 @@ use Logic\IncorrectInputException;
 use Logic\Router;
 use Models\DatabaseConnector;
 
-class RegisterController {
+class RegisterController implements IController {
 
     private string $page = 'src/Views/register.php';
 
-    // Render user page
     public function render(): void {
         require_once $this->page; // Load page content
     }
