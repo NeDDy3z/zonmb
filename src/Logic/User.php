@@ -3,58 +3,93 @@ declare(strict_types=1);
 
 namespace Zonmb\Logic;
 
-class User {
-    private $username;
-    private $image;
-    private $email;
-    private $role;
-    private $createdAt;
+use Exception;
+use Zonmb\Models\DatabaseConnector;
 
-    public function __construct($username, $image, $email, $role, $createdAt) {
+class User {
+    private string $username;
+    private string $image;
+    private string $role;
+    private string $createdAt;
+
+
+    /**
+     * @param string $username
+     * @throws DatabaseException
+     * @throws Exception
+     */
+    public function __construct(string $username) {
         $this->username = $username;
-        $this->image = $image;
-        $this->email = $email;
-        $this->role = $role;
-        $this->createdAt = $createdAt;
+
+        $userData = DatabaseConnector::selectUser(username: $username);
+
+        try {
+            $this->image = $userData['profile_image_path'];
+            $this->role = $userData['role'];
+            $this->createdAt = $userData['created_at'];
+        } catch (Exception $e) {
+            throw new Exception('Nepodařilo se načíst data z databáze do uživatelského rozhraní. ' . $e->getMessage());
+        }
+
     }
 
-    public function getUsername() {
+    /**
+     * @return string
+     */
+    public function getUsername(): string {
         return $this->username;
     }
 
-    public function getImage() {
-        return $this->image;
-    }
-
-    public function getEmail() {
-        return $this->email;
-    }
-
-    public function getRole() {
-        return $this->role;
-    }
-
-    public function getCreatedAt() {
-        return $this->createdAt;
-    }
-
-    public function setUsername($username) {
+    /**
+     * @param string $username
+     * @return void
+     */
+    public function setUsername(string $username): void {
         $this->username = $username;
     }
 
-    public function setImage($image) {
+    /**
+     * @return string
+     */
+    public function getImage(): string {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     * @return void
+     */
+    public function setImage(string $image): void {
         $this->image = $image;
     }
 
-    public function setEmail($email) {
-        $this->email = $email;
+    /**
+     * @return string
+     */
+    public function getRole(): string {
+        return $this->role;
     }
 
-    public function setRole($role) {
+    /**
+     * @param string $role
+     * @return void
+     */
+    public function setRole(string $role): void {
         $this->role = $role;
     }
 
-    public function setCreatedAt($createdAt) {
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param string $createdAt
+     * @return void
+     */
+    public function setCreatedAt(string $createdAt): void {
         $this->createdAt = $createdAt;
     }
 }

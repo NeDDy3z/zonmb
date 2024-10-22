@@ -30,7 +30,7 @@ class LoginController implements IController {
             }
 
             // Get data from database
-            $databaseData = DatabaseConnector::selectUser(username: $username)[0];
+            $databaseData = DatabaseConnector::selectUser(username: $username);
 
             // validate if user exists in the database
             if (!$databaseData) {
