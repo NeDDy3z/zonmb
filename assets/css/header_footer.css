@@ -34,7 +34,7 @@ header {
 
 
 /* Media Queries */
-@media (min-width: 800px) {
+@media (min-width: 50rem) {
     header nav {
         max-width: 60vw;
         margin: 0 auto;

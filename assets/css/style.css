@@ -54,7 +54,7 @@ input {
     padding: .5rem .5rem;
 
     border: none;
-    border-bottom: #333333 1px solid;
+    border-bottom: #333333 2px solid;
     outline: none;
     font-size: 16px;
     font-weight: bold;
@@ -66,7 +66,6 @@ input {
 }
 
 input:hover, input:focus {
-    border: var(--link-hover) 1px solid;
     transition: 0.3s ease;
 }
 
