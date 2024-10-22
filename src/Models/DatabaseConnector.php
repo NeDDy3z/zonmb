@@ -114,15 +114,15 @@ class DatabaseConnector
     // User manipulation
     /**
      * @param string $username
-     * @return array<array<string, float|int|string|null>|int<0, max>>
+     * @return array<string, float|int|string|null>
      * @throws DatabaseException
      */
     public static function selectUser(string $username): array {
         return self::select(
             table: 'user',
-            items: ['username', 'password'],
+            items: ['*'],
             conditions: 'WHERE username = "'. $username .'"',
-        );
+        )[0];
     }
 
     /**
@@ -158,11 +158,19 @@ class DatabaseConnector
      * @return void
      * @throws DatabaseException
      */
-    public static function insertUser(string $username, string $password, ?string $profile_image_path = 'DEFAULT'): void {
+    public static function insertUser(string $username, string $password, ?string $profile_image_path): void {
+        $items = ['username', 'password', 'role'];
+        $values = [$username, $password, 'user'];
+
+        if ($profile_image_path) {
+            array_push($items, 'profile_image_path');
+            array_push($values, 'assets/uploads/profile_images/'. $profile_image_path);
+        }
+
         self::insert(
             table: 'user',
-            items: ['username', 'password', 'profile_image_path', 'role'],
-            values: [$username, $password, $profile_image_path, 'user'],
+            items: $items,
+            values: $values,
         );
     }
 
