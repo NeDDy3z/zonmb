@@ -42,7 +42,7 @@
                 $title = 'ZONMB - Uživatel';
                 $controller = new UserController();
 
-                if (!isset($_SESSION['user'])) {
+                if (!isset($_SESSION['username'])) {
                     Router::redirect('login');
                 }
                 break;
