@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="vanekeri@zwa.toad.cz" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="vanekeri@zwa.toad.cz">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/.cache" />
+            <excludedPath path="/.config" />
+            <excludedPath path="/.dotnet" />
+            <excludedPath path="/.gnupg" />
+            <excludedPath path="/.java" />
+            <excludedPath path="/.local" />
+            <excludedPath path="/.bash_history" />
+            <excludedPath path="/.bash_logout" />
+            <excludedPath path="/.bashrc" />
+            <excludedPath path="/.gitconfig" />
+            <excludedPath path="/.lesshst" />
+            <excludedPath path="/.profile" />
+            <excludedPath path="/.wget-hsts" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
