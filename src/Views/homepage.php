@@ -2,8 +2,13 @@
     <div class="container">
         <section class="homepage">
             <div id="about">
+                <h1>O nás</h1>
                 <p>
-                    Naše základní organizace neslyšících v Mladé Boleslavi sdružuje neslyšící a nedoslýchavé osoby a jejich přátele z Mladé Boleslavi a okolí. <br><br> Pořádáme společenské, kulturní a vzdělávací akce pro neslyšící a nedoslýchavé děti i dospělé. Pořádáním těchto akcí a poskytováním poradenských a tlumočnických služeb aktivně podporujeme zvýšení životní úrovně neslyšících a nedoslýchavých osob v Mladé Boleslavi a okolí.
+                    Naše základní organizace neslyšících v Mladé Boleslavi sdružuje neslyšící a nedoslýchavé osoby a
+                    jejich přátele z Mladé Boleslavi a okolí. <br><br> Pořádáme společenské, kulturní a vzdělávací akce
+                    pro neslyšící a nedoslýchavé děti i dospělé. Pořádáním těchto akcí a poskytováním poradenských a
+                    tlumočnických služeb aktivně podporujeme zvýšení životní úrovně neslyšících a nedoslýchavých osob v
+                    Mladé Boleslavi a okolí.
                 </p>
             </div>
         </section>
@@ -27,8 +32,19 @@
                     </div>
                 </div>
                 <div id="map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4798.526716644557!2d14.905195863935013!3d50.423756231304225!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470955b618e74fc1%3A0x46d7b94ef07e0d2a!2s%C4%8Cechova%20773%2C%20Mlad%C3%A1%20Boleslav%20II%2C%20293%2001%20Mlad%C3%A1%20Boleslav!5e0!3m2!1sen!2scz!4v1675555263979!5m2!1sen!2scz" width="100%" height="100%" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4798.526716644557!2d14.905195863935013!3d50.423756231304225!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470955b618e74fc1%3A0x46d7b94ef07e0d2a!2s%C4%8Cechova%20773%2C%20Mlad%C3%A1%20Boleslav%20II%2C%20293%2001%20Mlad%C3%A1%20Boleslav!5e0!3m2!1sen!2scz!4v1675555263979!5m2!1sen!2scz"
+                            width="100%" height="100%" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
+            </div>
+        </section>
+        <section class="homepage">
+            <div id="links">
+                <h1>Užitečné odkazy</h1>
+                <a href="https://www.snncr.cz/">Svaz neslyšících a nedoslýchavých osob</a>
+                <a href="https://www.tichysvet.cz/">Tichý svět</a>
+                <a href="https://www.tichalinka.cz/">Tichá linka</a>
+                <a href="https://www.fb.com/Centrumproneslysicianedoslychave">FB neslyšících Středočeského kraje</a>
             </div>
         </section>
     </div>

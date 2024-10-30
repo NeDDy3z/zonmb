@@ -1,13 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
-namespace Zonmb\Controllers;
+namespace Controllers;
 
-class NewsController implements IController {
-
+class NewsController extends Controller
+{
     private string $page = 'src/Views/news.php';
 
-    public function render(): void {
+    public function render(): void
+    {
         require_once $this->page; // Load page content
     }
 }

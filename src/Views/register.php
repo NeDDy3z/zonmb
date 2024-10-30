@@ -9,14 +9,14 @@
 
             <label for="password">Heslo</label>
             <input type="password" id="password" name="password"
-                   minlength="5" maxlength="100" pattern="^(?=.*[A-Z])(?=.*\d).+$"
-                   title="Heslo musí mít minimálně 5 a maximálně 100 znaků, a obsahovat alespoň jedno velké psímeno a číslici"
+                   minlength="5" maxlength="50"
+                   title="Heslo musí mít minimálně 5 a maximálně 50 znaků, a obsahovat alespoň jedno velké psímeno a číslici"
                    tabindex="2" placeholder="Heslo" required>
 
             <label for="password-confirm">Potvrďte heslo</label>
             <input type="password" id="password-confirm" name="password-confirm"
-                   minlength="5" maxlength="100" pattern="^(?=.*[A-Z])(?=.*\d).+$"
-                   title="Heslo musí mít minimálně 5 a maximálně 100 znaků, a obsahovat alespoň jedno velké psímeno a číslici"
+                   minlength="5" maxlength="50"
+                   title="Heslo musí mít minimálně 5 a maximálně 50 znaků, a obsahovat alespoň jedno velké psímeno a číslici"
                    tabindex="3" placeholder="Potvrďte heslo" required>
 
             <label for="profile-image">Profilová fotka</label>

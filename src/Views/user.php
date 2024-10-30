@@ -1,61 +1,83 @@
 <?php
 
-use Zonmb\Logic\Router;
-use Zonmb\Logic\User;
+use Logic\Router;
 
-// If is user logged in proceed, else redirect to login page
-if (isset($_SESSION['username'])) {
-    $_SESSION['cache_time'] = $_SESSION['cache_time'] ?? 0;
-
-    // If user_data have been set and aren't older more than 30 minutes, load them, else pull new from database
-    if (isset($_SESSION['user_data']) && (time() - $_SESSION['cache_time'] < 1800)) {
-        $user = $_SESSION['user_data'];
-    } else {
-        try {
-            $user = new User($_SESSION['username']);
-            $_SESSION['user_data'] = $user;
-            $_SESSION['cache_time'] = time();
-        } catch (Exception $e) {
-            Router::redirect('login', 'error', 'Uživatel s tímto jménem neexistuje');
-        }
-    }
-} else {
-    Router::redirect('login', 'error', 'Nejste přihlášení');
+if (!isset($user)) {
+    Router::redirect(path: 'user', query: 'popup', parameters: 'Nepodařilo se načíst uživatelská data, přihlašte se prosím znovu, nebo kontaktujte administrátora.');
 }
+
+if (!isset($userRole)) {
+    $userRole = [
+        'admin' => 'Administrátor',
+        'user' => 'Uživatel',
+        'owner' => 'Vlastník'
+    ];
+}
+
+
 ?>
 
-<main>
-    <h1>Uživatelská stránka</h1>
-    <div class="container userpage">
-        <div id="user-data">
-            <div id="user-pfp">
-                <img src="<?php echo $user->getImage() ?>" alt="profilový obrázek" draggable="false">
-            </div>
-            <div id="user-info">
-                <h3><?php echo $user->getUsername(); ?></h3>
-                <ul>
-                    <li>Role: </li>
-                    <li><?php echo $user->getRole(); ?></li>
-                </ul>
-                <ul>
-                    <li>Datum vytvoření účtu: </li>
-                    <li><?php echo $user->getCreatedAt(); ?></li>
-                </ul>
-            </div>
-        </div>
 
-        <a href="./logout"><button type="button">Odhlásit se</button></a>
-    </div>
-    <div class="container userpage">
-        <h3>Změna uživatelského jména</h3>
-        <form action="./user/name" method="post">
-            <label for="username">Jméno</label>
-            <input type="text" id="username" name="username"
-                   minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
-                   title="Jméno musí mít nejméně 3 a maximálně 30 znaků, a může obsahovat pouze písmena, číslice, podrtžítka a tečky"
-                   tabindex="1" placeholder="Nové uživatelské jméno" required>
-            
-            <button type="submit">Změnit jméno</button>
-        </form>
-    </div>
+<main>
+    <section class="userpage">
+        <h1>Uživatelská stránka</h1>
+        <div class="user-container userinfo">
+            <div id="user-data">
+                <div id="user-pfp">
+                    <img src="<?php echo $user->getImage() ?>" alt="profilový obrázek" draggable="false">
+                </div>
+                <div id="user-info">
+                    <h3><?php echo $user->getUsername(); ?></h3>
+                    <ul>
+                        <li><i><?php echo $userRole[$user->getRole()]; ?></i></li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <span class="grayed-out">
+                                registrace<br>
+                                <?php
+                                try {
+                                    $date = new DateTime($user->getCreatedAt());
+                                    echo $date->format('d.m.Y');
+                                } catch (Exception $e) {
+                                    echo 'N/A';
+                                }
+?>
+                            </span>
+                        </li>
+                    </ul>
+                    <a href="./logout">
+                        <button type="button" class="warning" id="logout">Odhlásit se</button>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="userpage">
+        <div class="user-container user-change">
+            <h3>Změna uživatelského jména</h3>
+            <form action="./user/name" method="post">
+                <label for="username">Jméno</label>
+                <input type="text" id="username" name="username"
+                       minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
+                       title="Jméno musí mít nejméně 3 a maximálně 30 znaků, a může obsahovat pouze písmena, číslice, podrtžítka a tečky"
+                       tabindex="1" placeholder="Nové uživatelské jméno" required>
+
+                <button type="submit" id="change-name">Změnit jméno</button>
+            </form>
+        </div>
+        <div class="user-container user-change">
+            <h3>Změna profilové fotky</h3>
+            <form action="./user/profile-image" method="post">
+                <label for="profile-image">Profilová fotka</label>
+                <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpg"
+                       title="Obrázek musí mít poměr 1:1, maximálně 500x500px, 1MB a být ve formátu PNG nebo JPG"
+                       tabindex="4">
+
+
+                <button type="submit" id="change-profile-image">Změnit profilovou fotku</button>
+            </form>
+        </div>
+    </section>
 </main>

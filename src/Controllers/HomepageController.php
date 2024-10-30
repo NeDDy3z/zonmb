@@ -1,13 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
-namespace Zonmb\Controllers;
+namespace Controllers;
 
-class HomepageController implements IController {
+class HomepageController extends Controller
+{
+    private string $path = '../src/Views/homepage.php';
 
-    private string $path = 'src/Views/homepage.php';
 
-    public function render(): void {
+    public function render(): void
+    {
         require_once $this->path; // Load page content
     }
 }

@@ -1,6 +1,6 @@
 <main>
     <div class="container">
-        <?php //logic for printing articles here ?>
+        <?php //logic for printing articles here?>
 
         <article class="news-article">
             <div class="news-article-text">

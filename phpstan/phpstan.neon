@@ -1,5 +1,7 @@
 parameters:
-    level: max # Change to your desired level (0-8)
+    level: max
     paths:
-        #- %rootDir%/../src # Adjust the path to the directory you want to analyze
-        - ../www/src/
+        #- %rootDir%/../src
+        - ../www/
+        - ../src/
+

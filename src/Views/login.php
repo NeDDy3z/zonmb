@@ -8,8 +8,8 @@
 
             <label for="password">Heslo: </label>
             <input type="password" id="password" name="password"
-                   minlength="3" maxlength="100" pattern="^(?=.*[A-Z])(?=.*\d).+$"
-                   title="Heslo musí mít minimálně 5 a maximálně 100 znaků, a obsahovat alespoň jedno velké psímeno a číslici"
+                   minlength="5" maxlength="50"
+                   title="Heslo musí mít minimálně 5 a maximálně 50 znaků, a obsahovat alespoň jedno velké psímeno a číslici"
                    tabindex="2" placeholder="Heslo" required>
 
             <button type="submit" tabindex="3">Přihlásit se</button>
@@ -29,10 +29,13 @@
 
             if (isset($_GET['error'])) {
                 $error = $_GET['error'];
+                if (str_contains(needle: 'not-logged-in', haystack: $error)) {
+                    echo '<p class="error-message">Nejste přihlášen/a</p>';
+                }
                 if (str_contains(needle: 'empty-values', haystack: $error)) {
                     echo '<p class="error-message">Chybí některé údaje</p>';
                 }
-                if (str_contains(needle: 'invalid-username', haystack:  $error)) {
+                if (str_contains(needle: 'invalid-username', haystack: $error)) {
                     echo '<p class="error-message">Uživatelské jméno neexistuje</p>';
                 }
                 if (str_contains(needle: 'invalid-password', haystack: $error)) {

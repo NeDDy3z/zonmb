@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
-namespace Zonmb\Models;
+namespace Models;
 
-use Zonmb\Logic\DatabaseException;
-use mysqli;
-use mysqli_sql_exception;
+use PDO;
+use PDOException;
+use Logic\DatabaseException;
 
 class DatabaseConnector
 {
@@ -13,12 +14,19 @@ class DatabaseConnector
     private static string $dbname;
     private static string $username;
     private static string $password;
-    private static mysqli $connection;
+    private static ?PDO $connection;
+
 
     /**
+     * Load database credentials from config file
      * @return void
      */
-    public static function init(): void {
+    public static function init(): void
+    {
+        if (!isset($_ENV['database'])) {
+            throw new DatabaseException('Nepodařilo se načíst konfigurační soubor databáze');
+        }
+
         $database = $_ENV['database'];
         self::$server = $database['server'];
         self::$dbname = $database['dbname'];
@@ -27,109 +35,137 @@ class DatabaseConnector
     }
 
     /**
+     * Connect to the database
      * @return void
      * @throws DatabaseException
      */
-    private static function connect(): void {
-        self::$connection = new mysqli(self::$server, self::$username, self::$password, self::$dbname);
-
-        if (self::$connection->connect_error) {
-            throw new DatabaseException('Nepodařilo se připojit k databázi: '. self::$connection->error);
+    private static function connect(): void
+    {
+        try {
+            self::$connection = new PDO(
+                dsn: "mysql:host=" . self::$server . ";dbname=" . self::$dbname,
+                username: self::$username,
+                password: self::$password,
+                options: [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                ],
+            );
+        } catch (PDOException $e) {
+            throw new DatabaseException('Nepodařilo se připojit k databázi: ' . $e->getMessage());
         }
     }
 
+
     /**
+     * Close connection
      * @return void
      */
-    private static function close(): void {
-        self::$connection->close();
-    }
-
-    public static function isOpenThenClose(): void {
-        if(self::$connection->ping()) {
-            self::close();
-        }
+    public static function close(): void
+    {
+        self::$connection = null;
     }
 
     /**
+     * Template function for selecting data from database
      * @param string $table
      * @param array<string> $items
      * @param string|null $conditions
-     * @return array<int<0, max>|array<string, float|int|string|null>>
+     * @return array<array<string>>|null
      * @throws DatabaseException
      */
-    private static function select(string $table, array $items, ?string $conditions): array {
-        self::connect();
-
-        $items = implode(separator: ',', array: $items);
-
-        $query = "SELECT {$items} FROM {$table}";
-        $query .= ($conditions) ? ' '.$conditions : null;
-
-        try {
-            $result = self::$connection->query($query);
-        } catch (mysqli_sql_exception $e) {
-            throw new DatabaseException('Nepodařilo se načíst data z databáze: '. $e->getMessage());
+    private static function select(string $table, array $items, ?string $conditions): ?array
+    {
+        // If connection is null create new connection
+        if (!isset(self::$connection)) {
+            self::connect();
         }
 
-        self::close();
+        // Prepare items for query
+        $items = implode(separator: ',', array: $items);
 
+        // Create query
+        $query = "SELECT {$items} FROM {$table}";
+        $query .= ($conditions) ? ' ' . $conditions : null;
+
+        // Execute query and fetch data
+        try {
+            $result = self::$connection->query($query)->fetchAll();
+        } catch (PDOException $e) {
+            throw new DatabaseException('Nepodařilo se načíst data z databáze: ' . $e->getMessage());
+        }
+
+        // Convert into Array<Array<String>>
         $resultArray = [];
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                array_push($resultArray, $row);
-            }
+        foreach ($result as $row) {
+            $resultArray[] = array_filter(
+                $row,
+                function ($key) {
+                    return !is_int($key);
+                },
+                ARRAY_FILTER_USE_KEY
+            );
         }
 
         return $resultArray;
     }
 
     /**
+     * Template function for inserting data into database
      * @param string $table
      * @param array<string> $items
      * @param array<int, string|null> $values
      * @return void
      * @throws DatabaseException
      */
-    private static function insert(string $table, array $items, array $values): void {
-        self::connect();
-
-        $items = implode(separator: ',', array: $items);
-        $values = implode(separator: "','", array: $values);
-
-        /** @lang MySQL */
-        $query = "INSERT INTO {$table} ({$items})
-                  VALUES ('{$values}');";
-
-
-        if (self::$connection->query($query) !== True) {
-            throw new DatabaseException('Nepodařilo se vložit data do databáze: '. self::$connection->error);
+    private static function insert(string $table, array $items, array $values): void
+    {
+        // If connection is null create new connection
+        if (!isset(self::$connection)) {
+            self::connect();
         }
 
-        self::close();
+        // Prepare items for query
+        $itemRows = implode(separator: ',', array: $items);
+        $itemValues = implode(separator: ', :', array: $items);
+
+        // Create query
+        /** @lang MySQL */
+        $query = "INSERT INTO {$table} ({$itemRows}) VALUES (':{$itemValues}');";
+
+        // Execute query with values. Check if data were inserted
+        try {
+            self::$connection->prepare($query)->execute($values);
+        } catch (PDOException $e) {
+            throw new DatabaseException('Nepodařilo se vložit data do databáze: ' . $e->getMessage());
+        }
     }
 
 
 
     // User manipulation
+
     /**
+     * Get user data from database
      * @param string $username
-     * @return array<string, float|int|string|null>
+     * @return array<string, float|int|string|null>|null
      * @throws DatabaseException
      */
-    public static function selectUser(string $username): array {
+    public static function selectUser(string $username): ?array
+    {
         return self::select(
             table: 'user',
             items: ['*'],
-            conditions: 'WHERE username = "'. $username .'"',
+            conditions: 'WHERE username = "' . $username . '"',
         )[0];
     }
 
     /**
-     * @return array<array<string, float|int|string|null>|int<0, max>>
+     * Get all users from database
+     * @return array<array<string, float|int|string|null>|int<0, max>>|null
      * @throws DatabaseException
      */
-    public static function selectUsers(): array {
+    public static function selectUsers(): ?array
+    {
         return self::select(
             table: 'user',
             items: ['username', 'role', 'created_at'],
@@ -138,15 +174,17 @@ class DatabaseConnector
     }
 
     /**
+     * Check if user exists in database
      * @param string $username
-     * @return array<array<string, float|int|string|null>|int<0, max>>
+     * @return array<array<string, float|int|string|null>|int<0, max>>|null
      * @throws DatabaseException
      */
-    public static function existsUser(string $username): array {
+    public static function existsUser(string $username): ?array
+    {
         return self::select(
             table: 'user',
             items: ['username'],
-            conditions: 'WHERE username LIKE "'. $username .'"',
+            conditions: 'WHERE username LIKE "' . $username . '"',
         );
     }
 
@@ -158,13 +196,14 @@ class DatabaseConnector
      * @return void
      * @throws DatabaseException
      */
-    public static function insertUser(string $username, string $password, ?string $profile_image_path): void {
+    public static function insertUser(string $username, string $password, ?string $profile_image_path): void
+    {
         $items = ['username', 'password', 'role'];
         $values = [$username, $password, 'user'];
 
         if ($profile_image_path) {
             array_push($items, 'profile_image_path');
-            array_push($values, 'assets/uploads/profile_images/'. $profile_image_path);
+            array_push($values, 'assets/uploads/profile_images/' . $profile_image_path);
         }
 
         self::insert(

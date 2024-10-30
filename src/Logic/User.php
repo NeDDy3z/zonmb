@@ -1,12 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
-namespace Zonmb\Logic;
+namespace Logic;
 
 use Exception;
-use Zonmb\Models\DatabaseConnector;
+use Models\DatabaseConnector;
 
-class User {
+class User
+{
     private string $username;
     private string $image;
     private string $role;
@@ -18,17 +20,19 @@ class User {
      * @throws DatabaseException
      * @throws Exception
      */
-    public function __construct(string $username) {
+    public function __construct(string $username)
+    {
         $this->username = $username;
 
         $userData = DatabaseConnector::selectUser(username: $username);
 
         try {
-            $this->image = $userData['profile_image_path'];
-            $this->role = $userData['role'];
-            $this->createdAt = $userData['created_at'];
+            $this->setUsername($userData['username']);
+            $this->setImage($userData['profile_image_path']);
+            $this->setRole($userData['role']);
+            $this->setCreatedAt($userData['created_at']);
         } catch (Exception $e) {
-            throw new Exception('Nepodařilo se načíst data z databáze do uživatelského rozhraní. ' . $e->getMessage());
+            throw new Exception('Nepodařilo se načíst uživatelská data z databáze. ' . $e->getMessage());
         }
 
     }
@@ -36,7 +40,8 @@ class User {
     /**
      * @return string
      */
-    public function getUsername(): string {
+    public function getUsername(): string
+    {
         return $this->username;
     }
 
@@ -44,14 +49,16 @@ class User {
      * @param string $username
      * @return void
      */
-    public function setUsername(string $username): void {
+    public function setUsername(string $username): void
+    {
         $this->username = $username;
     }
 
     /**
      * @return string
      */
-    public function getImage(): string {
+    public function getImage(): string
+    {
         return $this->image;
     }
 
@@ -59,14 +66,16 @@ class User {
      * @param string $image
      * @return void
      */
-    public function setImage(string $image): void {
+    public function setImage(string $image): void
+    {
         $this->image = $image;
     }
 
     /**
      * @return string
      */
-    public function getRole(): string {
+    public function getRole(): string
+    {
         return $this->role;
     }
 
@@ -74,14 +83,16 @@ class User {
      * @param string $role
      * @return void
      */
-    public function setRole(string $role): void {
+    public function setRole(string $role): void
+    {
         $this->role = $role;
     }
 
     /**
      * @return string
      */
-    public function getCreatedAt(): string {
+    public function getCreatedAt(): string
+    {
         return $this->createdAt;
     }
 
@@ -89,7 +100,8 @@ class User {
      * @param string $createdAt
      * @return void
      */
-    public function setCreatedAt(string $createdAt): void {
+    public function setCreatedAt(string $createdAt): void
+    {
         $this->createdAt = $createdAt;
     }
 }
