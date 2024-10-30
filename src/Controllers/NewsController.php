@@ -6,7 +6,7 @@ namespace Controllers;
 
 class NewsController extends Controller
 {
-    private string $page = 'src/Views/news.php';
+    private string $page = '../src/Views/news.php';
 
     public function render(): void
     {

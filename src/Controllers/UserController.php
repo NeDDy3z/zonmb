@@ -11,7 +11,7 @@ class UserController extends Controller
     /**
      * @var string $page
      */
-    private string $page = 'src/Views/user.php'; // Import page content
+    private string $page = '../src/Views/user.php'; // Import page content
 
     /**
      * @var array|string[] $userRole

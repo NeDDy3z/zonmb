@@ -10,7 +10,7 @@ use Models\DatabaseConnector;
 
 class LoginController extends Controller
 {
-    private string $path = 'src/Views/login.php';
+    private string $path = '../src/Views/login.php';
 
     /**
      * Render webpage

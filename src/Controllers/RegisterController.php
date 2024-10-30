@@ -12,7 +12,7 @@ use Models\DatabaseConnector;
 
 class RegisterController extends Controller
 {
-    private string $page = 'src/Views/register.php';
+    private string $page = '../src/Views/register.php';
 
     public function render(): void
     {
