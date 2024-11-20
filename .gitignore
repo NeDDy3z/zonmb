@@ -1,3 +1,11 @@
 # Ignore everything
-cs-fix/
-phpstan/
+*
+
+# Keep these files
+!.gitignore
+!README.md
+!LICENSE
+!_database/
+!_docks/
+!src/
+!www/
