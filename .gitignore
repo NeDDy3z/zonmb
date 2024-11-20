@@ -7,5 +7,7 @@
 !LICENSE
 !_database/
 !_docks/
+!cs-fix/
+!phpstan/
 !src/
 !www/
