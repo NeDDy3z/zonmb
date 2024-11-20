@@ -8,6 +8,6 @@
 !_database/
 !_docs/
 
-!bin/*
+!bin/
 !src/
 !www/

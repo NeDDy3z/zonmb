@@ -1,7 +1,0 @@
-parameters:
-    level: max
-    paths:
-        #- %rootDir%/../src
-        - ../www/
-        - ../src/
-
