@@ -5,9 +5,10 @@
 !.gitignore
 !README.md
 !LICENSE
-!_database/
-!_docs/
+!_database/*
+!_docs/*
 
-!bin/
-!src/
-!www/
+
+!bin/*
+!src/*
+!www/*
