@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,700;0,800;0,900;1,300&display=swap');
+
+:root {
+    --text: #1c1c1cff;
+    --link: #3159a9;
+    --link-hover: #3d81ff;
+    --error: #ba124d;
+    --success: #2d7b00;
+
+    --warning: #9f0f42;
+    --warning-hover: #df2465;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Albert Sans', sans-serif;
+    background-color: #ffffff;
+}
+
+
+/* Reseting elements / setting global styling */
+a {
+    text-decoration: none;
+    color: var(--link);
+    transition: color 0.3s ease;
+}
+
+a:hover, a:focus {
+    color: var(--link-hover);
+    transition: background-color 0.3s ease;
+}
+
+button {
+    padding: .5rem 1rem;
+
+    border: none;
+    outline: none;
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+
+    transition: 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    background-color: var(--link);
+    color: white;
+}
+
+button:hover, button:focus {
+    background-color: var(--link-hover);
+    transition: 0.3s ease;
+}
+
+button.warning {
+    background-color: var(--warning);
+}
+
+button.warning:hover, button.warning:focus {
+    background-color: var(--warning-hover);
+    transition: 0.3s ease;
+}
+
+input {
+    padding: .5rem .5rem;
+
+    border: none;
+    border-bottom: #333333 2px solid;
+    outline: none;
+    font-size: 1rem;
+    font-weight: bold;
+
+    transition: 0.3s ease;
+
+    background-color: white;
+    color: var(--text);
+}
+
+input:hover, input:focus {
+    transition: 0.3s ease;
+}
+
+label {
+    display: none;
+}
+
+.error-message {
+    color: var(--error);
+}
+
+.success-message {
+    color: var(--success);
+}
+
+span.grayed-out {
+    font-size: .8rem;
+
+    color: #868686;
+}
+
+
+/* Media queries - printing */
+@media print {
+    header {
+        display: none;
+    }
+}
