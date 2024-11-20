@@ -6,8 +6,8 @@
 !README.md
 !LICENSE
 !_database/
-!_docks/
-!cs-fix/
-!phpstan/
+!_docs/
+
+!bin/*
 !src/
 !www/
