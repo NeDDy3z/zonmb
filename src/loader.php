@@ -2,6 +2,7 @@
 
 // This script is used for loading all logical .php files into the project (apply require_once on them)
 // Makes the index.php much more clean :3
+// TODO: REWORK THIS TO BE MORE DYNAMIC !!!!
 
 $srcDirectory = __DIR__;
 
@@ -21,6 +22,7 @@ $projectFiles = [
         'IncorrectInputException.php',
         'Router.php',
         'User.php',
+        'Validator.php'
     ],
     'Models' => [
         'DatabaseConnector.php',
