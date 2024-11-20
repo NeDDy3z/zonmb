@@ -1,0 +1,8 @@
+# Ignore everything
+*
+cs-fix/
+phpstan/
+
+# Include
+!.gitignore
+!www/

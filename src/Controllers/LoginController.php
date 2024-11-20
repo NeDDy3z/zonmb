@@ -35,7 +35,7 @@ class LoginController extends Controller
 
             // Validate if request contains username and password - if not redirect to login page
             if ($username === '' || $password === '') {
-                Router::redirect(path: 'login', query: 'error', parameters: 'empty-values');
+                Router::redirect(path: 'login', query: 'error', parameters: 'emptyValues');
             }
 
             // Get data from database
@@ -57,9 +57,9 @@ class LoginController extends Controller
                 $_SESSION['timeout'] = time();
                 $_SESSION['username'] = $_POST['username'];
 
-                Router::redirect(path: 'user', query: 'success', parameters: 'login-success');
+                Router::redirect(path: 'user', query: 'success', parameters: 'loginSuccess');
             } else {
-                Router::redirect(path: 'login', query: 'error', parameters: 'invalid-password');
+                Router::redirect(path: 'login', query: 'error', parameters: 'invalidPassword');
             }
         }
     }

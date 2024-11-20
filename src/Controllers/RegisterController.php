@@ -58,7 +58,7 @@ class RegisterController extends Controller
                 );
 
                 // Redirect to login page
-                Router::redirect(path: 'login', query: 'success', parameters: 'registration-success');
+                Router::redirect(path: 'login', query: 'success', parameters: 'register-success');
             }
         } catch (Exception $e) {
             Router::redirect(path: 'register', query: 'error', parameters: $e->getMessage());

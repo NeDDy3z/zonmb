@@ -69,7 +69,7 @@ class UserController extends Controller
                     return $user;
 
                 } catch (Exception $e) {
-                    Router::redirect(path: 'login', query: 'error', parameters: 'invalid-username');
+                    Router::redirect(path: 'login', query: 'error', parameters: 'loginInvalidUsername');
                 }
             }
         } else {

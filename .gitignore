@@ -1,11 +1,3 @@
 # Ignore everything
-*
 cs-fix/
 phpstan/
-
-# Include
-!.gitignore
-!_database/
-!_docs/
-!www/
-!src/

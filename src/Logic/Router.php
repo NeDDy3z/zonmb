@@ -71,9 +71,9 @@ class Router
 
         $controller ??= new ErrorController(404);
 
-        require_once '../src/Views/Templates/header.php'; // head
+        require_once '../src/Views/Partials/header.php'; // head
         $controller->render();
-        require_once '../src/Views/Templates/footer.php'; // foot
+        require_once '../src/Views/Partials/footer.php'; // foot
 
     }
 
