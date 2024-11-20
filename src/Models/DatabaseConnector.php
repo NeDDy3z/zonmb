@@ -20,6 +20,7 @@ class DatabaseConnector
     /**
      * Load database credentials from config file
      * @return void
+     * @throws DatabaseException
      */
     public static function init(): void
     {
@@ -51,7 +52,7 @@ class DatabaseConnector
                 ],
             );
         } catch (PDOException $e) {
-            throw new DatabaseException('Nepodařilo se připojit k databázi: ' . $e->getMessage());
+            throw new DatabaseException('Nepodařilo se připojit k databázi, některé funkce webu budou omezeny. Chyba: ' . $e->getMessage());
         }
     }
 
@@ -70,12 +71,12 @@ class DatabaseConnector
      * @param string $table
      * @param array<string> $items
      * @param string|null $conditions
-     * @return array<array<string>>|null
+     * @return array<array<string>>
      * @throws DatabaseException
      */
-    private static function select(string $table, array $items, ?string $conditions): ?array
+    private static function select(string $table, array $items, ?string $conditions): array
     {
-        // If connection is null create new connection
+        // If connection is null create a new connection
         if (!isset(self::$connection)) {
             self::connect();
         }
@@ -126,11 +127,10 @@ class DatabaseConnector
 
         // Prepare items for query
         $itemRows = implode(separator: ',', array: $items);
-        $itemValues = implode(separator: ', :', array: $items);
+        $itemVals = implode(',', array_fill(0, count($items), '?'));
 
         // Create query
-        /** @lang MySQL */
-        $query = "INSERT INTO {$table} ({$itemRows}) VALUES (':{$itemValues}');";
+        $query = "INSERT INTO {$table} ({$itemRows}) VALUES ({$itemVals});";
 
         // Execute query with values. Check if data were inserted
         try {
@@ -203,7 +203,7 @@ class DatabaseConnector
 
         if ($profile_image_path) {
             array_push($items, 'profile_image_path');
-            array_push($values, 'assets/uploads/profile_images/' . $profile_image_path);
+            array_push($values, $profile_image_path);
         }
 
         self::insert(

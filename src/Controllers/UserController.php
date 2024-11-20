@@ -23,13 +23,12 @@ class UserController extends Controller
     ];
 
     /**
-     *
+     * Construct
      */
     public function __construct()
     {
         $this->redirectHostUser();
     }
-
 
     /**
      * Render webpage
@@ -41,10 +40,12 @@ class UserController extends Controller
 
         // Check if user is logged in & load data
         $user = $this->loadUserData();
-        $userRole = $this->userRole;
+        $userRoles = $this->userRole;
 
         require_once $this->page; // Load page content
     }
+
+
 
     /**
      * Load user data if user is logged in
@@ -80,6 +81,9 @@ class UserController extends Controller
         return $user ?? new User('');
     }
 
+    public function uploadImage()
+    {
+    }
 
     /**
      * Redirect user if they are not logged in
@@ -91,5 +95,14 @@ class UserController extends Controller
             Router::redirect(path: 'login');
         }
     }
+
+    public function logout(): void
+    {
+        session_unset();
+        session_destroy();
+        Router::redirect(path: '', query: 'popup', parameters: 'Odhlášení proběhlo úspěšně');
+    }
+
+
 
 }

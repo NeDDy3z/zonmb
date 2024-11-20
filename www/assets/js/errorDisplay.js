@@ -3,11 +3,13 @@ const successContainer = document.querySelector('.success-container');
 const errorContainer = document.querySelector(' .error-container');
 
 const successMessages = {
-    'loginSuccess': 'Přihlášení proběhlo úspěšně',
-    'registerSuccess': 'Registrace proběhla úspěšně',
+    // General success
+    'login': 'Přihlášení proběhlo úspěšně',
+    'register': 'Registrace proběhla úspěšně',
 
-    'imageSuccess': 'Obrázek byl úspěšně nahrán',
-    'profileUpdateSuccess': 'Profil byl úspěšně upraven',
+    // Data uploads success
+    'imageUpload': 'Obrázek byl úspěšně nahrán',
+    'usernameUpdate': 'Profil byl úspěšně upraven',
     'articleCreateSuccess': 'Článek byl úspěšně vytvořen',
     'articleUpdateSuccess': 'Článek byl úspěšně upraven',
 };
@@ -18,29 +20,33 @@ const errorMessages = {
     'invalidValues': 'Vyplňte správně všechna pole',
     'invalidImageFormat': 'Nahrávejte pouze obrázky ve formátu JPG nebo PNG',
     'invalidImageSize': 'Obrázek je příliš velký, max 1MB',
-
-    // Login form errors
-    'loginError': 'Nesprávné jméno nebo heslo',
-    'loginInvalidUsername': 'Uživatelské jméno neexistuje',
-    'loginInvalidPassword': 'Nesprávné heslo',
-
-    // Register form errors
-    'registerError': 'Registrace se nezdařila',
-    'registerInvalidUsernameRegex': 'Jméno může obsahovat pouze následující znaky: a-z A-Z 0-9 . _',
-    'registerInvalidUsernameSize': 'Jméno musí mít délku minimálně 3 a maxilmálně 30 znkaů',
-    'registerUsernameExists': 'Uživatelské jméno již existuje',
-    'registerInvalidPasswordRegex': 'Heslo musí bsahovat alespoň jedno velké písmeno a číslici',
-    'registerInvalidPasswordSize': 'Heslo musí mít délku minimálně 8 znaků',
-
-    // Profile form errors
-    'profileUpdateError': 'Profil se nepodařilo upravit',
+    'loginError': 'Nesprávné jméno nebo heslo', // Login error
+    'registerError': 'Registrace se nezdařila', // Registar error
+    'updateError': 'Profil se nepodařilo upravit', // Profile update error
 
     // Article form errors - temporary
     'articleCreateError': 'Článek se nepodařilo vytvořit',
     'articleUpdateError': 'Článek se nepodařilo upravit',
     'articleDeleteError': 'Článek se nepodařilo smazat',
-};
 
+    // Data errors
+    'usernameEmpty': 'Vyplňte uživatelské jméno',
+    'usernameSize': 'Jméno musí mít délku minimálně 3 a maxilmálně 30 znkaů',
+    'usernameRegex': 'Jméno může obsahovat pouze následující znaky: a-z A-Z 0-9 . _',
+    'usernameTaken': 'Uživatelské jméno již existuje',
+    'passwordEmpty': 'Vyplňte heslo',
+    'passwordMatch': 'Hesla se neshodují',
+    'passwordSize': 'Heslo musí mít délku minimálně 8 znaků',
+    'passwordRegex': 'Heslo musí bsahovat alespoň jedno velké písmeno a číslici',
+    'imageUploadError': 'Obrázek se nepodařilo nahrát',
+    'imageSize': 'Obrázek je příliš velký, max 1MB',
+    'imageFormat': 'Nahrávejte pouze obrázky ve formátu JPG nebo PNG',
+    'imageDimensions': 'Obrázek musí mít minimálně 100x100px a maximálně 500x500px',
+    'titleEmpty': 'Vyplňte titulek',
+    'titleSize': 'Titulek musí mít délku minimálně 3 a maxilmálně 100 znkaů',
+    'contentEmpty': 'Vyplňte obsah',
+    'contentSize': 'Obsah musí mít délku minimálně 10 znaků',
+};
 
 // Show alert window popup with message
 if (URL_PARAMS.has('popup')) {
@@ -48,7 +54,7 @@ if (URL_PARAMS.has('popup')) {
     alert(value);
 }
 
-// Show success message
+// Show form-success message
 if (URL_PARAMS.has('success')) {
     let value = URL_PARAMS.get('success');
 
@@ -60,14 +66,19 @@ if (URL_PARAMS.has('success')) {
     successContainer.appendChild(message);
 }
 
-// Show error messages
+// Show form-error messages
 if (URL_PARAMS.has('error')) {
     let values = URL_PARAMS.get('error').split('-');
 
-    let message = document.createElement('p')
-    message.id = value;
-    message.className = 'error-message';
-    message.textContent = errorMessages[value];
+    values.forEach(value => {
+        let message = document.createElement('p')
+        message.id = values[0];
+        message.className = 'error-message';
+        message.textContent = errorMessages[value];
+        if (errorMessages[value] === 'undefined') {
+            message.textContent = value;
+        }
 
-    errorContainer.appendChild(message);
+        errorContainer.appendChild(message);
+    });
 }

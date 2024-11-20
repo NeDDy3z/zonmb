@@ -28,9 +28,12 @@ class User
 
         try {
             $this->setUsername($userData['username']);
-            $this->setImage($userData['profile_image_path']);
             $this->setRole($userData['role']);
             $this->setCreatedAt($userData['created_at']);
+            $this->setImage( // Set default image on an empty img path
+                file_exists($userData['profile_image_path']) ? $userData['profile_image_path'] : 'assets/uploads/profile_images/_default.png'
+            );
+
         } catch (Exception $e) {
             throw new Exception('Nepodařilo se načíst uživatelská data z databáze. ' . $e->getMessage());
         }

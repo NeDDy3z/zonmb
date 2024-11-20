@@ -1,11 +1,14 @@
 # Technical Documentation
+
 - here are (or will be) explained some of the functions of the project
 
 ### Technologies
+
 - PHP 8.3
-- PostgreSQL
+- MySQL
 
 ## File structure of the project
+
 ```
 /"root"
 │

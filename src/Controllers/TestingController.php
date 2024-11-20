@@ -11,13 +11,15 @@ class TestingController extends Controller
      */
     private string $page = '../src/Views/test.php'; // Import page content
 
+
     /**
-     * @param string $page
+     * construct
      */
     public function __construct()
     {
+        // Redirect if not logged in as admin
         if (!isset($_SESSION['user_data']) || $_SESSION['user_data']->getRole() !== 'admin') {
-            Router::redirect(''); // Redirect if not logged in as admin
+            Router::redirect('');
         }
     }
 
@@ -30,8 +32,13 @@ class TestingController extends Controller
         require_once $this->page; // Load page content
     }
 
-    public function executeTestAction(): void
+    public function testImageUpload(): void
     {
+        $image = $_FILES['test-image'];
 
+        move_uploaded_file(
+            from: $image['tmp_name'],
+            to: 'assets/uploads/test.png',
+        );
     }
 }

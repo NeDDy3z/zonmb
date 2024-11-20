@@ -30,35 +30,34 @@ class RegisterController extends Controller
             $passConf = $_POST['password-confirm'] ?? null;
             $pfpImage = $_FILES['profile-image'] ?? null;
 
-            var_dump($_FILES);
-
             // validate every input
             if ($this->validateUsername($username) &&
                 $this->validatePassword($password, $passConf) &&
                 $this->validateImage($pfpImage)
             ) {
-
                 // Hash password
                 $password = password_hash(
                     password: $password,
                     algo: PASSWORD_DEFAULT,
                 );
 
+                $pfpImagePath = 'assets/uploads/profile_images/' . $username .'.'. explode('/', $pfpImage['type'])[1];
+
                 // Save image
                 move_uploaded_file(
                     from: $pfpImage['tmp_name'],
-                    to: 'assets/uploads/profile_images/' . $username,
+                    to: $pfpImagePath,
                 );
 
                 // Insert user into database
                 DatabaseConnector::insertUser(
                     username: $username,
                     password: $password,
-                    profile_image_path: $pfpImage,
+                    profile_image_path: $pfpImagePath,
                 );
 
                 // Redirect to login page
-                Router::redirect(path: 'login', query: 'success', parameters: 'register-success');
+                Router::redirect(path: 'login', query: 'success', parameters: 'register');
             }
         } catch (Exception $e) {
             Router::redirect(path: 'register', query: 'error', parameters: $e->getMessage());
@@ -75,18 +74,18 @@ class RegisterController extends Controller
 
         // Validate if its empty
         if ($username == null || $username == '') {
-            $error .= 'empty-values.';
+            $error .= 'usernameEmpty-';
         }
         // Size
         if (strlen($username) < 3 || strlen($username) > 30) {
-            $error .= 'invalid-username-size.';
+            $error .= 'usernameSize-';
         }
         // Regex
         if (!preg_match('/^[a-zA-Z0-9._]+$/', $username)) {
-            $error .= 'invalid-username-regex.';
+            $error .= 'usernameRegex-';
         }
         if (count(DatabaseConnector::existsUser($username)) > 0) {
-            $error .= 'username-taken';
+            $error .= 'usernameTaken-';
         }
 
         if ($error) {
@@ -104,20 +103,19 @@ class RegisterController extends Controller
 
         // validate if its empty
         if ($password == null || $passwordConfirm == null || $password == '' || $passwordConfirm == '') {
-            $error .= 'empty-values.';
+            $error .= 'passwordEmpty-';
         }
         // Password match
         if ($password != $passwordConfirm) {
-            $error .= 'passwords-dont-match.';
+            $error .= 'passwordMatch-';
         }
         // Size
         if (strlen($password) < 5 || strlen($password) > 50) {
-            $error .= 'invalid-password-size.';
+            $error .= 'passwordSize-';
         }
-
         // Regex
         if (!preg_match('/(?=.*[A-Z])(?=.*\d)/', $password)) {
-            $error .= 'invalid-password-regex';
+            $error .= 'passwordRegex-';
         }
 
         if ($error) {
@@ -138,32 +136,32 @@ class RegisterController extends Controller
     {
         $error = null;
 
-        // No image = return True
-        if ($image == null) {
+        if ($image['size'] === 0) {
             return true;
         }
 
+        // Error in uploading
         if ($image['error'] !== UPLOAD_ERR_OK) {
-            $error .= 'image-upload-error.';
+            $error .= 'imageUploadError-';
         }
-
+        // Size
         if ($image['size'] > 1000000) {
-            $error .= 'invalid-image-size.';
+            $error .= 'imageSize-';
         }
-
-        if (!in_array($image['type'], ['image/png', 'image/jpg'])) {
-            $error .= 'invalid-image-type.';
+        // Type
+        if (!in_array($image['type'], ['image/png', 'image/jpg', 'image/jpeg'])) {
+            $error .= 'imageFormat-';
         }
-
-
-        list($width, $height) = getimagesize($_FILES['image']['tmp_name']);
+        // Dimensions
+        list($width, $height) = getimagesize($image['tmp_name']);
         if ($width > 500 || $width !== $height) {
-            $error .= 'invalid-image-dimensions';
+            $error .= 'imageDimensions-';
         }
 
         if ($error) {
             throw new IncorrectInputException($error);
         }
+
         return true;
     }
 }

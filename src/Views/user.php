@@ -1,20 +1,18 @@
 <?php
-
 use Logic\Router;
 
 if (!isset($user)) {
     Router::redirect(path: 'user', query: 'popup', parameters: 'Nepodařilo se načíst uživatelská data, přihlašte se prosím znovu, nebo kontaktujte administrátora.');
+    exit;
 }
 
-if (!isset($userRole)) {
-    $userRole = [
+if (!isset($userRoles)) {
+    $userRoles = [
         'admin' => 'Administrátor',
         'user' => 'Uživatel',
         'owner' => 'Vlastník'
     ];
 }
-
-
 ?>
 
 
@@ -24,12 +22,12 @@ if (!isset($userRole)) {
         <div class="user-container userinfo">
             <div id="user-data">
                 <div id="user-pfp">
-                    <img src="<?php echo $user->getImage() ?>" alt="profilový obrázek" draggable="false">
+                    <img src="<?= file_exists($user->getImage())? $user->getImage() : 'assets/uploads/profile_images/_default.png' ?>" alt="profilový obrázek" draggable="false">
                 </div>
                 <div id="user-info">
-                    <h3><?php echo $user->getUsername(); ?></h3>
+                    <h3><?= htmlspecialchars($user->getUsername()); ?></h3>
                     <ul>
-                        <li><i><?php echo $userRole[$user->getRole()]; ?></i></li>
+                        <li><i><?= $userRoles[$user->getRole()]; ?></i></li>
                     </ul>
                     <ul>
                         <li>
@@ -57,7 +55,7 @@ if (!isset($userRole)) {
     <section class="userpage">
         <div class="user-container user-change">
             <h3>Změna uživatelského jména</h3>
-            <form action="./user/name" method="post">
+            <form action="./user/username" method="post">
                 <label for="username">Jméno</label>
                 <input type="text" id="username" name="username"
                        minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
@@ -80,4 +78,16 @@ if (!isset($userRole)) {
             </form>
         </div>
     </section>
+    <?php
+        if ($user->getRole() === 'admin') {
+            ?>
+            <section class="userpage">
+                <div class="user-container user-change">
+                    <h3><a href="">Admin stránka</a></h3>
+
+                </div>
+            </section>
+            <?php
+        }
+?>
 </main>

@@ -16,6 +16,7 @@ use Exception;
 class Router
 {
     /**
+     * Redirect to correct path and/or with query
      * @param string $path
      * @param string|null $query
      * @param string|null $parameters
@@ -35,6 +36,7 @@ class Router
     }
 
     /**
+     * Route to correct controller
      * @param string $url
      * @param string $method
      * @return void
@@ -62,7 +64,7 @@ class Router
             '' => new HomepageController(),
             'user' => new UserController(),
             'login' => new LoginController(),
-            'logout' => self::logout(),
+            'logout' => (new UserController())->logout(),
             'register' => new RegisterController(),
             'news' => new NewsController(),
             'testing' => new TestingController(),
@@ -78,6 +80,8 @@ class Router
     }
 
     /**
+     * Take care of POST requests
+     * @param string $url
      * @throws Exception
      * @throws DatabaseException
      */
@@ -86,17 +90,9 @@ class Router
         match ($url) {
             'login' => (new LoginController())->login(),
             'register' => (new RegisterController())->register(),
+            'user/profile-image' => (new UserController())->uploadImage(),
+            'testing/imageupload' => (new TestingController())->testImageUpload(),
             default => (new ErrorController())->render(),
         };
-    }
-
-    /**
-     * @return void
-     */
-    private static function logout(): void
-    {
-        session_unset();
-        session_destroy();
-        Router::redirect(path: '', query: 'popup', parameters: 'Odhlášení proběhlo úspěšně');
     }
 }

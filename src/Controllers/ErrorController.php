@@ -14,13 +14,12 @@ class ErrorController extends Controller
      */
     public function __construct(int $errorCode = 404)
     {
-        $this->$errorCode = $errorCode;
+        $this->errorCode = $errorCode;
     }
-
 
     public function render(): void
     {
-        //http_response_code($this->errorCode);
+        http_response_code($this->errorCode);
         require_once $this->path; // Load page content
     }
 }

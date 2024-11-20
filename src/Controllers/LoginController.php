@@ -43,7 +43,7 @@ class LoginController extends Controller
 
             // Validate if user exists in the database
             if (!$databaseData) {
-                Router::redirect(path: 'login', query: 'error', parameters: 'invalid-username');
+                Router::redirect(path: 'login', query: 'error', parameters: 'loginError');
             }
 
             // Validate password
@@ -57,9 +57,9 @@ class LoginController extends Controller
                 $_SESSION['timeout'] = time();
                 $_SESSION['username'] = $_POST['username'];
 
-                Router::redirect(path: 'user', query: 'success', parameters: 'loginSuccess');
+                Router::redirect(path: 'user', query: 'success', parameters: 'login');
             } else {
-                Router::redirect(path: 'login', query: 'error', parameters: 'invalidPassword');
+                Router::redirect(path: 'login', query: 'error', parameters: 'password');
             }
         }
     }
