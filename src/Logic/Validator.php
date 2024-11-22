@@ -6,6 +6,7 @@ class Validator
 {
     /**
      * @param $image
+     * @param array<string> $conditions
      * @return bool
      * @throws IncorrectInputException
      */

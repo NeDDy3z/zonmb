@@ -45,8 +45,6 @@ class UserController extends Controller
         require_once $this->page; // Load page content
     }
 
-
-
     /**
      * Load user data if user is logged in
      * @return User

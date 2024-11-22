@@ -41,7 +41,7 @@ class RegisterController extends Controller
                     algo: PASSWORD_DEFAULT,
                 );
 
-                $pfpImagePath = 'assets/uploads/profile_images/' . $username .'.'. explode('/', $pfpImage['type'])[1];
+                $pfpImagePath = 'assets/uploads/profile_images/' . $username . '.' . explode('/', $pfpImage['type'])[1];
 
                 // Save image
                 move_uploaded_file(
