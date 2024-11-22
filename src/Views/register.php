@@ -20,7 +20,7 @@
                    tabindex="3" placeholder="*Potvrďte heslo" required>
 
             <label for="profile-image">Profilová fotka</label>
-            <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpg image/jpeg"
+            <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpg, image/jpeg"
                    title="Obrázek musí mít poměr 1:1, maximálně 500x500px, 1MB a být ve formátu PNG nebo JPG"
                    tabindex="4">
 

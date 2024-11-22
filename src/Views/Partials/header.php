@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/header_footer.css">
     <link rel="stylesheet" type="text/css" href="assets/css/page.css">
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
     <title><?php echo $title ?? 'ZONMB'; ?></title>
 </head>
 <body>
