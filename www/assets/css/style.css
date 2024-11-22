@@ -1,34 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,700;0,800;0,900;1,300&display=swap');
 
 :root {
-    --text: #1c1c1cff;
-    --link: #3159a9;
-    --link-hover: #3d81ff;
-    --error: #ba124d;
-    --success: #2d7b00;
+    color-scheme: light dark;
 
-    --warning: #9f0f42;
-    --warning-hover: #df2465;
+    /* Global colors */
+    /* Light */
+    --background-light: #f5f5f5;
+    --text-light: #1c1c1cff;
+    --link-light: #3159a9;
+    --link-hover-light: #3d81ff;
+
+    /* Dark */
+    --background-dark: #0c0c11;
+    --text-dark: #fff;
+    --link-dark: #3d81ff;
+    --link-hover-dark: #4f8cff;
+
+    /* Common */
+    --success: #2d7b00;
+    --error: #9f0f42;
+    --error-hover: #df2465;
 }
 
 * {
     margin: 0;
     padding: 0;
     font-family: 'Albert Sans', sans-serif;
-    background-color: #ffffff;
+    background-color: light-dark(var(--background-light), var(--background-dark));
+    color: light-dark(var(--text-light), var(--text-dark));
 }
 
 
 /* Reseting elements / setting global styling */
 a {
     text-decoration: none;
-    color: var(--link);
+    color: light-dark(var(--link-light), var(--link-dark));
     transition: color 0.3s ease;
 }
 
 a:hover, a:focus {
-    color: var(--link-hover);
-    transition: background-color 0.3s ease;
+    color: light-dark(var(--link-hover-light), var(--link-hover-dark));
+    transition: color 0.3s ease;
 }
 
 button {
@@ -43,21 +55,21 @@ button {
     transition: 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-    background-color: var(--link);
+    background-color: light-dark(var(--link-light), var(--link-dark));
     color: white;
 }
 
 button:hover, button:focus {
-    background-color: var(--link-hover);
+    background-color: light-dark(var(--link-hover-light), var(--link-hover-dark));
     transition: 0.3s ease;
 }
 
 button.warning {
-    background-color: var(--warning);
+    background-color: var(--error);
 }
 
 button.warning:hover, button.warning:focus {
-    background-color: var(--warning-hover);
+    background-color: var(--error-hover);
     transition: 0.3s ease;
 }
 
@@ -72,8 +84,8 @@ input {
 
     transition: 0.3s ease;
 
-    background-color: white;
-    color: var(--text);
+    background-color: var(--background-light);
+    color: light-dark(var(--text-dark), var(--text-light));
 }
 
 input:hover, input:focus {
