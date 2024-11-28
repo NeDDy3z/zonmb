@@ -54,3 +54,11 @@
 └── /config                                 # application config (e.g. database connection,...)
     └── config.php
 ```
+
+## Database scheme
+
+...
+
+## PHPDoc / PHPStan
+
+- in root folder run `bin/phpstan/phpstan.phar -c bin/phpstan/phpstan.neon -d src`
