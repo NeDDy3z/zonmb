@@ -14,5 +14,5 @@ $error_dictionary = [
 <main>
     <h1>Error <?php echo $error_code; ?></h1>
     <p><b><?php echo $error_dictionary[(int)$error_code]; ?></b></p>
-    <p>Vrátit se zpět na <a href="./">domovskou stránku</a></p>
+    <p>Vrátit se zpět na <a href="../">domovskou stránku</a></p>
 </main>

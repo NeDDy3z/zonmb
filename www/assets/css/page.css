@@ -28,6 +28,8 @@ div.container > section.homepage {
     margin-bottom: 2rem;
     text-align: center;
 
+    background-color: light-dark(var(--background-light), var(--background-dark));
+
     #about, #links {
         text-align: center;
 
@@ -104,13 +106,13 @@ form.login-register {
         border: none;
         border-radius: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        outline: white 1px solid;
+        outline: light-dark(var(--section-background-light), var(--section-background-dark)) 1px solid;
         transition: outline-color 0.3s ease;
 
     }
 
     input:hover, input:focus {
-        outline: var(--link-hover) 1px solid;
+        outline: light-dark(var(--link-hover-light), var(--link-hover-dark)) 1px solid;
         transition: outline-color 0.3s ease;
     }
 
