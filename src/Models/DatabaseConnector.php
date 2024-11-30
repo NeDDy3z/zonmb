@@ -215,4 +215,39 @@ class DatabaseConnector
 
 
     // Article manipulation
+
+    /**
+     * @param string $title
+     * @param string $subtitle
+     * @param string $content
+     * @param string $uri
+     * @param array $imagePaths
+     * @param int $authorId
+     * @return void
+     * @throws DatabaseException
+     */
+    public static function insertArticle(string $title, string $subtitle, string $content, string $uri = '', array $imagePaths = [], int $authorId = 1): void
+    {
+        $uri ?? 'news/'.urlencode($title);
+        $imagePaths = implode(',', $imagePaths);
+
+        self::insert(
+            table: 'article',
+            items: ['title', 'subtitle', 'content', 'uri', 'image_path', 'author_id', 'created_at'],
+            values: [$title, $subtitle, $content, $uri, $imagePaths, $authorId, date('Y-m-d')],
+        );
+    }
+
+    /**
+     * @return array<array<string>>
+     * @throws DatabaseException
+     */
+    public static function selectArticles(): array
+    {
+        return self::select(
+            table: 'article',
+            items: ['*'],
+            conditions: null,
+        );
+    }
 }

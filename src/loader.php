@@ -18,11 +18,12 @@ $projectFiles = [
         'TestingController.php',
     ],
     'Logic' => [
+        'Article.php',
         'DatabaseException.php',
         'IncorrectInputException.php',
         'Router.php',
         'User.php',
-        'Validator.php'
+        'Validator.php',
     ],
     'Models' => [
         'DatabaseConnector.php',

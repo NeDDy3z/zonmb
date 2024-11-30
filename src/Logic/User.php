@@ -37,7 +37,6 @@ class User
         } catch (Exception $e) {
             throw new Exception('Nepodařilo se načíst uživatelská data z databáze. ' . $e->getMessage());
         }
-
     }
 
     /**

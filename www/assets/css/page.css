@@ -255,12 +255,13 @@ article.news-article {
             margin-bottom: 0.5rem;
         }
 
-        h3 {
+        h2 {
             display: none;
 
             overflow: hidden;
             text-overflow: ellipsis;
             line-height: 1.5;
+            font-size: 1rem;
             font-weight: normal;
         }
     }
@@ -272,7 +273,6 @@ article.news-article {
         align-items: center;
         justify-content: center;
 
-        background-color: white;
         border-radius: 1rem;
     }
 
@@ -320,7 +320,7 @@ article.news-article {
                 text-align: left;
             }
 
-            h3 {
+            h2 {
                 display: block;
             }
         }

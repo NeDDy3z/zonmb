@@ -6,6 +6,7 @@ namespace Controllers;
 
 use Logic\DatabaseException;
 use Logic\Router;
+use Logic\User;
 use Models\DatabaseConnector;
 
 class LoginController extends Controller
@@ -53,9 +54,17 @@ class LoginController extends Controller
                 password: $password,
                 databasePassword: (string)$databaseData['password']
             )) {
+                if (!isset($_SESSION)) {
+                    session_start();
+                }
+
+                $username = $_POST['username'];
+
+                $_SESSION['username'] = $username;
+                $_SESSION['user_data'] = new User($username);
+
                 $_SESSION['valid'] = true;
                 $_SESSION['timeout'] = time();
-                $_SESSION['username'] = $_POST['username'];
 
                 Router::redirect(path: 'user', query: 'success', parameters: 'login');
             } else {

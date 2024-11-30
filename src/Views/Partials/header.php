@@ -18,7 +18,7 @@
             <a href="./"><img src="assets/images/logo-wide.png" alt="ZONMB"></a>
             <ul>
                 <li><a href="./news">Novinky</a></li>
-                <li><a href="./user"><?php echo isset($_SESSION['user_data']) ? $_SESSION['user_data']->getUsername() : 'Uživatel' ?></a></li>
+                <li><a href="./user"><?php echo isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']->getUsername()) : 'Uživatel' ?></a></li>
             </ul>
         </nav>
     </div>
