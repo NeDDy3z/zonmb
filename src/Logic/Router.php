@@ -31,7 +31,7 @@ class Router
         }
 
         http_response_code($responseCode);
-        header(header: ('location: ./' . $path . $resultQuery));
+        header(header: ('location: ../' . $path . $resultQuery));
         exit();
     }
 
@@ -91,7 +91,7 @@ class Router
             'login' => (new LoginController())->login(),
             'register' => (new RegisterController())->register(),
             'user/profile-image' => (new UserController())->uploadImage(),
-            'testing/imageupload' => (new TestingController())->testImageUpload(),
+            'testing/image-upload' => (new TestingController())->testImageUpload(),
             default => (new ErrorController())->render(),
         };
     }

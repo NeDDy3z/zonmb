@@ -1,7 +1,7 @@
 <?php
 use Logic\Router;
 
-if (!isset($user)) {
+if (!isset($_SESSION['user_data'])) {
     Router::redirect(path: 'user', query: 'popup', parameters: 'Nepodařilo se načíst uživatelská data, přihlašte se prosím znovu, nebo kontaktujte administrátora.');
     exit;
 }
@@ -13,6 +13,8 @@ if (!isset($userRoles)) {
         'owner' => 'Vlastník'
     ];
 }
+
+$user = $_SESSION['user_data'];
 ?>
 
 
@@ -60,19 +62,18 @@ if (!isset($userRoles)) {
                 <input type="text" id="username" name="username"
                        minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
                        title="Jméno musí mít nejméně 3 a maximálně 30 znaků, a může obsahovat pouze písmena, číslice, podrtžítka a tečky"
-                       tabindex="1" placeholder="Nové uživatelské jméno" required>
+                       placeholder="Nové uživatelské jméno" required>
 
                 <button type="submit" id="change-name">Změnit jméno</button>
             </form>
         </div>
         <div class="user-container user-change">
             <h3>Změna profilové fotky</h3>
-            <form action="./user/profile-image" method="post">
+            <form action="./user/profile-image" method="post" enctype="multipart/form-data">
                 <label for="profile-image">Profilová fotka</label>
-                <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpg"
+                <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpg, image/jpeg"
                        title="Obrázek musí mít poměr 1:1, maximálně 500x500px, 1MB a být ve formátu PNG nebo JPG"
-                       tabindex="4">
-
+                       required>
 
                 <button type="submit" id="change-profile-image">Změnit profilovou fotku</button>
             </form>

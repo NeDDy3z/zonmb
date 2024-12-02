@@ -9,6 +9,7 @@ use Models\DatabaseConnector;
 
 class User
 {
+    private int $id;
     private string $username;
     private string $image;
     private string $role;
@@ -22,21 +23,28 @@ class User
      */
     public function __construct(string $username)
     {
+        // TODO return empty
         $this->username = $username;
 
         $userData = DatabaseConnector::selectUser(username: $username);
 
         try {
-            $this->setUsername($userData['username']);
-            $this->setRole($userData['role']);
-            $this->setCreatedAt($userData['created_at']);
-            $this->setImage( // Set default image on an empty img path
-                file_exists($userData['profile_image_path']) ? $userData['profile_image_path'] : 'assets/uploads/profile_images/_default.png'
-            );
-
+            $this->id = (int)$userData['id'];
+            $this->username = $userData['username'];
+            $this->role = $userData['role'];
+            $this->createdAt = $userData['created_at'];
+            $this->image = file_exists($userData['profile_image_path']) ? $userData['profile_image_path'] : 'assets/uploads/profile_images/_default.png';
         } catch (Exception $e) {
             throw new Exception('Nepodařilo se načíst uživatelská data z databáze. ' . $e->getMessage());
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     /**
@@ -96,14 +104,5 @@ class User
     public function getCreatedAt(): string
     {
         return $this->createdAt;
-    }
-
-    /**
-     * @param string $createdAt
-     * @return void
-     */
-    public function setCreatedAt(string $createdAt): void
-    {
-        $this->createdAt = $createdAt;
     }
 }

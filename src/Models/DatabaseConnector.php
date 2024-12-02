@@ -114,7 +114,7 @@ class DatabaseConnector
      * Template function for inserting data into database
      * @param string $table
      * @param array<string> $items
-     * @param array<int, string|null> $values
+     * @param array<int, int|string> $values
      * @return void
      * @throws DatabaseException
      */
@@ -123,6 +123,10 @@ class DatabaseConnector
         // If connection is null create new connection
         if (!isset(self::$connection)) {
             self::connect();
+        }
+
+        if (count($items) !== count($values)) {
+            throw new DatabaseException('Počet položek a hodnot neodpovídá');
         }
 
         // Prepare items for query
@@ -140,10 +144,46 @@ class DatabaseConnector
         }
     }
 
+    /**
+     * Template function for updating data in database
+     * @param string $table
+     * @param array<string> $items
+     * @param array<int, string|null> $values
+     * @param string $conditions
+     * @return void
+     * @throws DatabaseException
+     */
+    private static function update(string $table, array $items, array $values, string $conditions): void
+    {
+        // If connection is null create new connection
+        if (!isset(self::$connection)) {
+            self::connect();
+        }
+
+        if (count($items) !== count($values)) {
+            throw new DatabaseException('Počet položek a hodnot pro aktualizaci neodpovídá');
+        }
+
+        // Prepare items for query
+        foreach ($items as $key => $item) {
+            $items[$key] = $item . ' = ?';
+        }
+        $itemRows = implode(separator: ' , ', array: $items);
+
+        // Create query
+        $query = "UPDATE {$table} SET {$itemRows} {$conditions};";
+
+        // Execute query with values. Check if data were inserted
+        try {
+            self::$connection->prepare($query)->execute($values);
+        } catch (PDOException $e) {
+            throw new DatabaseException('Nepodařilo se vložit data do databáze: ' . $e->getMessage());
+        }
+    }
+
 
 
     // User manipulation
-
     /**
      * Get user data from database
      * @param string $username
@@ -188,7 +228,6 @@ class DatabaseConnector
         );
     }
 
-
     /**
      * @param string $username
      * @param string $password
@@ -213,22 +252,51 @@ class DatabaseConnector
         );
     }
 
+    /**
+     * @param int $id
+     * @param string|null $username
+     * @param string|null $profile_image_path
+     * @return void
+     * @throws DatabaseException
+     */
+    public static function updateUser(int $id, string $username = null, string $profile_image_path = null): void
+    {
+        $items = [];
+        $values = [];
+
+        if ($username) {
+            $items[] = 'username';
+            $values[] = $username;
+        }
+        if ($profile_image_path) {
+            $items[] = 'profile_image_path';
+            $values[] = $profile_image_path;
+        }
+
+        self::update(
+            table: 'user',
+            items: $items,
+            values: $values,
+            conditions: 'WHERE id = ' . $id,
+        );
+    }
+
+
 
     // Article manipulation
-
     /**
      * @param string $title
      * @param string $subtitle
      * @param string $content
-     * @param string $uri
-     * @param array $imagePaths
+     * @param string|null $uri
+     * @param array<string> $imagePaths
      * @param int $authorId
      * @return void
      * @throws DatabaseException
      */
-    public static function insertArticle(string $title, string $subtitle, string $content, string $uri = '', array $imagePaths = [], int $authorId = 1): void
+    public static function insertArticle(string $title, string $subtitle, string $content, string $uri = null, array $imagePaths = [], int $authorId = 1): void
     {
-        $uri ?? 'news/'.urlencode($title);
+        $uri ??= 'news/'.urlencode($title);
         $imagePaths = implode(',', $imagePaths);
 
         self::insert(

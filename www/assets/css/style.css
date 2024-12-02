@@ -99,6 +99,11 @@ input {
     }
 }
 
+input:-webkit-autofill {
+    background-color: light-dark(var(--section-background-light), var(--section-background-dark)) !important;
+    -webkit-box-shadow: 0 0 0px 1000px light-dark(var(--section-background-light), var(--section-background-dark)) inset !important;
+}
+
 label {
     display: none;
 }
