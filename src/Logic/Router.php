@@ -31,7 +31,7 @@ class Router
         }
 
         http_response_code($responseCode);
-        header(header: ('location: ./' . $path . $resultQuery));
+        header(header: ('location: /' . $path . $resultQuery));
         exit();
     }
 
@@ -44,13 +44,16 @@ class Router
      */
     public static function route(string $url, string $method): void
     {
-        if ($method === 'GET') {
-            self::GET($url);
-        } elseif ($method === 'POST') {
-            self::POST($url);
-        } else {
-            (new ErrorController(405))->render();
+        // Remove trailing slash
+        if (str_ends_with($url, '/')) {
+            self::redirect(rtrim($url, '/'));
         }
+
+        match ($method) {
+            'GET' => self::GET($url),
+            'POST' => self::POST($url),
+            default => (new ErrorController(405))->render(),
+        };
     }
 
 
@@ -62,20 +65,21 @@ class Router
     {
         $controller = match ($url) {
             '' => new HomepageController(),
-            'user' => new UserController(),
             'login' => new LoginController(),
             'logout' => (new UserController())->logout(),
-            'register' => new RegisterController(),
             'news' => new NewsController(),
+            'news/add' => new NewsController(ROOT . 'src/Views/Partials/news-add.php'),
+            'register' => new RegisterController(),
             'testing' => new TestingController(),
+            'user' => new UserController(),
             default => new ErrorController(404),
         };
 
         $controller ??= new ErrorController(404);
 
-        require_once '../src/Views/Partials/header.php'; // head
+        require_once ROOT .'src/Views/Partials/header.php'; // head
         $controller->render();
-        require_once '../src/Views/Partials/footer.php'; // foot
+        require_once ROOT .'/src/Views/Partials/footer.php'; // foot
 
     }
 
@@ -90,8 +94,8 @@ class Router
         match ($url) {
             'login' => (new LoginController())->login(),
             'register' => (new RegisterController())->register(),
-            'user/profile-image' => (new UserController())->uploadImage(),
             'testing/image-upload' => (new TestingController())->testImageUpload(),
+            'user/profile-image' => (new UserController())->uploadImage(),
             default => (new ErrorController())->render(),
         };
     }

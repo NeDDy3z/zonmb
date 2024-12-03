@@ -10,8 +10,22 @@ use Models\DatabaseConnector;
 
 class NewsController extends Controller
 {
-    private string $page = '../src/Views/news.php';
+    private string $page = ROOT . 'src/Views/news.php';
 
+    /**
+     * @param string|null $page
+     */
+    public function __construct(string $page = null)
+    {
+        if ($page) {
+            $this->page = $page;
+        }
+    }
+
+    /**
+     * @return void
+     * @throws DatabaseException
+     */
     public function render(): void
     {
         // TODO: Implement pagination

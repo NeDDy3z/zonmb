@@ -4,7 +4,7 @@
         <?php
         if (isset($_SESSION['user_data'])) {
             if ($_SESSION['user_data']->getRole() === 'admin' or $_SESSION['user']->getRole() === 'editor' or $_SESSION['user']->getRole() === 'owner') {
-                echo '<a href="news/add"><button>Přidat článek</button></a>';
+                echo '<a href="/news/add"><button>Přidat článek</button></a>';
             }
         }
         ?>
@@ -15,7 +15,7 @@
             echo '<p>Nebyly nalezeny žádné články</p>';
         } else {
             foreach ($articles as $article) {
-                require '../src/Views/Partials/news-article.php';
+                require ROOT . 'src/Views/Partials/news-article.php';
             }
         }
         ?>

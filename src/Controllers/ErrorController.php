@@ -6,7 +6,7 @@ namespace Controllers;
 
 class ErrorController extends Controller
 {
-    private string $path = '../src/Views/error.php';
+    private string $path = ROOT . 'src/Views/error.php';
     private int $errorCode;
 
     /**
