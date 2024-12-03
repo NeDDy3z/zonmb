@@ -31,7 +31,7 @@ class Router
         }
 
         http_response_code($responseCode);
-        header(header: ('location: /' . $path . $resultQuery));
+        header(header: ('location: '. BASE_URL .'/' . $path . $resultQuery));
         exit();
     }
 

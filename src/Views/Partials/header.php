@@ -15,7 +15,7 @@
 <header>
     <div>
         <nav>
-            <a href="<?= BASE_URL ?>"><img src="assets/images/logo-wide.png" alt="ZONMB"></a>
+            <a href="<?= BASE_URL ?>/"><img src="assets/images/logo-wide.png" alt="ZONMB"></a>
             <ul>
                 <li><a href="<?= BASE_URL ?>/news">Novinky</a></li>
                 <li><a href="<?= BASE_URL ?>/user"><?= isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']->getUsername()) : 'Uživatel' ?></a></li>
