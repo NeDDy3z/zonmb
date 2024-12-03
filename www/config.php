@@ -6,10 +6,10 @@ const BASE_URL = '/~vanekeri/';
 
 
 // Get local config
-//if (file_exists(ROOT . 'config.local.php')) {
-//    require ROOT . 'config.local.php';
-//    die();
-//}
+if (file_exists(ROOT . 'config.local.php')) {
+    require ROOT . 'config.local.php';
+    die();
+}
 
 $_ENV['database'] = [
     'server' => 'localhost',
