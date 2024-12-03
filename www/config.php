@@ -2,9 +2,14 @@
 
 const ROOT = __DIR__ . '/../';
 const VIEWS = ROOT . 'src/Views/';
+const BASE_URL = '/~vanekeri/';
 
-const BASE_URL = 'http://localhost/~vanekeri/';
 
+// Get local config
+if (file_exists(ROOT . 'config.local.php')) {
+    require ROOT . 'config.local.php';
+    die();
+}
 
 $_ENV['database'] = [
     'server' => 'localhost',
@@ -12,6 +17,8 @@ $_ENV['database'] = [
     'username' => 'vanekeri',
     'password' => 'petrpaveluwu',
 ];
+
+
 
 // Set error reporting
 ini_set('display_errors', '1');
