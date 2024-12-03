@@ -1,7 +1,7 @@
 # Enable RewriteEngine
 RewriteEngine On
 
-RewriteBase /~vanekeri # FOR ZWA.TOAD.CZ
+# RewriteBase /~vanekeri # FOR ZWA.TOAD.CZ
 # RewriteBase / # STANDART BASE
 
 # Remove trailing slash at the end
