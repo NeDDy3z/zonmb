@@ -18,9 +18,8 @@ ini_set('max_execution_time', '30');    // Max script execution time in seconds
 ini_set('max_input_time', '60');
 
 // Load local configuration
-if (file_exists(ROOT . 'config.local.php')) {
-    require ROOT . 'config.local.php';
-    die();
+if (file_exists(ROOT . 'www/config.local.php')) {
+    require ROOT . 'www/config.local.php';
 }
 
 
