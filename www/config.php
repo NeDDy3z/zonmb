@@ -1,5 +1,7 @@
 <?php
 
+const ROOT = __DIR__ . '/../';
+
 $_ENV['database'] = [
     'server' => 'localhost',
     'dbname' => 'vanekeri',
