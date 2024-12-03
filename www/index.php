@@ -6,7 +6,7 @@ namespace App;
 
 // Initialize config file & load all scripts
 require 'config.php';
-require_once  ROOT . '/src/autoload.php';
+require_once  ROOT . 'src/autoload.php';
 
 use Exception;
 use Logic\DatabaseException;
