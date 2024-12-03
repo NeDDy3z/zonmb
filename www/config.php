@@ -20,8 +20,10 @@ ini_set('max_input_time', '60');
 // Load local configuration
 if (file_exists(ROOT . 'www/config.local.php')) {
     require ROOT . 'www/config.local.php';
+    return;
 }
 
+echo 'megaprdel';
 
 
 // Set error reporting
