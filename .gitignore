@@ -1,14 +1,13 @@
-# Ignore everything
-*
-
-# Keep these files
-!.gitignore
-!README.md
-!LICENSE
-!_database/*
-!_docs/*
-
-
-!bin/*
-!src/*
-!www/*
+## Ignore everything
+#*
+#
+## Keep these files
+#!.gitignore
+#!README.md
+#!LICENSE
+#!_database/*
+#!_docs/*
+#
+#!bin/*
+#!src/*
+#!www/*
