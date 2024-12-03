@@ -1,15 +1,14 @@
 # Enable RewriteEngine
 RewriteEngine On
 
-# RewriteBase /~vanekeri
-RewriteBase /
+RewriteBase /~vanekeri
+#RewriteBase /
 
 # Remove trailing slash at the end
-#RewriteRule ^(.*)/$ /$1 [L,R]
+# RewriteRule ^(.*)/$ /$1 [L,R]
 # RewriteRule (.*)/$ $1 [R=301,L]
 
 # Redirect all requests to index.php except for existing files and directories
-
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ index.php [QSA,L]

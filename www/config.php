@@ -1,6 +1,10 @@
 <?php
 
 const ROOT = __DIR__ . '/../';
+const VIEWS = ROOT . 'src/Views/';
+
+const BASE_URL = 'http://localhost/~vanekeri/';
+
 
 $_ENV['database'] = [
     'server' => 'localhost',
