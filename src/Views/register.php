@@ -1,6 +1,6 @@
 <main>
     <div class="container">
-        <form action="./register" method="post" enctype="multipart/form-data" name="registerForm" class="login-register">
+        <form action="<?= BASE_URL ?>/register" method="post" enctype="multipart/form-data" name="registerForm" class="login-register">
             <label for="username">Jméno</label>
             <input type="text" id="username" name="username"
                    minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
@@ -30,8 +30,8 @@
             <div class="error-container"></div>
             <div class="success-container"></div>
 
-            <a href="./login">Přihlášení</a>
+            <a href="<?= BASE_URL ?>/login">Přihlášení</a>
         </form>
     </div>
 </main>
-<script src="../assets/js/dataValidation.js"></script>
+<script src="assets/js/dataValidation.js"></script>

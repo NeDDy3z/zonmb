@@ -4,7 +4,7 @@
         <?php
         if (isset($_SESSION['user_data'])) {
             if ($_SESSION['user_data']->getRole() === 'admin' or $_SESSION['user']->getRole() === 'editor' or $_SESSION['user']->getRole() === 'owner') {
-                echo '<a href="/news/add"><button>Přidat článek</button></a>';
+                echo '<a href="'. BASE_URL .'/news/add"><button>Přidat článek</button></a>';
             }
         }
         ?>

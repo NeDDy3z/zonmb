@@ -9,16 +9,16 @@
     <link rel="stylesheet" type="text/css" href="assets/css/page.css">
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
-    <title><?php echo $title ?? 'ZONMB'; ?></title>
+    <title><?= $title ?? 'ZONMB'; ?></title>
 </head>
 <body>
 <header>
     <div>
         <nav>
-            <a href="./"><img src="assets/images/logo-wide.png" alt="ZONMB"></a>
+            <a href="<?= BASE_URL ?>"><img src="assets/images/logo-wide.png" alt="ZONMB"></a>
             <ul>
-                <li><a href="./news">Novinky</a></li>
-                <li><a href="./user"><?php echo isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']->getUsername()) : 'Uživatel' ?></a></li>
+                <li><a href="<?= BASE_URL ?>/news">Novinky</a></li>
+                <li><a href="<?= BASE_URL ?>/user"><?= isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']->getUsername()) : 'Uživatel' ?></a></li>
             </ul>
         </nav>
     </div>

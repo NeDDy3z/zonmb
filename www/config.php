@@ -36,7 +36,7 @@ if (file_exists(ROOT . 'www/config.local.php')) {
 
 
 
-// Set error reporting
+// Set error reporting TODO: Remove for deployment
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);

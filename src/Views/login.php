@@ -1,6 +1,6 @@
 <main>
     <div class="container">
-        <form action="./login" method="post" name="loginForm" class="login-register">
+        <form action="<?= BASE_URL ?>/login" method="post" name="loginForm" class="login-register">
             <label for="username">*Jméno: </label>
             <input type="text" id="username" name="username" minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
                    title="Jméno může obsahovat pouze písmena, číslice, podrtžítka a tečky"
@@ -18,7 +18,7 @@
             <div class="error-container"></div>
             <div class="success-container"></div>
 
-            <a href="./register">Registrace</a>
+            <a href="<?= BASE_URL ?>/register">Registrace</a>
         </form>
     </div>
 </main>

@@ -46,7 +46,7 @@ $user = $_SESSION['user_data'];
                             </span>
                         </li>
                     </ul>
-                    <a href="./logout">
+                    <a href="<?= BASE_URL ?>/logout">
                         <button type="button" class="warning" id="logout">Odhlásit se</button>
                     </a>
                 </div>
@@ -57,7 +57,7 @@ $user = $_SESSION['user_data'];
     <section class="userpage">
         <div class="user-container user-change">
             <h3>Změna uživatelského jména</h3>
-            <form action="./user/username" method="post">
+            <form action="<?= BASE_URL ?>/user/username" method="post"> <!--TODO: ADD HTTPXMLRESPONSE-->
                 <label for="username">Jméno</label>
                 <input type="text" id="username" name="username"
                        minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
@@ -69,7 +69,7 @@ $user = $_SESSION['user_data'];
         </div>
         <div class="user-container user-change">
             <h3>Změna profilové fotky</h3>
-            <form action="./user/profile-image" method="post" enctype="multipart/form-data">
+            <form action="<?= BASE_URL ?>/user/profile-image" method="post" enctype="multipart/form-data"> <!--TODO: ADD HTTPXMLRESPONSE-->
                 <label for="profile-image">Profilová fotka</label>
                 <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpg, image/jpeg"
                        title="Obrázek musí mít poměr 1:1, maximálně 500x500px, 1MB a být ve formátu PNG nebo JPG"
@@ -84,8 +84,7 @@ $user = $_SESSION['user_data'];
             ?>
             <section class="userpage">
                 <div class="user-container user-change">
-                    <h3><a href="">Admin stránka</a></h3>
-
+                    <h3><a href="<?= BASE_URL ?>/admin">Admin stránka</a></h3>
                 </div>
             </section>
             <?php

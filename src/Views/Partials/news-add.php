@@ -1,6 +1,6 @@
 <main>
         <div class="container">
-            <form action="/news/add" method="post" enctype="multipart/form-data" name="articleForm" class="login-register"> <!-- TODO: Add change styling  -->
+            <form action="<?= BASE_URL ?>/news/add" method="post" enctype="multipart/form-data" name="articleForm" class="login-register"> <!-- TODO: Add change styling  -->
                 <label for="title">*Titulek: </label>
                 <input type="text" name="title" placeholder="*Titulek">
 
