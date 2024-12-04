@@ -56,8 +56,8 @@ $user = $_SESSION['user_data'];
     </section>
     <section class="userpage">
         <div class="user-container user-change">
-            <h3>Změna uživatelského jména</h3>
             <form action="<?= UrlHelper::baseUrl('user/username') ?>" method="post" class="one-line-form"> <!--TODO: ADD HTTPXMLRESPONSE-->
+                <h2>Změna uživatelského jména</h2>
                 <label for="username">Jméno</label>
                 <input type="text" id="username" name="username"
                        minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
@@ -67,9 +67,11 @@ $user = $_SESSION['user_data'];
                 <button type="submit" id="change-name">Změnit jméno</button>
             </form>
         </div>
+    </section>
+    <section class="userpage">
         <div class="user-container user-change">
-            <h3>Změna profilové fotky</h3>
             <form action="<?= UrlHelper::baseUrl('user/profile-image') ?>" method="post" enctype="multipart/form-data" class="one-line-form"> <!--TODO: ADD HTTPXMLRESPONSE-->
+                <h2>Změna profilové fotky</h2>
                 <label for="profile-image">Profilová fotka</label>
                 <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpg, image/jpeg"
                        title="Obrázek musí mít poměr 1:1, maximálně 500x500px, 1MB a být ve formátu PNG nebo JPG"
