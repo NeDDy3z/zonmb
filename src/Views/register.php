@@ -1,6 +1,11 @@
+<?php
+
+use Helpers\UrlHelper;
+
+?>
 <main>
     <div class="container">
-        <form action="<?= BASE_URL ?>/register" method="post" enctype="multipart/form-data" name="registerForm" class="login-register">
+        <form action="<?= UrlHelper::baseUrl('register') ?>" method="post" enctype="multipart/form-data" name="registerForm" id="register-form">
             <label for="username">Jméno</label>
             <input type="text" id="username" name="username"
                    minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
@@ -30,8 +35,9 @@
             <div class="error-container"></div>
             <div class="success-container"></div>
 
-            <a href="<?= BASE_URL ?>/login">Přihlášení</a>
+            <a href="<?= UrlHelper::baseUrl('login') ?>">Přihlášení</a>
         </form>
     </div>
 </main>
-<script src="assets/js/dataValidation.js"></script>
+<script src="<?= UrlHelper::baseUrl('assets/js/dataValidation.js') ?>"></script>
+<script src="<?= UrlHelper::baseUrl('assets/js/loadDataOnRefresh.js') ?>"></script>

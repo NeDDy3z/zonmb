@@ -1,5 +1,6 @@
 <?php
 use Logic\Router;
+use Helpers\UrlHelper;
 
 if (!isset($_SESSION['user_data'])) {
     Router::redirect(path: 'user', query: 'popup', parameters: 'Nepodařilo se načíst uživatelská data, přihlašte se prosím znovu, nebo kontaktujte administrátora.');
@@ -24,7 +25,7 @@ $user = $_SESSION['user_data'];
         <div class="user-container userinfo">
             <div id="user-data">
                 <div id="user-pfp">
-                    <img src="<?= file_exists($user->getImage())? $user->getImage() : 'assets/uploads/profile_images/_default.png' ?>" alt="profilový obrázek" draggable="false">
+                    <img src="<?= UrlHelper::baseUrl($user->getImage()) ?>" alt="profilový obrázek" draggable="true">
                 </div>
                 <div id="user-info">
                     <h3><?= htmlspecialchars($user->getUsername()); ?></h3>
@@ -33,8 +34,7 @@ $user = $_SESSION['user_data'];
                     </ul>
                     <ul>
                         <li>
-                            <span class="grayed-out">
-                                registrace<br>
+                            <span class="grayed-out">registrace<br>
                                 <?php
                                 try {
                                     $date = new DateTime($user->getCreatedAt());
@@ -46,7 +46,7 @@ $user = $_SESSION['user_data'];
                             </span>
                         </li>
                     </ul>
-                    <a href="<?= BASE_URL ?>/logout">
+                    <a href="<?= UrlHelper::baseUrl('logout') ?>">
                         <button type="button" class="warning" id="logout">Odhlásit se</button>
                     </a>
                 </div>
@@ -57,7 +57,7 @@ $user = $_SESSION['user_data'];
     <section class="userpage">
         <div class="user-container user-change">
             <h3>Změna uživatelského jména</h3>
-            <form action="<?= BASE_URL ?>/user/username" method="post"> <!--TODO: ADD HTTPXMLRESPONSE-->
+            <form action="<?= UrlHelper::baseUrl('user/username') ?>" method="post" class="one-line-form"> <!--TODO: ADD HTTPXMLRESPONSE-->
                 <label for="username">Jméno</label>
                 <input type="text" id="username" name="username"
                        minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
@@ -69,7 +69,7 @@ $user = $_SESSION['user_data'];
         </div>
         <div class="user-container user-change">
             <h3>Změna profilové fotky</h3>
-            <form action="<?= BASE_URL ?>/user/profile-image" method="post" enctype="multipart/form-data"> <!--TODO: ADD HTTPXMLRESPONSE-->
+            <form action="<?= UrlHelper::baseUrl('user/profile-image') ?>" method="post" enctype="multipart/form-data" class="one-line-form"> <!--TODO: ADD HTTPXMLRESPONSE-->
                 <label for="profile-image">Profilová fotka</label>
                 <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpg, image/jpeg"
                        title="Obrázek musí mít poměr 1:1, maximálně 500x500px, 1MB a být ve formátu PNG nebo JPG"
@@ -84,7 +84,7 @@ $user = $_SESSION['user_data'];
             ?>
             <section class="userpage">
                 <div class="user-container user-change">
-                    <h3><a href="<?= BASE_URL ?>/admin">Admin stránka</a></h3>
+                    <h3><a href="<?= UrlHelper::baseUrl('admin') ?>">Admin stránka</a></h3>
                 </div>
             </section>
             <?php

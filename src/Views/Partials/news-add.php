@@ -1,6 +1,11 @@
+<?php
+use Helpers\UrlHelper;
+
+?>
+
 <main>
         <div class="container">
-            <form action="<?= BASE_URL ?>/news/add" method="post" enctype="multipart/form-data" name="articleForm" class="login-register"> <!-- TODO: Add change styling  -->
+            <form action="<?= UrlHelper::baseUrl('news/add') ?>" method="post" enctype="multipart/form-data" name="articleForm" id="article-form">
                 <label for="title">*Titulek: </label>
                 <input type="text" name="title" placeholder="*Titulek">
 
@@ -23,4 +28,5 @@
             </form>
         </div>
 </main>
-<script src="assets/js/dataValidation.js"></script>
+<script src="<?= UrlHelper::baseUrl('assets/js/dataValidation.js') ?>"></script>
+<script src="<?= UrlHelper::baseUrl('assets/js/loadDataOnRefresh.js') ?>"></script>

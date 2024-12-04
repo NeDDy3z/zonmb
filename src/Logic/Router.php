@@ -52,6 +52,7 @@ class Router
         match ($method) {
             'GET' => self::GET($url),
             'POST' => self::POST($url),
+            'PUT' => (new ErrorController(405))->render(),
             default => (new ErrorController(405))->render(),
         };
     }
@@ -79,8 +80,7 @@ class Router
 
         require_once ROOT .'src/Views/Partials/header.php'; // head
         $controller->render();
-        require_once ROOT .'/src/Views/Partials/footer.php'; // foot
-
+        require_once ROOT .'src/Views/Partials/footer.php'; // foot
     }
 
     /**

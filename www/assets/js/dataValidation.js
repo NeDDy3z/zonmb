@@ -7,8 +7,7 @@ const IMG_TYPES = ['image/jpeg', 'image/png'];
 
 
 // Login and Register form
-let loginForm = document.querySelector('form[name="loginForm"]');
-let registerForm = document.querySelector('form[name="registerForm"]');
+let form = document.querySelector('form');
 
 loginForm.addEventListener('submit', function (e) {
 });
