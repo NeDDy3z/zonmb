@@ -36,7 +36,7 @@ class LoginController extends Controller
 
             // Validate if request contains username and password - if not redirect to login page
             if ($username === '' || $password === '') {
-                Router::redirect(path: 'login', query: 'error', parameters: 'emptyValues');
+                Router::redirect(path: 'login', query: ['error' => 'emptyValues']);
             }
 
             // Get data from database
@@ -44,10 +44,10 @@ class LoginController extends Controller
 
             // Validate if user exists in the database
             if (!$databaseData) {
-                Router::redirect(path: 'login', query: 'error', parameters: 'loginError');
+                Router::redirect(path: 'login', query: ['error' => 'loginError']);
             }
 
-            // Validate password
+            // Validate user<->password
             if ($this->validateUserCredentials(
                 username: $username,
                 databaseUsername: (string)$databaseData['username'],
@@ -58,17 +58,15 @@ class LoginController extends Controller
                     session_start();
                 }
 
-                $username = $_POST['username'];
-
                 $_SESSION['username'] = $username;
-                $_SESSION['user_data'] = new User($username);
+                $_SESSION['user_data'] = User::getUserByUsername($username);
 
                 $_SESSION['valid'] = true;
                 $_SESSION['timeout'] = time();
 
-                Router::redirect(path: 'user', query: 'success', parameters: 'login');
+                Router::redirect(path: 'user', query: ['success' => 'login']);
             } else {
-                Router::redirect(path: 'login', query: 'error', parameters: 'password');
+                Router::redirect(path: 'login', query: ['error' => 'password']);
             }
         }
     }

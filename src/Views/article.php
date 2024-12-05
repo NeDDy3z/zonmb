@@ -1,5 +1,8 @@
 <?php
-use Logic\Article;
+
+use Helpers\DateHelper;
+use Helpers\UrlHelper;
+use Logic\User;
 
 if (!isset($article)) {
     echo 'Článek se nepodařilo načíst';
@@ -8,18 +11,39 @@ if (!isset($article)) {
 ?>
 
 <main>
-    <article>
-        <h1><?= htmlspecialchars($article->getTitle()); ?></h1>
-        <h2><?= htmlspecialchars($article->getSubtitle()); ?></h2>
-        <section> <?php // TODO: Image slideshow?>
-            <img src="<?= $article->getImagePaths()[0] ?>" alt="Ilustrační obrázek článku">
-        </section>
-        <section>
-            <p><?= htmlspecialchars($article->getContent()); ?></p>
-        </section>
-        <section>
-            <p><?= htmlspecialchars((string)$article->getAuthorId()) ?></p>
-            <p><?= htmlspecialchars($article->getCreatedAt()) ?></p>
-        </section>
-    </article>
+    <div class="container">
+        <article class="article-page">
+            <h1><?= htmlspecialchars($article->getTitle()); ?></h1>
+            <h2><?= htmlspecialchars($article->getSubtitle()); ?></h2>
+            <section class="article-image"> <?php // TODO: Image slideshow?>
+                <img src="<?= $article->getImagePaths()[0] ?>" alt="Ilustrační obrázek článku">
+            </section>
+            <section>
+                <p><?= htmlspecialchars($article->getContent()); ?></p>
+            </section>
+            <section class="article-data">
+                <p>
+                    <span>
+                        Autor:
+                    </span>
+                    <?php
+            try {
+                echo htmlspecialchars(User::getUserById($article->getAuthorId())->getFullname());
+            } catch (Exception $e) {
+                echo htmlspecialchars('Autor neznámý');
+            }
+?>
+                </p>
+                <p><?= htmlspecialchars(DateHelper::dateTopPrettyString($article->getCreatedAt())) ?></p>
+            </section>
+        </article>
+        <?php
+        if (isset($_SESSION['user_data'])) {
+            $user = $_SESSION['user_data'];
+            if ($user->isEditor()) {
+                echo '<a href="'. UrlHelper::baseUrl('article/edit?article-id='.$article->getId()). '"><button>Upravit článek</button></a>';
+            }
+        }
+?>
+    </div>
 </main>

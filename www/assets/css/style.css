@@ -37,7 +37,6 @@ body {
     background-color: light-dark(var(--background-light), var(--background-dark));
 }
 
-
 /* Reseting elements / setting global styling */
 a {
     text-decoration: none;
@@ -103,7 +102,7 @@ input {
     }
 
     &[type="file"] {
-        max-height: 1.2rem;
+        max-height: 2.1rem;
 
         font-size: 1rem;
         font-weight: normal;
@@ -184,6 +183,17 @@ span.grayed-out {
 /* Parts of page */
 section, article {
     background-color: light-dark(var(--section-background-light), var(--section-background-dark));
+}
+
+footer {
+    margin-top: 2rem;
+    padding: 1rem;
+
+    text-align: center;
+
+    p {
+        color: grey;
+    }
 }
 
 

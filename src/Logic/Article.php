@@ -13,7 +13,7 @@ class Article
     private string $title;
     private string $subtitle;
     private string $content;
-    private string $uri;
+    private string $slug;
     private array $imagePaths;
     private int $authorId;
     private string $createdAt;
@@ -28,13 +28,13 @@ class Article
      * @param int $authorId
      * @param string $createdAt
      */
-    public function __construct(int $id, string $title, string $subtitle, string $content, string $uri, array $imagePaths, int $authorId, string $createdAt)
+    public function __construct(int $id, string $title, string $subtitle, string $content, string $slug, array $imagePaths, int $authorId, string $createdAt)
     {
         $this->id = $id;
         $this->title = $title;
         $this->subtitle = $subtitle;
         $this->content = $content;
-        $this->uri = $uri;
+        $this->slug = $slug;
         $this->imagePaths = $imagePaths;
         $this->authorId = $authorId;
         $this->createdAt = $createdAt;
@@ -49,13 +49,17 @@ class Article
     {
         $articleData = DatabaseConnector::selectArticle(slug: $slug);
 
+        if (!$articleData) {
+            throw new Exception('Nepodařilo se načíst článek z databáze.');
+        }
+
         try {
             return new Article(
                 id: (int)$articleData['id'],
                 title: $articleData['title'],
                 subtitle: $articleData['subtitle'],
                 content: $articleData['content'],
-                uri: $articleData['uri'],
+                slug: $articleData['slug'],
                 imagePaths: explode(', ', $articleData['image_paths']),
                 authorId: (int)$articleData['author_id'],
                 createdAt: $articleData['created_at'],
@@ -100,9 +104,9 @@ class Article
     /**
      * @return string
      */
-    public function getUri(): string
+    public function getSlug(): string
     {
-        return $this->uri;
+        return $this->slug;
     }
 
     /**

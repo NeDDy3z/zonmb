@@ -8,7 +8,7 @@ if (!isset($article)) {
 }
 
 ?>
-<article class="news-article">
+<article class="article-news">
     <div class="news-article-text">
         <a href="<?= UrlHelper::baseUrl('article/'. $article->getSlug()); ?>">
             <h1><?= htmlspecialchars($article->getTitle()); ?></h1>

@@ -9,21 +9,25 @@ use Logic\DatabaseException;
 class ArticleController
 {
     private string $page = ROOT . 'src/Views/article.php';
+    private string $slug;
+
+    public function __construct(string $slug)
+    {
+        $this->slug = $slug;
+    }
 
     /**
      * @throws Exception
      */
     public function render(): void
     {
-        $slug = $_GET['slug'] ?? null;
-
-        if (!$slug) {
+        if ($this->slug === '') {
             (new ErrorController(404))->render();
             return;
         }
 
         try {
-            $article = Article::getArticleBySlug($slug);
+            $article = Article::getArticleBySlug($this->slug);
         } catch (Exception $e) {
             (new ErrorController(404))->render();
             return;

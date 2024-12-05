@@ -62,26 +62,26 @@ class UserController extends Controller
     private function loadUserData(): ?User
     {
         // If user is logged in proceed, else redirect to login page
-        if (isset($_SESSION['username'])) {
+        if (isset($_SESSION['user_data'])) {
             $_SESSION['cache_time'] = $_SESSION['cache_time'] ?? 0;
 
             // If user_data have been set and aren't older more than ~30 minutes, load them, else pull new from database
-            if (isset($_SESSION['user_data']) && (time() - $_SESSION['cache_time'] < 1800)) {
+            if (time() - $_SESSION['cache_time'] < 1800) {
                 $user = $_SESSION['user_data'];
             } else {
                 try {
-                    $user = new User($_SESSION['user_data']->getUsername());
+                    $user = User::getUserByUsername($_SESSION['user_data']->getUsername());
                     $_SESSION['user_data'] = $user;
                     $_SESSION['cache_time'] = time();
 
                     return $user;
 
                 } catch (Exception $e) {
-                    Router::redirect(path: 'login', query: 'error', parameters: 'loginInvalidUsername');
+                    Router::redirect(path: 'login', query: ['error' => 'loginInvalidUsername']);
                 }
             }
         } else {
-            Router::redirect(path: 'login', query: 'error', parameters: 'not-logged-in');
+            Router::redirect(path: 'login', query: ['error' => 'not-logged-in']);
         }
 
         return $user ?? null;
@@ -96,13 +96,13 @@ class UserController extends Controller
         $pfpImage = $_FILES['profile-image'] ?? null;
 
         if (!$pfpImage) {
-            Router::redirect(path: 'user', query: 'error', parameters: 'missingImage');
+            Router::redirect(path: 'user', query: ['error' =>   'missingImage']);
         }
 
         try {
             $this->validator->validateImage($pfpImage);
         } catch (Exception $e) {
-            Router::redirect(path: 'user', query: 'error', parameters: $e->getMessage());
+            Router::redirect(path: 'user', query: ['error' =>   $e->getMessage()]);
         }
 
         $pfpImagePath = 'assets/uploads/profile_images/' . $_SESSION['username'] . '.' . explode('/', $pfpImage['type'])[1];
@@ -121,7 +121,7 @@ class UserController extends Controller
         // Update user data
         $_SESSION['user_data']->setImage($pfpImagePath);
 
-        Router::redirect(path: 'user', query: 'success', parameters: 'pfpUpload');
+        Router::redirect(path: 'user', query: ['success' =>   'pfpUpload']);
     }
 
     /**
@@ -139,7 +139,7 @@ class UserController extends Controller
     {
         session_unset();
         session_destroy();
-        Router::redirect(path: '', query: 'popup', parameters: 'Odhlášení proběhlo úspěšně');
+        Router::redirect(path: '', query: ['popup' =>   'Odhlášení proběhlo úspěšně']);
     }
 
 

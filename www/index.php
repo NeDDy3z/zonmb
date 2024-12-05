@@ -35,5 +35,5 @@ try {
     Router::route(url: $url, method: $_SERVER['REQUEST_METHOD']);
 } catch (Exception $e) {
     $error_msg = 'Server Error 500. Error message: ' . $e->getMessage();
-    Router::redirect(path: '', query: 'popup', parameters: $error_msg);
+    Router::redirect(path: '', query: ['popup' => $error_msg]);
 }

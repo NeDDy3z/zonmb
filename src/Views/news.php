@@ -9,8 +9,13 @@ use Helpers\UrlHelper;
         <h1>Novinky</h1>
         <?php
         if (isset($_SESSION['user_data'])) {
-            if ($_SESSION['user_data']->getRole() === 'admin' or $_SESSION['user']->getRole() === 'editor' or $_SESSION['user']->getRole() === 'owner') {
-                echo '<a href="'. UrlHelper::baseUrl('article/add').'"><button>Přidat článek</button></a>';
+            $user = $_SESSION['user_data'];
+
+            switch ($user->getRole()) {
+                case 'admin':
+                case 'editor':
+                case 'owner':
+                    echo '<a href="'. UrlHelper::baseUrl('article/add').'"><button>Přidat článek</button></a>';
             }
         }
 ?>

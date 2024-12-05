@@ -1,9 +1,11 @@
 <?php
-use Logic\Router;
+
+use Helpers\DateHelper;
 use Helpers\UrlHelper;
+use Logic\Router;
 
 if (!isset($_SESSION['user_data'])) {
-    Router::redirect(path: 'user', query: 'popup', parameters: 'Nepodařilo se načíst uživatelská data, odhlašte se a přihlašte se prosím znovu, nebo kontaktujte administrátora.');
+    Router::redirect(path: 'user', query: ['popup' => 'Nepodařilo se načíst uživatelská data, odhlašte se a přihlašte se prosím znovu, nebo kontaktujte administrátora.']);
     exit;
 }
 
@@ -28,21 +30,14 @@ $user = $_SESSION['user_data'];
                     <img src="<?= UrlHelper::baseUrl($user->getImage()) ?>" alt="profilový obrázek" draggable="true">
                 </div>
                 <div id="user-info">
-                    <h3><?= htmlspecialchars($user->getUsername()); ?></h3>
+                    <h3><?= htmlspecialchars($user->getUsername()) .' - '. htmlspecialchars($user->getFullname()) ?></h3>
                     <ul>
                         <li><i><?= $userRoles[$user->getRole()]; ?></i></li>
                     </ul>
                     <ul>
                         <li>
                             <span class="grayed-out">registrace<br>
-                                <?php
-                                try {
-                                    $date = new DateTime($user->getCreatedAt());
-                                    echo $date->format('d.m.Y');
-                                } catch (Exception $e) {
-                                    echo 'N/A';
-                                }
-?>
+                                <?= DateHelper::dateTopPrettyString($user->getCreatedAt())  ?>
                             </span>
                         </li>
                     </ul>

@@ -11,6 +11,7 @@ class User
 {
     private int $id;
     private string $username;
+    private string $fullname;
     private string $image;
     private string $role;
     private string $createdAt;
@@ -23,10 +24,11 @@ class User
      * @param string $role
      * @param string $createdAt
      */
-    public function __construct(int $id, string $username, string $image, string $role, string $createdAt)
+    public function __construct(int $id, string $username, string $fullname, string $image, string $role, string $createdAt)
     {
         $this->id = $id;
         $this->username = $username;
+        $this->fullname = $fullname;
         $this->image = $image;
         $this->role = $role;
         $this->createdAt = $createdAt;
@@ -41,12 +43,13 @@ class User
      */
     public static function getUserByUsername(string $username): User
     {
-        $userData = DatabaseConnector::selectUser(username: $username);
-
         try {
+            $userData = DatabaseConnector::selectUser(username: $username);
+
             return new User(
                 id: (int)$userData['id'],
                 username: $userData['username'],
+                fullname: $userData['fullname'],
                 image: file_exists($userData['profile_image_path']) ? $userData['profile_image_path'] : DEFAULT_PFP,
                 role: $userData['role'],
                 createdAt: $userData['created_at'],
@@ -57,16 +60,39 @@ class User
     }
 
     /**
+     * @param int $id
+     * @return User
+     * @throws DatabaseException
+     */
+    public static function getUserById(int $id): User
+    {
+        try {
+            $userData = DatabaseConnector::selectUser(id: $id);
+
+            return new User(
+                id: (int)$userData['id'],
+                username: $userData['username'],
+                fullname: $userData['fullname'],
+                image: file_exists($userData['profile_image_path']) ? $userData['profile_image_path'] : DEFAULT_PFP,
+                role: $userData['role'],
+                createdAt: $userData['created_at'],
+            );
+        } catch (Exception $e) {
+            throw new Exception('Nepodařilo se načíst uživatelská data z databáze. ' . $e->getMessage());
+        }
+    }
+
+
+    /**
      * Get if user can edit articles
      * @return bool
      */
     public function isEditor(): bool
     {
-        if ($this->role === 'editor' || $this->role === 'admin' || $this->role === 'owner') {
-            return true;
-        } else {
-            return false;
-        }
+        return match ($this->role) {
+            'admin', 'editor', 'owner' => true,
+            default => false,
+        };
     }
 
     /**
@@ -85,14 +111,11 @@ class User
         return $this->username;
     }
 
-    /**
-     * @param string $username
-     * @return void
-     */
-    public function setUsername(string $username): void
+    public function getFullname(): string
     {
-        $this->username = $username;
+        return $this->fullname;
     }
+
 
     /**
      * @return string
@@ -103,29 +126,11 @@ class User
     }
 
     /**
-     * @param string $image
-     * @return void
-     */
-    public function setImage(string $image): void
-    {
-        $this->image = $image;
-    }
-
-    /**
      * @return string
      */
     public function getRole(): string
     {
         return $this->role;
-    }
-
-    /**
-     * @param string $role
-     * @return void
-     */
-    public function setRole(string $role): void
-    {
-        $this->role = $role;
     }
 
     /**

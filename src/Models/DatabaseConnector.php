@@ -187,16 +187,23 @@ class DatabaseConnector
     // User manipulation
     /**
      * Get user data from database
-     * @param string $username
+     * @param int|null $id
+     * @param string|null $username
      * @return array<string, float|int|string|null>|null
      * @throws DatabaseException
      */
-    public static function selectUser(string $username): ?array
+    public static function selectUser(?int $id = null, ?string $username = null): ?array
     {
+        if (!$id and !$username) {
+            return null;
+        }
+
+        $condition = ($id) ? 'WHERE id = ' . $id : 'WHERE username = "' . $username . '"';
+
         return self::select(
             table: 'user',
             items: ['*'],
-            conditions: 'WHERE username = "' . $username . '"',
+            conditions: $condition,
         )[0];
     }
 
@@ -308,23 +315,23 @@ class DatabaseConnector
 
     /**
      * @param string $slug
-     * @return string[]
+     * @return array<string>|null
      * @throws DatabaseException
      */
-    public static function selectArticle(string $slug): array
+    public static function selectArticle(string $slug): ?array
     {
         return self::select(
             table: 'article',
             items: ['*'],
-            conditions: 'WHERE slug = "' . $slug . '"',
+            conditions: 'WHERE slug = "' . $slug . '" LIMIT 1',
         )[0];
     }
 
     /**
-     * @return array<array<string>>
+     * @return array<array<string>>|null
      * @throws DatabaseException
      */
-    public static function selectArticles(): array
+    public static function selectArticles(): ?array
     {
         return self::select(
             table: 'article',

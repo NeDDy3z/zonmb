@@ -62,15 +62,14 @@ class Router
 
     /**
      * @param string $url
-     * @param string|null $subUrl
      * @return void
      */
     private static function GET(string $url): void
     {
-        $controller = match ($url) {
+        $url = explode('/', $url);
+        $controller = match ($url[0]) {
             '' => new HomepageController(),
-            'article' => new ArticleController(),
-            'article/add' => (new ArticleController())->addArticle(),
+            'article' => new ArticleController($url[1]),
             'login' => new LoginController(),
             'logout' => (new UserController())->logout(),
             'news' => new NewsController(),

@@ -181,7 +181,7 @@ section.userpage {
                 }
 
                 input {
-                    max-width: 11rem;
+                    max-width: 13rem;
                 }
             }
         }
@@ -190,7 +190,7 @@ section.userpage {
 
 
 /* News */
-article.news-article {
+article.article-news {
     padding: 1rem;
     margin-top: 2rem;
 
@@ -247,7 +247,7 @@ article.news-article {
 }
 
 @media (min-width: 50rem) {
-    article.news-article {
+    article.article-news {
         flex-direction: row;
 
         .news-article-text {
@@ -265,7 +265,7 @@ article.news-article {
 }
 
 @media (min-width: 80rem) {
-    article.news-article {
+    article.article-news {
         max-height: 13rem;
 
         .news-article-text {
@@ -289,3 +289,51 @@ article.news-article {
         }
     }
 }
+
+
+/* Article page */
+article.article-page {
+    padding: 1rem;
+    margin: 2rem 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+    overflow: clip;
+    text-overflow: ellipsis;
+
+    gap: 2rem;
+
+    h1 {
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+        font-weight: normal;
+    }
+
+    section.article-image {
+        width: 100%;
+
+        img {
+            width: 100%;
+
+            object-fit: contain;
+            border-radius: 1rem;
+        }
+    }
+
+
+    .article-data {
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+    }
+}
+
+/* No need for media queries here */
