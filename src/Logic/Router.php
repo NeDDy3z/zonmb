@@ -19,16 +19,17 @@ class Router
     /**
      * Redirect to correct path and/or with query
      * @param string $path
-     * @param string|null $query
-     * @param string|null $parameters
+     * @param array<string, string> $query
      * @param int $responseCode
      * @return void
      */
-    public static function redirect(string $path, ?string $query = null, ?string $parameters = null, int $responseCode = 200): void
+    public static function redirect(string $path, ?array $query = null, int $responseCode = 200): void
     {
         $resultQuery = '';
-        if ($query && $parameters) {
-            $resultQuery = '?' . $query . '=' . urlencode($parameters);
+        if ($query) {
+            foreach ($query as $key => $value) {
+                $resultQuery .= '&' . $key . '=' . $value;
+            }
         }
 
         http_response_code($responseCode);
