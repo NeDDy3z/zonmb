@@ -209,15 +209,16 @@ class DatabaseConnector
 
     /**
      * Get all users from database
+     * @param string|null $conditions
      * @return array<array<string, float|int|string|null>|int<0, max>>|null
      * @throws DatabaseException
      */
-    public static function selectUsers(): ?array
+    public static function selectUsers(?string $conditions = null): ?array
     {
         return self::select(
             table: 'user',
-            items: ['username', 'role', 'created_at'],
-            conditions: null,
+            items: ['*'],
+            conditions: $conditions,
         );
     }
 
@@ -328,15 +329,16 @@ class DatabaseConnector
     }
 
     /**
+     * @param string|null $conditions
      * @return array<array<string>>|null
      * @throws DatabaseException
      */
-    public static function selectArticles(): ?array
+    public static function selectArticles(?string $conditions = null): ?array
     {
         return self::select(
             table: 'article',
             items: ['*'],
-            conditions: null,
+            conditions: $conditions,
         );
     }
 }

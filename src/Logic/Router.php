@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Logic;
 
+use Controllers\AdminController;
 use Controllers\ArticleController;
 use Controllers\ErrorController;
 use Controllers\HomepageController;
@@ -25,12 +26,14 @@ class Router
      */
     public static function redirect(string $path, ?array $query = null, int $responseCode = 200): void
     {
-        $resultQuery = '';
+        $resultQuery = [];
         if ($query) {
             foreach ($query as $key => $value) {
-                $resultQuery .= '&' . $key . '=' . $value;
+                $resultQuery[] = $key . '=' . $value;
             }
         }
+
+        $resultQuery = empty($resultQuery) ? '' : '?' . implode('&', $resultQuery);
 
         http_response_code($responseCode);
         header(header: ('location: '. BASE_URL .'/' . $path . $resultQuery));
@@ -69,6 +72,7 @@ class Router
         $url = explode('/', $url);
         $controller = match ($url[0]) {
             '' => new HomepageController(),
+            'admin' => new AdminController(),
             'article' => new ArticleController($url[1]),
             'login' => new LoginController(),
             'logout' => (new UserController())->logout(),

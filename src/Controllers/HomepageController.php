@@ -6,7 +6,7 @@ namespace Controllers;
 
 class HomepageController extends Controller
 {
-    private string $path = '../src/Views/homepage.php';
+    private string $path = ROOT . 'src/Views/homepage.php';
 
 
     public function render(): void

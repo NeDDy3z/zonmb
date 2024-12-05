@@ -30,7 +30,6 @@ $url = str_contains(haystack: $url, needle: '~vanekeri/') ? $url = str_replace(s
 
 // Routing
 session_start();
-var_dump($_GET);
 try {
     Router::route(url: $url, method: $_SERVER['REQUEST_METHOD']);
 } catch (Exception $e) {

@@ -77,11 +77,11 @@ $user = $_SESSION['user_data'];
         </div>
     </section>
     <?php
-        if ($user->getRole() === 'admin') {
+        if ($user->isAdmin()) {
             ?>
             <section class="userpage">
                 <div class="user-container user-change">
-                    <h3><a href="<?= UrlHelper::baseUrl('admin') ?>">Admin stránka</a></h3>
+                    <h3><a href="<?= UrlHelper::baseUrl('admin') ?>"><button title="Stránka s možnostmi upravy uživatelu a članku na jednom mistě.">Admin stránka</button></a></h3>
                 </div>
             </section>
             <?php

@@ -82,6 +82,17 @@ class User
         }
     }
 
+    /**
+     * Get if user can manage other users
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return match ($this->role) {
+            'admin', 'owner' => true,
+            default => false,
+        };
+    }
 
     /**
      * Get if user can edit articles
