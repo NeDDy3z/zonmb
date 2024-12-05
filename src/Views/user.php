@@ -3,7 +3,7 @@ use Logic\Router;
 use Helpers\UrlHelper;
 
 if (!isset($_SESSION['user_data'])) {
-    Router::redirect(path: 'user', query: 'popup', parameters: 'Nepodařilo se načíst uživatelská data, přihlašte se prosím znovu, nebo kontaktujte administrátora.');
+    Router::redirect(path: 'user', query: 'popup', parameters: 'Nepodařilo se načíst uživatelská data, odhlašte se a přihlašte se prosím znovu, nebo kontaktujte administrátora.');
     exit;
 }
 
@@ -93,3 +93,5 @@ $user = $_SESSION['user_data'];
         }
 ?>
 </main>
+<script src="<?= UrlHelper::baseUrl('assets/js/dataValidation.js') ?>"></script>
+<script src="<?= UrlHelper::baseUrl('assets/js/loadDataOnRefresh.js') ?>"></script>

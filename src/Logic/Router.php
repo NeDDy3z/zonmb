@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Logic;
 
+use Controllers\ArticleController;
 use Controllers\ErrorController;
 use Controllers\HomepageController;
 use Controllers\LoginController;
@@ -60,16 +61,18 @@ class Router
 
     /**
      * @param string $url
+     * @param string|null $subUrl
      * @return void
      */
     private static function GET(string $url): void
     {
         $controller = match ($url) {
             '' => new HomepageController(),
+            'article' => new ArticleController(),
+            'article/add' => (new ArticleController())->addArticle(),
             'login' => new LoginController(),
             'logout' => (new UserController())->logout(),
             'news' => new NewsController(),
-            'news/add' => new NewsController(ROOT . 'src/Views/Partials/news-add.php'),
             'register' => new RegisterController(),
             'testing' => new TestingController(),
             'user' => new UserController(),
@@ -94,6 +97,7 @@ class Router
         match ($url) {
             'login' => (new LoginController())->login(),
             'register' => (new RegisterController())->register(),
+            'article/add' => (new ArticleController())->addArticle(),
             'testing/image-upload' => (new TestingController())->testImageUpload(),
             'user/profile-image' => (new UserController())->uploadImage(),
             default => (new ErrorController())->render(),

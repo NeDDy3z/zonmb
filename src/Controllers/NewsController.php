@@ -13,22 +13,12 @@ class NewsController extends Controller
     private string $page = ROOT . 'src/Views/news.php';
 
     /**
-     * @param string|null $page
-     */
-    public function __construct(string $page = null)
-    {
-        if ($page) {
-            $this->page = $page;
-        }
-    }
-
-    /**
      * @return void
      * @throws DatabaseException
      */
     public function render(): void
     {
-        // TODO: Implement pagination
+        // TODO: Implement pagination - Move to XMLHTTPRequest
         $articles = $this->loadArticles();
 
         require_once $this->page; // Load page content

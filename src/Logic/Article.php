@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Logic;
 
+use Exception;
+use Models\DatabaseConnector;
+
 class Article
 {
     private int $id;
@@ -11,7 +14,7 @@ class Article
     private string $subtitle;
     private string $content;
     private string $uri;
-    private array $imagePath;
+    private array $imagePaths;
     private int $authorId;
     private string $createdAt;
 
@@ -32,9 +35,34 @@ class Article
         $this->subtitle = $subtitle;
         $this->content = $content;
         $this->uri = $uri;
-        $this->imagePath = $imagePaths;
+        $this->imagePaths = $imagePaths;
         $this->authorId = $authorId;
         $this->createdAt = $createdAt;
+    }
+
+
+    /**
+     * @throws DatabaseException
+     * @throws Exception
+     */
+    public static function getArticleBySlug(string $slug): Article
+    {
+        $articleData = DatabaseConnector::selectArticle(slug: $slug);
+
+        try {
+            return new Article(
+                id: (int)$articleData['id'],
+                title: $articleData['title'],
+                subtitle: $articleData['subtitle'],
+                content: $articleData['content'],
+                uri: $articleData['uri'],
+                imagePaths: explode(', ', $articleData['image_paths']),
+                authorId: (int)$articleData['author_id'],
+                createdAt: $articleData['created_at'],
+            );
+        } catch (Exception $e) {
+            throw new Exception('Nepodařilo se načíst článek z databáze. ' . $e->getMessage());
+        }
     }
 
     /**
@@ -82,7 +110,8 @@ class Article
      */
     public function getImagePaths(): array
     {
-        return $this->imagePath;
+        /** @var array<string> $this */
+        return $this->imagePaths;
     }
 
     /**

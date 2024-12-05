@@ -13,7 +13,7 @@ RewriteBase /~vanekeri
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ index.php [QSA,L]
-
+RewriteRule ^article/([^/]+)$ index.php?slug=$1 [L,QSA]
 
 
 

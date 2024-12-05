@@ -44,3 +44,7 @@ error_reporting(E_ALL);
 if (!defined('BASE_URL')) {
     define('BASE_URL', '');
 }
+
+if (!defined('DEFAULT_PFP')) {
+    define('DEFAULT_PFP', 'assets/uploads/profile_images/_default.png');
+}

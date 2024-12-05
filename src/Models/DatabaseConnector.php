@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Models;
 
+use Helpers\ReplaceHelper;
 use PDO;
 use PDOException;
 use Logic\DatabaseException;
@@ -288,22 +289,35 @@ class DatabaseConnector
      * @param string $title
      * @param string $subtitle
      * @param string $content
-     * @param string|null $uri
      * @param array<string> $imagePaths
      * @param int $authorId
      * @return void
      * @throws DatabaseException
      */
-    public static function insertArticle(string $title, string $subtitle, string $content, string $uri = null, array $imagePaths = [], int $authorId = 1): void
+    public static function insertArticle(string $title, string $subtitle, string $content, array $imagePaths = [], int $authorId = 1): void
     {
-        $uri ??= 'news/'.urlencode($title);
+        $slug = ReplaceHelper::getUrlFriendlyString($title);
         $imagePaths = implode(',', $imagePaths);
 
         self::insert(
             table: 'article',
-            items: ['title', 'subtitle', 'content', 'uri', 'image_path', 'author_id', 'created_at'],
-            values: [$title, $subtitle, $content, $uri, $imagePaths, $authorId, date('Y-m-d')],
+            items: ['title', 'subtitle', 'content', 'slug', 'image_path', 'author_id', 'created_at'],
+            values: [$title, $subtitle, $content, $slug, $imagePaths, $authorId, date('Y-m-d')],
         );
+    }
+
+    /**
+     * @param string $slug
+     * @return string[]
+     * @throws DatabaseException
+     */
+    public static function selectArticle(string $slug): array
+    {
+        return self::select(
+            table: 'article',
+            items: ['*'],
+            conditions: 'WHERE slug = "' . $slug . '"',
+        )[0];
     }
 
     /**

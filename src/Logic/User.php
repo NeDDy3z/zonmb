@@ -17,25 +17,55 @@ class User
 
 
     /**
+     * @param int $id
      * @param string $username
+     * @param string $image
+     * @param string $role
+     * @param string $createdAt
+     */
+    public function __construct(int $id, string $username, string $image, string $role, string $createdAt)
+    {
+        $this->id = $id;
+        $this->username = $username;
+        $this->image = $image;
+        $this->role = $role;
+        $this->createdAt = $createdAt;
+    }
+
+
+    /**
+     * @param string $username
+     * @return User
      * @throws DatabaseException
      * @throws Exception
      */
-    public function __construct(string $username)
+    public static function getUserByUsername(string $username): User
     {
-        // TODO return empty
-        $this->username = $username;
-
         $userData = DatabaseConnector::selectUser(username: $username);
 
         try {
-            $this->id = (int)$userData['id'];
-            $this->username = $userData['username'];
-            $this->role = $userData['role'];
-            $this->createdAt = $userData['created_at'];
-            $this->image = file_exists($userData['profile_image_path']) ? $userData['profile_image_path'] : 'assets/uploads/profile_images/_default.png';
+            return new User(
+                id: (int)$userData['id'],
+                username: $userData['username'],
+                image: file_exists($userData['profile_image_path']) ? $userData['profile_image_path'] : DEFAULT_PFP,
+                role: $userData['role'],
+                createdAt: $userData['created_at'],
+            );
         } catch (Exception $e) {
             throw new Exception('Nepodařilo se načíst uživatelská data z databáze. ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Get if user can edit articles
+     * @return bool
+     */
+    public function isEditor(): bool
+    {
+        if ($this->role === 'editor' || $this->role === 'admin' || $this->role === 'owner') {
+            return true;
+        } else {
+            return false;
         }
     }
 
