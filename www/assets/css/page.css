@@ -337,3 +337,158 @@ article.article-page {
 }
 
 /* No need for media queries here */
+
+
+/* Admin page */
+.tables {
+    width: 95vw !important;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    h1 {
+        text-align: center;
+    }
+
+    #warning-display {
+        display: none;
+        text-align: center;
+    }
+
+    #warning-display-articles {
+        display: none;
+        text-align: center;
+    }
+
+    section {
+        margin: 2rem 0;
+        padding: 1rem;
+        border-radius: 1rem;
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            th, td {
+                max-width: 12rem;
+                padding: .5rem;
+
+                text-align: left;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                border-bottom: 2px solid light-dark(var(--background-dark), var(--background-light));
+            }
+        }
+    }
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: scroll;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 900;
+
+    .overlay-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 20rem;
+        min-height: 5rem;
+        max-height: 70vh;
+        z-index: 1000;
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+        background-color: light-dark(var(--background-light), var(--background-dark));
+        border-radius: 1rem;
+        padding: 1rem;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .overlay-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            text-align: left;
+        }
+
+        h1, p, img {
+            margin: 1rem;
+
+            border-radius: 1rem;
+        }
+    }
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+        padding: .5rem;
+
+        text-align: left;
+        border-bottom: 2px solid light-dark(var(--background-dark), var(--background-light));
+    }
+}
+
+@media (max-width: 50rem) {
+    .tables {
+        .table-data {
+            display: none;
+        }
+
+        #warning-display {
+            display: block;
+        }
+    }
+}
+
+@media (max-width: 80rem) {
+    .tables {
+        .articles-table {
+            display: none;
+        }
+
+        #warning-display-articles {
+            display: block;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
