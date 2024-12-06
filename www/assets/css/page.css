@@ -382,6 +382,10 @@ article.article-page {
 
                 border-bottom: 2px solid light-dark(var(--background-dark), var(--background-light));
             }
+
+            td.button {
+                text-align: right;
+            }
         }
     }
 }

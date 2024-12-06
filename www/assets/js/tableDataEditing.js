@@ -28,7 +28,15 @@ function closeOverlay() {
     overlay.querySelectorAll('img').forEach(img => img.remove()); // remove images from overlay
 }
 
-//
+
+// Inline editing
+function openEdits() {
+    let editable = document.querySelectorAll('.editable');
+    editable.forEach(el => {
+        el.setAttribute('contenteditable', 'true');
+        el.style.backgroundColor = '#f9f9f9';
+    });
+}
 
 
 // Event listeners

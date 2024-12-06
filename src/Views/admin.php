@@ -40,9 +40,9 @@ if (!$_SESSION['user_data']->isAdmin()) {
                                 <td>'. $user->getId() .'</td>
                                 <td>'. htmlspecialchars($user->getUsername()) .'</td>
                                 <td>'. htmlspecialchars($user->getFullname()) .'</td>
-                                <td class="edit role">'. htmlspecialchars($user->getRole()) .'</td>
+                                <td class="editable role">'. htmlspecialchars($user->getRole()) .'</td>
                                 <td>'. htmlspecialchars($user->getCreatedAt()) .'</td>
-                                <td><button>Upravit</button></td>
+                                <td class="button"><button>Upravit</button></td>
                             </tr>';
                     }
                 }
@@ -80,7 +80,7 @@ if (!$_SESSION['user_data']->isAdmin()) {
                                 <td>'. implode(',', $article->getImagePaths()) .'</td> <!--TODO: ADD IMAGE PREVIEW-->
                                 <td>'. $article->getAuthorId() .'</td>
                                 <td>'. $user->getCreatedAt() .'</td>
-                                <td><a href="'. UrlHelper::baseUrl('article/edit?id='. $article->getId()) .'"><button>Upravit</button></a></td>
+                                <td class="button"><a href="'. UrlHelper::baseUrl('article/edit?id='. $article->getId()) .'"><button>Upravit</button></a></td>
                             </tr>';
                     }
                 }
