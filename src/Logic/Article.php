@@ -47,7 +47,7 @@ class Article
      */
     public static function getArticleBySlug(string $slug): Article
     {
-        $articleData = DatabaseConnector::selectArticle(slug: $slug);
+        $articleData = DatabaseConnector::selectArticle('WHERE slug = "'. $slug .'" LIMIT 1;');
 
         if (!$articleData) {
             throw new Exception('Nepodařilo se načíst článek z databáze.');
@@ -60,7 +60,40 @@ class Article
                 subtitle: $articleData['subtitle'],
                 content: $articleData['content'],
                 slug: $articleData['slug'],
-                imagePaths: explode(', ', $articleData['image_paths']),
+                imagePaths: explode(',', $articleData['image_paths']),
+                authorId: (int)$articleData['author_id'],
+                createdAt: $articleData['created_at'],
+            );
+        } catch (Exception $e) {
+            throw new Exception('Nepodařilo se načíst článek z databáze. ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * @param string|null $id
+     * @return Article|null
+     * @throws DatabaseException
+     */
+    public static function getArticleById(?string $id): ?Article
+    {
+        if (!$id) {
+            return null;
+        }
+
+        $articleData = DatabaseConnector::selectArticle('WHERE id = '. $id .' LIMIT 1;');
+
+        if (!$articleData) {
+            throw new Exception('Nepodařilo se načíst článek z databáze.');
+        }
+
+        try {
+            return new Article(
+                id: (int)$articleData['id'],
+                title: $articleData['title'],
+                subtitle: $articleData['subtitle'],
+                content: $articleData['content'],
+                slug: $articleData['slug'],
+                imagePaths: explode(',', $articleData['image_paths']),
                 authorId: (int)$articleData['author_id'],
                 createdAt: $articleData['created_at'],
             );

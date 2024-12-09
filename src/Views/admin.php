@@ -1,15 +1,5 @@
 <?php
-
 use Helpers\UrlHelper;
-use Logic\Router;
-
-if (!isset($_SESSION['user_data'])) {
-    Router::redirect(path: 'user', query: ['error' => 'loggedOut']);
-}
-
-if (!$_SESSION['user_data']->isAdmin()) {
-    Router::redirect(path: 'user', query: ['error' => 'noPrivileges']);
-}
 
 ?>
 
@@ -18,75 +8,55 @@ if (!$_SESSION['user_data']->isAdmin()) {
         <h1>Administrace</h1>
         <p id="warning-display">Tato stránka není podporovaná v portrétním režimu, zkuste otočtit prosím zařízení na šířku, nebo použijte počítač.</p>
         <section class="table-data">
-            <h2>Uživatelé</h2>
+            <div class="table-header">
+                <h2>Uživatelé</h2>
+                <button id="add-user">Přidat uživatele</button>
+                <input type="text" id="search-user" placeholder="Vyhledat uživatele...">
+            </div>
             <table class="users-table">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Uživatelské jméno</th>
-                    <th>Celé jméno</th>
-                    <th>Role</th>
-                    <th>Datum registrace</th>
+                    <th><a href="#" class="sort" data-sort="id">ID</a></th>
+                    <th><a href="#" class="sort" data-sort="username">Uživatelské jméno</a></th>
+                    <th><a href="#" class="sort" data-sort="fullname">Celé jméno</a></th>
+                    <th><a href="#" class="sort" data-sort="role">Role</a></th>
+                    <th><a href="#" class="sort" data-sort="created_at">Datum registrace</a></th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php
-                if (empty($users)) {
-                    echo '<tr><td colspan="5">Žádní uživatelé nenalezeni</td></tr>';
-                } else {
-                    foreach ($users as $user) {
-                        echo '<tr id="user-'. $user->getId() .'">
-                                <td>'. $user->getId() .'</td>
-                                <td>'. htmlspecialchars($user->getUsername()) .'</td>
-                                <td>'. htmlspecialchars($user->getFullname()) .'</td>
-                                <td class="editable role">'. htmlspecialchars($user->getRole()) .'</td>
-                                <td>'. htmlspecialchars($user->getCreatedAt()) .'</td>
-                                <td class="button"><button>Upravit</button></td>
-                            </tr>';
-                    }
-                }
-?>
                 </tbody>
             </table>
+            <div class="table-footer">
+                <p>Predchozi/Dalsi stranka   12/100...</p>
+            </div>
         </section>
         <section class="table-data">
-            <h2>Články</h2>
             <p id="warning-display-articles">Zobrazení článků není podporované, kvůli množštví informací, v takto uzkem formátu, zkuste otočtit prosím zařízení na šířku, nebo použijte počítač.</p>
+            <div class="table-header">
+                <h2>Články</h2>
+                <a href="<?= UrlHelper::baseUrl('article/add') ?>"><button>Přidat článek</button></a>
+                <input type="text" id="search-article" placeholder="Vyhledat článek...">
+            </div>
             <table class="articles-table">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Nadpis</th>
-                    <th>Podnadpis</th>
-                    <th>Obsah</th>
-                    <th>Obrázky</th>
-                    <th>Autor</th>
-                    <th>Datum zveřejnění</th>
+                    <th><a href="#" class="sort" data-sort="id">ID</a></th>
+                    <th><a href="#" class="sort" data-sort="title">Nadpis</a></th>
+                    <th><a href="#" class="sort" data-sort="subtitle">Podnadpis</a></th>
+                    <th><a href="#" class="sort" data-sort="content">Obsah</a></th>
+                    <th><a href="#" class="sort" data-sort="images">Obrázky</a></th>
+                    <th><a href="#" class="sort" data-sort="author">Autor</a></th>
+                    <th><a href="#" class="sort" data-sort="created_at">Datum zveřejnění</a></th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php
-                if (empty($articles)) {
-                    echo '<tr><td colspan="5">Žádné články nenalezeny</td></tr>';
-                } else {
-                    foreach ($articles as $article) {
-                        echo '<tr>
-                                <td>'. $article->getId() .'</td>
-                                <td>'. htmlspecialchars($article->getTitle()) .'</td>
-                                <td>'. htmlspecialchars($article->getSubtitle()) .'</td>
-                                <td>'. htmlspecialchars($article->getContent()) .'</td>
-                                <td>'. implode(',', $article->getImagePaths()) .'</td> <!--TODO: ADD IMAGE PREVIEW-->
-                                <td>'. $article->getAuthorId() .'</td>
-                                <td>'. $user->getCreatedAt() .'</td>
-                                <td class="button"><a href="'. UrlHelper::baseUrl('article/edit?id='. $article->getId()) .'"><button>Upravit</button></a></td>
-                            </tr>';
-                    }
-                }
-?>
                 </tbody>
             </table>
+            <div class="table-footer">
+                <p>Predchozi/Dalsi stranka   12/100...</p>
+            </div>
         </section>
     </div>
     <div class="overlay">
@@ -97,4 +67,5 @@ if (!$_SESSION['user_data']->isAdmin()) {
         </div>
     </div>
 </main>
-<script src="<?= UrlHelper::baseUrl('assets/js/tableDataEditing.js') ?>"></script>
+<script src="<?= UrlHelper::baseUrl('assets/js/table.js') ?>"></script>
+<script src="<?= UrlHelper::baseUrl('assets/js/overlay.js') ?>"></script>

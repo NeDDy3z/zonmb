@@ -2,8 +2,10 @@
 
 namespace Controllers;
 
+use Helpers\PrivilegeRedirect;
 use Logic\Article;
 use Logic\DatabaseException;
+use Logic\Router;
 use Logic\User;
 use Models\DatabaseConnector;
 
@@ -11,6 +13,20 @@ class AdminController extends Controller
 {
     private string $path = ROOT . 'src/Views/admin.php';
 
+    /**
+     * Construct
+     * Check if user is logged in when creating an instance of the class
+     */
+    public function __construct()
+    {
+        $privilegeRedirect = new PrivilegeRedirect();
+        $privilegeRedirect->redirectEditor();
+    }
+
+    /**
+     * Render page content
+     * @throws DatabaseException
+     */
     public function render(): void
     {
         $pageUsers = (isset($_GET['page-users'])) ? (int)$_GET['page-users'] : 1;

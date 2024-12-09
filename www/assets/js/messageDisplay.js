@@ -23,6 +23,7 @@ const errorMessages = {
     'loginError': 'Nesprávné jméno nebo heslo', // Login error
     'registerError': 'Registrace se nezdařila', // Registar error
     'updateError': 'Profil se nepodařilo upravit', // Profile update error
+    'notAuthorized': 'K tomuto obsahu nemáte povolený přístup', // Not authorized error
 
     // Article form errors - temporary
     'articleCreateError': 'Článek se nepodařilo vytvořit',
@@ -49,12 +50,6 @@ const errorMessages = {
 };
 
 // Show alert window popup with message
-if (URL_PARAMS.has('popup')) {
-    let value = URL_PARAMS.get('popup');
-    alert(value);
-}
-
-// Show form-success message
 if (URL_PARAMS.has('success')) {
     let value = URL_PARAMS.get('success');
 

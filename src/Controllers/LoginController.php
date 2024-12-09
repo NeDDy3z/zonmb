@@ -7,11 +7,29 @@ namespace Controllers;
 use Logic\DatabaseException;
 use Logic\Router;
 use Logic\User;
+use Logic\Validator;
 use Models\DatabaseConnector;
 
 class LoginController extends Controller
 {
-    private string $path = '../src/Views/login.php';
+    /**
+     * @var string $page
+     */
+    private string $path = ROOT . 'src/Views/login.php';
+
+    /**
+     * @var Validator $validator
+     */
+    private Validator $validator;
+
+
+    /**
+     * Construct
+     */
+    public function __construct()
+    {
+        $this->validator = new Validator();
+    }
 
     /**
      * Render webpage
@@ -48,11 +66,11 @@ class LoginController extends Controller
             }
 
             // Validate user<->password
-            if ($this->validateUserCredentials(
+            if ($this->validator->validateUserCredentials(
                 username: $username,
                 databaseUsername: (string)$databaseData['username'],
                 password: $password,
-                databasePassword: (string)$databaseData['password']
+                databasePassword: (string)$databaseData['password'],
             )) {
                 if (!isset($_SESSION)) {
                     session_start();
@@ -64,24 +82,10 @@ class LoginController extends Controller
                 $_SESSION['valid'] = true;
                 $_SESSION['timeout'] = time();
 
-                Router::redirect(path: 'user', query: ['success' => 'login']);
+                Router::redirect(path: 'users/'. $username, query: ['success' => 'login']);
             } else {
-                Router::redirect(path: 'login', query: ['error' => 'password']);
+                Router::redirect(path: 'login', query: ['error' => 'loginError']);
             }
         }
     }
-
-    /**
-     * Validate credentials
-     * @param string $username
-     * @param string $databaseUsername
-     * @param string $password
-     * @param string $databasePassword
-     * @return bool
-     */
-    private function validateUserCredentials(string $username, string $databaseUsername, string $password, string $databasePassword): bool
-    {
-        return ($username == $databaseUsername && password_verify($password, $databasePassword));
-    }
-
 }

@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Exception;
+use Helpers\PrivilegeRedirect;
 use Logic\DatabaseException;
 use Logic\IncorrectInputException;
 use Logic\Router;
@@ -15,7 +16,23 @@ class UserController extends Controller
     /**
      * @var string $page
      */
-    private string $page = '../src/Views/user.php'; // Import page content
+    private string $page = ROOT . 'src/Views/user.php'; // Import page content
+
+    /**
+     * @var string $subPage
+     */
+    private string $subPage;
+
+    /**
+     * User page
+     * @var string $user
+     */
+    private string $user;
+
+    /**
+     * @var Validator $validator
+     */
+    private Validator $validator;
 
     /**
      * @var array|string[] $userRole
@@ -26,18 +43,41 @@ class UserController extends Controller
         'owner' => 'Vlastník'
     ];
 
-    /**
-     * @var Validator $validator
-     */
-    private Validator $validator;
+
 
     /**
      * Construct
+     * @param string|null $user
+     * @param string|null $subPage
      */
-    public function __construct()
+    public function __construct(?string $user = null, ?string $subPage = null)
     {
-        $this->redirectHostUser();
+        $privilegeRedirect = new PrivilegeRedirect();
+        $privilegeRedirect->redirectHost();
+
         $this->validator = new Validator();
+
+        if (!$user && !$subPage) {
+            $privilegeRedirect->redirectEditor();
+            $this->getUsers();
+        }
+
+        $this->user = $user ?? '';
+        $this->subPage = $subPage ?? '';
+
+        switch ($subPage) {
+            case 'fullname':
+                $this->updateFullname();
+                break;
+            case 'profile-image':
+                $this->uploadImage();
+                break;
+            case 'logout':
+                $this->logout();
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -46,13 +86,15 @@ class UserController extends Controller
      */
     public function render(): void
     {
-        $this->redirectHostUser();
-
         // Check if user is logged in & load data
         $user = $this->loadUserData();
         $userRoles = $this->userRole;
 
-        require_once $this->page; // Load page content
+        if ($user->getUsername() === $this->user) {
+            require_once $this->page; // Load page content
+        } else {
+            Router::redirect(path: '', query: ['error' => 'notAuthorized']);
+        }
     }
 
     /**
@@ -142,6 +184,36 @@ class UserController extends Controller
         Router::redirect(path: '', query: ['popup' =>   'Odhlášení proběhlo úspěšně']);
     }
 
+    /**
+     * Get users from database
+     * @return void
+    */
+    public function getUsers(): void
+    {
+        $search = $_GET['search'] ?? null;
+        $sort = $_GET['sort'] ?? null;
+        $page = $_GET['page'] ?? 1;
 
+        $conditions = ($search) ? "WHERE id LIKE $search OR username LIKE '$search' OR fullname LIKE '$search' OR 
+                                    role LIKE '$search' OR created_at LIKE '$search'" : "";
+        $conditions .= ($sort) ? " ORDER BY $sort" : "";
+        $conditions .= ($page) ? " LIMIT 10 OFFSET " . ($page - 1) * 10 : "";
+
+        try {
+            $usersData = DatabaseConnector::selectUsers(
+                conditions: $conditions,
+            );
+
+            if (!$usersData) {
+                throw new Exception('No articles found');
+            }
+        } catch (Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+            exit();
+        }
+
+        echo json_encode($usersData);
+        exit();
+    }
 
 }

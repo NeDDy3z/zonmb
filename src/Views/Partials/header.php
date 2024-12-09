@@ -1,6 +1,8 @@
 <?php
 use Helpers\UrlHelper;
 
+$username = isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']->getUsername()) : null;
+
 ?>
 <!DOCTYPE html>
 <html lang="cs">
@@ -27,7 +29,7 @@ use Helpers\UrlHelper;
             <a href="<?= UrlHelper::baseUrl('/') ?>"><img src="<?= UrlHelper::baseUrl('assets/images/logo-wide.png') ?>" alt="ZONMB"></a>
             <ul>
                 <li><a href="<?= UrlHelper::baseUrl('news') ?>">Novinky</a></li>
-                <li><a href="<?= UrlHelper::baseUrl('user') ?>"><?= isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_data']->getUsername()) : 'Uživatel' ?></a></li>
+                <li><a href="<?= UrlHelper::baseUrl('users/'. $username) ?>"><?= $username ?? 'Uživatel' ?></a></li>
             </ul>
         </nav>
     </div>

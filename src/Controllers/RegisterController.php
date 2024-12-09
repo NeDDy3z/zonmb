@@ -5,22 +5,28 @@ declare(strict_types=1);
 namespace Controllers;
 
 use Exception;
-use Logic\DatabaseException;
-use Logic\IncorrectInputException;
 use Logic\Router;
 use Logic\Validator;
 use Models\DatabaseConnector;
 
 class RegisterController extends Controller
 {
+    /**
+     * @var string $page
+     */
     private string $page = ROOT . 'src/Views/register.php';
 
+    /**
+     * Render webpage
+     * @return void
+     */
     public function render(): void
     {
         require_once $this->page; // Load page content
     }
 
     /**
+     * Register function
      * @throws Exception
      */
     public function register(): void
@@ -29,12 +35,14 @@ class RegisterController extends Controller
 
         try {
             $username = $_POST['username'] ?? null;
+            $fullname = $_POST['fullname'] ?? null;
             $password = $_POST['password'] ?? null;
             $passConf = $_POST['password-confirm'] ?? null;
             $pfpImage = $_FILES['profile-image'] ?? null;
 
             // validate every input
             if ($validator->validateUsername($username) &&
+                $validator->validateFullname($fullname) &&
                 $validator->validatePassword($password, $passConf) &&
                 $validator->validateImage($pfpImage)
             ) {
@@ -55,15 +63,16 @@ class RegisterController extends Controller
                 // Insert user into database
                 DatabaseConnector::insertUser(
                     username: $username,
+                    fullname: $fullname,
                     password: $password,
                     profile_image_path: $pfpImagePath,
                 );
 
                 // Redirect to login page
-                Router::redirect(path: 'login', query: 'success', parameters: 'register');
+                Router::redirect(path: 'login', query: ['success' => 'register']);
             }
         } catch (Exception $e) {
-            Router::redirect(path: 'register', query: 'error', parameters: $e->getMessage());
+            Router::redirect(path: 'register', query: ['error' => $e->getMessage()]);
         }
     }
 }

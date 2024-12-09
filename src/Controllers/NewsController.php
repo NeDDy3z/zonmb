@@ -10,9 +10,13 @@ use Models\DatabaseConnector;
 
 class NewsController extends Controller
 {
+    /**
+     * @var string $page
+     */
     private string $page = ROOT . 'src/Views/news.php';
 
     /**
+     * Render webpage
      * @return void
      * @throws DatabaseException
      */
@@ -41,7 +45,7 @@ class NewsController extends Controller
                 subtitle: $article['subtitle'],
                 content: $article['content'],
                 slug: $article['slug'],
-                imagePaths: explode(', ', $article['image_paths']),
+                imagePaths: explode(',', $article['image_paths']),
                 authorId: (int)$article['author_id'],
                 createdAt: $article['created_at'],
             );

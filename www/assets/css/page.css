@@ -336,6 +336,14 @@ article.article-page {
     }
 }
 
+.article-editor {
+    width: 80vw;
+
+    form {
+        width: 100%;
+    }
+}
+
 /* No need for media queries here */
 
 
@@ -381,9 +389,13 @@ article.article-page {
                 text-overflow: ellipsis;
 
                 border-bottom: 2px solid light-dark(var(--background-dark), var(--background-light));
+
+                br {
+                    display: none;
+                }
             }
 
-            td.button {
+            td.buttons {
                 text-align: right;
             }
         }

@@ -44,6 +44,16 @@ class Validator
     }
 
     /**
+     * Validate fullname TODO: Add validation
+     * @param string $fullname
+     * @return bool
+     */
+    public function validateFullname(string $fullname): bool
+    {
+        return true;
+    }
+
+    /**
      * Validate password
      * @param string $password
      * @param string $passwordConfirm
@@ -136,5 +146,18 @@ class Validator
         } else {
             return true;
         }
+    }
+
+    /**
+     * Validate if user entered correct username and password that match
+     * @param string $username
+     * @param string $databaseUsername
+     * @param string $password
+     * @param string $databasePassword
+     * @return bool
+     */
+    public function validateUserCredentials(string $username, string $databaseUsername, string $password, string $databasePassword): bool
+    {
+        return ($username == $databaseUsername && password_verify($password, $databasePassword));
     }
 }

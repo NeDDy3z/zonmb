@@ -6,11 +6,18 @@ namespace Controllers;
 
 class HomepageController extends Controller
 {
+    /**
+     * @var string $path
+     */
     private string $path = ROOT . 'src/Views/homepage.php';
 
 
+    /**
+     * Render webpage
+     * @return void
+     */
     public function render(): void
     {
-        require_once $this->path; // Load page content
+        require_once $this->path;
     }
 }

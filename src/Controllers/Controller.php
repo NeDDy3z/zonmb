@@ -6,8 +6,15 @@ namespace Controllers;
 
 class Controller
 {
-    private string $page = '../src/views/homepage.php';
+    /**
+     * @var string $page
+     */
+    private string $page;
 
+    /**
+     * Render webpage
+     * @return void
+     */
     public function render(): void
     {
         require_once $this->page;

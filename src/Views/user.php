@@ -41,7 +41,7 @@ $user = $_SESSION['user_data'];
                             </span>
                         </li>
                     </ul>
-                    <a href="<?= UrlHelper::baseUrl('logout') ?>">
+                    <a href="<?= UrlHelper::baseUrl('users/'. htmlspecialchars($user->getUsername()) .'/logout') ?>">
                         <button type="button" class="warning" id="logout">Odhlásit se</button>
                     </a>
                 </div>
@@ -51,13 +51,13 @@ $user = $_SESSION['user_data'];
     </section>
     <section class="userpage">
         <div class="user-container user-change">
-            <form action="<?= UrlHelper::baseUrl('user/username') ?>" method="post" class="one-line-form"> <!--TODO: ADD HTTPXMLRESPONSE-->
-                <h2>Změna uživatelského jména</h2>
-                <label for="username">Jméno</label>
-                <input type="text" id="username" name="username"
+            <form action="<?= UrlHelper::baseUrl('users/'. htmlspecialchars($user->getUsername()) .'/fullname') ?>" method="post" class="one-line-form">
+                <h2>Změna jména</h2>
+                <label for="fullname">Celé jméno</label>
+                <input type="text" id="fullname" name="fullname"
                        minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
-                       title="Jméno musí mít nejméně 3 a maximálně 30 znaků, a může obsahovat pouze písmena, číslice, podrtžítka a tečky"
-                       placeholder="Nové uživatelské jméno" required>
+                       title="Jméno musí mít nejméně 3 a maximálně 30 znaků, a může obsahovat pouze písmena"
+                       placeholder="Nové jméno" required>
 
                 <button type="submit" id="change-name">Změnit jméno</button>
             </form>
@@ -65,7 +65,7 @@ $user = $_SESSION['user_data'];
     </section>
     <section class="userpage">
         <div class="user-container user-change">
-            <form action="<?= UrlHelper::baseUrl('user/profile-image') ?>" method="post" enctype="multipart/form-data" class="one-line-form"> <!--TODO: ADD HTTPXMLRESPONSE-->
+            <form action="<?= UrlHelper::baseUrl('users/'. htmlspecialchars($user->getUsername()) .'/profile-image') ?>" method="post" enctype="multipart/form-data" class="one-line-form">
                 <h2>Změna profilové fotky</h2>
                 <label for="profile-image">Profilová fotka</label>
                 <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpg, image/jpeg"

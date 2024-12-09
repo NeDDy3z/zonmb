@@ -16,7 +16,11 @@ if (!isset($article)) {
             <h1><?= htmlspecialchars($article->getTitle()); ?></h1>
             <h2><?= htmlspecialchars($article->getSubtitle()); ?></h2>
             <section class="article-image"> <?php // TODO: Image slideshow?>
-                <img src="<?= $article->getImagePaths()[0] ?>" alt="Ilustrační obrázek článku">
+                <?php
+                    foreach ($article->getImagePaths() as $img) {
+                        echo '<img src="'. $img .'" alt="Ilustrační obrázek článku">';
+                    }
+?>
             </section>
             <section>
                 <p><?= htmlspecialchars($article->getContent()); ?></p>

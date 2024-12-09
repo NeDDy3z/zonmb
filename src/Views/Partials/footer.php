@@ -1,6 +1,11 @@
-<script src="../assets/js/errorDisplay.js"></script>
+<?php
+use Helpers\UrlHelper;
+
+?>
+
+<script src="<?= UrlHelper::baseUrl('assets/js/messageDisplay.js') ?>"></script>
 </body>
 <footer>
-    <p>&copy; <?php echo date('Y'); ?> | Erik Vaněk<p>
+    <p>&copy; <?= date('Y'); ?> | Erik Vaněk<p>
 </footer>
 </html>

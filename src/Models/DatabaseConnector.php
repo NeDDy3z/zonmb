@@ -198,7 +198,7 @@ class DatabaseConnector
             return null;
         }
 
-        $condition = ($id) ? 'WHERE id = ' . $id : 'WHERE username = "' . $username . '"';
+        $condition = ($id) ? "WHERE id = $id" : "WHERE username = '$username'";
 
         return self::select(
             table: 'user',
@@ -244,10 +244,10 @@ class DatabaseConnector
      * @return void
      * @throws DatabaseException
      */
-    public static function insertUser(string $username, string $password, ?string $profile_image_path): void
+    public static function insertUser(string $username, string $fullname, string $password, ?string $profile_image_path): void
     {
-        $items = ['username', 'password', 'role'];
-        $values = [$username, $password, 'user'];
+        $items = ['username', 'fullname', 'password', 'role'];
+        $values = [$username, $fullname, $password, 'user'];
 
         if ($profile_image_path) {
             array_push($items, 'profile_image_path');
@@ -315,16 +315,16 @@ class DatabaseConnector
     }
 
     /**
-     * @param string $slug
+     * @param string $conditions
      * @return array<string>|null
      * @throws DatabaseException
      */
-    public static function selectArticle(string $slug): ?array
+    public static function selectArticle(string $conditions): ?array
     {
         return self::select(
             table: 'article',
             items: ['*'],
-            conditions: 'WHERE slug = "' . $slug . '" LIMIT 1',
+            conditions: $conditions,
         )[0];
     }
 

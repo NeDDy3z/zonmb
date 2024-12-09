@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Helpers\PrivilegeRedirect;
 use Logic\Router;
 
 class TestingController extends Controller
@@ -9,18 +10,16 @@ class TestingController extends Controller
     /**
      * @var string $page
      */
-    private string $page = '../src/Views/test.php'; // Import page content
+    private string $page = ROOT . 'src/Views/test.php'; // Import page content
 
 
     /**
-     * construct
+     * Construct
      */
     public function __construct()
     {
-        // Redirect if not logged in as admin
-        if (!isset($_SESSION['user_data']) || $_SESSION['user_data']->getRole() !== 'admin') {
-            Router::redirect('');
-        }
+        $privilegeRedirect = new PrivilegeRedirect();
+        $privilegeRedirect->redirectEditor();
     }
 
 

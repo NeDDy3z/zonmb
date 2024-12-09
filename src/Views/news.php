@@ -15,7 +15,7 @@ use Helpers\UrlHelper;
                 case 'admin':
                 case 'editor':
                 case 'owner':
-                    echo '<a href="'. UrlHelper::baseUrl('article/add').'"><button>Přidat článek</button></a>';
+                    echo '<a href="'. UrlHelper::baseUrl('articles/add').'"><button>Přidat článek</button></a>';
             }
         }
 ?>

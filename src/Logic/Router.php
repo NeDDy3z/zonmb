@@ -11,6 +11,7 @@ use Controllers\HomepageController;
 use Controllers\LoginController;
 use Controllers\NewsController;
 use Controllers\RegisterController;
+use Controllers\SearchController;
 use Controllers\TestingController;
 use Controllers\UserController;
 use Exception;
@@ -73,13 +74,13 @@ class Router
         $controller = match ($url[0]) {
             '' => new HomepageController(),
             'admin' => new AdminController(),
-            'article' => new ArticleController($url[1]),
+            'articles' => new ArticleController($url[1] ?? null),
             'login' => new LoginController(),
             'logout' => (new UserController())->logout(),
             'news' => new NewsController(),
             'register' => new RegisterController(),
             'testing' => new TestingController(),
-            'user' => new UserController(),
+            'users' => new UserController($url[1] ?? null, $url[2] ?? null),
             default => new ErrorController(404),
         };
 
@@ -101,7 +102,7 @@ class Router
         match ($url) {
             'login' => (new LoginController())->login(),
             'register' => (new RegisterController())->register(),
-            'article/add' => (new ArticleController())->addArticle(),
+            'articles/add' => (new ArticleController())->addArticle(),
             'testing/image-upload' => (new TestingController())->testImageUpload(),
             'user/profile-image' => (new UserController())->uploadImage(),
             default => (new ErrorController())->render(),
