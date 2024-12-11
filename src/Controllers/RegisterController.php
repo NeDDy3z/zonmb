@@ -8,6 +8,7 @@ use Exception;
 use Logic\Router;
 use Logic\Validator;
 use Models\DatabaseConnector;
+use Models\UserModel;
 
 class RegisterController extends Controller
 {
@@ -61,7 +62,7 @@ class RegisterController extends Controller
                 );
 
                 // Insert user into database
-                DatabaseConnector::insertUser(
+                UserModel::insertUser(
                     username: $username,
                     fullname: $fullname,
                     password: $password,

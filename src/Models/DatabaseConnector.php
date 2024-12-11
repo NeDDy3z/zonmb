@@ -9,7 +9,7 @@ use PDO;
 use PDOException;
 use Logic\DatabaseException;
 
-class DatabaseConnector
+class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
 {
     private static string $server;
     private static string $dbname;
@@ -75,7 +75,7 @@ class DatabaseConnector
      * @return array<array<string>>
      * @throws DatabaseException
      */
-    private static function select(string $table, array $items, ?string $conditions): array
+    public static function select(string $table, array $items, ?string $conditions): array
     {
         // If connection is null create a new connection
         if (!isset(self::$connection)) {
@@ -119,7 +119,7 @@ class DatabaseConnector
      * @return void
      * @throws DatabaseException
      */
-    private static function insert(string $table, array $items, array $values): void
+    public static function insert(string $table, array $items, array $values): void
     {
         // If connection is null create new connection
         if (!isset(self::$connection)) {
@@ -154,7 +154,7 @@ class DatabaseConnector
      * @return void
      * @throws DatabaseException
      */
-    private static function update(string $table, array $items, array $values, string $conditions): void
+    public static function update(string $table, array $items, array $values, string $conditions): void
     {
         // If connection is null create new connection
         if (!isset(self::$connection)) {
@@ -169,6 +169,14 @@ class DatabaseConnector
         foreach ($items as $key => $item) {
             $items[$key] = $item . ' = ?';
         }
+
+        // Prepare values for query
+        foreach ($values as $key => $value) {
+            if ($value === 'null') {
+                $values[$key] = null;
+            }
+        }
+
         $itemRows = implode(separator: ' , ', array: $items);
 
         // Create query
@@ -178,167 +186,32 @@ class DatabaseConnector
         try {
             self::$connection->prepare($query)->execute($values);
         } catch (PDOException $e) {
-            throw new DatabaseException('Nepodařilo se vložit data do databáze: ' . $e->getMessage());
+            throw new DatabaseException('Nepodařilo se upravit data v databázi: ' . $e->getMessage());
         }
     }
 
-
-
-    // User manipulation
     /**
-     * Get user data from database
-     * @param int|null $id
-     * @param string|null $username
-     * @return array<string, float|int|string|null>|null
-     * @throws DatabaseException
-     */
-    public static function selectUser(?int $id = null, ?string $username = null): ?array
-    {
-        if (!$id and !$username) {
-            return null;
-        }
-
-        $condition = ($id) ? "WHERE id = $id" : "WHERE username = '$username'";
-
-        return self::select(
-            table: 'user',
-            items: ['*'],
-            conditions: $condition,
-        )[0];
-    }
-
-    /**
-     * Get all users from database
-     * @param string|null $conditions
-     * @return array<array<string, float|int|string|null>|int<0, max>>|null
-     * @throws DatabaseException
-     */
-    public static function selectUsers(?string $conditions = null): ?array
-    {
-        return self::select(
-            table: 'user',
-            items: ['*'],
-            conditions: $conditions,
-        );
-    }
-
-    /**
-     * Check if user exists in database
-     * @param string $username
-     * @return array<array<string, float|int|string|null>|int<0, max>>|null
-     * @throws DatabaseException
-     */
-    public static function existsUser(string $username): ?array
-    {
-        return self::select(
-            table: 'user',
-            items: ['username'],
-            conditions: 'WHERE username LIKE "' . $username . '"',
-        );
-    }
-
-    /**
-     * @param string $username
-     * @param string $password
-     * @param string|null $profile_image_path
-     * @return void
-     * @throws DatabaseException
-     */
-    public static function insertUser(string $username, string $fullname, string $password, ?string $profile_image_path): void
-    {
-        $items = ['username', 'fullname', 'password', 'role'];
-        $values = [$username, $fullname, $password, 'user'];
-
-        if ($profile_image_path) {
-            array_push($items, 'profile_image_path');
-            array_push($values, $profile_image_path);
-        }
-
-        self::insert(
-            table: 'user',
-            items: $items,
-            values: $values,
-        );
-    }
-
-    /**
-     * @param int $id
-     * @param string|null $username
-     * @param string|null $profile_image_path
-     * @return void
-     * @throws DatabaseException
-     */
-    public static function updateUser(int $id, string $username = null, string $profile_image_path = null): void
-    {
-        $items = [];
-        $values = [];
-
-        if ($username) {
-            $items[] = 'username';
-            $values[] = $username;
-        }
-        if ($profile_image_path) {
-            $items[] = 'profile_image_path';
-            $values[] = $profile_image_path;
-        }
-
-        self::update(
-            table: 'user',
-            items: $items,
-            values: $values,
-            conditions: 'WHERE id = ' . $id,
-        );
-    }
-
-
-
-    // Article manipulation
-    /**
-     * @param string $title
-     * @param string $subtitle
-     * @param string $content
-     * @param array<string> $imagePaths
-     * @param int $authorId
-     * @return void
-     * @throws DatabaseException
-     */
-    public static function insertArticle(string $title, string $subtitle, string $content, array $imagePaths = [], int $authorId = 1): void
-    {
-        $slug = ReplaceHelper::getUrlFriendlyString($title);
-        $imagePaths = implode(',', $imagePaths);
-
-        self::insert(
-            table: 'article',
-            items: ['title', 'subtitle', 'content', 'slug', 'image_path', 'author_id', 'created_at'],
-            values: [$title, $subtitle, $content, $slug, $imagePaths, $authorId, date('Y-m-d')],
-        );
-    }
-
-    /**
+     * Template function for deleting data from database
+     * @param string $table
      * @param string $conditions
-     * @return array<string>|null
+     * @return void
      * @throws DatabaseException
      */
-    public static function selectArticle(string $conditions): ?array
+    public static function remove(string $table, string $conditions): void
     {
-        return self::select(
-            table: 'article',
-            items: ['*'],
-            conditions: $conditions,
-        )[0];
-    }
+        // If connection is null create new connection
+        if (!isset(self::$connection)) {
+            self::connect();
+        }
 
-    /**
-     * @param string|null $conditions
-     * @return array<array<string>>|null
-     * @throws DatabaseException
-     */
-    public static function selectArticles(?string $conditions = null): ?array
-    {
-        return self::select(
-            table: 'article',
-            items: ['*'],
-            conditions: $conditions,
-        );
+        // Create query
+        $query = "DELETE FROM {$table} {$conditions};";
+
+        // Execute query. Check if data were inserted
+        try {
+            self::$connection->prepare($query)->execute();
+        } catch (PDOException $e) {
+            throw new DatabaseException('Nepodařilo se odstranit data z databáze: ' . $e->getMessage());
+        }
     }
 }

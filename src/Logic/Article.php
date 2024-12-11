@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Logic;
 
 use Exception;
+use Models\ArticleModel;
 use Models\DatabaseConnector;
 
 class Article
@@ -14,7 +15,7 @@ class Article
     private string $subtitle;
     private string $content;
     private string $slug;
-    private array $imagePaths;
+    private ?array $imagePaths;
     private int $authorId;
     private string $createdAt;
 
@@ -23,12 +24,12 @@ class Article
      * @param string $title
      * @param string $subtitle
      * @param string $content
-     * @param string $uri
-     * @param array<string> $imagePaths
+     * @param string $slug
+     * @param array<string>|null $imagePaths
      * @param int $authorId
      * @param string $createdAt
      */
-    public function __construct(int $id, string $title, string $subtitle, string $content, string $slug, array $imagePaths, int $authorId, string $createdAt)
+    public function __construct(int $id, string $title, string $subtitle, string $content, string $slug, ?array $imagePaths, int $authorId, string $createdAt)
     {
         $this->id = $id;
         $this->title = $title;
@@ -47,11 +48,13 @@ class Article
      */
     public static function getArticleBySlug(string $slug): Article
     {
-        $articleData = DatabaseConnector::selectArticle('WHERE slug = "'. $slug .'" LIMIT 1;');
+        $articleData = ArticleModel::selectArticle('WHERE slug = "'. $slug .'" LIMIT 1;');
 
         if (!$articleData) {
-            throw new Exception('Nepodařilo se načíst článek z databáze.');
+            throw new Exception('Nepodařilo se načíst článek z databáze podle nazvu.');
         }
+
+        $imagePaths = isset($articleData['image_paths']) ? explode(',', $articleData['image_paths']) : null;
 
         try {
             return new Article(
@@ -60,7 +63,7 @@ class Article
                 subtitle: $articleData['subtitle'],
                 content: $articleData['content'],
                 slug: $articleData['slug'],
-                imagePaths: explode(',', $articleData['image_paths']),
+                imagePaths: $imagePaths,
                 authorId: (int)$articleData['author_id'],
                 createdAt: $articleData['created_at'],
             );
@@ -80,11 +83,14 @@ class Article
             return null;
         }
 
-        $articleData = DatabaseConnector::selectArticle('WHERE id = '. $id .' LIMIT 1;');
+        $articleData = ArticleModel::selectArticle('WHERE id = '. $id .' LIMIT 1;');
 
         if (!$articleData) {
-            throw new Exception('Nepodařilo se načíst článek z databáze.');
+            throw new Exception('Nepodařilo se načíst článek z databáze podle id.');
         }
+
+        $imagePaths = isset($articleData['image_paths']) ? explode(',', $articleData['image_paths']) : null;
+
 
         try {
             return new Article(
@@ -93,7 +99,7 @@ class Article
                 subtitle: $articleData['subtitle'],
                 content: $articleData['content'],
                 slug: $articleData['slug'],
-                imagePaths: explode(',', $articleData['image_paths']),
+                imagePaths: $imagePaths,
                 authorId: (int)$articleData['author_id'],
                 createdAt: $articleData['created_at'],
             );
@@ -143,11 +149,10 @@ class Article
     }
 
     /**
-     * @return array<string>
+     * @return array<string>|null
      */
-    public function getImagePaths(): array
+    public function getImagePaths(): ?array
     {
-        /** @var array<string> $this */
         return $this->imagePaths;
     }
 

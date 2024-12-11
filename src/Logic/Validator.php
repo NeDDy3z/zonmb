@@ -29,7 +29,7 @@ class Validator
                 $error[] = 'usernameRegex';
                 // no break
             
-            case count(DatabaseConnector::existsUser($username)) > 0: // Exists
+            case count(UserModel::existsUser($username)) > 0: // Exists
                 $error[] = 'usernameTaken';
                 break;
         }

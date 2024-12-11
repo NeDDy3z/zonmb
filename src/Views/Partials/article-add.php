@@ -5,7 +5,7 @@ use Helpers\UrlHelper;
 
 <main>
         <div class="container">
-            <form action="<?= UrlHelper::baseUrl('news/add') ?>" method="post" enctype="multipart/form-data" name="articleForm" id="article-form">
+            <form action="<?= UrlHelper::baseUrl('news/add') ?>" method="post" enctype="multipart/form-data" name="articleForm" class="article-form">
                 <label for="title">*Titulek: </label>
                 <input type="text" name="title" placeholder="*Titulek">
 

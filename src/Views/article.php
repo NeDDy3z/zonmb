@@ -45,7 +45,7 @@ if (!isset($article)) {
         if (isset($_SESSION['user_data'])) {
             $user = $_SESSION['user_data'];
             if ($user->isEditor()) {
-                echo '<a href="'. UrlHelper::baseUrl('article/edit?article-id='.$article->getId()). '"><button>Upravit článek</button></a>';
+                echo '<a href="'. UrlHelper::baseUrl('articles/edit?id='.$article->getId()). '"><button>Upravit článek</button></a>';
             }
         }
 ?>

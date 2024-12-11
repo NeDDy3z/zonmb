@@ -6,6 +6,7 @@ use Exception;
 use Helpers\PrivilegeRedirect;
 use Logic\Article;
 use Logic\DatabaseException;
+use Models\ArticleModel;
 use Models\DatabaseConnector;
 
 class ArticleController
@@ -36,8 +37,12 @@ class ArticleController
                 break;
             case 'add':
             case 'edit':
-                $this->page = $this->editorPage;
                 $privilegeRedirect->redirectUser();
+                $this->page = $this->editorPage;
+                break;
+            case 'delete':
+                $privilegeRedirect->redirectUser();
+                $this->deleteArticle();
                 break;
             default: // on any other article continue
                 break;
@@ -55,6 +60,8 @@ class ArticleController
             case 'edit':
                 $article = Article::getArticleById($_GET['id'] ?? null);
                 $this->page = $this->editorPage;
+                break;
+            case 'delete':
                 break;
             default: Article::getArticleBySlug($this->subPage);
         };
@@ -80,12 +87,12 @@ class ArticleController
         $conditions .= ($page) ? " LIMIT 10 OFFSET " . ($page - 1) * 10 : "";
 
         try {
-            $articlesData = DatabaseConnector::selectArticles(
+            $articlesData = ArticleModel::selectArticles(
                 conditions: $conditions,
             );
 
             if (!$articlesData) {
-                throw new Exception('No articles found');
+                throw new Exception('Žádné články nebyly nalezeny');
             }
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
@@ -98,5 +105,33 @@ class ArticleController
 
     public function addArticle()
     {
+    }
+
+    public function deleteArticle(): void
+    {
+        if (!isset($_GET['id'])) {
+            echo json_encode(['error' => 'Chybí ID článku']);
+        } else {
+            try {
+                switch (true) {
+                    case isset($_GET['img']):
+                        $imagePaths = explode(',', ArticleModel::selectArticle(conditions: 'WHERE id = '. $_GET['id'])['image_paths']);
+                        $newImagePaths = array_diff($imagePaths, [$_GET['img']]);
+
+                        $newImagePaths = (count($newImagePaths) === 0) ? ['null'] : $newImagePaths;
+
+                        ArticleModel::updateArticle(id: $_GET['id'], imagePaths: $newImagePaths);
+                        echo json_encode(['success' => 'imageDelete']);
+                        break;
+                    default:
+                        ArticleModel::removeArticle(id: $_GET['id']);
+                        echo json_encode(['success' => 'articleDelete']);
+                }
+            } catch (Exception $e) {
+                echo json_encode(['error' => $e->getMessage()]);
+            }
+        }
+
+        exit();
     }
 }

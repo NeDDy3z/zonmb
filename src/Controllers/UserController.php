@@ -10,6 +10,7 @@ use Logic\Router;
 use Logic\User;
 use Logic\Validator;
 use Models\DatabaseConnector;
+use Models\UserModel;
 
 class UserController extends Controller
 {
@@ -155,7 +156,7 @@ class UserController extends Controller
         );
 
         // Insert user into database
-        DatabaseConnector::updateUser(
+        UserModel::updateUser(
             id: $_SESSION['user_data']->getId(),
             profile_image_path: $pfpImagePath,
         );
@@ -200,7 +201,7 @@ class UserController extends Controller
         $conditions .= ($page) ? " LIMIT 10 OFFSET " . ($page - 1) * 10 : "";
 
         try {
-            $usersData = DatabaseConnector::selectUsers(
+            $usersData = UserModel::selectUsers(
                 conditions: $conditions,
             );
 

@@ -6,6 +6,7 @@ namespace Controllers;
 
 use Logic\Article;
 use Logic\DatabaseException;
+use Models\ArticleModel;
 use Models\DatabaseConnector;
 
 class NewsController extends Controller
@@ -35,7 +36,7 @@ class NewsController extends Controller
      */
     private function loadArticles(): array
     {
-        $articles = DatabaseConnector::selectArticles();
+        $articles = ArticleModel::selectArticles();
         $articlesArray = [];
 
         foreach ($articles as $article) {

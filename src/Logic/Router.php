@@ -46,7 +46,7 @@ class Router
      * @param string $url
      * @param string $method
      * @return void
-     * @throws DatabaseException
+     * @throws Exception
      */
     public static function route(string $url, string $method): void
     {
@@ -58,7 +58,6 @@ class Router
         match ($method) {
             'GET' => self::GET($url),
             'POST' => self::POST($url),
-            'PUT' => (new ErrorController(405))->render(),
             default => (new ErrorController(405))->render(),
         };
     }

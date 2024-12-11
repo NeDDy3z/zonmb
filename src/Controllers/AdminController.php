@@ -7,7 +7,9 @@ use Logic\Article;
 use Logic\DatabaseException;
 use Logic\Router;
 use Logic\User;
+use Models\ArticleModel;
 use Models\DatabaseConnector;
+use Models\UserModel;
 
 class AdminController extends Controller
 {
@@ -45,7 +47,7 @@ class AdminController extends Controller
      */
     private function loadUsers(int $page = 1): array
     {
-        $databaseUsers = DatabaseConnector::selectUsers();
+        $databaseUsers = UserModel::selectUsers();
         $users = [];
 
         foreach ($databaseUsers as $user) {
@@ -69,7 +71,7 @@ class AdminController extends Controller
      */
     private function loadArticles(int $page = 1): array
     {
-        $databaseArticles = DatabaseConnector::selectArticles();
+        $databaseArticles = ArticleModel::selectArticles();
         $articles = [];
 
         foreach ($databaseArticles as $article) {

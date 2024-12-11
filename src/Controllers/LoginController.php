@@ -8,7 +8,7 @@ use Logic\DatabaseException;
 use Logic\Router;
 use Logic\User;
 use Logic\Validator;
-use Models\DatabaseConnector;
+use Models\UserModel;
 
 class LoginController extends Controller
 {
@@ -58,7 +58,7 @@ class LoginController extends Controller
             }
 
             // Get data from database
-            $databaseData = DatabaseConnector::selectUser(username: $username);
+            $databaseData = UserModel::selectUser(username: $username);
 
             // Validate if user exists in the database
             if (!$databaseData) {

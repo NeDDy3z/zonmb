@@ -56,6 +56,7 @@ function getUsers(callback) {
     query += (page) ? `&page=${page}` : '';
 
     const xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
     xhr.open('GET', query, true);
     xhr.onload = function () {
         if (xhr.status === 200) {

@@ -341,6 +341,38 @@ article.article-page {
 
     form {
         width: 100%;
+
+        input, textarea {
+            font-weight: normal;
+
+        }
+
+        .article-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            padding: 16px;
+
+            background-color: light-dark(var(--section-background-light), var(--section-background-dark));
+            border-radius: 1rem;
+
+            button {
+                background-color: var(--danger-color);
+
+                &:hover {
+                    background-color: var(--danger-color-hover);
+                }
+            }
+
+            img {
+                display: flex;
+                max-width: 12rem;
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+        }
     }
 }
 

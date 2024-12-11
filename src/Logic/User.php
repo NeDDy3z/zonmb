@@ -6,6 +6,7 @@ namespace Logic;
 
 use Exception;
 use Models\DatabaseConnector;
+use Models\UserModel;
 
 class User
 {
@@ -44,7 +45,7 @@ class User
     public static function getUserByUsername(string $username): User
     {
         try {
-            $userData = DatabaseConnector::selectUser(username: $username);
+            $userData = UserModel::selectUser(username: $username);
 
             return new User(
                 id: (int)$userData['id'],
@@ -67,7 +68,7 @@ class User
     public static function getUserById(int $id): User
     {
         try {
-            $userData = DatabaseConnector::selectUser(id: $id);
+            $userData = UserModel::selectUser(id: $id);
 
             return new User(
                 id: (int)$userData['id'],

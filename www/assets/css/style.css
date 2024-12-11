@@ -4,20 +4,33 @@
     color-scheme: light dark;
 
     /* Global colors */
-    /* Light */
+    --text-color-light: #1c1c1cff;
+    --text-color-dark: #d3d1d1;
+
     --background-light: #f5f5f5;
     --section-background-light: #f5f5f5;
+    --background-dark: #171721;
+    --section-background-dark: #1e2b48;
+
+    --primary-color: #3159a9;
+    --primary-color-hover: #3d81ff;
+
+    --success-color: #2d7b00;
+    --success-color-hover: #4ca21a;
+    --danger-color: #9f0f42;
+    --danger-color-hover: #df2465;
+
+
+    /* Light */
     --text-light: #1c1c1cff;
-    --link-light: #3159a9;
-    --link-hover-light: #3d81ff;
+    --primary-light: #3159a9;
+    --primary-hover-light: #3d81ff;
     --border-bottom-light: #333333;
 
     /* Dark */
-    --background-dark: #171721;
-    --section-background-dark: #1e2b48;
     --text-dark: #d3d1d1;
-    --link-dark: #3d81ff;
-    --link-hover-dark: #4f8cff;
+    --primary-dark: #3d81ff;
+    --primary-hover-dark: #4f8cff;
     --border-bottom-dark: #e0e0e0;
 
     /* Common */
@@ -40,11 +53,11 @@ body {
 /* Reseting elements / setting global styling */
 a {
     text-decoration: none;
-    color: light-dark(var(--link-light), var(--link-dark));
+    color: light-dark(var(--primary-light), var(--primary-dark));
     transition: color 0.3s ease;
 
     &:hover, &:focus {
-        color: light-dark(var(--link-hover-light), var(--link-hover-dark));
+        color: light-dark(var(--primary-hover-light), var(--primary-hover-dark));
         transition: color 0.3s ease;
     }
 }
@@ -62,11 +75,11 @@ button {
     transition: 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-    background-color: light-dark(var(--link-light), var(--link-dark));
+    background-color: light-dark(var(--primary-light), var(--primary-dark));
     color: white;
 
     &:hover, &:focus {
-        background-color: light-dark(var(--link-hover-light), var(--link-hover-dark));
+        background-color: light-dark(var(--primary-hover-light), var(--primary-hover-dark));
         transition: 0.3s ease;
     }
 
@@ -80,7 +93,7 @@ button {
     }
 }
 
-input {
+input, textarea {
     padding: .5rem 1rem;
 
     border: none;
@@ -97,7 +110,7 @@ input {
     color: light-dark(var(--text-light), var(--text-dark));
 
     &:hover, &:focus {
-        outline: light-dark(var(--link-hover-light), var(--link-hover-dark)) 1px solid;
+        outline: light-dark(var(--primary-hover-light), var(--primary-hover-dark)) 1px solid;
         transition: 0.3s ease;
     }
 
@@ -110,13 +123,13 @@ input {
         &::file-selector-button {
             padding: 0 .5rem;
             border-radius: 1rem;
-            background-color: light-dark(var(--link-light), var(--link-dark));
+            background-color: light-dark(var(--primary-light), var(--primary-dark));
             border: none;
             outline: none;
             color: white;
 
             &:hover, &:focus {
-                background-color: light-dark(var(--link-hover-light), var(--link-hover-dark));
+                background-color: light-dark(var(--primary-hover-light), var(--primary-hover-dark));
                 transition: 0.3s ease;
             }
         }
