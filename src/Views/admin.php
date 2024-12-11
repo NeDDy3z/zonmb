@@ -34,7 +34,7 @@ use Helpers\UrlHelper;
         <section class="table-data">
             <div class="table-header">
                 <h2>Články</h2>
-                <a href="<?= UrlHelper::baseUrl('article/add') ?>"><button>Přidat článek</button></a>
+                <a href="<?= UrlHelper::baseUrl('articles/add') ?>"><button>Přidat článek</button></a>
                 <input type="text" id="search-article" placeholder="Vyhledat článek...">
             </div>
             <p id="warning-display-articles">Zobrazení článků není podporované, kvůli množštví informací, v takto uzkem formátu, zkuste otočtit prosím zařízení na šířku, nebo použijte počítač.</p>

@@ -123,11 +123,22 @@ class User
         return $this->username;
     }
 
+    /**
+     * @return string
+     */
     public function getFullname(): string
     {
         return $this->fullname;
     }
 
+    /**
+     * @param string $fullname
+     * @return voidnotLoggedIn
+     */
+    public function setFullname(string $fullname): void
+    {
+        $this->fullname = $fullname;
+    }
 
     /**
      * @return string
@@ -135,6 +146,15 @@ class User
     public function getImage(): string
     {
         return $this->image;
+    }
+
+    /**
+     * @param string $imagePath
+     * @return void
+     */
+    public function setImage(string $imagePath): void
+    {
+        $this->image = $imagePath;
     }
 
     /**

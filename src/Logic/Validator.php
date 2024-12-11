@@ -2,12 +2,25 @@
 
 namespace Logic;
 
-use Models\DatabaseConnector;
+use Models\UserModel;
 
 class Validator
 {
     /**
-     * Validate username
+     * Validate if user entered correct username and password that match the databse - used for login
+     * @param string $username
+     * @param string $databaseUsername
+     * @param string $password
+     * @param string $databasePassword
+     * @return bool
+     */
+    public function validateUserCredentials(string $username, string $databaseUsername, string $password, string $databasePassword): bool
+    {
+        return ($username == $databaseUsername && password_verify($password, $databasePassword));
+    }
+
+    /**
+     * Validate username (regex, length, ...) - used for registration
      * @param string $username
      * @return bool
      * @throws DatabaseException
@@ -20,15 +33,15 @@ class Validator
             case $username == null || $username == '': // Empty
                 $error[] = 'usernameEmpty';
                 // no break
-            
+
             case strlen($username) < 3 || strlen($username) > 30: // Length
                 $error[] = 'usernameSize';
                 // no break
-            
+
             case !preg_match('/^[a-zA-Z0-9._]+$/', $username): // Regex
                 $error[] = 'usernameRegex';
                 // no break
-            
+
             case count(UserModel::existsUser($username)) > 0: // Exists
                 $error[] = 'usernameTaken';
                 break;
@@ -44,17 +57,40 @@ class Validator
     }
 
     /**
-     * Validate fullname TODO: Add validation
+     * Validate fullname - used for registration TODO: Add validation
      * @param string $fullname
      * @return bool
+     * @throws IncorrectInputException
      */
     public function validateFullname(string $fullname): bool
     {
-        return true;
+        $error = null;
+        switch (true) {
+            case $fullname == null || $fullname == '': // Empty
+                $error[] = 'fullnameEmpty';
+                // no break
+
+            case strlen($fullname) < 3 || strlen($fullname) > 30: // Length
+                $error[] = 'fullnameSize';
+                // no break
+
+            case !preg_match('/^[a-zA-ZáčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ ]+$/', $fullname): // Regex
+                $error[] = 'fullnameRegex';
+                break;
+        }
+
+        // Throw exception on any error
+        if ($error) {
+            $str_error = implode('-', $error);
+            throw new IncorrectInputException($str_error);
+        } else {
+            return true;
+        }
     }
 
+
     /**
-     * Validate password
+     * Validate password format and if passwords match - used for registration
      * @param string $password
      * @param string $passwordConfirm
      * @return bool
@@ -89,54 +125,97 @@ class Validator
             return true;
         }
     }
-    
-    
+
     /**
-     * Validate image
+     * Validate image (size, format, dimensions) - used for registration
      * @param array<string, string> $image
-     * @param array<string, int | array<int, int | string>> $conditions
+     * @param int|null $size
+     * @param array<string>|null $type
+     * @param array<int>|null $dimensions
      * @return bool
      * @throws IncorrectInputException
      */
     public function validateImage(
-        array $image,
-        array $conditions = [
-            'size' => 1000000,
-            'type' => ['image/png', 'image/jpg', 'image/jpeg'],
-            'dimensions' => [500, 500],
-        ]
+        array  $image,
+        ?int   $size = 1_000_000, // 1MB - default max size
+        ?array $type = ['image/png', 'image/jpg', 'image/jpeg'],
+        ?array $dimensions = [500, 500], // width x height
     ): bool {
-        // Image havent been uploaded = skip validation
-        if ((int)$image['size'] === 0) {
-            return true;
+        for ($i = 0; $i < count($image['error']); $i++) {
+            if ((int)$image['size'][$i] === 0) {
+                continue;
+            } else {
+                // Check errors by conditions
+                $error = null;
+                switch (true) {
+                    // In case of an upload error
+                    case $image['error'][$i] !== 0:
+                        $error[] = 'imageUploadError';
+                        break;
+
+                    case (int)$image['size'][$i] > $size: // Size
+                        $error[] = 'imageSize';
+                        // no break
+
+                    case !in_array($image['type'][$i], $type): // Format
+                        $error[] = 'imageFormat';
+                        // no break
+
+                    default: // Dimensions
+                        var_dump(getimagesize($image['tmp_name'][$i]));
+                        list($width, $height) = getimagesize($image['tmp_name'][$i]);
+                        if ($width > $dimensions[0] || $height > $dimensions[1]) {
+                            $error[] = 'imageDimensions';
+                        }
+                        break;
+                }
+
+                // Throw exception on any error
+                if ($error) {
+                    $str_error = implode('-', $error);
+                    throw new IncorrectInputException($str_error);
+                }
+            }
         }
 
-        // Check errors by conditions
+        return true;
+    }
+
+
+
+    // Validate article
+
+    /**
+     * Validate article
+     * @param string $title
+     * @param string|null $subtitle
+     * @param string $content
+     * @param array|null $images
+     * @return bool
+     * @throws IncorrectInputException
+     */
+    public function validateArticle(string $title, ?string $subtitle, string $content, ?array $images = null): bool
+    {
         $error = null;
         switch (true) {
-            // In case of an upload error
-            case $image['error'] !== UPLOAD_ERR_OK:
-                $error[] = 'imageUploadError';
-                break;
-
-            case array_key_exists(key: 'size', array: $conditions): // Size
-                if ((int)$image['size'] > (int)$conditions['size']) {
-                    $error[] = 'imageSize';
-                }
+            case $title == null || $title == '': // Empty
+                $error[] = 'titleEmpty';
                 // no break
 
-            case array_key_exists(key: 'type', array: $conditions): // Format
-                if (!in_array($image['type'], $conditions['type'])) {
-                    $error[] = 'imageFormat';
-                }
+            case strlen($title) < 3 || strlen($title) > 100: // Length
+                $error[] = 'titleSize';
                 // no break
 
-            case array_key_exists(key: 'dimensions', array: $conditions): // Dimensions
-                list($width, $height) = getimagesize($image['tmp_name']);
-                if ($width > $conditions['dimensions'][0] || $width !== $height) {
-                    $error[] = 'imageDimensions';
-                }
-                break;
+            case isset($subtitle) && strlen($subtitle) < 3 || strlen($subtitle) > 1000: // Length
+                $error[] = 'subtitleSize';
+                // no break
+
+            case $content == null || $content == '': // Empty
+                $error[] = 'contentEmpty';
+                // no break
+
+            case strlen($content) < 3 || strlen($content) > 10_000: // Length
+                $error[] = 'contentSize';
         }
 
         // Throw exception on any error
@@ -146,18 +225,5 @@ class Validator
         } else {
             return true;
         }
-    }
-
-    /**
-     * Validate if user entered correct username and password that match
-     * @param string $username
-     * @param string $databaseUsername
-     * @param string $password
-     * @param string $databasePassword
-     * @return bool
-     */
-    public function validateUserCredentials(string $username, string $databaseUsername, string $password, string $databasePassword): bool
-    {
-        return ($username == $databaseUsername && password_verify($password, $databasePassword));
     }
 }

@@ -22,10 +22,14 @@ class PrivilegeRedirect
      * If user isn't User/Editor/Admin redirect
      * @return void
      */
-    public function redirectHost(): void
+    public function redirectHost(?string $page = null): void
     {
         if ($this->user === null) {
-            Router::redirect(path: 'login', query: ['error' => 'notLoggedIn']);
+            $query = match ($page) {
+                'login' => [],
+                default => ['error' => 'notAuthorized'],
+            };
+            Router::redirect(path: 'login', query: $query);
         }
     }
 

@@ -2,6 +2,7 @@
 
 namespace Models;
 
+use Controllers\ArticleController;
 use Helpers\ReplaceHelper;
 use Logic\DatabaseException;
 
@@ -11,19 +12,18 @@ class ArticleModel
      * @param string $title
      * @param string $subtitle
      * @param string $content
-     * @param array<string> $imagePaths
+     * @param array<string>|null $imagePaths
      * @param int $authorId
      * @return void
      * @throws DatabaseException
      */
-    public static function insertArticle(string $title, string $subtitle, string $content, array $imagePaths = [], int $authorId = 1): void
+    public static function insertArticle(string $title, string $subtitle, string $content, string $slug, ?array $imagePaths = [], int $authorId = 1): void
     {
-        $slug = ReplaceHelper::getUrlFriendlyString($title);
-        $imagePaths = implode(',', $imagePaths);
+        $imagePaths = isset($imagePaths) ? implode(',', $imagePaths) : '';
 
         DatabaseConnector::insert(
             table: 'article',
-            items: ['title', 'subtitle', 'content', 'slug', 'image_path', 'author_id', 'created_at'],
+            items: ['title', 'subtitle', 'content', 'slug', 'image_paths', 'author_id', 'created_at'],
             values: [$title, $subtitle, $content, $slug, $imagePaths, $authorId, date('Y-m-d')],
         );
     }

@@ -214,4 +214,29 @@ class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
             throw new DatabaseException('Nepodařilo se odstranit data z databáze: ' . $e->getMessage());
         }
     }
+
+    /**
+     * Get top id - used for articles
+     * @param string $table
+     * @return int
+     * @throws DatabaseException
+     */
+    public static function selectMaxId(string $table): int
+    {
+        // If connection is null create a new connection
+        if (!isset(self::$connection)) {
+            self::connect();
+        }
+
+        $query = "SELECT MAX(id) as max_id FROM {$table};";
+
+        // Execute query and fetch data
+        try {
+            $result = self::$connection->query($query)->fetchAll();
+        } catch (PDOException $e) {
+            throw new DatabaseException('Nepodařilo se načíst data z databáze: ' . $e->getMessage());
+        }
+
+        return (int)$result[0]['max_id'];
+    }
 }

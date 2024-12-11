@@ -83,7 +83,7 @@ button {
         transition: 0.3s ease;
     }
 
-    &.warning {
+    &.warning, &.danger {
         background-color: var(--error);
 
         &:hover, &:focus {

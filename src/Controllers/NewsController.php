@@ -46,7 +46,7 @@ class NewsController extends Controller
                 subtitle: $article['subtitle'],
                 content: $article['content'],
                 slug: $article['slug'],
-                imagePaths: explode(',', $article['image_paths']),
+                imagePaths: $article['image_paths'] ? explode(',', $article['image_paths']) : null,
                 authorId: (int)$article['author_id'],
                 createdAt: $article['created_at'],
             );

@@ -51,11 +51,11 @@ $user = $_SESSION['user_data'];
     </section>
     <section class="userpage">
         <div class="user-container user-change">
-            <form action="<?= UrlHelper::baseUrl('users/'. htmlspecialchars($user->getUsername()) .'/fullname') ?>" method="post" class="one-line-form">
+            <form action="<?= UrlHelper::baseUrl('users/edit/fullname') ?>" method="post" class="one-line-form">
                 <h2>Změna jména</h2>
                 <label for="fullname">Celé jméno</label>
                 <input type="text" id="fullname" name="fullname"
-                       minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
+                       minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.áčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ ]+"
                        title="Jméno musí mít nejméně 3 a maximálně 30 znaků, a může obsahovat pouze písmena"
                        placeholder="Nové jméno" required>
 
@@ -65,7 +65,7 @@ $user = $_SESSION['user_data'];
     </section>
     <section class="userpage">
         <div class="user-container user-change">
-            <form action="<?= UrlHelper::baseUrl('users/'. htmlspecialchars($user->getUsername()) .'/profile-image') ?>" method="post" enctype="multipart/form-data" class="one-line-form">
+            <form action="<?= UrlHelper::baseUrl('users/edit/profile-image') ?>" method="post" enctype="multipart/form-data" class="one-line-form">
                 <h2>Změna profilové fotky</h2>
                 <label for="profile-image">Profilová fotka</label>
                 <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpg, image/jpeg"

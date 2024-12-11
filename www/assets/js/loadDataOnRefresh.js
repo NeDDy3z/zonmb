@@ -1,35 +1,44 @@
-let form = document.querySelector('form');
-let fields = form.getElementsByTagName('input');
+function getInputFields() {
+    let form = document.querySelector('form');
+    let inputs = Array.from(form.getElementsByTagName('input'));
+    let textareas = Array.from(form.getElementsByTagName('textarea'));
 
+    return [...textareas, ...inputs];
+}
 
-// Save data to localStorage on input change
+// Save data to sessionStorage on input change
 function enableSavingFormDataOnBlur() {
-    for (let i = 0; i < fields.length; i++) {
-        if (fields[i].name.includes('password')) continue;
-        fields[i].addEventListener('blur', () => {
-            localStorage.setItem(fields[i].name, fields[i].value);
+    let fields = getInputFields();
+
+    fields.forEach(field => {
+        if (field.name.includes('password')) return;
+        field.addEventListener('blur', () => {
+            
+            sessionStorage.setItem(field.name, field.value);
         });
-    }
+    });
 }
 
 // Load data into form
 function loadFormDataOnLoad() {
-    for (let i = 0; i < fields.length; i++) {
-        if (localStorage.getItem(fields[i].name)) {
-            fields[i].value = localStorage.getItem(fields[i].name);
+    let fields = getInputFields();
+
+    fields.forEach(field => {
+        if (sessionStorage.getItem(field.name)) {
+            field.value = sessionStorage.getItem(field.name);
         }
-    }
+    });
 }
 
-function clearDataFromLocalStorageOnSuccess() {
+function clearDataFromSessionStorageOnSuccess() {
     if (new URLSearchParams(window.location.search).has('success')) {
-        localStorage.clear();
+        sessionStorage.clear();
     }
 }
 
 
-document.addEventListener('load', loadFormDataOnLoad);
-document.addEventListener('load', clearDataFromLocalStorageOnSuccess);
+document.addEventListener('DOMContentLoaded', clearDataFromSessionStorageOnSuccess);
+document.addEventListener('DOMContentLoaded', loadFormDataOnLoad);
 enableSavingFormDataOnBlur();
 
 

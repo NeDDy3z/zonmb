@@ -17,6 +17,18 @@ class RegisterController extends Controller
      */
     private string $page = ROOT . 'src/Views/register.php';
 
+    private Validator $validator;
+
+
+    /**
+     * Construct
+     */
+    public function __construct()
+    {
+        $this->validator = new Validator();
+    }
+
+
     /**
      * Render webpage
      * @return void
@@ -32,8 +44,6 @@ class RegisterController extends Controller
      */
     public function register(): void
     {
-        $validator = new Validator();
-
         try {
             $username = $_POST['username'] ?? null;
             $fullname = $_POST['fullname'] ?? null;
@@ -42,36 +52,36 @@ class RegisterController extends Controller
             $pfpImage = $_FILES['profile-image'] ?? null;
 
             // validate every input
-            if ($validator->validateUsername($username) &&
-                $validator->validateFullname($fullname) &&
-                $validator->validatePassword($password, $passConf) &&
-                $validator->validateImage($pfpImage)
-            ) {
-                // Hash password
-                $password = password_hash(
-                    password: $password,
-                    algo: PASSWORD_DEFAULT,
-                );
+            $this->validator->validateUsername($username);
+            $this->validator->validateFullname($fullname); // TODO: Add validation
+            $this->validator->validatePassword($password, $passConf);
+            $this->validator->validateImage($pfpImage);
 
-                $pfpImagePath = 'assets/uploads/profile_images/' . $username . '.' . explode('/', $pfpImage['type'])[1];
+            // Hash password
+            $password = password_hash(
+                password: $password,
+                algo: PASSWORD_DEFAULT,
+            );
 
-                // Save image
-                move_uploaded_file(
-                    from: $pfpImage['tmp_name'],
-                    to: $pfpImagePath,
-                );
+            $pfpImagePath = "assets/uploads/profile_images/$username" . explode('/', $pfpImage['type'])[1];
 
-                // Insert user into database
-                UserModel::insertUser(
-                    username: $username,
-                    fullname: $fullname,
-                    password: $password,
-                    profile_image_path: $pfpImagePath,
-                );
+            // Save image
+            move_uploaded_file(
+                from: $pfpImage['tmp_name'],
+                to: $pfpImagePath,
+            );
 
-                // Redirect to login page
-                Router::redirect(path: 'login', query: ['success' => 'register']);
-            }
+            // Insert user into database
+            UserModel::insertUser(
+                username: $username,
+                fullname: $fullname,
+                password: $password,
+                profile_image_path: $pfpImagePath,
+            );
+
+            // Redirect to login page
+            Router::redirect(path: 'login', query: ['success' => 'register']);
+            
         } catch (Exception $e) {
             Router::redirect(path: 'register', query: ['error' => $e->getMessage()]);
         }

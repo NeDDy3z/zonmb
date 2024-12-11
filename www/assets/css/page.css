@@ -344,7 +344,11 @@ article.article-page {
 
         input, textarea {
             font-weight: normal;
+        }
 
+        textarea {
+            min-height: 20rem;
+            resize: vertical;
         }
 
         .article-images {
@@ -371,6 +375,10 @@ article.article-page {
                 height: auto;
                 border-radius: 8px;
                 object-fit: cover;
+            }
+
+            p {
+                display: none;
             }
         }
     }

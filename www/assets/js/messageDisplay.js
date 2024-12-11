@@ -6,12 +6,16 @@ const successMessages = {
     // General success
     'login': 'Přihlášení proběhlo úspěšně',
     'register': 'Registrace proběhla úspěšně',
+    'logout': 'Odhlášení proběhlo úspěšně',
 
     // Data uploads success
     'imageUpload': 'Obrázek byl úspěšně nahrán',
-    'usernameUpdate': 'Profil byl úspěšně upraven',
-    'articleCreateSuccess': 'Článek byl úspěšně vytvořen',
-    'articleUpdateSuccess': 'Článek byl úspěšně upraven',
+    'fullnameEdited': 'Jméno bylo úspěšně upraveno',
+    'userEdited': 'Profil byl úspěšně upraven',
+    'userDeleted': 'Uživatel byl úspěšně smazán',
+    'articleAdded': 'Článek byl úspěšně vytvořen',
+    'articleEdited': 'Článek byl úspěšně upraven',
+    'articleDeleted': 'Článek byl úspěšně smazán',
 };
 
 const errorMessages = {
@@ -26,9 +30,10 @@ const errorMessages = {
     'notAuthorized': 'K tomuto obsahu nemáte povolený přístup', // Not authorized error
 
     // Article form errors - temporary
-    'articleCreateError': 'Článek se nepodařilo vytvořit',
-    'articleUpdateError': 'Článek se nepodařilo upravit',
+    'articleAddError': 'Článek se nepodařilo vytvořit',
+    'articleEditError': 'Článek se nepodařilo upravit',
     'articleDeleteError': 'Článek se nepodařilo smazat',
+    'articleNotFound': 'Článek nebyl nalezen',
 
     // Data errors
     'usernameEmpty': 'Vyplňte uživatelské jméno',
@@ -49,31 +54,66 @@ const errorMessages = {
     'contentSize': 'Obsah musí mít délku minimálně 10 znaků',
 };
 
-// Show alert window popup with message
-if (URL_PARAMS.has('success')) {
-    let value = URL_PARAMS.get('success');
+function displayMessage(type) {
+    // Get messages from URL
+    let errors = URL_PARAMS.get('error') ?? null;
+    let success = URL_PARAMS.get('success') ?? null;
 
-    let message = document.createElement('p')
-    message.id = value;
-    message.className = 'success-message';
-    message.textContent = successMessages[value];
+    // Create message container
+    let messageContainer = document.createElement('div');
+    messageContainer.className = 'message-container';
+    messageContainer.addEventListener('click', () => { // remove on click
+        messageContainer.remove();
+    }, true);
 
-    successContainer.appendChild(message);
-}
+    if (!errors && !success) {
+        return;
+    }
 
-// Show form-error messages
-if (URL_PARAMS.has('error')) {
-    let values = URL_PARAMS.get('error').split('-');
+    // Append messages to container
+    if (errors) {
+        errors.split('-').forEach(message => {
+            let messageElement = document.createElement('p');
+            messageElement.className = 'error-message';
+            messageElement.textContent = errorMessages[message];
+            messageContainer.appendChild(messageElement);
+        });
+    }
+    if (success) {
+        success.split('-').forEach(message => {
+            let messageElement = document.createElement('p');
+            messageElement.className = 'success-message';
+            messageElement.textContent = successMessages[message];
+            messageContainer.appendChild(messageElement);
+        });
+    }
 
-    values.forEach(value => {
-        let message = document.createElement('p')
-        message.id = values[0];
-        message.className = 'error-message';
-        message.textContent = errorMessages[value];
-        if (errorMessages[value] === 'undefined') {
-            message.textContent = value;
+    // Countdown timer
+    let countdown = 10;
+    let countdownElement = document.createElement('p');
+    countdownElement.className = 'countdown';
+    countdownElement.textContent = `Dvojklik pro skrýtí zprávy / ${countdown}s`;
+
+    messageContainer.appendChild(countdownElement);
+
+    setInterval(() => {
+        countdown--;
+        countdownElement.textContent = `Dvojklik pro skrýtí zprávy / ${countdown}s`;
+        if (countdown <= 0) {
+            messageContainer.remove();
         }
+    }, 1000);
 
-        errorContainer.appendChild(message);
-    });
+    document.querySelector('header').appendChild(messageContainer);
+
+    // Remove after 20 seconds
+    setTimeout(() => {
+        messageContainer.remove();
+    }, countdown * 1000);
 }
+
+displayMessage();
+
+document.addEventListener('DOMContentLoaded', () => {
+    displayMessage();
+});

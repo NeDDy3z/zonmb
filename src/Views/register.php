@@ -14,7 +14,7 @@ use Helpers\UrlHelper;
 
             <label for="fullname">Celé jméno</label>
             <input type="text" id="fullname" name="fullname"
-                   minlength="10" maxlength="30" pattern="[a-zA-Z ]+"
+                   minlength="10" maxlength="30" pattern="[a-zA-Z0-9_.áčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ ]+"
                    title="Jméno musí mít nejméně 3 a maximálně 30 znaků, a může obsahovat pouze písmena a mezery"
                    tabindex="2" placeholder="*Celé jméno" required>
 

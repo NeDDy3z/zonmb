@@ -9,7 +9,7 @@ $type ??= 'add';
     <div class="container article-editor">
         <form action="<?= UrlHelper::baseUrl('articles/'. $type) ?>" method="post" enctype="multipart/form-data" name="articleForm" class="article-form">
             <label for="author-id">*Autorské ID: </label>
-            <input type="text" name="author" value="<?= $user->getId() ?>" hidden required>
+            <input type="text" name="author" value="<?= $_SESSION['user_data']->getId() ?>" hidden required>
 
             <?php if ($type === 'edit') {
                 echo '<label for="id">ID Článku: </label>
@@ -17,39 +17,38 @@ $type ??= 'add';
             } ?>
 
             <label for="title">*Titulek: </label>
-            <input type="text" name="title" placeholder="*Titulek" value="<?= isset($article) ? $article->getTitle() : ''; ?>">
+            <input type="text" name="title" placeholder="*Titulek" value="<?= isset($article) ? htmlspecialchars($article->getTitle()) : ''; ?>">
 
             <label for="subtitle">Podtitulek: </label>
-            <input type="text" name="subtitle" placeholder="Podtitulek" value="<?= isset($article) ? $article->getSubtitle() : ''; ?>">
+            <input type="text" name="subtitle" placeholder="Podtitulek" value="<?= isset($article) ? htmlspecialchars($article->getSubtitle()) : ''; ?>">
 
             <label for="content">*Obsah: </label>
-            <textarea name="content" id="content" cols="30" rows="10" placeholder="*Obsah"><?= isset($article) ? $article->getContent() : ''; ?></textarea>
+            <textarea name="content" id="content" cols="30" rows="10" placeholder="*Obsah"><?= isset($article) ? htmlspecialchars($article->getContent()) : ''; ?></textarea>
 
-            <label for="image">Přidat obrázek: </label>
-            <input type="file" name="image" id="image" accept="image/png, image/jpg, image/jpeg"
+            <label for="images">Přidat obrázky: </label>
+            <input type="file" name="images[]" id="images" accept="image/png, image/jpg, image/jpeg"
                    title="Obrázek musí být ve formátu PNG nebo JPG, můžete nahrát více obrázků najednou"
                    multiple>
 
             <div class="article-images">
-                <?php if ($article->getImagePaths() !== null) {
+                <?php if (isset($article) and $article->getImagePaths() !== null) {
                     foreach ($article->getImagePaths() as $image) {
                         echo '<div class="article-image">
-                                <button type="button" class="danger remove-image" value="'. $image .'">Odstranit</button>
-                                <img src="'. $image .'" alt="Obrázek článku">
+                                <button type="button" class="danger remove-image" value="'. UrlHelper::baseUrl($image) .'">Odstranit</button>
+                                <img src="'. UrlHelper::baseUrl($image) .'" alt="Obrázek článku">
                             </div>';
                     }
-                } else {
-                    echo '<p>Žádné obrázky u článku</p>';
-                } ?>
+                }  ?>
+                <p>Žádné obrázky u článku</p>
             </div>
 
-            <button type="submit">Zveřejnit</button>
+            <button type="submit"><?= $type == 'add' ? 'Zveřejnit' : 'Upravit' ?></button>
             <p><span class="grayed-out">* povinná pole</span></p>
 
             <div class="error-container"></div>
             <div class="success-container"></div>
 
-            <a href="./">Zpět</a>
+            <a href="<?= UrlHelper::baseUrl('admin') ?>">Administrátorská stránka</a>
         </form>
     </div>
 </main>

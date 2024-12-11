@@ -18,7 +18,7 @@ if (!isset($article)) {
 <?php
     if (!empty($article->getImagePaths())) {
         echo '<div class="news-article-image">
-                    <a href="'. UrlHelper::baseUrl('article/'. $article->getSlug()) .'">
+                    <a href="'. UrlHelper::baseUrl('articles/'. $article->getSlug()) .'">
                        <img src="' . UrlHelper::baseUrl($article->getImagePaths()[0]) . '" alt="Obrázek článku">
                     </a>
               </div>';

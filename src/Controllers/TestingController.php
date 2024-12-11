@@ -12,14 +12,27 @@ class TestingController extends Controller
      */
     private string $page = ROOT . 'src/Views/test.php'; // Import page content
 
+    /**
+     * @var string
+     */
+    private string $subPage;
 
     /**
      * Construct
      */
-    public function __construct()
+    public function __construct(?string $subPage = null)
     {
         $privilegeRedirect = new PrivilegeRedirect();
         $privilegeRedirect->redirectEditor();
+
+        $this->subPage = $subPage ?? '';
+
+        switch ($this->subPage) {
+            case 'xhr':
+                $this->testXhr();
+                break;
+            default: break;
+        }
     }
 
 
@@ -39,5 +52,14 @@ class TestingController extends Controller
             from: $image['tmp_name'],
             to: 'assets/uploads/test.png',
         );
+    }
+
+    /**
+     * @return void
+     */
+    public function testXhr(): void
+    {
+        echo json_encode(['status' => 'test']);
+        exit();
     }
 }

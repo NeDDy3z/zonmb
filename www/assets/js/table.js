@@ -42,15 +42,37 @@ function addOpenOverlayToArticlesTable() {
     }
 }
 
+function createDeleteButton(method, param) {
+    let deleteButton = document.createElement('button') // Create delete button
+    deleteButton.classList.add('delete', 'danger');
+    deleteButton.innerText = 'Smazat';
+    deleteButton.addEventListener('click', function () {
+        switch (method) {
+            case 'users':
+                if (confirm('Opravdu chcete smazat uživatele s ID: ' + param + ' ?')) {
+                    deleteUser(param);
+                }
+                break;
+            case 'articles':
+                if (confirm('Opravdu chcete smazat článek s ID: ' + param + ' ?')) {
+                    deleteArticle(param);
+                }
+                break;
+        }
+    });
+
+    return deleteButton;
+}
+
 
 // Get data
 function getUsers(callback) {
     const search = document.getElementById('search-user').value;
     const sortField = usersTable.querySelector('.sort.active');
-    //const page = usersTable.querySelector('.pagination .active').textContent;
+    //const page = usersTable.querySelector('.pagination .active').textContent; // TODO: paging
     const page = 1;
 
-    let query = 'users?';
+    let query = 'users/get?';
     query += (search) ? `search=${search}` : '';
     query += (sortField) ? `&sort=${sortField}` : '';
     query += (page) ? `&page=${page}` : '';
@@ -73,7 +95,7 @@ function getArticles(callback) {
     //const page = articlesTable.querySelector('.pagination .active').textContent;
     const page = 1;
 
-    let query = 'articles?';
+    let query = 'articles/get?';
     query += (search) ? `search=${search}` : '';
     query += (sortField) ? `&sort=${sortField}` : '';
     query += (page) ? `&page=${page}` : '';
@@ -97,16 +119,19 @@ function loadUsers(data) {
     data.forEach(user => {
         let row = document.createElement('tr');
         row.innerHTML = `
-            <td>${encodeHtml(user.id)}</td>
+            <td><a href="./users/${user.username}">${encodeHtml(user.id)}</a></td>
             <td>${encodeHtml(user.username)}</td>
             <td>${encodeHtml(user.fullname)}</td>
             <td>${encodeHtml(user.role)}</td>
             <td>${encodeHtml(prettyDate(user.created_at))}</td>
             <td class="buttons">
                 <button class="edit">Upravit</button>
-                <a href="users/delete?id=${user.id}" class="delete"><button>Smazat</button></a>
             </td>
         `;
+
+        if (user.role !== 'owner') {
+            row.querySelector('.buttons').appendChild(createDeleteButton('users', user.id)); // Append delete button to row
+        }
 
         if (data.length === 0) {
             let row = document.createElement('tr');
@@ -123,10 +148,11 @@ function loadArticles(data) {
     let tbody = articlesTable.querySelector('tbody');
     tbody.innerHTML = '';
 
-    data.forEach(article => {
-        let row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${encodeHtml(article.id)}</td>
+    try {
+        data.forEach(article => {
+            let row = document.createElement('tr');
+            row.innerHTML = `
+            <td><a href="./articles/${article.slug}">${encodeHtml(article.id)}</a></td>
             <td>${encodeHtml(article.title)}</td>
             <td>${encodeHtml(article.subtitle)}</td>
             <td>${encodeHtml(article.content)}</td>
@@ -135,11 +161,16 @@ function loadArticles(data) {
             <td>${encodeHtml(prettyDate(article.created_at))}</td>
             <td class="buttons">
                 <a href="articles/edit?id=${article.id}"><button>Upravit</button></a>
-                <a href="articles/delete?id=${article.id}" class="delete"><button>Smazat</button></a>
             </td>                
         `;
-        tbody.appendChild(row);
-    });
+
+            row.querySelector('.buttons').appendChild(createDeleteButton('articles', article.id)); // Append delete button to row
+
+            tbody.appendChild(row);
+        });
+    } catch (e) {
+    }
+
 
     if (data.length === 0) {
         let row = document.createElement('tr');
@@ -150,6 +181,32 @@ function loadArticles(data) {
     }
 
     addOpenOverlayToArticlesTable();
+}
+
+function deleteUser(id) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `users/delete?id=${id}`, true);
+    xhr.onload = function () {
+        if (xhr.status === 200 && xhr.responseText.includes('success')) {
+            getUsers(function (data) {
+                loadUsers(data);
+            });
+        }
+    };
+    xhr.send();
+}
+
+function deleteArticle(id) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `articles/delete?id=${id}`, true);
+    xhr.onload = function () {
+        if (xhr.status === 200 && xhr.responseText.includes('success')) {
+            getArticles(function (data) {
+                loadArticles(data);
+            });
+        }
+    };
+    xhr.send();
 }
 
 getUsers(function (data) {

@@ -84,30 +84,32 @@ class UserModel
 
     /**
      * @param int $id
-     * @param string|null $username
-     * @param string|null $profile_image_path
+     * @param string $fullname
      * @return void
      * @throws DatabaseException
      */
-    public static function updateUser(int $id, string $username = null, string $profile_image_path = null): void
+    public static function updateUserFullname(int $id, string $fullname): void
     {
-        $items = [];
-        $values = [];
-
-        switch (true) {
-            case $username:
-                $items[] = 'username';
-                $values[] = $username;
-                // no break
-            case $profile_image_path:
-                $items[] = 'profile_image_path';
-                $values[] = $profile_image_path;
-        }
-
         DatabaseConnector::update(
             table: 'user',
-            items: $items,
-            values: $values,
+            items: ['fullname'],
+            values: [$fullname],
+            conditions: 'WHERE id = ' . $id,
+        );
+    }
+
+    /**
+     * @param int $id
+     * @param string $profile_image_path
+     * @return void
+     * @throws DatabaseException
+     */
+    public static function updateUserProfileImage(int $id, string $profile_image_path): void
+    {
+        DatabaseConnector::update(
+            table: 'user',
+            items: ['profile_image_path'],
+            values: [$profile_image_path],
             conditions: 'WHERE id = ' . $id,
         );
     }

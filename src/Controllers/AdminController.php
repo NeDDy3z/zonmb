@@ -74,6 +74,8 @@ class AdminController extends Controller
         $databaseArticles = ArticleModel::selectArticles();
         $articles = [];
 
+        $imagePaths = isset($articleData['image_paths']) ? explode(',', $articleData['image_paths']) : null;
+
         foreach ($databaseArticles as $article) {
             $articles[] = new Article(
                 id: (int)$article['id'],
@@ -81,7 +83,7 @@ class AdminController extends Controller
                 subtitle: $article['subtitle'],
                 content: $article['content'],
                 slug: $article['slug'],
-                imagePaths: explode(',', $article['image_paths']),
+                imagePaths: $imagePaths,
                 authorId: (int)$article['author_id'],
                 createdAt: $article['created_at'],
             );

@@ -26,9 +26,9 @@ class UserController extends Controller
 
     /**
      * User page
-     * @var string $user
+     * @var string $username
      */
-    private string $user;
+    private string $username;
 
     /**
      * @var Validator $validator
@@ -48,30 +48,22 @@ class UserController extends Controller
 
     /**
      * Construct
-     * @param string|null $user
+     * @param string|null $username
      * @param string|null $subPage
      */
-    public function __construct(?string $user = null, ?string $subPage = null)
+    public function __construct(?string $username = null, ?string $subPage = null)
     {
-        $privilegeRedirect = new PrivilegeRedirect();
-        $privilegeRedirect->redirectHost();
-
         $this->validator = new Validator();
+        $privilegeRedirect = new PrivilegeRedirect();
+        $privilegeRedirect->redirectHost('login');
 
-        if (!$user && !$subPage) {
-            $privilegeRedirect->redirectEditor();
-            $this->getUsers();
-        }
-
-        $this->user = $user ?? '';
+        $this->username = $username ?? $_SESSION['user_data']->getUsername();
         $this->subPage = $subPage ?? '';
 
-        switch ($subPage) {
-            case 'fullname':
-                $this->updateFullname();
-                break;
-            case 'profile-image':
-                $this->uploadImage();
+        switch ($this->subPage) {
+            case 'get':
+                $privilegeRedirect->redirectEditor();
+                $this->getUsers();
                 break;
             case 'logout':
                 $this->logout();
@@ -91,11 +83,43 @@ class UserController extends Controller
         $user = $this->loadUserData();
         $userRoles = $this->userRole;
 
-        if ($user->getUsername() === $this->user) {
+        if ($user->getUsername() === $this->username) {
             require_once $this->page; // Load page content
         } else {
             Router::redirect(path: '', query: ['error' => 'notAuthorized']);
         }
+    }
+
+    /**
+     * Get users from database
+     * @return void
+     */
+    public function getUsers(): void
+    {
+        $search = $_GET['search'] ?? null;
+        $sort = $_GET['sort'] ?? null;
+        $page = $_GET['page'] ?? 1;
+
+        $conditions = ($search) ? "WHERE id LIKE $search OR username LIKE '$search' OR fullname LIKE '$search' OR 
+                                    role LIKE '$search' OR created_at LIKE '$search'" : "";
+        $conditions .= ($sort) ? " ORDER BY $sort" : "";
+        $conditions .= ($page) ? " LIMIT 10 OFFSET " . ($page - 1) * 10 : "";
+
+        try {
+            $usersData = UserModel::selectUsers(
+                conditions: $conditions,
+            );
+
+            if (!$usersData) {
+                throw new Exception('No articles found');
+            }
+        } catch (Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+            exit();
+        }
+
+        echo json_encode($usersData);
+        exit();
     }
 
     /**
@@ -130,11 +154,44 @@ class UserController extends Controller
         return $user ?? null;
     }
 
+
     /**
+     * Update fullname of the user
+     * @return void
+     */
+    public function updateFullname(): void
+    {
+        $fullname = $_POST['fullname'] ?? null;
+
+        if (!$fullname) {
+            Router::redirect(path: 'users/' . $this->username, query: ['error' => 'missingFullname']);
+        }
+
+        try {
+            $this->validator->validateFullname($fullname);
+
+            // Insert user into database
+            UserModel::updateUserFullname(
+                id: $_SESSION['user_data']->getId(),
+                fullname: $fullname,
+            );
+
+            // Update user data
+            $_SESSION['user_data']->setFullname($fullname);
+
+            Router::redirect(path: 'users/' . $this->username, query: ['success' => 'fullnameUpdate']);
+
+        } catch (Exception $e) {
+            Router::redirect(path: 'users/' . $this->username, query: ['error' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Update user profile image
      * @return void
      * @throws DatabaseException
      */
-    public function uploadImage(): void
+    public function updateProfileImage(): void
     {
         $pfpImage = $_FILES['profile-image'] ?? null;
 
@@ -156,7 +213,7 @@ class UserController extends Controller
         );
 
         // Insert user into database
-        UserModel::updateUser(
+        UserModel::updateUserProfileImage(
             id: $_SESSION['user_data']->getId(),
             profile_image_path: $pfpImagePath,
         );
@@ -164,57 +221,14 @@ class UserController extends Controller
         // Update user data
         $_SESSION['user_data']->setImage($pfpImagePath);
 
-        Router::redirect(path: 'user', query: ['success' =>   'pfpUpload']);
-    }
-
-    /**
-     * Redirect user if they are not logged in
-     * @return void
-     */
-    private function redirectHostUser(): void
-    {
-        if (!isset($_SESSION['username'])) {
-            Router::redirect(path: 'login');
-        }
+        Router::redirect(path: 'user', query: ['success' =>   'imageUpload']);
     }
 
     public function logout(): void
     {
         session_unset();
         session_destroy();
-        Router::redirect(path: '', query: ['popup' =>   'Odhlášení proběhlo úspěšně']);
-    }
-
-    /**
-     * Get users from database
-     * @return void
-    */
-    public function getUsers(): void
-    {
-        $search = $_GET['search'] ?? null;
-        $sort = $_GET['sort'] ?? null;
-        $page = $_GET['page'] ?? 1;
-
-        $conditions = ($search) ? "WHERE id LIKE $search OR username LIKE '$search' OR fullname LIKE '$search' OR 
-                                    role LIKE '$search' OR created_at LIKE '$search'" : "";
-        $conditions .= ($sort) ? " ORDER BY $sort" : "";
-        $conditions .= ($page) ? " LIMIT 10 OFFSET " . ($page - 1) * 10 : "";
-
-        try {
-            $usersData = UserModel::selectUsers(
-                conditions: $conditions,
-            );
-
-            if (!$usersData) {
-                throw new Exception('No articles found');
-            }
-        } catch (Exception $e) {
-            echo json_encode(['error' => $e->getMessage()]);
-            exit();
-        }
-
-        echo json_encode($usersData);
-        exit();
+        Router::redirect(path: '', query: ['success' => 'logout']);
     }
 
 }
