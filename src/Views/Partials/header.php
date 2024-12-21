@@ -10,11 +10,10 @@ $username = isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_dat
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Oficiální stránka organizace neslyšících v Mladé Boleslavy">
-
     <link rel="icon" type="image/x-icon" href="<?= UrlHelper::baseUrl('assets/images/favicon.ico') ?>">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
-    <link rel="stylesheet" href="/assets/css/header_footer.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="<?= UrlHelper::baseUrl('assets/css/header_footer.css') ?>">
+    <link rel="stylesheet" href="<?= UrlHelper::baseUrl('assets/css/style.css') ?>">
     <title><?= $title ?? 'ZONMB'; ?></title>
 </head>
 <body>
