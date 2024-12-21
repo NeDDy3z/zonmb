@@ -49,7 +49,9 @@ class DateHelper
      */
     public static function ifPrettyConvertToISO(string|null $date): string|null
     {
-        if (isset($search) && preg_match("/^(?:0?[1-9]|[12][0-9]|3[01])\.(?:0?[1-9]|1[0-2])\.\d{4}$/", $date)) {
+
+
+        if (isset($date) && preg_match("/^(?:0?[1-9]|[12][0-9]|3[01])\.(?:0?[1-9]|1[0-2])\.\d{4}$/", $date)) {
             return self::toISOFormat($date);
         } else {
             return $date;

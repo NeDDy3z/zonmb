@@ -116,6 +116,7 @@ class UserController extends Controller
     {
         $search = $_GET['search'] ?? null;
         $sort = $_GET['sort'] ?? null;
+        $sortDirection = $_GET['sortDirection'] ?? null;
         $page = $_GET['page'] ?? 1;
 
         // Convert date format
@@ -124,6 +125,7 @@ class UserController extends Controller
         $conditions = ($search) ? "WHERE id LIKE '$search%' OR username LIKE '%$search%' OR fullname LIKE '%$search%' OR 
                                     role LIKE '%$search%' OR created_at LIKE '%$search%'" : "";
         $conditions .= ($sort) ? " ORDER BY $sort" : "";
+        $conditions .= ($sortDirection) ? " $sortDirection" : "";
         $conditions .= ($page) ? " LIMIT 10 OFFSET " . ($page - 1) * 10 : "";
 
         try {

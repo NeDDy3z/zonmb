@@ -28,6 +28,8 @@ function addOpenOverlayToArticlesTable() {
     }
 }
 
+
+// Edit data button template
 function createEditButton(table, param) {
     let editLink = document.createElement('a');
     editLink.href = table + '?id=' + param;
@@ -40,6 +42,7 @@ function createEditButton(table, param) {
     return editLink;
 }
 
+// Delete data button template
 function createDeleteButton(table, param) {
     let deleteButton = document.createElement('button') // Create delete button
     deleteButton.classList.add('delete', 'danger');
@@ -68,11 +71,13 @@ function getData(table, callback) {
     const tableSection = document.querySelector(`.table-${table}`);
     const search = tableSection.querySelector('.search');
     const sortField = tableSection.querySelector('.sort.active');
-    const page = 1;
+    const sortDirection = (sortField.classList.contains('asc')) ? 'asc' : 'desc';
+    const page = tableSection.querySelector(`#page-${table}`).querySelector('span').textContent ?? 1;
 
     let query = `${table}/get?`;
     query += (search) ? `search=${search.value}` : '';
-    query += (sortField) ? `&sort=${sortField.data - sort}` : '';
+    query += (sortField) ? `&sort=${sortField.id}` : '';
+    query += (sortDirection) ? `&sortDirection=${sortDirection}` : '';
     query += (page) ? `&page=${page}` : '';
 
     const xhr = new XMLHttpRequest();
@@ -93,9 +98,7 @@ function deleteData(table, id) {
 
     xhr.onload = function () {
         if (xhr.status === 200 && xhr.responseText.includes('success')) {
-            getData(table, function (data) {
-                loadData(table, data);
-            });
+            fetchAndLoadData(table);
         }
     };
     xhr.send();
@@ -117,18 +120,25 @@ function loadData(table, data) {
                 buttonDiv.appendChild(createDeleteButton(`${table}`, dataItem.id)); // Append delete button to row
             }
 
-            if (data.length === 0) {
-                let row = document.createElement('tr');
-                row.innerHTML = `
-                <td colspan="6" class="empty">Žádná data nenalezena</td>
-            `;
-            }
-
             tbody.appendChild(row);
         });
         addOpenOverlayToArticlesTable();
     }
+
+    if (tbody.innerText === '') {
+        let row = document.createElement('tr');
+        row.innerHTML = `<td colspan="8" class="empty">Žádná data nenalezena</td>`;
+        tbody.appendChild(row);
+    }
 }
+
+// Single function to fetch and load data
+function fetchAndLoadData(table) {
+    getData(table, function (data) {
+        loadData(table, data);
+    });
+}
+
 
 // Table rows
 function userRow(user) {
@@ -161,42 +171,123 @@ function articleRow(article) {
 }
 
 
-// Event listeners
-// document.querySelectorAll('.table-articles .sort').forEach(header => {
-//     header.addEventListener('click', function (e) {
-//         e.preventDefault();
-//         const sortField = this.dataset.sort;
-//         const xhr = new XMLHttpRequest();
-//         xhr.open('GET', `articles/get?sort=${sortField}`, true);
-//         xhr.onload = function () {
-//             if (xhr.status === 200) {
-//                 document.querySelector('.table-articles tbody').innerHTML = xhr.responseText;
-//             }
-//         }
-//     })
-// })
+// Sorter
+// Toggle sort active - state: false=off, true=on
+function toggleSort(sort, state) {
+    if (state) {
+        sort.classList.add('active');
+    } else {
+        sort.classList.remove('active');
+    }
+}
 
-document.querySelector('.table-users .search').addEventListener('input', function () {
-    getData('users', function (data) {
-        loadData('users', data);
+// If sort is active, toggle sort direction
+function toggleSortDirection(sort) {
+    if (sort.classList.contains('active')) {
+        if (sort.classList.contains('asc')) {
+            sort.classList.remove('asc');
+            sort.classList.add('desc');
+
+            toggleArrow(sort, true);
+        } else {
+            sort.classList.remove('desc');
+            sort.classList.add('asc');
+
+            toggleArrow(sort, false);
+        }
+    } else {
+        toggleArrow(sort, null);
+    }
+}
+
+// Design change
+function toggleArrow(sort, state) {
+    let span = sort.querySelector('span');
+
+    switch (state) {
+        case true:
+            span.innerHTML = ' &#9660'; // ASC
+            break;
+        case false:
+            span.innerHTML = ' &#9650'; // DESC
+            break;
+        default:
+            span.innerHTML = '';
+            break;
+    }
+}
+
+
+// Event listener
+function addEventListenerToSearch(table) {
+    const search = document.querySelector(`.table-${table} .search`);
+    search.addEventListener('input', function () {
+        fetchAndLoadData(table);
     })
-})
+}
 
-document.querySelector('.table-articles .search').addEventListener('input', function () {
-    getData('articles', function (data) {
-        loadData('articles', data);
+function addEventListenerToSort(table) {
+    const sortButtons = document.querySelectorAll(`.table-${table} .sort`);
+
+    sortButtons.forEach(button => {
+        button.addEventListener('click', function (e) {
+            toggleSort(button, true);
+            toggleSortDirection(button);
+
+            let id = button.id;
+            sortButtons.forEach(button => {
+                if (button.id !== id) {
+                    toggleSort(button, false);
+                    toggleSortDirection(button);
+                }
+            })
+
+            fetchAndLoadData(table);
+        })
     })
-})
+}
 
+function addEventListenerToPage(table) {
+    const tableFooter = document.querySelector(`.table-${table} .table-footer`);
+    const nextPage = tableFooter.querySelector('.next-page');
+    const prevPage = tableFooter.querySelector('.prev-page');
+    const pageSpan = tableFooter.querySelector('span');
+    const tbody = document.querySelector(`.table-${table} tbody`);
+
+    nextPage.addEventListener('click', function () {
+        let page = parseInt(pageSpan.textContent);
+        if (page <= 1 && tbody.children.length === 10) {
+            page++;
+            pageSpan.textContent = page;
+
+            fetchAndLoadData(table);
+        }
+    })
+
+    prevPage.addEventListener('click', function () {
+        let page = parseInt(pageSpan.textContent);
+        if (page > 1) {
+            page--;
+
+            pageSpan.textContent = page;
+            fetchAndLoadData(table);
+        }
+    })
+}
+
+// Add Event listeners
+addEventListenerToSearch('users');
+addEventListenerToSort('users');
+addEventListenerToPage('users');
+addEventListenerToSearch('articles');
+addEventListenerToSort('articles');
+addEventListenerToPage('articles');
 
 // Initial load
-getData('users', function (data) {
-    loadData('users', data);
-});
+fetchAndLoadData('users');
+fetchAndLoadData('articles');
 
-getData('articles', function (data) {
-    loadData('articles', data);
-});
+
 
 
 // // Search
@@ -227,6 +318,8 @@ getData('articles', function (data) {
 //         xhr.send();
 //     });
 // });
+
+
 
 
 

@@ -15,11 +15,11 @@ use Helpers\UrlHelper;
             <table class="users-table">
                 <thead>
                 <tr>
-                    <th><a href="#" class="sort" data-sort="id">ID</a></th>
-                    <th><a href="#" class="sort" data-sort="username">Uživatelské jméno</a></th>
-                    <th><a href="#" class="sort" data-sort="fullname">Celé jméno</a></th>
-                    <th><a href="#" class="sort" data-sort="role">Role</a></th>
-                    <th><a href="#" class="sort" data-sort="created_at">Datum registrace</a></th>
+                    <th><a href="#" class="sort active asc" id="id">ID<span> &#9650;</span></a></th>
+                    <th><a href="#" class="sort" id="username">Uživatelské jméno<span></span></a></th>
+                    <th><a href="#" class="sort" id="fullname">Celé jméno<span></span></a></th>
+                    <th><a href="#" class="sort" id="role">Role<span></span></a></th>
+                    <th><a href="#" class="sort" id="created_at">Datum registrace<span></span></a></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -27,9 +27,9 @@ use Helpers\UrlHelper;
                 </tbody>
             </table>
             <div class="table-footer">
-                <p id="page-users">Strana x/x</p>
-                <button id="prev-page-users">←</button>
-                <button id="next-page-users">→</button>
+                <p id="page-users">Strana <span>1</span></p>
+                <button class="prev-page">←</button>
+                <button class="next-page">→</button>
             </div>
         </section>
         <section class="table-data table-articles">
@@ -42,13 +42,13 @@ use Helpers\UrlHelper;
             <table class="articles-table">
                 <thead>
                 <tr>
-                    <th><a href="#" class="sort" data-sort="id">ID</a></th>
-                    <th><a href="#" class="sort" data-sort="title">Nadpis</a></th>
-                    <th><a href="#" class="sort" data-sort="subtitle">Podnadpis</a></th>
-                    <th><a href="#" class="sort" data-sort="content">Obsah</a></th>
-                    <th><a href="#" class="sort" data-sort="images">Obrázky</a></th>
-                    <th><a href="#" class="sort" data-sort="author">Autor</a></th>
-                    <th><a href="#" class="sort" data-sort="created_at">Datum zveřejnění</a></th>
+                    <th><a href="#" class="sort active asc" id="id">ID<span> &#9650;</span></a></th>
+                    <th><a href="#" class="sort" id="title">Nadpis<span></span></a></th>
+                    <th><a href="#" class="sort" id="subtitle">Podnadpis<span></span></a></th>
+                    <th><a href="#" class="sort" id="content">Obsah<span></span></a></th>
+                    <th><a href="#" class="sort" id="images">Obrázky<span></span></a></th>
+                    <th><a href="#" class="sort" id="author">Autor<span></span></a></th>
+                    <th><a href="#" class="sort" id="created_at">Datum zveřejnění<span></span></a></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -56,9 +56,9 @@ use Helpers\UrlHelper;
                 </tbody>
             </table>
             <div class="table-footer">
-                <p id="page-articles">Strana x/x</p>
-                <button id="prev-page-articles">←</button>
-                <button id="next-page-articles">→</button>
+                <p id="page-articles">Strana <span>1</span></p>
+                <button class="prev-page">←</button>
+                <button class="next-page">→</button>
             </div>
         </section>
     </div>

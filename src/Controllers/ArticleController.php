@@ -84,12 +84,12 @@ class ArticleController
 
     /**
      * Get articles from DB
-     * @throws \DateMalformedStringException
      */
     public function getArticles(): void
     {
         $search = $_GET['search'] ?? null;
         $sort = $_GET['sort'] ?? null;
+        $sortDirection = $_GET['sortDirection'] ?? null;
         $page = $_GET['page'] ?? 1;
 
         // Convert date format
@@ -97,6 +97,7 @@ class ArticleController
 
         $conditions = ($search) ? "WHERE id like '$search%' or title LIKE '%$search%' OR subtitle LIKE '%$search%' OR content LIKE '%$search%' OR created_at LIKE '%$search%'" : "";
         $conditions .= ($sort) ? " ORDER BY $sort" : "";
+        $conditions .= ($sortDirection) ? " $sortDirection" : "";
         $conditions .= ($page) ? " LIMIT 10 OFFSET " . ($page - 1) * 10 : "";
 
         try {
