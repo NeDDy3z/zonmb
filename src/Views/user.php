@@ -39,7 +39,7 @@ $user = $_SESSION['user_data'];
                             <span class="grayed-out">*<?= DateHelper::toPrettyFormat($user->getCreatedAt()) ?></span>
                         </li>
                     </ul>
-                    <a href="<?= UrlHelper::baseUrl('users/logout') ?>">Odhlásit se</a>
+                    <a href="<?= UrlHelper::baseUrl('users/logout') ?>" class="btn danger">Odhlásit se</a>
                 </div>
             </div>
 

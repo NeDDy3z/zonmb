@@ -14,6 +14,8 @@
          line-height: 1.6rem;
          font-size: 1rem;
      }
+
+    box-shadow: none !important;
 }
 
 /* Contact Section */

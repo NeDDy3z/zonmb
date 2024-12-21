@@ -25,6 +25,10 @@
         padding: 1rem;
         border-radius: 1rem;
 
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+        }
 
         table {
             width: 100%;
@@ -32,6 +36,7 @@
 
             th, td {
                 max-width: 12rem;
+                height: 2.2rem;
                 padding: .5rem;
 
                 text-align: left;
@@ -104,17 +109,6 @@
     }
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-
-    th, td {
-        padding: .5rem;
-
-        text-align: left;
-        border-bottom: 2px solid var(--background);
-    }
-}
 
 @media (max-width: 50rem) {
     .tables {
