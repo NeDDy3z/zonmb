@@ -53,9 +53,9 @@ class RegisterController extends Controller
 
             // validate every input
             $this->validator->validateUsername($username);
-            $this->validator->validateFullname($fullname); // TODO: Add validation
+            $this->validator->validateFullname($fullname);
             $this->validator->validatePassword($password, $passConf);
-            $this->validator->validateImage($pfpImage);
+            //$this->validator->validateImage($pfpImage);
 
             // Hash password
             $password = password_hash(

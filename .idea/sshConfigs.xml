@@ -2,7 +2,7 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="zwa.toad.cz" id="ec50c608-8034-4622-83c5-409fdc58e014" port="22" nameFormat="DESCRIPTIVE" username="vanekeri" />
+      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="zwa.toad.cz" id="ec50c608-8034-4622-83c5-409fdc58e014" port="22" nameFormat="DESCRIPTIVE" username="vanekeri" useOpenSSHConfig="true" />
     </configs>
   </component>
 </project>

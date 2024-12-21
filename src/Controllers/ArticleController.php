@@ -2,7 +2,9 @@
 
 namespace Controllers;
 
+use DateTime;
 use Exception;
+use Helpers\DateHelper;
 use Helpers\PrivilegeRedirect;
 use Helpers\ReplaceHelper;
 use Logic\Article;
@@ -20,23 +22,23 @@ class ArticleController
     private string $editorPage = ROOT . 'src/Views/article-editor.php';
 
     /**
-     * @var string $subPage
+     * @var string $action
      */
-    private string $subPage;
+    private string $action;
 
     private Validator $validator;
 
     /**
      * Constructor
-     * @param string|null $subPage
+     * @param string|null $action
      */
-    public function __construct(?string $subPage = '')
+    public function __construct(?string $action = '')
     {
         $privilegeRedirect = new PrivilegeRedirect();
         $this->validator = new Validator();
-        $this->subPage = $subPage ?? '';
+        $this->action = $action ?? '';
 
-        switch ($this->subPage) {
+        switch ($this->action) {
             case 'get':
                 $this->getArticles();
                 break;
@@ -60,7 +62,7 @@ class ArticleController
      */
     public function render(): void // TODO: Fix the slash /01... in the URL
     {
-        switch ($this->subPage) {
+        switch ($this->action) {
             case null:
                 Router::redirect(path: 'news', query: ['error' => 'articleNotFound']);
                 break;
@@ -71,17 +73,18 @@ class ArticleController
                 break;
             case 'delete':
                 break;
-            default: $article = Article::getArticleBySlug($this->subPage);
+            default: $article = Article::getArticleBySlug($this->action);
         };
 
         $user = $_SESSION['user_data'] ?? null;
-        $type = $this->subPage;
+        $type = $this->action;
         require_once $this->page; // Load page content
     }
 
 
     /**
      * Get articles from DB
+     * @throws \DateMalformedStringException
      */
     public function getArticles(): void
     {
@@ -89,8 +92,10 @@ class ArticleController
         $sort = $_GET['sort'] ?? null;
         $page = $_GET['page'] ?? 1;
 
-        $conditions = ($search) ? "WHERE id LIKE $search OR title LIKE '$search' OR subtitle LIKE '$search' OR 
-                                    content LIKE '$search' or author LIKE '$search' OR created_at LIKE '$search'" : "";
+        // Convert date format
+        $search = DateHelper::ifPrettyConvertToISO($search);
+
+        $conditions = ($search) ? "WHERE id like '$search%' or title LIKE '%$search%' OR subtitle LIKE '%$search%' OR content LIKE '%$search%' OR created_at LIKE '%$search%'" : "";
         $conditions .= ($sort) ? " ORDER BY $sort" : "";
         $conditions .= ($page) ? " LIMIT 10 OFFSET " . ($page - 1) * 10 : "";
 

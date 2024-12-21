@@ -37,11 +37,11 @@ $user = $_SESSION['user_data'];
                     <ul>
                         <li>
                             <span class="grayed-out">registrace<br>
-                                <?= DateHelper::dateTopPrettyString($user->getCreatedAt())  ?>
+                                <?= DateHelper::toPrettyFormat($user->getCreatedAt())  ?>
                             </span>
                         </li>
                     </ul>
-                    <a href="<?= UrlHelper::baseUrl('users/'. htmlspecialchars($user->getUsername()) .'/logout') ?>">
+                    <a href="<?= UrlHelper::baseUrl('users/logout') ?>">
                         <button type="button" class="warning" id="logout">Odhlásit se</button>
                     </a>
                 </div>
@@ -55,9 +55,9 @@ $user = $_SESSION['user_data'];
                 <h2>Změna jména</h2>
                 <label for="fullname">Celé jméno</label>
                 <input type="text" id="fullname" name="fullname"
-                       minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.áčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ ]+"
-                       title="Jméno musí mít nejméně 3 a maximálně 30 znaků, a může obsahovat pouze písmena"
-                       placeholder="Nové jméno" required>
+                       minlength="3" maxlength="30" pattern="[a-zA-ZáčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ ]+"
+                       title="Jméno musí mít nejméně 3 a maximálně 30 znaků, a může obsahovat pouze písmena a mezery"
+                       tabindex="2" placeholder="Nové jméno" required>
 
                 <button type="submit" id="change-name">Změnit jméno</button>
             </form>

@@ -126,6 +126,7 @@ class Validator
         }
     }
 
+    // TODO: Refactor image validation
     /**
      * Validate image (size, format, dimensions) - used for registration
      * @param array<string, string> $image

@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Exception;
+use Helpers\DateHelper;
 use Helpers\PrivilegeRedirect;
 use Logic\DatabaseException;
 use Logic\IncorrectInputException;
@@ -20,9 +21,14 @@ class UserController extends Controller
     private string $page = ROOT . 'src/Views/user.php'; // Import page content
 
     /**
-     * @var string $subPage
+     * @var string $editorPage
      */
-    private string $subPage;
+    private string $editorPage = ROOT . 'src/Views/user-editor.php';
+
+    /**
+     * @var string $action
+     */
+    private string $action;
 
     /**
      * User page
@@ -49,21 +55,25 @@ class UserController extends Controller
     /**
      * Construct
      * @param string|null $username
-     * @param string|null $subPage
+     * @param string|null $action
      */
-    public function __construct(?string $username = null, ?string $subPage = null)
+    public function __construct(?string $action = null)
     {
         $this->validator = new Validator();
         $privilegeRedirect = new PrivilegeRedirect();
         $privilegeRedirect->redirectHost('login');
 
         $this->username = $username ?? $_SESSION['user_data']->getUsername();
-        $this->subPage = $subPage ?? '';
+        $this->action = $action ?? '';
 
-        switch ($this->subPage) {
+        switch ($this->action) {
             case 'get':
                 $privilegeRedirect->redirectEditor();
                 $this->getUsers();
+                break;
+            case 'edit':
+                $privilegeRedirect->redirectEditor();
+                $this->page = $this->editorPage;
                 break;
             case 'logout':
                 $this->logout();
@@ -76,13 +86,21 @@ class UserController extends Controller
     /**
      * Render webpage
      * @return void
+     * @throws Exception
      */
     public function render(): void
     {
-        // Check if user is logged in & load data
-        $user = $this->loadUserData();
-        $userRoles = $this->userRole;
+        switch ($this->action) {
+            case 'edit':
+                $user = User::getUserById($_GET['id'] ?? null);
+                break;
+            default:
+                $user = $this->loadUserData();
+                $userRoles = $this->userRole;
+                break;
+        }
 
+        // Check if user is logged in & load data
         if ($user->getUsername() === $this->username) {
             require_once $this->page; // Load page content
         } else {
@@ -100,8 +118,11 @@ class UserController extends Controller
         $sort = $_GET['sort'] ?? null;
         $page = $_GET['page'] ?? 1;
 
-        $conditions = ($search) ? "WHERE id LIKE $search OR username LIKE '$search' OR fullname LIKE '$search' OR 
-                                    role LIKE '$search' OR created_at LIKE '$search'" : "";
+        // Convert date format
+        $search = DateHelper::ifPrettyConvertToISO($search);
+
+        $conditions = ($search) ? "WHERE id LIKE '$search%' OR username LIKE '%$search%' OR fullname LIKE '%$search%' OR 
+                                    role LIKE '%$search%' OR created_at LIKE '%$search%'" : "";
         $conditions .= ($sort) ? " ORDER BY $sort" : "";
         $conditions .= ($page) ? " LIMIT 10 OFFSET " . ($page - 1) * 10 : "";
 

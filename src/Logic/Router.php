@@ -79,7 +79,7 @@ class Router
             'news' => new NewsController(),
             'register' => new RegisterController(),
             'testing' => new TestingController($url[1] ?? null),
-            'users' => new UserController($url[1] ?? null, $url[2] ?? null),
+            'users' => new UserController($url[1] ?? null),
             default => new ErrorController(404),
         };
 
@@ -104,6 +104,7 @@ class Router
             'articles/add' => (new ArticleController())->addArticle(),
             'articles/edit' => (new ArticleController())->editArticle(),
             'testing/image-upload' => (new TestingController())->testImageUpload(),
+            'users/edit' => (new UserController())->updateUser(),
             'users/edit/fullname' => (new UserController())->updateFullname(),
             'users/edit/profile-image' => (new UserController())->updateProfileImage(),
             default => (new ErrorController())->render(),

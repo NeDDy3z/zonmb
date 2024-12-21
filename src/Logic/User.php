@@ -63,7 +63,7 @@ class User
     /**
      * @param int $id
      * @return User
-     * @throws DatabaseException
+     * @throws Exception
      */
     public static function getUserById(int $id): User
     {

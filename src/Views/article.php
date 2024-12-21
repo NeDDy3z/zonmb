@@ -46,7 +46,7 @@ if (!isset($article)) {
             }
 ?>
                 </p>
-                <p><?= htmlspecialchars(DateHelper::dateTopPrettyString($article->getCreatedAt())) ?></p>
+                <p><?= htmlspecialchars(DateHelper::toPrettyFormat($article->getCreatedAt())) ?></p>
             </section>
         </article>
         <a href="<?= UrlHelper::baseUrl('news'); ?>">Zpět na zprávy</a>

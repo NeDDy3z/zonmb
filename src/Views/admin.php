@@ -7,11 +7,10 @@ use Helpers\UrlHelper;
     <div class="tables">
         <h1>Administrace</h1>
         <p id="warning-display">Tato stránka není podporovaná v portrétním režimu, zkuste otočtit prosím zařízení na šířku, nebo použijte počítač.</p>
-        <section class="table-data">
+        <section class="table-data table-users">
             <div class="table-header">
                 <h2>Uživatelé</h2>
-                <button id="add-user">Přidat uživatele</button>
-                <input type="text" id="search-user" placeholder="Vyhledat uživatele...">
+                <input type="text" class="search" placeholder="Vyhledat uživatele...">
             </div>
             <table class="users-table">
                 <thead>
@@ -28,14 +27,16 @@ use Helpers\UrlHelper;
                 </tbody>
             </table>
             <div class="table-footer">
-                <p>Predchozi/Dalsi stranka   12/100...</p>
+                <p id="page-users">Strana x/x</p>
+                <button id="prev-page-users">←</button>
+                <button id="next-page-users">→</button>
             </div>
         </section>
-        <section class="table-data">
+        <section class="table-data table-articles">
             <div class="table-header">
                 <h2>Články</h2>
                 <a href="<?= UrlHelper::baseUrl('articles/add') ?>"><button>Přidat článek</button></a>
-                <input type="text" id="search-article" placeholder="Vyhledat článek...">
+                <input type="text" class="search" placeholder="Vyhledat článek...">
             </div>
             <p id="warning-display-articles">Zobrazení článků není podporované, kvůli množštví informací, v takto uzkem formátu, zkuste otočtit prosím zařízení na šířku, nebo použijte počítač.</p>
             <table class="articles-table">
@@ -55,7 +56,9 @@ use Helpers\UrlHelper;
                 </tbody>
             </table>
             <div class="table-footer">
-                <p>Predchozi/Dalsi stranka   12/100...</p>
+                <p id="page-articles">Strana x/x</p>
+                <button id="prev-page-articles">←</button>
+                <button id="next-page-articles">→</button>
             </div>
         </section>
     </div>

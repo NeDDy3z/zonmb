@@ -1,7 +1,3 @@
-const usersTable = document.querySelector('.users-table');
-const articlesTable = document.querySelector('.articles-table');
-
-
 // Version of html special chars
 function encodeHtml(str) {
     const element = document.createElement("p");
@@ -14,21 +10,11 @@ function prettyDate(date) {
     return newDate.replace(/ /g, ''); // Remove spaces
 }
 
-
-// Inline editing
-function openEdits() {
-    let editable = document.querySelectorAll('.editable');
-    editable.forEach(el => {
-        el.setAttribute('contenteditable', 'true');
-        el.style.backgroundColor = '#f9f9f9';
-    });
-}
-
-// Open details on articledata click
+// Open details on article-data click
 function addOpenOverlayToArticlesTable() {
-    let rows = articlesTable.querySelectorAll('tr');
+    let rows = document.querySelector('.table-articles').querySelectorAll('tr');
 
-    // For each row add "open overley with detailed content on click", except for the first row (header)
+    // For each row add "open overley with detailed content on click", except for the first row (header) & ID & buttons
     for (let i = 1; i < rows.length; i++) {
         for (let j = 1; j < rows[i].children.length; j++) {
             let row = rows[i].children[j];
@@ -42,20 +28,32 @@ function addOpenOverlayToArticlesTable() {
     }
 }
 
-function createDeleteButton(method, param) {
+function createEditButton(table, param) {
+    let editLink = document.createElement('a');
+    editLink.href = table + '?id=' + param;
+    editLink.classList.add('edit');
+
+    let editButton = document.createElement('button');
+    editButton.innerText = 'Upravit';
+
+    editLink.appendChild(editButton);
+    return editLink;
+}
+
+function createDeleteButton(table, param) {
     let deleteButton = document.createElement('button') // Create delete button
     deleteButton.classList.add('delete', 'danger');
     deleteButton.innerText = 'Smazat';
     deleteButton.addEventListener('click', function () {
-        switch (method) {
+        switch (table) {
             case 'users':
                 if (confirm('Opravdu chcete smazat uživatele s ID: ' + param + ' ?')) {
-                    deleteUser(param);
+                    deleteData('users', param);
                 }
                 break;
             case 'articles':
                 if (confirm('Opravdu chcete smazat článek s ID: ' + param + ' ?')) {
-                    deleteArticle(param);
+                    deleteData('articles', param);
                 }
                 break;
         }
@@ -65,93 +63,88 @@ function createDeleteButton(method, param) {
 }
 
 
-// Get data
-function getUsers(callback) {
-    const search = document.getElementById('search-user').value;
-    const sortField = usersTable.querySelector('.sort.active');
-    //const page = usersTable.querySelector('.pagination .active').textContent; // TODO: paging
+// Fetch data from server
+function getData(table, callback) {
+    const tableSection = document.querySelector(`.table-${table}`);
+    const search = tableSection.querySelector('.search');
+    const sortField = tableSection.querySelector('.sort.active');
     const page = 1;
 
-    let query = 'users/get?';
-    query += (search) ? `search=${search}` : '';
-    query += (sortField) ? `&sort=${sortField}` : '';
+    let query = `${table}/get?`;
+    query += (search) ? `search=${search.value}` : '';
+    query += (sortField) ? `&sort=${sortField.data - sort}` : '';
     query += (page) ? `&page=${page}` : '';
 
     const xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
     xhr.open('GET', query, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
-            document.querySelector('.users-table tbody').innerHTML = xhr.responseText;
+            tableSection.querySelector('tbody').innerHTML = xhr.responseText;
             callback(JSON.parse(xhr.responseText));
         }
     };
     xhr.send();
 }
 
-function getArticles(callback) {
-    const search = document.getElementById('search-article').value;
-    const sortField = articlesTable.querySelector('.sort.active');
-    //const page = articlesTable.querySelector('.pagination .active').textContent;
-    const page = 1;
-
-    let query = 'articles/get?';
-    query += (search) ? `search=${search}` : '';
-    query += (sortField) ? `&sort=${sortField}` : '';
-    query += (page) ? `&page=${page}` : '';
-
+// Delete data
+function deleteData(table, id) {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', query, true);
+    xhr.open('GET', `${table}/delete?id=${id}`, true);
     xhr.onload = function () {
-        if (xhr.status === 200) {
-            document.querySelector('.articles-table tbody').innerHTML = xhr.responseText;
-            callback(JSON.parse(xhr.responseText));
+        if (xhr.status === 200 && xhr.responseText.includes('success')) {
+            getData(table, function (data) {
+                loadData(table, data);
+            });
         }
     };
-    xhr.send();
 }
 
 // Load data to table
-function loadUsers(data) {
-    let tbody = usersTable.querySelector('tbody');
+function loadData(table, data) {
+    const tableSection = document.querySelector(`.table-${table}`);
+    const tbody = tableSection.querySelector('tbody');
     tbody.innerHTML = '';
 
-    data.forEach(user => {
-        let row = document.createElement('tr');
-        row.innerHTML = `
+    if (data instanceof Array) {
+        data.forEach(dataItem => {
+            let row = (table === 'users') ? userRow(dataItem) : articleRow(dataItem);
+
+            if (dataItem.role !== 'owner') {
+                let buttonDiv = row.querySelector('.buttons');
+                buttonDiv.appendChild(createEditButton(`${table}/edit`, dataItem.id));
+                buttonDiv.appendChild(createDeleteButton(`${table}`, dataItem.id)); // Append delete button to row
+            }
+
+            if (data.length === 0) {
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                <td colspan="6" class="empty">Žádná data nenalezena</td>
+            `;
+            }
+
+            tbody.appendChild(row);
+        });
+        addOpenOverlayToArticlesTable();
+    }
+}
+
+// Table rows
+function userRow(user) {
+    let row = document.createElement('tr');
+    row.innerHTML = `
             <td><a href="./users/${user.username}">${encodeHtml(user.id)}</a></td>
             <td>${encodeHtml(user.username)}</td>
             <td>${encodeHtml(user.fullname)}</td>
             <td>${encodeHtml(user.role)}</td>
             <td>${encodeHtml(prettyDate(user.created_at))}</td>
-            <td class="buttons">
-                <button class="edit">Upravit</button>
-            </td>
-        `;
+            <td class="buttons"></td>`;
 
-        if (user.role !== 'owner') {
-            row.querySelector('.buttons').appendChild(createDeleteButton('users', user.id)); // Append delete button to row
-        }
-
-        if (data.length === 0) {
-            let row = document.createElement('tr');
-            row.innerHTML = `
-                <td colspan="6" class="empty">Žádní uživatelé nenalezeni</td>
-            `;
-        }
-
-        tbody.appendChild(row);
-    });
+    return row;
 }
 
-function loadArticles(data) {
-    let tbody = articlesTable.querySelector('tbody');
-    tbody.innerHTML = '';
-
-    try {
-        data.forEach(article => {
-            let row = document.createElement('tr');
-            row.innerHTML = `
+function articleRow(article) {
+    let row = document.createElement('tr');
+    row.innerHTML = `
             <td><a href="./articles/${article.slug}">${encodeHtml(article.id)}</a></td>
             <td>${encodeHtml(article.title)}</td>
             <td>${encodeHtml(article.subtitle)}</td>
@@ -159,63 +152,50 @@ function loadArticles(data) {
             <td>${encodeHtml(article.image_paths)}</td>
             <td>${encodeHtml(article.author_id)}</td>
             <td>${encodeHtml(prettyDate(article.created_at))}</td>
-            <td class="buttons">
-                <a href="articles/edit?id=${article.id}"><button>Upravit</button></a>
-            </td>                
+            <td class="buttons"></td>                
         `;
 
-            row.querySelector('.buttons').appendChild(createDeleteButton('articles', article.id)); // Append delete button to row
-
-            tbody.appendChild(row);
-        });
-    } catch (e) {
-    }
-
-
-    if (data.length === 0) {
-        let row = document.createElement('tr');
-        row.innerHTML = `
-            <td colspan="8" class="empty">Žádné články nenalezeny</td>
-        `;
-        tbody.appendChild(row);
-    }
-
-    addOpenOverlayToArticlesTable();
+    return row;
 }
 
-function deleteUser(id) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', `users/delete?id=${id}`, true);
-    xhr.onload = function () {
-        if (xhr.status === 200 && xhr.responseText.includes('success')) {
-            getUsers(function (data) {
-                loadUsers(data);
-            });
-        }
-    };
-    xhr.send();
-}
 
-function deleteArticle(id) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', `articles/delete?id=${id}`, true);
-    xhr.onload = function () {
-        if (xhr.status === 200 && xhr.responseText.includes('success')) {
-            getArticles(function (data) {
-                loadArticles(data);
-            });
-        }
-    };
-    xhr.send();
-}
+// Event listeners
+// document.querySelectorAll('.table-articles .sort').forEach(header => {
+//     header.addEventListener('click', function (e) {
+//         e.preventDefault();
+//         const sortField = this.dataset.sort;
+//         const xhr = new XMLHttpRequest();
+//         xhr.open('GET', `articles/get?sort=${sortField}`, true);
+//         xhr.onload = function () {
+//             if (xhr.status === 200) {
+//                 document.querySelector('.table-articles tbody').innerHTML = xhr.responseText;
+//             }
+//         }
+//     })
+// })
 
-getUsers(function (data) {
-    loadUsers(data);
+document.querySelector('.table-users .search').addEventListener('input', function () {
+    getData('users', function (data) {
+        loadData('users', data);
+    })
+})
+
+document.querySelector('.table-articles .search').addEventListener('input', function () {
+    getData('articles', function (data) {
+        loadData('articles', data);
+    })
+})
+
+
+// Initial load
+getData('users', function (data) {
+    loadData('users', data);
 });
 
-getArticles(function (data) {
-    loadArticles(data);
+getData('articles', function (data) {
+    loadData('articles', data);
 });
+
 
 // // Search
 // document.getElementById('search-user').addEventListener('input', function () {
