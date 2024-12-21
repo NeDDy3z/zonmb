@@ -90,6 +90,7 @@ function getData(table, callback) {
 function deleteData(table, id) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', `${table}/delete?id=${id}`, true);
+
     xhr.onload = function () {
         if (xhr.status === 200 && xhr.responseText.includes('success')) {
             getData(table, function (data) {
@@ -97,6 +98,7 @@ function deleteData(table, id) {
             });
         }
     };
+    xhr.send();
 }
 
 // Load data to table
