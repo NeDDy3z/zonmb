@@ -30,10 +30,10 @@ if (!isset($article)) {
             }
 ?>
             </div>
-            <section>
+            <div>
                 <p><?= nl2br(htmlspecialchars($article->getContent())); ?></p>
-            </section>
-            <section class="article-data">
+            </div>
+            <div class="article-data">
                 <p>
                     <span>
                         Autor:
@@ -47,7 +47,7 @@ if (!isset($article)) {
 ?>
                 </p>
                 <p><?= htmlspecialchars(DateHelper::toPrettyFormat($article->getCreatedAt())) ?></p>
-            </section>
+            </div>
         </article>
         <a href="<?= UrlHelper::baseUrl('news'); ?>">Zpět na zprávy</a>
     </div>
