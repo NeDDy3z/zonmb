@@ -26,8 +26,8 @@ $type ??= 'add';
             <textarea name="content" id="content" cols="30" rows="10" placeholder="*Obsah"><?= isset($article) ? htmlspecialchars($article->getContent()) : ''; ?></textarea>
 
             <label for="images">Přidat obrázky: </label>
-            <input type="file" name="images[]" id="images" accept="image/png, image/jpg, image/jpeg"
-                   title="Obrázek musí být ve formátu PNG nebo JPG, můžete nahrát více obrázků najednou"
+            <input type="file" name="images[]" id="images" accept="image/png, image/jpeg"
+                   title="Obrázek musí být ve formátu PNG nebo JPEG, můžete nahrát více obrázků najednou"
                    multiple>
 
             <div class="article-images">

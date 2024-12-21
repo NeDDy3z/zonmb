@@ -35,12 +35,15 @@ function loadArticles(data) {
                 `<div class="news-article-text">
                         <a href="articles/${article.slug}"><h1>${encodeHtml(article.title)}</h1></a>
                         <h2>${encodeHtml(article.subtitle)}</h2>
-                    </div>
-                    <div class="news-article-image">
+                    </div>`;
+            if (article.image_paths !== "") {
+                articleElement.innerHTML +=
+                    `<div class="news-article-image">
                         <a href="'. UrlHelper::baseUrl('articles/'. $article->getSlug()) .'">
                             <img src="${article.image_paths[0]}" alt="Obrázek článku">
                         </a>
                     </div>`;
+            }
 
             newsArticles.appendChild(articleElement);
         })

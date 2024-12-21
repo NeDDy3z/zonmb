@@ -2,9 +2,9 @@
 
 namespace Controllers;
 
-use DateTime;
 use Exception;
 use Helpers\DateHelper;
+use Helpers\ImageHelper;
 use Helpers\PrivilegeRedirect;
 use Helpers\ReplaceHelper;
 use Logic\Article;
@@ -60,7 +60,7 @@ class ArticleController
      * Render webpage
      * @throws Exception
      */
-    public function render(): void // TODO: Fix the slash /01... in the URL
+    public function render(): void
     {
         switch ($this->action) {
             case null:
@@ -130,37 +130,35 @@ class ArticleController
             $subtitle = $_POST['subtitle'] ?? null;
             $content = $_POST['content'] ?? null;
             $author = $_POST['author'] ?? null;
-            $images = $_FILES['images']['error'][0] === 0 ? $_FILES['images'] : null;
+            $images = ImageHelper::getUsableImageArray($_FILES['images']) ?? null;
 
             $this->validator->validateArticle(
                 title: $title,
                 subtitle: $subtitle,
                 content: $content,
-                images: $images,
             );
 
             $slug = ReplaceHelper::getUrlFriendlyString($title);
             $articleId = DatabaseConnector::selectMaxId('article') + 1;
-            $imagePaths = [];
 
-            if (isset($images)) {
-                for ($i = 0; $i < count($images['size']); $i++) {
-                    $imagePath = 'assets/uploads/articles/' . $articleId . '_' . $i .'.'. explode('/', $images['type'][$i])[1];
+            if (isset($images) and $images[0]['tmp_name'] !== '') {
+                for ($i = 0; $i < $images; $i++) {
+                    $imagePath = 'assets/uploads/articles/' . $articleId . '_' . $i .'.jpeg';
                     $imagePaths[] = $imagePath; // Add to array
 
-                    move_uploaded_file( // Save to server location
-                        from: $images['tmp_name'][$i],
-                        to: $imagePath,
+                    ImageHelper::saveImage(
+                        image: ImageHelper::processArticleImage($images[$i]),
+                        imagePath: $imagePath,
                     );
                 }
             }
-            
+
             ArticleModel::insertArticle(
                 title: $title,
                 subtitle: $subtitle,
                 content: $content,
                 slug: $slug,
-                imagePaths: $imagePaths,
+                imagePaths: $imagePaths ?? null,
                 authorId: $author,
             );
 
@@ -187,7 +185,6 @@ class ArticleController
                 title: $title,
                 subtitle: $subtitle,
                 content: $content,
-                images: $images,
             );
 
             try {

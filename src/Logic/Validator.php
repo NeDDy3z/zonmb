@@ -2,6 +2,7 @@
 
 namespace Logic;
 
+use Exception;
 use Models\UserModel;
 
 class Validator
@@ -80,12 +81,12 @@ class Validator
         }
 
         // Throw exception on any error
-        if ($error) {
+        if (isset($error)) {
             $str_error = implode('-', $error);
             throw new IncorrectInputException($str_error);
-        } else {
-            return true;
         }
+
+        return true;
     }
 
 
@@ -98,7 +99,6 @@ class Validator
      */
     public function validatePassword(string $password, string $passwordConfirm): bool
     {
-        $error = null;
         switch (true) {
             case $password == null || $passwordConfirm == null || $password == '' || $passwordConfirm == '': // Empty
                 $error[] = 'passwordEmpty';
@@ -118,65 +118,56 @@ class Validator
         }
 
         // Throw exception on any error
-        if ($error) {
+        if (isset($error)) {
             $str_error = implode('-', $error);
             throw new IncorrectInputException($str_error);
-        } else {
-            return true;
         }
+
+        return true;
     }
 
-    // TODO: Refactor image validation
     /**
      * Validate image (size, format, dimensions) - used for registration
      * @param array<string, string> $image
-     * @param int|null $size
-     * @param array<string>|null $type
-     * @param array<int>|null $dimensions
+     * @param int $size
+     * @param int $width
+     * @param int $height
      * @return bool
      * @throws IncorrectInputException
+     * @throws Exception
      */
     public function validateImage(
         array  $image,
-        ?int   $size = 1_000_000, // 1MB - default max size
-        ?array $type = ['image/png', 'image/jpg', 'image/jpeg'],
-        ?array $dimensions = [500, 500], // width x height
+        int   $size = 2_000_000, // 1MB - default max size
+        int $width = 500,
+        int $height = 500,
     ): bool {
-        for ($i = 0; $i < count($image['error']); $i++) {
-            if ((int)$image['size'][$i] === 0) {
-                continue;
-            } else {
-                // Check errors by conditions
-                $error = null;
-                switch (true) {
-                    // In case of an upload error
-                    case $image['error'][$i] !== 0:
-                        $error[] = 'imageUploadError';
-                        break;
+        // Check if image was really uploaded
+        if (!isset($image) or !is_uploaded_file($image['tmp_name'])) {
+            throw new Exception('uploadError');
+        }
 
-                    case (int)$image['size'][$i] > $size: // Size
-                        $error[] = 'imageSize';
-                        // no break
+        // Convert to GDImage object based on an image type
+        $image = match ($image['type']) {
+            'image/jpeg' => imagecreatefromjpeg($image['tmp_name']),
+            'image/png' => imagecreatefrompng($image['tmp_name']),
+            default => throw new Exception('imageType'),
+        };
 
-                    case !in_array($image['type'][$i], $type): // Format
-                        $error[] = 'imageFormat';
-                        // no break
+        // Validate last image variables
+        switch (true) {
+            case filesize($image) > $size: // Size in MB...
+                $error[] = 'imageSize';
+                // no break
+            case imagesx($image) < $width or imagesy($image) < $height: // Dimension
+                $error[] = 'imageDimensions';
+                // no break
+        }
 
-                    default: // Dimensions
-                        var_dump(getimagesize($image['tmp_name'][$i]));
-                        list($width, $height) = getimagesize($image['tmp_name'][$i]);
-                        if ($width > $dimensions[0] || $height > $dimensions[1]) {
-                            $error[] = 'imageDimensions';
-                        }
-                        break;
-                }
-
-                // Throw exception on any error
-                if ($error) {
-                    $str_error = implode('-', $error);
-                    throw new IncorrectInputException($str_error);
-                }
-            }
+        // Throw exception on any error
+        if (isset($error)) {
+            $str_error = implode('-', $error);
+            throw new IncorrectInputException($str_error);
         }
 
         return true;
@@ -185,19 +176,16 @@ class Validator
 
 
     // Validate article
-
     /**
      * Validate article
      * @param string $title
      * @param string|null $subtitle
      * @param string $content
-     * @param array|null $images
      * @return bool
      * @throws IncorrectInputException
      */
-    public function validateArticle(string $title, ?string $subtitle, string $content, ?array $images = null): bool
+    public function validateArticle(string $title, ?string $subtitle, string $content): bool
     {
-        $error = null;
         switch (true) {
             case $title == null || $title == '': // Empty
                 $error[] = 'titleEmpty';
@@ -220,11 +208,11 @@ class Validator
         }
 
         // Throw exception on any error
-        if ($error) {
+        if (isset($error)) {
             $str_error = implode('-', $error);
             throw new IncorrectInputException($str_error);
-        } else {
-            return true;
         }
+
+        return true;
     }
 }

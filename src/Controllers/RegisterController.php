@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Controllers;
 
 use Exception;
+use Helpers\ImageHelper;
 use Logic\Router;
 use Logic\Validator;
 use Models\DatabaseConnector;
@@ -49,13 +50,13 @@ class RegisterController extends Controller
             $fullname = $_POST['fullname'] ?? null;
             $password = $_POST['password'] ?? null;
             $passConf = $_POST['password-confirm'] ?? null;
-            $pfpImage = $_FILES['profile-image'] ?? null;
+            $pfpImage = ImageHelper::getUsableImageArray($_FILES['profile-image']) ?? null;
 
             // validate every input
             $this->validator->validateUsername($username);
             $this->validator->validateFullname($fullname);
             $this->validator->validatePassword($password, $passConf);
-            //$this->validator->validateImage($pfpImage);
+            $this->validator->validateImage($pfpImage);
 
             // Hash password
             $password = password_hash(
@@ -63,25 +64,25 @@ class RegisterController extends Controller
                 algo: PASSWORD_DEFAULT,
             );
 
-            $pfpImagePath = "assets/uploads/profile_images/$username" . explode('/', $pfpImage['type'])[1];
-
             // Save image
-            move_uploaded_file(
-                from: $pfpImage['tmp_name'],
-                to: $pfpImagePath,
-            );
+            if ($pfpImage[0]['tmp_name'] !== '') {
+                $pfpImagePath = "assets/uploads/profile_images/$username.jpeg";
+                ImageHelper::saveImage(
+                    image: ImageHelper::processProfilePicture($pfpImage),
+                    imagePath: $pfpImagePath,
+                );
+            }
 
             // Insert user into database
             UserModel::insertUser(
                 username: $username,
                 fullname: $fullname,
                 password: $password,
-                profile_image_path: $pfpImagePath,
+                profile_image_path: $pfpImagePath ?? null,
             );
 
             // Redirect to login page
             Router::redirect(path: 'login', query: ['success' => 'register']);
-            
         } catch (Exception $e) {
             Router::redirect(path: 'register', query: ['error' => $e->getMessage()]);
         }

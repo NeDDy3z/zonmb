@@ -41,11 +41,10 @@ class AdminController extends Controller
     }
 
     /**
-     * @param int $page
      * @return array<User>
      * @throws DatabaseException
      */
-    private function loadUsers(int $page = 1): array
+    private function loadUsers(): array
     {
         $databaseUsers = UserModel::selectUsers();
         $users = [];
@@ -65,11 +64,10 @@ class AdminController extends Controller
     }
 
     /**
-     * @param int $page
      * @return array<Article>
      * @throws DatabaseException
      */
-    private function loadArticles(int $page = 1): array
+    private function loadArticles(): array
     {
         $databaseArticles = ArticleModel::selectArticles();
         $articles = [];

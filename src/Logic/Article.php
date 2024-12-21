@@ -39,6 +39,10 @@ class Article
         $this->imagePaths = $imagePaths;
         $this->authorId = $authorId;
         $this->createdAt = $createdAt;
+
+        if ($this->imagePaths and $this->imagePaths[0] === "") {
+            $this->imagePaths = null;
+        }
     }
 
 

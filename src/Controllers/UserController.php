@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Exception;
 use Helpers\DateHelper;
+use Helpers\ImageHelper;
 use Helpers\PrivilegeRedirect;
 use Logic\DatabaseException;
 use Logic\IncorrectInputException;
@@ -216,35 +217,39 @@ class UserController extends Controller
      */
     public function updateProfileImage(): void
     {
-        $pfpImage = $_FILES['profile-image'] ?? null;
-
-        if (!$pfpImage) {
-            Router::redirect(path: 'user', query: ['error' =>   'missingImage']);
-        }
-
         try {
+            $pfpImage = $_FILES['profile-image'] ?? null;
+
+            // Validate image
             $this->validator->validateImage($pfpImage);
+
+            // Remove old image
+            $oldImagePath = $_SESSION['user_data']->getImage();
+            if (file_exists($oldImagePath)) {
+                unlink($oldImagePath);
+            }
+
+            // Save new image
+            $pfpImagePath = 'assets/uploads/profile_images/' . $_SESSION['username'] . '.jpeg';
+            ImageHelper::saveImage(
+                image: ImageHelper::processProfilePicture($pfpImage),
+                imagePath: $pfpImagePath,
+            );
+
+            // Insert user into database
+            UserModel::updateUserProfileImage(
+                id: $_SESSION['user_data']->getId(),
+                profile_image_path: $pfpImagePath,
+            );
+
+            // Update user data
+            $_SESSION['user_data']->setImage($pfpImagePath);
+
+            Router::redirect(path: 'user', query: ['success' => 'imageUpload']);
         } catch (Exception $e) {
-            Router::redirect(path: 'user', query: ['error' =>   $e->getMessage()]);
+            Router::redirect(path: 'user', query: ['error' => $e->getMessage()]);
         }
 
-        $pfpImagePath = 'assets/uploads/profile_images/' . $_SESSION['username'] . '.' . explode('/', $pfpImage['type'])[1];
-
-        move_uploaded_file(
-            from: $pfpImage['tmp_name'],
-            to: $pfpImagePath,
-        );
-
-        // Insert user into database
-        UserModel::updateUserProfileImage(
-            id: $_SESSION['user_data']->getId(),
-            profile_image_path: $pfpImagePath,
-        );
-
-        // Update user data
-        $_SESSION['user_data']->setImage($pfpImagePath);
-
-        Router::redirect(path: 'user', query: ['success' =>   'imageUpload']);
     }
 
     public function logout(): void

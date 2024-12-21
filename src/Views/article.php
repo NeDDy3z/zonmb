@@ -19,16 +19,18 @@ if (!isset($article)) {
                 echo '<a href="'. UrlHelper::baseUrl('articles/edit?id='.$article->getId()). '">Upravit článek</a>';
             }
         }
-?>
+        ?>
         <article class="article-page">
             <h1><?= htmlspecialchars($article->getTitle()); ?></h1>
             <h2><?= htmlspecialchars($article->getSubtitle()); ?></h2>
             <div class="article-image"> <?php // TODO: Image slideshow?>
                 <?php
-            foreach ($article->getImagePaths() as $img) {
-                echo '<img src="'. UrlHelper::baseUrl($img) .'" alt="Obrázek článku">';
-            }
-?>
+                if ($article->getImagePaths() !== null) {
+                foreach ($article->getImagePaths() as $img) {
+                    echo '<img src="'. UrlHelper::baseUrl($img) .'" alt="Obrázek článku">';
+                }
+                }
+            ?>
             </div>
             <div>
                 <p><?= nl2br(htmlspecialchars($article->getContent())); ?></p>
@@ -42,7 +44,7 @@ if (!isset($article)) {
             try {
                 echo htmlspecialchars(User::getUserById($article->getAuthorId())->getFullname());
             } catch (Exception $e) {
-                echo htmlspecialchars('Autor neznámý');
+                echo htmlspecialchars('Autor nenalezen');
             }
 ?>
                 </p>
