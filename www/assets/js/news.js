@@ -8,9 +8,11 @@ const newsArticles = document.querySelector('.container.news-articles');
 function newsQuery() {
     let query = 'articles/get?'
     let search = document.querySelector('input.search').value;
+    let sort = document.querySelector('.sort').value ?? null;
     let page = document.querySelector('#page-news').querySelector('span').textContent ?? 1;
 
     query += (search) ? '&search=' + search : '';
+    query += (sort !== "") ? sort : '';
     query += (page) ? '&page=' + page : '';
 
     return query;
@@ -52,6 +54,14 @@ function loadArticles(data) {
 }
 
 
+function addEventListenerToSort() {
+    const sortSelect = document.querySelector('.sort');
+
+    sortSelect.addEventListener('change', function () {
+        fetchAndLoadArticles()
+    })
+}
+
 function addEventListenerToPage() {
     const pager = document.querySelector('.news-footer');
     const nextPage = pager.querySelector('.next-page');
@@ -80,6 +90,7 @@ function addEventListenerToPage() {
 }
 
 addEventListenerToPage();
+addEventListenerToSort();
 
 document.querySelector('.search').addEventListener('input', function (e) {
     e.preventDefault();

@@ -202,7 +202,7 @@ class UserController extends Controller
             // Update user data
             $_SESSION['user_data']->setFullname($fullname);
 
-            Router::redirect(path: 'users/' . $this->username, query: ['success' => 'fullnameUpdate']);
+            Router::redirect(path: 'users/' . $this->username, query: ['success' => 'fullnameEdited']);
 
         } catch (Exception $e) {
             Router::redirect(path: 'users/' . $this->username, query: ['error' => $e->getMessage()]);

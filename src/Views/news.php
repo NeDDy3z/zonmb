@@ -7,19 +7,16 @@ use Helpers\UrlHelper;
 <main>
     <div class="container">
         <h1>Novinky</h1>
-        <?php
-        if (isset($_SESSION['user_data'])) {
-            $user = $_SESSION['user_data'];
-
-            switch ($user->getRole()) {
-                case 'admin':
-                case 'editor':
-                case 'owner':
-                    echo '<a href="'. UrlHelper::baseUrl('articles/add').'"><button>Přidat článek</button></a>';
-            }
-        }
-        ?>
-        <input type="text" class="search" placeholder="Vyhledat článek...">
+        <div class="news-search">
+            <input type="text" class="search" placeholder="Vyhledat článek...">
+            <select name="sort" class="sort">
+                <option value="" disabled selected>Seřadit podle</option>
+                <option value="&sort=title&asc">Nadpis A-Z</option>
+                <option value="&sort=title&desc">Nadpis Z-A</option>
+                <option value="&sort=created_at&asc">Datum vzestupně</option>
+                <option value="&sort=created_at&asc">Datum sestupně</option>
+            </select>
+        </div>
     </div>
     <div class="container news-articles">
     </div>
