@@ -18,19 +18,16 @@ use Helpers\UrlHelper;
                     echo '<a href="'. UrlHelper::baseUrl('articles/add').'"><button>Přidat článek</button></a>';
             }
         }
-?>
+        ?>
+        <input type="text" class="search" placeholder="Vyhledat článek...">
     </div>
-    <div class="container">
-        <?php
-if (!isset($articles) or empty($articles)) {
-    echo '<p>Nebyly nalezeny žádné články</p>';
-} else {
-    foreach ($articles as $article) {
-        require ROOT . 'src/Views/Partials/news-article.php';
-    }
-}
-?>
+    <div class="container news-articles">
+    </div>
+    <div class="news-footer">
+        <p id="page-news">Strana <span>1</span></p>
+        <button class="prev-page">←</button>
+        <button class="next-page">→</button>
     </div>
 </main>
-
-
+<script type="module" src="<?= UrlHelper::baseUrl('assets/js/xhr.js') ?>"></script>
+<script type="module" src="<?= UrlHelper::baseUrl('assets/js/news.js') ?>"></script>

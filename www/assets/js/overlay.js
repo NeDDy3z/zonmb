@@ -1,3 +1,4 @@
+// Overlay
 const overlay = document.querySelector('.overlay');
 const overlayContent = document.querySelector('.overlay-content');
 const overlayClose = document.querySelector('.overlay-close');
@@ -35,3 +36,6 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeOverlay();
 }); // Close overlay on ESC key
 overlayContent.addEventListener('click', (e) => e.stopPropagation()); // Prevent close on click inside overlay (e.g. on content/text for copying...)
+
+
+export {openOverlay};

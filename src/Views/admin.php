@@ -70,5 +70,7 @@ use Helpers\UrlHelper;
         </div>
     </div>
 </main>
-<script src="<?= UrlHelper::baseUrl('assets/js/table.js') ?>"></script>
-<script src="<?= UrlHelper::baseUrl('assets/js/overlay.js') ?>"></script>
+<script type="module" src="<?= UrlHelper::baseUrl('assets/js/xhr.js') ?>"></script>
+<script type="module" src="<?= UrlHelper::baseUrl('assets/js/utils.js') ?>"></script>
+<script type="module" src="<?= UrlHelper::baseUrl('assets/js/overlay.js') ?>"></script>
+<script type="module" src="<?= UrlHelper::baseUrl('assets/js/table.js') ?>"></script>

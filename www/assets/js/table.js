@@ -1,14 +1,7 @@
-// Version of html special chars
-function encodeHtml(str) {
-    const element = document.createElement("p");
-    element.innerText = str; // Encode special characters
-    return element.innerHTML;
-}
+import {getData, deleteData} from "./xhr.js";
+import {encodeHtml, prettyDate} from "./utils.js";
+import {openOverlay} from "./overlay.js";
 
-function prettyDate(date) {
-    let newDate = (new Date(date).toLocaleDateString('cs-CZ')).toString(); // Create czech date from date
-    return newDate.replace(/ /g, ''); // Remove spaces
-}
 
 // Open details on article-data click
 function addOpenOverlayToArticlesTable() {
@@ -52,11 +45,13 @@ function createDeleteButton(table, param) {
             case 'users':
                 if (confirm('Opravdu chcete smazat uživatele s ID: ' + param + ' ?')) {
                     deleteData('users', param);
+                    fetchAndLoadData('users');
                 }
                 break;
             case 'articles':
                 if (confirm('Opravdu chcete smazat článek s ID: ' + param + ' ?')) {
-                    deleteData('articles', param);
+                    deleteData('articles', param); // TODO place fetchandload.. into deletedata
+                    fetchAndLoadData('articles');
                 }
                 break;
         }
@@ -65,44 +60,6 @@ function createDeleteButton(table, param) {
     return deleteButton;
 }
 
-
-// Fetch data from server
-function getData(table, callback) {
-    const tableSection = document.querySelector(`.table-${table}`);
-    const search = tableSection.querySelector('.search');
-    const sortField = tableSection.querySelector('.sort.active');
-    const sortDirection = (sortField.classList.contains('asc')) ? 'asc' : 'desc';
-    const page = tableSection.querySelector(`#page-${table}`).querySelector('span').textContent ?? 1;
-
-    let query = `${table}/get?`;
-    query += (search) ? `search=${search.value}` : '';
-    query += (sortField) ? `&sort=${sortField.id}` : '';
-    query += (sortDirection) ? `&sortDirection=${sortDirection}` : '';
-    query += (page) ? `&page=${page}` : '';
-
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', query, true);
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            tableSection.querySelector('tbody').innerHTML = xhr.responseText;
-            callback(JSON.parse(xhr.responseText));
-        }
-    };
-    xhr.send();
-}
-
-// Delete data
-function deleteData(table, id) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', `${table}/delete?id=${id}`, true);
-
-    xhr.onload = function () {
-        if (xhr.status === 200 && xhr.responseText.includes('success')) {
-            fetchAndLoadData(table);
-        }
-    };
-    xhr.send();
-}
 
 // Load data to table
 function loadData(table, data) {
@@ -132,9 +89,27 @@ function loadData(table, data) {
     }
 }
 
+// Query builder
+function tableQuery(table) {
+    const tableSection = document.querySelector(`.table-${table}`);
+
+    const search = tableSection.querySelector('.search') ?? null;
+    const sortField = tableSection.querySelector('.sort.active') ?? null;
+    const sortDirection = (sortField.classList.contains('asc')) ? 'asc' : 'desc' ?? null;
+    const page = tableSection.querySelector(`#page-${table}`).querySelector('span').textContent ?? 1;
+
+    let query = `${table}/get?`;
+    query += (search) ? `search=${search.value}` : '';
+    query += (sortField) ? `&sort=${sortField.id}` : '';
+    query += (sortDirection) ? `&sortDirection=${sortDirection}` : '';
+    query += (page) ? `&page=${page}` : '';
+
+    return query;
+}
+
 // Single function to fetch and load data
 function fetchAndLoadData(table) {
-    getData(table, function (data) {
+    getData(table, tableQuery(table), function (data) {
         loadData(table, data);
     });
 }
@@ -286,41 +261,3 @@ addEventListenerToPage('articles');
 // Initial load
 fetchAndLoadData('users');
 fetchAndLoadData('articles');
-
-
-
-
-// // Search
-// document.getElementById('search-user').addEventListener('input', function () {
-//     const query = this.value;
-//     const xhr = new XMLHttpRequest();
-//     xhr.open('GET', `search/users?parameter=${query}`, true);
-//     xhr.onload = function () {
-//         if (xhr.status === 200) {
-//             document.querySelector('.users-table tbody').innerHTML = xhr.responseText;
-//         }
-//     };
-//     xhr.send();
-// });
-//
-// // Sorting
-// document.querySelectorAll('.sort').forEach(header => {
-//     header.addEventListener('click', function (e) {
-//         e.preventDefault();
-//         const sortField = this.dataset.sort;
-//         const xhr = new XMLHttpRequest();
-//         xhr.open('GET', `search/users?sort=${sortField}`, true);
-//         xhr.onload = function () {
-//             if (xhr.status === 200) {
-//                 document.querySelector('.users-table tbody').innerHTML = xhr.responseText;
-//             }
-//         };
-//         xhr.send();
-//     });
-// });
-
-
-
-
-
-
