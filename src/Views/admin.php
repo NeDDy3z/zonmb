@@ -15,11 +15,11 @@ use Helpers\UrlHelper;
             <table class="users-table">
                 <thead>
                 <tr>
-                    <th><a href="#" class="sort active asc" id="id">ID<span> &#9650;</span></a></th>
-                    <th><a href="#" class="sort" id="username">Uživatelské jméno<span></span></a></th>
-                    <th><a href="#" class="sort" id="fullname">Celé jméno<span></span></a></th>
-                    <th><a href="#" class="sort" id="role">Role<span></span></a></th>
-                    <th><a href="#" class="sort" id="created_at">Datum registrace<span></span></a></th>
+                    <th><a href="#" class="sort active asc" id="users-id">ID<span> &#9650;</span></a></th>
+                    <th><a href="#" class="sort" id="users-username">Uživatelské jméno<span></span></a></th>
+                    <th><a href="#" class="sort" id="users-fullname">Celé jméno<span></span></a></th>
+                    <th><a href="#" class="sort" id="users-role">Role<span></span></a></th>
+                    <th><a href="#" class="sort" id="users-created_at">Datum registrace<span></span></a></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -35,20 +35,20 @@ use Helpers\UrlHelper;
         <section class="table-data table-articles">
             <div class="table-header">
                 <h2>Články</h2>
-                <a href="<?= UrlHelper::baseUrl('articles/add') ?>"><button>Přidat článek</button></a>
+                <a href="<?= UrlHelper::baseUrl('articles/add') ?>" class="btn">Přidat článek</a>
                 <input type="text" class="search" placeholder="Vyhledat článek...">
             </div>
             <p id="warning-display-articles">Zobrazení článků není podporované, kvůli množštví informací, v takto uzkem formátu, zkuste otočtit prosím zařízení na šířku, nebo použijte počítač.</p>
             <table class="articles-table">
                 <thead>
                 <tr>
-                    <th><a href="#" class="sort active asc" id="id">ID<span> &#9650;</span></a></th>
-                    <th><a href="#" class="sort" id="title">Nadpis<span></span></a></th>
-                    <th><a href="#" class="sort" id="subtitle">Podnadpis<span></span></a></th>
-                    <th><a href="#" class="sort" id="content">Obsah<span></span></a></th>
-                    <th><a href="#" class="sort" id="images">Obrázky<span></span></a></th>
-                    <th><a href="#" class="sort" id="author">Autor<span></span></a></th>
-                    <th><a href="#" class="sort" id="created_at">Datum zveřejnění<span></span></a></th>
+                    <th><a href="#" class="sort active asc" id="articles-id">ID<span> &#9650;</span></a></th>
+                    <th><a href="#" class="sort" id="articles-title">Nadpis<span></span></a></th>
+                    <th><a href="#" class="sort" id="articles-subtitle">Podnadpis<span></span></a></th>
+                    <th><a href="#" class="sort" id="articles-content">Obsah<span></span></a></th>
+                    <th><a href="#" class="sort" id="articles-images">Obrázky<span></span></a></th>
+                    <th><a href="#" class="sort" id="articles-author">ID Autora<span></span></a></th>
+                    <th><a href="#" class="sort" id="articles-created_at">Datum zveřejnění<span></span></a></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -65,12 +65,12 @@ use Helpers\UrlHelper;
     <div class="overlay">
         <div class="overlay-content">
             <button class="overlay-close">X</button>
-            <h1></h1>
-            <p></p>
+            <h1>-</h1>
+            <p>-</p>
         </div>
     </div>
 </main>
 <script type="module" src="<?= UrlHelper::baseUrl('assets/js/xhr.js') ?>"></script>
 <script type="module" src="<?= UrlHelper::baseUrl('assets/js/utils.js') ?>"></script>
 <script type="module" src="<?= UrlHelper::baseUrl('assets/js/overlay.js') ?>"></script>
-<script type="module" src="<?= UrlHelper::baseUrl('assets/js/table.js') ?>"></script>
+<script type="module" src="<?= UrlHelper::baseUrl('assets/js/admin.js') ?>"></script>

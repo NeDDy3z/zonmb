@@ -204,3 +204,11 @@ Stack trace:
 2024/12/21 16:11:28 [error] 350035#350035: *3389 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 42" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/get&page=1 HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/news"
 2024/12/21 16:12:32 [error] 350035#350035: *3394 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 42" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/get&page=1 HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/news"
 2024/12/21 16:12:41 [error] 350035#350035: *3399 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 42" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/get&page=1 HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/news"
+2024/12/21 17:24:52 [error] 350031#350031: *4119 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Error: Class "UrlHelper" not found in /home/erikvanek/Dev/School/zonmb/src/Views/user.php:9
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/UserController.php(105): require_once()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(89): Controllers\UserController->render()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(59): Logic\Router::GET()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Views/user.php on line 9" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /users/admin HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/"

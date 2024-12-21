@@ -36,14 +36,10 @@ $user = $_SESSION['user_data'];
                     </ul>
                     <ul>
                         <li>
-                            <span class="grayed-out">registrace<br>
-                                <?= DateHelper::toPrettyFormat($user->getCreatedAt())  ?>
-                            </span>
+                            <span class="grayed-out">*<?= DateHelper::toPrettyFormat($user->getCreatedAt()) ?></span>
                         </li>
                     </ul>
-                    <a href="<?= UrlHelper::baseUrl('users/logout') ?>">
-                        <button type="button" class="warning" id="logout">Odhlásit se</button>
-                    </a>
+                    <a href="<?= UrlHelper::baseUrl('users/logout') ?>">Odhlásit se</a>
                 </div>
             </div>
 
@@ -81,7 +77,7 @@ $user = $_SESSION['user_data'];
             ?>
             <section class="userpage">
                 <div class="user-container user-change">
-                    <h3><a href="<?= UrlHelper::baseUrl('admin') ?>"><button title="Stránka s možnostmi upravy uživatelu a članku na jednom mistě.">Admin stránka</button></a></h3>
+                    <h3><a href="<?= UrlHelper::baseUrl('admin') ?>" title="Stránka s možnostmi upravy uživatelů a članků na jednom mistě.">Admin stránka</a></h3>
                 </div>
             </section>
             <?php

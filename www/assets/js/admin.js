@@ -3,6 +3,8 @@ import {encodeHtml, prettyDate} from "./utils.js";
 import {openOverlay} from "./overlay.js";
 
 
+
+
 // Open details on article-data click
 function addOpenOverlayToArticlesTable() {
     let rows = document.querySelector('.table-articles').querySelectorAll('tr');
@@ -100,7 +102,7 @@ function tableQuery(table) {
 
     let query = `${table}/get?`;
     query += (search) ? `search=${search.value}` : '';
-    query += (sortField) ? `&sort=${sortField.id}` : '';
+    query += (sortField) ? `&sort=${sortField.id.split('-')[1]}` : '';
     query += (sortDirection) ? `&sortDirection=${sortDirection}` : '';
     query += (page) ? `&page=${page}` : '';
 

@@ -9,18 +9,18 @@ $type ??= 'add';
     <div class="container article-editor">
         <form action="<?= UrlHelper::baseUrl('articles/'. $type) ?>" method="post" enctype="multipart/form-data" name="articleForm" class="article-form">
             <label for="author-id">*Autorské ID: </label>
-            <input type="text" name="author" value="<?= $_SESSION['user_data']->getId() ?>" hidden required>
+            <input type="text" name="author" id="author-id" value="<?= $_SESSION['user_data']->getId() ?>" hidden required>
 
             <?php if ($type === 'edit') {
                 echo '<label for="id">ID Článku: </label>
-                      <input type="text" name="id" value="'. $article->getId() .'" hidden>';
+                      <input type="text" name="id" id="id" value="'. $article->getId() .'" hidden>';
             } ?>
 
             <label for="title">*Titulek: </label>
-            <input type="text" name="title" placeholder="*Titulek" value="<?= isset($article) ? htmlspecialchars($article->getTitle()) : ''; ?>">
+            <input type="text" name="title" id="title" placeholder="*Titulek" value="<?= isset($article) ? htmlspecialchars($article->getTitle()) : ''; ?>">
 
             <label for="subtitle">Podtitulek: </label>
-            <input type="text" name="subtitle" placeholder="Podtitulek" value="<?= isset($article) ? htmlspecialchars($article->getSubtitle()) : ''; ?>">
+            <input type="text" name="subtitle" id="subtitle" placeholder="Podtitulek" value="<?= isset($article) ? htmlspecialchars($article->getSubtitle()) : ''; ?>">
 
             <label for="content">*Obsah: </label>
             <textarea name="content" id="content" cols="30" rows="10" placeholder="*Obsah"><?= isset($article) ? htmlspecialchars($article->getContent()) : ''; ?></textarea>

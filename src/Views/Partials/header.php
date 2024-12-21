@@ -14,12 +14,14 @@ $username = isset($_SESSION['user_data']) ? htmlspecialchars($_SESSION['user_dat
     <?php
     // Automatically load all styles from /www/assets/css
     foreach (glob(ROOT . '/www/assets/css/*.css') as $style) {
-        echo '<link rel="stylesheet" type="text/css" href="' . UrlHelper::baseUrl('assets/css/'.basename($style)) .'">';
+        //echo '<link rel="stylesheet" type="text/css" href="' . UrlHelper::baseUrl('assets/css/'.basename($style)) .'">';
     }
 ?>
 
     <link rel="icon" type="image/x-icon" href="<?= UrlHelper::baseUrl('assets/images/favicon.ico') ?>">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    <link rel="stylesheet" href="/assets/css/header_footer.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <title><?= $title ?? 'ZONMB'; ?></title>
 </head>
 <body>

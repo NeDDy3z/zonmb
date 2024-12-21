@@ -2,7 +2,6 @@
 function getData(element, query, callback) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', query, true);
-    console.log(query);
     xhr.onload = function () {
         if (xhr.status === 200) {
             callback(JSON.parse(xhr.responseText));
