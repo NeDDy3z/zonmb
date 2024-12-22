@@ -1,5 +1,4 @@
 <?php
-
 namespace Controllers;
 
 use Exception;
@@ -7,43 +6,41 @@ use Helpers\DateHelper;
 use Helpers\ImageHelper;
 use Helpers\PrivilegeRedirect;
 use Logic\DatabaseException;
-use Logic\IncorrectInputException;
 use Logic\Router;
 use Logic\User;
 use Logic\Validator;
-use Models\DatabaseConnector;
 use Models\UserModel;
+
 
 class UserController extends Controller
 {
     /**
-     * @var string $page
+     * @var string $page The path to the user dashboard page
      */
-    private string $page = ROOT . 'src/Views/user.php'; // Import page content
+    private string $page = ROOT . 'src/Views/user.php';
 
     /**
-     * @var string $editorPage
+     * @var string $editorPage The path to the user editor page
      */
     private string $editorPage = ROOT . 'src/Views/user-editor.php';
 
     /**
-     * @var string $action
+     * @var string $action The current action being performed
      */
     private string $action;
 
     /**
-     * User page
-     * @var string $username
+     * @var string $username The username of the currently logged-in user
      */
     private string $username;
 
     /**
-     * @var Validator $validator
+     * @var Validator $validator Validator instance for validating user data
      */
     private Validator $validator;
 
     /**
-     * @var array|string[] $userRole
+     * @var array|string[] $userRole Dictionary of user roles and their display names
      */
     private array $userRole = [
         'admin' => 'Administrátor',
@@ -52,27 +49,34 @@ class UserController extends Controller
     ];
 
 
-
     /**
-     * Construct
-     * @param string|null $username
-     * @param string|null $action
+     * Constructor
+     *
+     * Initializes the controller with a given action and ensures only authenticated users can use it.
+     * Redirects unauthorized users and handles role-specific restrictions for certain actions.
+     *
+     * @param string|null $action The action to be performed (e.g., 'get', 'edit', 'logout')
      */
     public function __construct(?string $action = null)
     {
+        // Declare classes
         $this->validator = new Validator();
         $privilegeRedirect = new PrivilegeRedirect();
+
+        // Redirect host user - not logged in user
         $privilegeRedirect->redirectHost('login');
 
+        // Get userdata
         $this->username = $username ?? $_SESSION['user_data']->getUsername();
         $this->action = $action ?? '';
 
+        // Proceed based on action
         switch ($this->action) {
-            case 'get':
+            case 'get': // Return all users - used for admin page
                 $privilegeRedirect->redirectEditor();
                 $this->getUsers();
                 break;
-            case 'edit':
+            case 'edit': // Redirect to editing page - for admins
                 $privilegeRedirect->redirectEditor();
                 $this->page = $this->editorPage;
                 break;
@@ -85,9 +89,13 @@ class UserController extends Controller
     }
 
     /**
-     * Render webpage
+     * Render the appropriate webpage based on the action.
+     *
+     * Handles rendering for user-related views such as user profile or the user editor.
+     * Ensures the data loaded corresponds to the currently authenticated user.
+     *
+     * @throws Exception If user is not authorized or data fails to load.
      * @return void
-     * @throws Exception
      */
     public function render(): void
     {
@@ -95,7 +103,7 @@ class UserController extends Controller
             case 'edit':
                 $user = User::getUserById($_GET['id'] ?? null);
                 break;
-            default:
+            default: // Render logged in user data
                 $user = $this->loadUserData();
                 $userRoles = $this->userRole;
                 break;
@@ -110,7 +118,11 @@ class UserController extends Controller
     }
 
     /**
-     * Get users from database
+     * Retrieve users from the database.
+     *
+     * Fetches user data based on search, sorting, and pagination parameters,
+     * and outputs the data as a JSON response.
+     *
      * @return void
      */
     public function getUsers(): void
@@ -123,12 +135,15 @@ class UserController extends Controller
         // Convert date format
         $search = DateHelper::ifPrettyConvertToISO($search);
 
+        // Create query
+        // Search, Sorting, Paging
         $conditions = ($search) ? "WHERE id LIKE '$search%' OR username LIKE '%$search%' OR fullname LIKE '%$search%' OR 
                                     role LIKE '%$search%' OR created_at LIKE '%$search%'" : "";
         $conditions .= ($sort) ? " ORDER BY $sort" : "";
         $conditions .= ($sortDirection) ? " $sortDirection" : "";
         $conditions .= ($page) ? " LIMIT 10 OFFSET " . ($page - 1) * 10 : "";
 
+        // Get users
         try {
             $usersData = UserModel::selectUsers(
                 conditions: $conditions,
@@ -147,8 +162,12 @@ class UserController extends Controller
     }
 
     /**
-     * Load user data if user is logged in
-     * @return User|null
+     * Load the currently authenticated user's data.
+     *
+     * Retrieves and caches user data in the session for performance. If the cache is older than 30 minutes,
+     * it refreshes the user data from the database.
+     *
+     * @return User|null The logged-in user's data or null if data is not available
      */
     private function loadUserData(): ?User
     {
@@ -161,6 +180,7 @@ class UserController extends Controller
                 $user = $_SESSION['user_data'];
             } else {
                 try {
+                    // Set user data to session and set expiration
                     $user = User::getUserByUsername($_SESSION['user_data']->getUsername());
                     $_SESSION['user_data'] = $user;
                     $_SESSION['cache_time'] = time();
@@ -180,7 +200,11 @@ class UserController extends Controller
 
 
     /**
-     * Update fullname of the user
+     * Update the full name of the logged-in user.
+     *
+     * Validates the new full name and saves it in the database. Updates the session data and redirects
+     * the user with appropriate feedback.
+     *
      * @return void
      */
     public function updateFullname(): void
@@ -192,6 +216,7 @@ class UserController extends Controller
         }
 
         try {
+            // Validate name
             $this->validator->validateFullname($fullname);
 
             // Insert user into database
@@ -204,16 +229,19 @@ class UserController extends Controller
             $_SESSION['user_data']->setFullname($fullname);
 
             Router::redirect(path: 'users/' . $this->username, query: ['success' => 'fullnameEdited']);
-
         } catch (Exception $e) {
             Router::redirect(path: 'users/' . $this->username, query: ['error' => $e->getMessage()]);
         }
     }
 
     /**
-     * Update user profile image
+     * Update the profile image of the logged-in user.
+     *
+     * Handles uploading, validating, and replacing the user's profile picture. Also
+     * updates the database and session to reflect the changes.
+     *
+     * @throws DatabaseException If there is an issue with the database operation
      * @return void
-     * @throws DatabaseException
      */
     public function updateProfileImage(): void
     {
@@ -252,6 +280,13 @@ class UserController extends Controller
 
     }
 
+    /**
+     * Log out the user.
+     *
+     * Destroys the session and redirects the user to the home page with a logout confirmation message.
+     *
+     * @return void
+     */
     public function logout(): void
     {
         session_unset();

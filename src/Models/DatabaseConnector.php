@@ -4,31 +4,59 @@ declare(strict_types=1);
 
 namespace Models;
 
-use Helpers\ReplaceHelper;
 use PDO;
 use PDOException;
 use Logic\DatabaseException;
 
-class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
+/**
+ * DatabaseConnector
+ *
+ * Provides a static interface for interacting with the database.
+ * Includes methods for CRUD operations, connection management, and utility queries.
+ *
+ * @package Models
+ */
+class DatabaseConnector
 {
+    /**
+     * @var string $server The server address of the database.
+     */
     private static string $server;
-    private static string $dbname;
-    private static string $username;
-    private static string $password;
-    private static ?PDO $connection;
-
 
     /**
-     * Load database credentials from config file
+     * @var string $dbname The name of the database to connect to.
+     */
+    private static string $dbname;
+
+    /**
+     * @var string $username The username for database login.
+     */
+    private static string $username;
+
+    /**
+     * @var string $password The password for database login.
+     */
+    private static string $password;
+
+    /**
+     * @var PDO|null $connection The PDO database connection instance.
+     */
+    private static ?PDO $connection;
+
+    /**
+     * Initialize the database settings by loading credentials from environment variables.
+     *
      * @return void
-     * @throws DatabaseException
+     * @throws DatabaseException If database credentials are missing in environment configuration.
      */
     public static function init(): void
     {
+        // Check for database credentials
         if (!isset($_ENV['database'])) {
-            throw new DatabaseException('Nepodařilo se načíst konfigurační soubor databáze');
+            throw new DatabaseException('Error while loading database credentials: Credentials are not set as environment variables');
         }
 
+        // Load database credentials
         $database = $_ENV['database'];
         self::$server = $database['server'];
         self::$dbname = $database['dbname'];
@@ -37,12 +65,14 @@ class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
     }
 
     /**
-     * Connect to the database
+     * Establish a PDO connection to the database.
+     *
      * @return void
-     * @throws DatabaseException
+     * @throws DatabaseException If the connection to the database fails.
      */
     private static function connect(): void
     {
+        // Try to connect to the database
         try {
             self::$connection = new PDO(
                 dsn: "mysql:host=" . self::$server . ";dbname=" . self::$dbname,
@@ -53,13 +83,14 @@ class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
                 ],
             );
         } catch (PDOException $e) {
-            throw new DatabaseException('Nepodařilo se připojit k databázi, některé funkce webu budou omezeny. Chyba: ' . $e->getMessage());
+            throw new DatabaseException('Error while connecting to database, some functions will be limited');
         }
     }
 
 
     /**
-     * Close connection
+     * Close the database connection.
+     *
      * @return void
      */
     public static function close(): void
@@ -68,16 +99,18 @@ class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
     }
 
     /**
-     * Template function for selecting data from database
-     * @param string $table
-     * @param array<string> $items
-     * @param string|null $conditions
-     * @return array<array<string>>
-     * @throws DatabaseException
+     * Perform a SELECT query on the database.
+     *
+     * @param string $table The table to perform the query on.
+     * @param array<string> $items The columns to select, e.g., ['id', 'name'].
+     * @param string|null $conditions The WHERE clause or other conditions (optional).
+     *
+     * @return array<array<string>> The result set as an array of associative arrays.
+     * @throws DatabaseException If the query execution fails.
      */
     public static function select(string $table, array $items, ?string $conditions): array
     {
-        // If connection is null create a new connection
+        // If connection is null try to create a new connection
         if (!isset(self::$connection)) {
             self::connect();
         }
@@ -91,43 +124,48 @@ class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
 
         // Execute query and fetch data
         try {
-            $result = self::$connection->query($query)->fetchAll();
+            $result = self::$connection?->query($query)?->fetchAll();
         } catch (PDOException $e) {
-            throw new DatabaseException('Nepodařilo se načíst data z databáze: ' . $e->getMessage());
+            throw new DatabaseException('Error while loading data from database');
         }
 
         // Convert into Array<Array<String>>
         $resultArray = [];
-        foreach ($result as $row) {
-            $resultArray[] = array_filter(
-                $row,
-                function ($key) {
-                    return !is_int($key);
-                },
-                ARRAY_FILTER_USE_KEY
-            );
+        if ($result) {
+            foreach ($result as $row) {
+                $resultArray[] = array_filter(
+                    $row,
+                    function ($key) {
+                        return !is_int($key);
+                    },
+                    ARRAY_FILTER_USE_KEY
+                );
+            }
         }
 
         return $resultArray;
     }
 
     /**
-     * Template function for inserting data into database
-     * @param string $table
-     * @param array<string> $items
-     * @param array<int, int|string> $values
+     * Insert a new record into a database table.
+     *
+     * @param string $table The table to insert the data into.
+     * @param array<string> $items The columns to insert into.
+     * @param array<int, int|string> $values The values to insert for the respective columns.
+     *
      * @return void
-     * @throws DatabaseException
+     * @throws DatabaseException If the insertion fails or column-value count mismatch.
      */
     public static function insert(string $table, array $items, array $values): void
     {
-        // If connection is null create new connection
+        // If connection is null try to create a new connection
         if (!isset(self::$connection)) {
             self::connect();
         }
 
+        // If number of items and values does not equal, throw an exception
         if (count($items) !== count($values)) {
-            throw new DatabaseException('Počet položek a hodnot neodpovídá');
+            throw new DatabaseException('Number of items and values does not equal, data insertion cancelled');
         }
 
         // Prepare items for query
@@ -139,36 +177,40 @@ class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
 
         // Execute query with values. Check if data were inserted
         try {
-            self::$connection->prepare($query)->execute($values);
+            self::$connection?->prepare($query)->execute($values);
         } catch (PDOException $e) {
-            throw new DatabaseException('Nepodařilo se vložit data do databáze: ' . $e->getMessage());
+            throw new DatabaseException('Error while inserting data into database');
         }
     }
 
     /**
-     * Template function for updating data in database
-     * @param string $table
-     * @param array<string> $items
-     * @param array<int, string|null> $values
-     * @param string $conditions
+     * Update existing records in a database table.
+     *
+     * @param string $table The table to update the data in.
+     * @param array<string> $items The columns to update.
+     * @param array<int, string|null> $values The new values for the respective columns.
+     * @param string $conditions The WHERE clause to specify which rows to update.
+     *
      * @return void
-     * @throws DatabaseException
+     * @throws DatabaseException If the update fails or column-value count mismatch.
      */
     public static function update(string $table, array $items, array $values, string $conditions): void
     {
-        // If connection is null create new connection
+        // If connection is null try to create a new connection
         if (!isset(self::$connection)) {
             self::connect();
         }
 
+        // If number of items and values does not equal, throw an exception
         if (count($items) !== count($values)) {
-            throw new DatabaseException('Počet položek a hodnot pro aktualizaci neodpovídá');
+            throw new DatabaseException('Number of items and values does not equal, data update cancelled');
         }
 
         // Prepare items for query
         foreach ($items as $key => $item) {
             $items[$key] = $item . ' = ?';
         }
+        $itemRows = implode(separator: ' , ', array: $items);
 
         // Prepare values for query
         foreach ($values as $key => $value) {
@@ -177,29 +219,29 @@ class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
             }
         }
 
-        $itemRows = implode(separator: ' , ', array: $items);
-
         // Create query
         $query = "UPDATE {$table} SET {$itemRows} {$conditions};";
 
         // Execute query with values. Check if data were inserted
         try {
-            self::$connection->prepare($query)->execute($values);
+            self::$connection?->prepare($query)->execute($values);
         } catch (PDOException $e) {
-            throw new DatabaseException('Nepodařilo se upravit data v databázi: ' . $e->getMessage());
+            throw new DatabaseException('Error while updating data in database');
         }
     }
 
     /**
-     * Template function for deleting data from database
-     * @param string $table
-     * @param string $conditions
+     * Delete records from a database table based on conditions.
+     *
+     * @param string $table The table to delete data from.
+     * @param string $conditions The WHERE clause to specify which rows to delete.
+     *
      * @return void
-     * @throws DatabaseException
+     * @throws DatabaseException If the deletion fails.
      */
     public static function remove(string $table, string $conditions): void
     {
-        // If connection is null create new connection
+        // If connection is null try to create a new connection
         if (!isset(self::$connection)) {
             self::connect();
         }
@@ -209,21 +251,23 @@ class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
 
         // Execute query. Check if data were inserted
         try {
-            self::$connection->prepare($query)->execute();
+            self::$connection?->prepare($query)->execute();
         } catch (PDOException $e) {
-            throw new DatabaseException('Nepodařilo se odstranit data z databáze: ' . $e->getMessage());
+            throw new DatabaseException('Error while removing data from database');
         }
     }
 
     /**
-     * Count number of columns - good for paging
-     * @param string $table
-     * @return int
-     * @throws DatabaseException
+     * Count the number of rows in a database table.
+     *
+     * @param string $table The table to count rows from.
+     *
+     * @return int The number of rows in the specified table.
+     * @throws DatabaseException If the query execution fails.
      */
     public static function count(string $table): int
     {
-        // If connection is null create a new connection
+        // If connection is null try to create a new connection
         if (!isset(self::$connection)) {
             self::connect();
         }
@@ -234,21 +278,23 @@ class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
         try {
             $result = self::$connection->query($query)->fetchAll();
         } catch (PDOException $e) {
-            throw new DatabaseException('Nepodařilo se načíst data z databáze: ' . $e->getMessage());
+            throw new DatabaseException('Error while loading number of columns from database table');
         }
 
         return (int)$result[0]['column_count'];
     }
 
     /**
-     * Get top id - used for articles
-     * @param string $table
-     * @return int
-     * @throws DatabaseException
+     * Retrieve the highest ID from a database table.
+     *
+     * @param string $table The table to retrieve the max ID from.
+     *
+     * @return int The highest ID in the table.
+     * @throws DatabaseException If the query execution fails.
      */
     public static function selectMaxId(string $table): int
     {
-        // If connection is null create a new connection
+        // If connection is null try to create a new connection
         if (!isset(self::$connection)) {
             self::connect();
         }
@@ -259,21 +305,23 @@ class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
         try {
             $result = self::$connection->query($query)->fetchAll();
         } catch (PDOException $e) {
-            throw new DatabaseException('Nepodařilo se načíst data z databáze: ' . $e->getMessage());
+            throw new DatabaseException('Error while loading highest id from database table');
         }
 
         return (int)$result[0]['max_id'];
     }
 
     /**
-     * Reset auto increment on an empty db
-     * @param string $table
+     * Reset the AUTO_INCREMENT counter for a table.
+     *
+     * @param string $table The table to reset the AUTO_INCREMENT counter.
+     *
      * @return void
-     * @throws DatabaseException
+     * @throws DatabaseException If the query execution fails.
      */
     public static function resetAutoIncrement(string $table): void
     {
-        // If connection is null create a new connection
+        // If connection is null try to create a new connection
         if (!isset(self::$connection)) {
             self::connect();
         }
@@ -284,7 +332,7 @@ class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
         try {
             self::$connection->prepare($query)->execute();
         } catch (PDOException $e) {
-            throw new DatabaseException('Nepodařilo se načíst data z databáze: ' . $e->getMessage());
+            throw new DatabaseException('Error while resetting auto increment on an empty table');
         }
     }
 }

@@ -8,29 +8,59 @@ use Exception;
 use Helpers\ImageHelper;
 use Logic\Router;
 use Logic\Validator;
-use Models\DatabaseConnector;
 use Models\UserModel;
 
+/**
+ * RegisterController
+ *
+ * This controller manages the process of user registration. It facilitates:
+ * - Rendering the registration form view.
+ * - Validation of user inputs such as username, full name, password, and profile image.
+ * - Processing and saving uploaded profile images securely.
+ * - Interacting with the database to save user details.
+ * - Redirecting users to appropriate pages (e.g., login or error page).
+ *
+ * @package Controllers
+ */
 class RegisterController extends Controller
 {
     /**
-     * @var string $page
+     * The absolute path to the `register.php` view file.
+     *
+     * This property holds the file path for the registration page view that will
+     * be loaded when executing the render method.
+     *
+     * @var string
      */
     private string $page = ROOT . 'src/Views/register.php';
 
+    /**
+     * Validator instance for validating user input fields.
+     *
+     * This is used to perform field-specific validation for usernames, passwords,
+     * profile images, and any other related data during the user registration process.
+     *
+     * @var Validator
+     */
     private Validator $validator;
 
 
-    /**
-     * Construct
+     /**
+     * RegisterController constructor.
+     *
+     * Initializes an instance of the RegisterController by creating
+     * a new Validator object that will be used for input validation.
      */
     public function __construct()
     {
         $this->validator = new Validator();
     }
 
-
     /**
+     * Render the registration webpage.
+     *
+     * This method loads and displays the `register.php` view file from the
+     * specified path to present the user with the registration form.
      * Render webpage
      * @return void
      */
@@ -40,7 +70,20 @@ class RegisterController extends Controller
     }
 
     /**
-     * Register function
+     * Process the user registration workflow.
+     *
+     * This method handles the complete user registration logic, including:
+     * - Retrieving and validating submitted form data (username, full name, passwords).
+     * - Validating and processing the uploaded profile image.
+     * - Hashing passwords securely using PHP's native hashing algorithm.
+     * - Saving the user's profile image to a designated directory.
+     * - Saving user information in the database via the UserModel.
+     * - Redirecting the user to the login page upon success or back to the registration
+     *   page with an error message if any step fails.
+     *
+     * @throws Exception If validation fails or any other error occurs during processing.
+     *
+     * Check each field if it is correct
      * @throws Exception
      */
     public function register(): void
@@ -53,7 +96,7 @@ class RegisterController extends Controller
             $pfpImage = ImageHelper::getUsableImageArray($_FILES['profile-image'])[0] ?? null;
 
 
-            // validate every input
+            // Validate every input
             $this->validator->validateUsername($username);
             $this->validator->validateFullname($fullname);
             $this->validator->validatePassword($password, $passConf);

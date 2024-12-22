@@ -5,6 +5,7 @@
 .java
 .local
 .ssh
+.phpdoc
 
 # Files
 .bash_history

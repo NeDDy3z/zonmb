@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="LaravelPint">
+    <laravel_pint_settings>
+      <laravel_pint_by_interpreter asDefaultInterpreter="true" interpreter_id="d55ea245-c295-4bcb-a010-6fcf190d2bd9">
+        <option name="timeout" value="30000" />
+      </laravel_pint_by_interpreter>
+    </laravel_pint_settings>
+  </component>
   <component name="MessDetectorOptionsConfiguration">
     <option name="transferred" value="true" />
   </component>
@@ -10,24 +17,28 @@
     <option name="highlightLevel" value="WARNING" />
     <option name="transferred" value="true" />
   </component>
+  <component name="PhpCSFixer">
+    <phpcsfixer_settings>
+      <phpcs_fixer_by_interpreter asDefaultInterpreter="true" interpreter_id="d55ea245-c295-4bcb-a010-6fcf190d2bd9" timeout="30000" />
+    </phpcsfixer_settings>
+  </component>
   <component name="PhpCodeSniffer">
     <phpcs_settings>
       <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="d55ea245-c295-4bcb-a010-6fcf190d2bd9" timeout="30000" />
     </phpcs_settings>
-  </component>
-  <component name="PhpExternalFormatter">
-    <option name="externalFormatter" value="PHP_CS_FIXER" />
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2">
     <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>
   <component name="PhpStan">
     <PhpStan_settings>
-      <phpstan_by_interpreter asDefaultInterpreter="true" interpreter_id="d55ea245-c295-4bcb-a010-6fcf190d2bd9" timeout="60000" />
+      <PhpStanConfiguration tool_path="$PROJECT_DIR$/bin/phpstan/phpstan.phar" />
+      <phpstan_by_interpreter asDefaultInterpreter="true" deletedFromTheList="true" interpreter_id="d55ea245-c295-4bcb-a010-6fcf190d2bd9" tool_path="$PROJECT_DIR$/bin/phpstan/phpstan.phar" timeout="60000" />
     </PhpStan_settings>
   </component>
   <component name="PhpStanOptionsConfiguration">
     <option name="config" value="$PROJECT_DIR$/bin/phpstan/phpstan.neon" />
+    <option name="level" value="8" />
     <option name="memoryLimit" value="4G" />
     <option name="transferred" value="true" />
   </component>

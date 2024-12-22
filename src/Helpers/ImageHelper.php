@@ -5,13 +5,29 @@ namespace Helpers;
 use Exception;
 use GdImage;
 
+/**
+ * ImageHelper
+ *
+ * This helper class provides utility methods for image processing, including handling
+ * image uploads, generating thumbnails, cropping/resizing images, and saving them
+ * to specific paths. It is particularly useful for tasks such as creating profile
+ * pictures or article thumbnails.
+ *
+ * @package Helpers
+ */
 class ImageHelper {
 
     /**
-     * Get GdImage object from uploaded file
-     * @param array $image
-     * @return GdImage
-     * @throws Exception
+     * Create a `GdImage` object from an uploaded file.
+     *
+     * The method supports JPEG and PNG files. If the file type is unsupported,
+     * an exception is thrown.
+     *
+     * @param array $image An associative array representing the uploaded file (from `$_FILES`).
+     *
+     * @return GdImage The generated `GdImage` object.
+     *
+     * @throws Exception If the image type is unsupported.
      */
     private static function getGdImage(array $image): GdImage
     {
@@ -23,11 +39,16 @@ class ImageHelper {
     }
 
     /**
-     * Crop image to desired dimensions
-     * @param GdImage $image
-     * @param int $dstWidth
-     * @param int $dstHeight
-     * @return GdImage
+     * Crop and resize an image to the specified dimensions.
+     *
+     * This method trims the image to a centered rectangle of the desired
+     * width and height, returning the resized result.
+     *
+     * @param GdImage $image The input `GdImage` object.
+     * @param int $dstWidth The desired width of the cropped/resized image.
+     * @param int $dstHeight The desired height of the cropped/resized image.
+     *
+     * @return GdImage The resized `GdImage` object.
      */
     public static function resize(GdImage $image, int $dstWidth, int $dstHeight): GdImage
     {
@@ -61,9 +82,14 @@ class ImageHelper {
     }
 
     /**
-     * Check if file has been uploaded
-     * @param array|null $image
-     * @return bool
+     * Check if an image file has been uploaded.
+     *
+     * This method verifies whether a given file was uploaded via HTTP POST.
+     *
+     * @param array<array<string|int>>|null $image The uploaded file (from `$_FILES`).
+     *
+     * @return bool Returns `true` if the file was uploaded; otherwise, `false`.
+     *
      * @throws Exception
      */
     public static function isImageUploaded(?array $image): bool
@@ -76,11 +102,17 @@ class ImageHelper {
     }
 
     /**
-     * Save image
-     * @param GdImage $image
-     * @param string $imagePath
+     * Save a `GdImage` to a file.
+     *
+     * This method saves an image as a JPEG file with a specified quality and
+     * ensures that resources are freed after saving.
+     *
+     * @param GdImage $image The `GdImage` object to save.
+     * @param string $imagePath The file path where the image should be saved.
+     *
      * @return void
-     * @throws Exception
+     *
+     * @throws Exception If the image cannot be saved.
      */
     public static function saveImage(GdImage $image, string $imagePath): void
     {
@@ -98,9 +130,14 @@ class ImageHelper {
     }
 
     /**
-     * Convert complicated and unreasonable array of files to usable array of images
-     * @param array $images
-     * @return array<array<string, string>>
+     * Normalize a nested array of uploaded files into a usable array format.
+     *
+     * This method converts the complex `$_FILES` array structure into an
+     * easier-to-use representation.
+     *
+     * @param array $images The uploaded files array (from `$_FILES`).
+     *
+     * @return array<array<string, string>> A simplified array of file entries.
      */
     public static function getUsableImageArray(array $images): array
     {
@@ -123,10 +160,16 @@ class ImageHelper {
     }
 
     /**
-     * Process image as profile picture - crop to 500x500
-     * @param array $uploadedImage
-     * @return GdImage
-     * @throws Exception
+     * Process an uploaded image as a profile picture.
+     *
+     * Profile pictures are cropped to a 200x200 square if they exceed this size
+     * and converted to a `GdImage` object.
+     *
+     * @param array $uploadedImage The uploaded file array (from `$_FILES`).
+     *
+     * @return GdImage The processed `GdImage` object.
+     *
+     * @throws Exception If the image upload fails.
      */
     public static function processProfilePicture(array $uploadedImage): GdImage
     {
@@ -151,10 +194,16 @@ class ImageHelper {
     }
 
     /**
-     * Process image for article
-     * @param array $uploadedImage
-     * @return GdImage|null
-     * @throws Exception
+     * Process an uploaded image for an article.
+     *
+     * This method converts an uploaded image to a `GdImage` object and
+     * returns `null` if no image was uploaded.
+     *
+     * @param array $uploadedImage The uploaded file array (from `$_FILES`).
+     *
+     * @return GdImage|null The processed `GdImage` object or `null`.
+     *
+     * @throws Exception If the image type is unsupported.
      */
     public static function processArticleImage(array $uploadedImage): GdImage|null
     {
@@ -168,12 +217,19 @@ class ImageHelper {
     }
 
     /**
-     * @param array|GdImage $uploadedImage
-     * @param string $imagePath
-     * @param int $width
-     * @param int $height
+     * Generate a thumbnail image.
+     *
+     * This method resizes an image to the desired dimensions and saves it to the
+     * specified file path as a thumbnail.
+     *
+     * @param array|GdImage $image The input image array (from `$_FILES`) or `GdImage` object.
+     * @param string $imagePath The file path where the thumbnail should be saved.
+     * @param int $width The thumbnail width (default: 350px).
+     * @param int $height The thumbnail height (default: 200px).
+     *
      * @return void
-     * @throws Exception
+     *
+     * @throws Exception If the image type is unsupported or the save fails.
      */
     public static function generateThumbnail(array|GdImage $image, string $imagePath, int $width = 350, int $height = 200): void
     {

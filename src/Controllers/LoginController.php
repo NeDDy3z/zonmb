@@ -4,27 +4,40 @@ declare(strict_types=1);
 
 namespace Controllers;
 
-use Logic\DatabaseException;
+use Exception;
 use Logic\Router;
 use Logic\User;
 use Logic\Validator;
 use Models\UserModel;
 
+
+/**
+ * Login page controller
+ *
+ * Handles rendering the login page and processing user login requests.
+ * This class utilizes a validator to ensure valid input and processes
+ * user credentials against the database to allow or deny login attempts.
+ *
+ * @package Controllers
+ */
 class LoginController extends Controller
 {
     /**
-     * @var string $page
+     * @var string $path The file path to the login view.
      */
     private string $path = ROOT . 'src/Views/login.php';
 
     /**
-     * @var Validator $validator
+     * @var Validator $validator Validator instance used for validating login credentials.
      */
     private Validator $validator;
 
 
     /**
-     * Construct
+     * Constructor.
+     *
+     * Initializes the validator instance for validating
+     * user input during login processing.
      */
     public function __construct()
     {
@@ -32,7 +45,10 @@ class LoginController extends Controller
     }
 
     /**
-     * Render webpage
+     * Render the login page view.
+     *
+     * Loads the login.php file as the view for the login page.
+     *
      * @return void
      */
     public function render(): void
@@ -42,50 +58,55 @@ class LoginController extends Controller
 
 
     /**
-     * Login logic
+     * Process the user login request.
+     *
+     * Validates provided username and password, checks against
+     * the database for matching credentials, and starts
+     * a session for successful logins. Redirects accordingly
+     * upon success or failure.
+     *
      * @return void
-     * @throws DatabaseException
+     * @throws Exception If validation or authentication fails.
      */
     public function login(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
+        try {
+            $username = $_POST['username'] ?? null;
+            $password = $_POST['password'] ?? null;
 
             // Validate if request contains username and password - if not redirect to login page
-            if ($username === '' || $password === '') {
-                Router::redirect(path: 'login', query: ['error' => 'emptyValues']);
-            }
+            // Validate if request contains a valid username and password, redirects if invalid.
+            $this->validator->validatePassword($password, $password);
 
-            // Get data from database
+            // Retrieve user data from the database based on the username.
             $databaseData = UserModel::selectUser(username: $username);
 
-            // Validate if user exists in the database
+            // Check if user exists in the database, redirects if not found.
             if (!$databaseData) {
                 Router::redirect(path: 'login', query: ['error' => 'loginError']);
             }
 
-            // Validate user<->password
-            if ($this->validator->validateUserCredentials(
+            // Verify the provided username and password against the database credentials.
+            $this->validator->validateUserCredentials(
                 username: $username,
                 databaseUsername: (string)$databaseData['username'],
                 password: $password,
                 databasePassword: (string)$databaseData['password'],
-            )) {
-                if (!isset($_SESSION)) {
-                    session_start();
-                }
+            );
 
-                $_SESSION['username'] = $username;
-                $_SESSION['user_data'] = User::getUserByUsername($username);
-
-                $_SESSION['valid'] = true;
-                $_SESSION['timeout'] = time();
-
-                Router::redirect(path: 'users/'. $username, query: ['success' => 'login']);
-            } else {
-                Router::redirect(path: 'login', query: ['error' => 'loginError']);
+            if (!isset($_SESSION)) {
+                session_start();
             }
+
+            // Set session
+            $_SESSION['username'] = $username;
+            $_SESSION['user_data'] = User::getUserByUsername($username);
+            $_SESSION['valid'] = true;
+            $_SESSION['timeout'] = time();
+
+            Router::redirect(path: 'users/' . $username, query: ['success' => 'login']);
+        } catch (Exception $e) {
+            Router::redirect(path: 'login', query: ['error' => $e->getMessage()]);
         }
     }
 }

@@ -5,27 +5,87 @@ namespace Logic;
 use Exception;
 use Models\UserModel;
 
+/**
+ * Validator
+ *
+ * This class provides validation utilities for various input types, including user credentials,
+ * usernames, passwords, images, and articles. It uses exceptions to handle validation errors,
+ * ensuring that invalid input is properly reported.
+ *
+ * @package Logic
+ */
 class Validator
 {
     /**
-     * Validate if user entered correct username and password that match the databse - used for login
-     * @param string $username
-     * @param string $databaseUsername
-     * @param string $password
-     * @param string $databasePassword
-     * @return bool
+     * Throw an exception if there are validation errors.
+     *
+     * This method converts an array of error messages into a single string and throws
+     * an `IncorrectInputException` if any errors exist.
+     *
+     * @param array<string>|null $error The array of error messages, or `null` if no errors.
+     *
+     * @return bool Returns `true` if no errors are present.
+     *
+     * @throws IncorrectInputException If any errors are detected.
      */
-    public function validateUserCredentials(string $username, string $databaseUsername, string $password, string $databasePassword): bool
+    private function throwExceptionOnError(?array $error): bool
     {
-        return ($username == $databaseUsername && password_verify($password, $databasePassword));
+        if (!isset($error) or $error === null) {
+            $str_error = implode('-', $error);
+            throw new IncorrectInputException($str_error);
+        }
+
+        return true;
     }
 
     /**
-     * Validate username (regex, length, ...) - used for registration
-     * @param string $username
-     * @return bool
-     * @throws DatabaseException
-     * @throws IncorrectInputException
+     * Validate user credentials against the database.
+     *
+     * This method ensures that the provided username and password match the corresponding
+     * records in the database.
+     *
+     * @param string $username The entered username.
+     * @param string $databaseUsername The username from the database.
+     * @param string $password The entered password.
+     * @param string $databasePassword The hashed password from the database.
+     *
+     * @return bool Returns `true` if the credentials are valid.
+     *
+     * @throws IncorrectInputException If the credentials are invalid.
+     */
+    public function validateUserCredentials(
+        string $username,
+        string $databaseUsername,
+        string $password,
+        string $databasePassword,
+    ): bool
+    {
+        $error = null;
+        switch (true) {
+            case $username !== $databaseUsername:
+                $error[] = 'usernameMatch';
+                // no break
+            case !password_verify($password, $databasePassword):
+                $error[] = 'incorrectPassword';
+                break;
+        }
+
+        // Throw exception on any error
+        return $this->throwExceptionOnError($error);
+    }
+
+    /**
+     * Validate the format and existence of a username.
+     *
+     * This method validates the username for registration by checking string length,
+     * allowed characters (regex), and whether the username is already taken.
+     *
+     * @param string $username The username to validate.
+     *
+     * @return bool Returns `true` if the username is valid.
+     *
+     * @throws DatabaseException If a database-related error occurs.
+     * @throws IncorrectInputException If the username is invalid.
      */
     public function validateUsername(string $username): bool
     {
@@ -33,7 +93,11 @@ class Validator
         switch (true) {
             case $username == null || $username == '': // Empty
                 $error[] = 'usernameEmpty';
-                // no break
+                break;
+
+            case count(UserModel::existsUser($username)) > 0: // Exists
+                $error[] = 'usernameTaken';
+                break;
 
             case strlen($username) < 3 || strlen($username) > 30: // Length
                 $error[] = 'usernameSize';
@@ -42,26 +106,23 @@ class Validator
             case !preg_match('/^[a-zA-Z0-9._]+$/', $username): // Regex
                 $error[] = 'usernameRegex';
                 // no break
-
-            case count(UserModel::existsUser($username)) > 0: // Exists
-                $error[] = 'usernameTaken';
-                break;
         }
 
         // Throw exception on any error
-        if ($error) {
-            $str_error = implode('-', $error);
-            throw new IncorrectInputException($str_error);
-        } else {
-            return true;
-        }
+        return $this->throwExceptionOnError($error);
     }
 
     /**
-     * Validate fullname - used for registration TODO: Add validation
-     * @param string $fullname
-     * @return bool
-     * @throws IncorrectInputException
+     * Validate the format and length of a fullname.
+     *
+     * Used during user registration, this method ensures the fullname adheres to a specific length,
+     * format, and character restrictions.
+     *
+     * @param string $fullname The fullname string to validate.
+     *
+     * @return bool Returns `true` if the fullname is valid.
+     *
+     * @throws IncorrectInputException If the fullname is invalid.
      */
     public function validateFullname(string $fullname): bool
     {
@@ -81,28 +142,33 @@ class Validator
         }
 
         // Throw exception on any error
-        if (isset($error)) {
-            $str_error = implode('-', $error);
-            throw new IncorrectInputException($str_error);
-        }
-
-        return true;
+        return $this->throwExceptionOnError($error);
     }
 
 
     /**
-     * Validate password format and if passwords match - used for registration
-     * @param string $password
-     * @param string $passwordConfirm
-     * @return bool
-     * @throws IncorrectInputException
+     * Validate a password and its confirmation.
+     *
+     * This method checks that a password meets strength requirements (regex),
+     * matches its confirmation, and falls within acceptable length constraints.
+     *
+     * @param string $password The password entered by the user.
+     * @param string $passwordConfirm The confirmation password entered by the user.
+     *
+     * @return bool Returns `true` if the password is valid.
+     *
+     * @throws IncorrectInputException If the password is invalid.
      */
-    public function validatePassword(string $password, string $passwordConfirm): bool
+    public function validatePassword(
+        string $password,
+        string $passwordConfirm,
+    ): bool
     {
+        $error = null;
         switch (true) {
             case $password == null || $passwordConfirm == null || $password == '' || $passwordConfirm == '': // Empty
                 $error[] = 'passwordEmpty';
-                // no break
+                break;
 
             case $password != $passwordConfirm: // Matching passwords
                 $error[] = 'passwordMatch';
@@ -118,23 +184,25 @@ class Validator
         }
 
         // Throw exception on any error
-        if (isset($error)) {
-            $str_error = implode('-', $error);
-            throw new IncorrectInputException($str_error);
-        }
-
-        return true;
+        return $this->throwExceptionOnError($error);
     }
 
     /**
-     * Validate image (size, format, dimensions) - used for registration
-     * @param array<string, string>|null $image
-     * @param int $size
-     * @param int $minWidth
-     * @param int $minHeight
-     * @return bool
-     * @throws IncorrectInputException
-     * @throws Exception
+     * Validate an uploaded image's size, format, and dimensions.
+     *
+     * This method checks whether an image meets specified requirements, such as file size
+     * and width/height constraints.
+     *
+     * @param array<string, string>|null $image The uploaded image file details (`$_FILES`).
+     * @param int $size The maximum allowed size in bytes (default: 2MB).
+     * @param int $minWidth The minimum allowed width in pixels (default: 200).
+     * @param int $minHeight The minimum allowed height in pixels (default: 200).
+     * @param int $maxWidth The maximum allowed width in pixels (default: 4000).
+     * @param int $maxHeight The maximum allowed height in pixels (default: 4000).
+     *
+     * @return bool Returns `true` if the image is valid.
+     *
+     * @throws IncorrectInputException If the image fails to meet the requirements.
      */
     public function validateImage(
         ?array $image,
@@ -162,27 +230,27 @@ class Validator
         }
 
         // Throw exception on any error
-        if (isset($error)) {
-            $str_error = implode('-', $error);
-            throw new IncorrectInputException($str_error);
-        }
-
-        return true;
+        return $this->throwExceptionOnError($error);
     }
 
 
-
-    // Validate article
     /**
-     * Validate article
-     * @param string $title
-     * @param string|null $subtitle
-     * @param string $content
-     * @return bool
-     * @throws IncorrectInputException
+     * Validate an article's title, subtitle, and content.
+     *
+     * This method ensures that inputs for all fields meet length requirements
+     * and are not empty.
+     *
+     * @param string $title The article title.
+     * @param string|null $subtitle The optional article subtitle.
+     * @param string $content The article content.
+     *
+     * @return bool Returns `true` if the article is valid.
+     *
+     * @throws IncorrectInputException If any validation fails.
      */
     public function validateArticle(string $title, ?string $subtitle, string $content): bool
     {
+        $error = null;
         switch (true) {
             case $title == null || $title == '': // Empty
                 $error[] = 'titleEmpty';
@@ -205,11 +273,6 @@ class Validator
         }
 
         // Throw exception on any error
-        if (isset($error)) {
-            $str_error = implode('-', $error);
-            throw new IncorrectInputException($str_error);
-        }
-
-        return true;
+        return $this->throwExceptionOnError($error);
     }
 }

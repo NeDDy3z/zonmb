@@ -1,7 +1,13 @@
 parameters:
     level: max
+    scanDirectories:
+        - ../../src
+        - ../../www
     paths:
-        #- %rootDir%/../src
-        - ../../www/
-        - ../../src/
-
+        - %rootDir%/../custom/path/
+        - %rootDir%/../src/Controllers/
+        - %rootDir%/../src/Helpers/
+        - %rootDir%/../src/Logic/
+        - %rootDir%/../src/Models/
+    checkMissingIterableValueType: true
+    checkGenericClassInNonGenericObjectType: true

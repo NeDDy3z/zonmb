@@ -5,13 +5,27 @@ namespace Helpers;
 use Logic\Router;
 use Logic\User;
 
+/**
+ * PrivilegeRedirect
+ *
+ * This helper class provides methods to enforce access control by redirecting users
+ * based on their privilege levels. It verifies whether a user has the required access
+ * rights (User, Editor, Admin) and redirects unauthorized users to a specified page.
+ *
+ * @package Helpers
+ */
 class PrivilegeRedirect
 {
-    /** @var User|null $user */
+    /** @var User|null $user The currently authenticated user */
     private ?User $user;
 
     /**
-     * Set user from $_SESSION
+     * Constructor
+     *
+     * Initializes the object by setting the user data from the session.
+     * If no user data is present in the session, the `$user` property is set to `null`.
+     *
+     * @return void
      */
     public function __construct()
     {
@@ -19,7 +33,14 @@ class PrivilegeRedirect
     }
 
     /**
-     * If user isn't User/Editor/Admin redirect
+     * Redirect users who are not authenticated or lack privileges.
+     *
+     * If the user is not authenticated (i.e., `$user` is `null`), they are redirected to
+     * the login page. Optionally, this method accepts a page parameter, which can be used
+     * to customize the redirection behavior (e.g., redirect to the login page with a specific query).
+     *
+     * @param string|null $page The page identifier (e.g., 'login'). Defaults to `null`.
+     *
      * @return void
      */
     public function redirectHost(?string $page = null): void
@@ -34,7 +55,12 @@ class PrivilegeRedirect
     }
 
     /**
-     * If user isn't Editor/Admin redirect
+     * Redirect users who are not at least Editors.
+     *
+     * This method ensures the user is authenticated and has Editor or higher privileges.
+     * If the user is unauthorized, they will be redirected to the login page with an appropriate
+     * query string error.
+     *
      * @return void
      */
     public function redirectUser(): void
@@ -46,7 +72,12 @@ class PrivilegeRedirect
     }
 
     /**
-     * If user isn't Admin redirect
+     * Redirect users who are not Admins.
+     *
+     * This method ensures the user is authenticated and has Admin privileges.
+     * If the user is unauthorized, they will be redirected to the login page with an appropriate
+     * query string error.
+     *
      * @return void
      */
     public function redirectEditor(): void

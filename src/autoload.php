@@ -1,11 +1,13 @@
 <?php
-// This script is used for loading all logical .php files into the project (apply require_once on them)
-// Makes the index.php much more clean :3
-
 /**
- * Autoloader function to load classes dynamically.
+ * Autoload PHP Classes
  *
- * @param string $className
+ * A custom autoloader function to dynamically load PHP classes.
+ * Converts the namespace and class name into a file path and requires the file if it exists.
+ * This allows for organizing the project with namespaces and eliminates the need for manual inclusion of each file.
+ *
+ * @param string $className The fully qualified name of the class being loaded.
+ *
  * @return void
  */
 function autoLoadPHPClasses(string $className): void

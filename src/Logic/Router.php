@@ -11,22 +11,35 @@ use Controllers\HomepageController;
 use Controllers\LoginController;
 use Controllers\NewsController;
 use Controllers\RegisterController;
-use Controllers\SearchController;
 use Controllers\TestingController;
 use Controllers\UserController;
 use Exception;
 
+/**
+ * Router
+ *
+ * The `Router` class manages request routing for the application. It determines the appropriate
+ * controller and method to handle incoming HTTP requests, processes both `GET` and `POST` requests,
+ * and supports redirection to other paths with optional query parameters.
+ *
+ * @package Logic
+ */
 class Router
 {
     /**
-     * Redirect to correct path and/or with query
-     * @param string $path
-     * @param array<string, string> $query
-     * @param int $responseCode
+     * Redirects the user to a specific path, optionally appending query parameters.
+     *
+     * A response header is set, and the script is terminated after redirection.
+     *
+     * @param string $path The path to redirect to (relative to the base URL).
+     * @param array<string, string>|null $query Optional query parameters for the URL.
+     * @param int $responseCode The HTTP response code for the redirection (default: `200`).
+     *
      * @return void
      */
     public static function redirect(string $path, ?array $query = null, int $responseCode = 200): void
     {
+        // Build query
         $resultQuery = [];
         if ($query) {
             foreach ($query as $key => $value) {
@@ -36,17 +49,24 @@ class Router
 
         $resultQuery = empty($resultQuery) ? '' : '?' . implode('&', $resultQuery);
 
+        // Redirect
         http_response_code($responseCode);
         header(header: ('location: '. BASE_URL .'/' . $path . $resultQuery));
         exit();
     }
 
     /**
-     * Route to correct controller
-     * @param string $url
-     * @param string $method
+     * Routes an HTTP request to the appropriate controller and method based on the URL and method.
+     *
+     * Handles `GET` and `POST` requests, with a fallback to render a 405 error
+     * if the HTTP method is unsupported.
+     *
+     * @param string $url The requested URL, relative to the base URL.
+     * @param string $method The HTTP method used for the request (e.g., `GET`, `POST`).
+     *
      * @return void
-     * @throws Exception
+     *
+     * @throws Exception If unable to route the request or if an error occurs.
      */
     public static function route(string $url, string $method): void
     {
@@ -64,7 +84,16 @@ class Router
 
 
     /**
-     * @param string $url
+     * Handle `GET` requests and route them to the appropriate controller.
+     *
+     * Routes are determined based on URL segments, with specific controllers
+     * for predefined paths (e.g., `admin`, `news`). If no matching controller is found,
+     * an error (404) controller is shown.
+     *
+     * Headers and footers for the view are included automatically.
+     *
+     * @param string $url The requested URL (e.g., `/admin`, `/articles/123`).
+     *
      * @return void
      */
     private static function GET(string $url): void
@@ -91,10 +120,17 @@ class Router
     }
 
     /**
-     * Take care of POST requests
-     * @param string $url
-     * @throws Exception
-     * @throws DatabaseException
+     * Handle `POST` requests and route them to the appropriate controller's method.
+     *
+     * Matches specific path segments to defined methods in applicable controllers.
+     * If no match is found, an error controller is rendered.
+     *
+     * @param string $url The requested URL (e.g., `/login`, `/articles/add`).
+     *
+     * @return void
+     *
+     * @throws Exception If routing fails or the method is not implemented.
+     * @throws DatabaseException If a database-related error occurs.
      */
     private static function POST(string $url): void
     {

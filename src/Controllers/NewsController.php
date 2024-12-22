@@ -4,54 +4,39 @@ declare(strict_types=1);
 
 namespace Controllers;
 
-use Logic\Article;
 use Logic\DatabaseException;
-use Models\ArticleModel;
-use Models\DatabaseConnector;
 
+/**
+ * NewsController
+ *
+ * Responsibilities:
+ * - Render the `news.php` view template representing the News page.
+ * - Maintain file path information for the view template.
+ * - Handle database-related exceptions gracefully during page render.
+ *
+ * @package Controllers
+ */
 class NewsController extends Controller
 {
     /**
-     * @var string $page
+     * @var string $page Full file path to the news.php view template.
      */
     private string $page = ROOT . 'src/Views/news.php';
 
     /**
-     * Render webpage
+     * Render the News webpage view.
+     *
+     * This method is used to include and execute the `news.php` view template
+     * file, rendering the full News page content. It leverages the `$page`
+     * property to retrieve the file location. If a database error occurs
+     * during the process, a `DatabaseException` is thrown, ensuring proper
+     * error management.
+     *
      * @return void
-     * @throws DatabaseException
+     * @throws DatabaseException If a database-related error occurs.
      */
     public function render(): void
     {
-        // TODO: Implement pagination - Move to XMLHTTPRequest
-        $articles = $this->loadArticles();
-
         require_once $this->page; // Load page content
-    }
-
-    /**
-     * Load articles from database
-     * @return array<Article>
-     * @throws DatabaseException
-     */
-    private function loadArticles(): array
-    {
-        $articles = ArticleModel::selectArticles();
-        $articlesArray = [];
-
-        foreach ($articles as $article) {
-            $articlesArray[] = new Article(
-                id: (int)$article['id'],
-                title: $article['title'],
-                subtitle: $article['subtitle'],
-                content: $article['content'],
-                slug: $article['slug'],
-                imagePaths: $article['image_paths'] ? explode(',', $article['image_paths']) : null,
-                authorId: (int)$article['author_id'],
-                createdAt: $article['created_at'],
-            );
-        }
-
-        return $articlesArray;
     }
 }

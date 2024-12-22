@@ -52,7 +52,7 @@ function createDeleteButton(table, param) {
                 break;
             case 'articles':
                 if (confirm('Opravdu chcete smazat článek s ID: ' + param + ' ?')) {
-                    deleteData('articles', param); // TODO place fetchandload.. into deletedata
+                    deleteData('articles', param);
                     fetchAndLoadData('articles');
                 }
                 break;

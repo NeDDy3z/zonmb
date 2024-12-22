@@ -6,28 +6,72 @@ namespace Logic;
 
 use Exception;
 use Models\ArticleModel;
-use Models\DatabaseConnector;
 
+/**
+ * Article
+ *
+ * The `Article` class represents an article entity, including its title, subtitle, content, slug,
+ * images, author details, and creation date. It includes methods for fetching articles
+ * by their slug or ID directly from the database.
+ *
+ * @package Logic
+ */
 class Article
 {
+    /**
+     * @var int $id The unique identifier of the article
+     */
     private int $id;
+
+    /**
+     * @var string $title The title of the article
+     */
     private string $title;
+
+    /**
+     * @var string $subtitle The subtitle of the article
+     */
     private string $subtitle;
+
+    /**
+     * @var string $content The main content of the article
+     */
     private string $content;
+
+    /**
+     * @var string $slug The unique slug (URL-friendly identifier) of the article
+     */
     private string $slug;
+
+    /**
+     * @var string[]|null $imagePaths List of image paths associated with the article, or `null` if no images
+     */
     private ?array $imagePaths;
+
+    /**
+     * @var int $authorId The ID of the user who authored the article
+     */
     private int $authorId;
+
+    /**
+     * @var string $createdAt The date and time when the article was created
+     */
     private string $createdAt;
 
     /**
-     * @param int $id
-     * @param string $title
-     * @param string $subtitle
-     * @param string $content
-     * @param string $slug
-     * @param array<string>|null $imagePaths
-     * @param int $authorId
-     * @param string $createdAt
+     * Article constructor.
+     *
+     * Initializes the properties of the `Article` object, including handling an empty image path
+     * array by converting it to `null`.
+     *
+     * @param int $id The unique identifier of the article.
+     * @param string $title The title of the article.
+     * @param string $subtitle The subtitle of the article.
+     * @param string $content The main text content of the article.
+     * @param string $slug The slug (URL identifier) for the article.
+     * @param array<string>|null $imagePaths Paths to images linked to the article.
+     * @param int $authorId The ID of the user who authored the article.
+     * @param string $createdAt The date and time of the article's creation.
      */
     public function __construct(int $id, string $title, string $subtitle, string $content, string $slug, ?array $imagePaths, int $authorId, string $createdAt)
     {
@@ -47,19 +91,31 @@ class Article
 
 
     /**
-     * @throws DatabaseException
-     * @throws Exception
+     * Retrieve an article from the database based on its slug.
+     *
+     * Uses the `ArticleModel` to fetch the article details and constructs an `Article` object.
+     *
+     * @param string $slug The slug (URL-friendly identifier) of the article.
+     *
+     * @return Article The `Article` object representing the fetched article.
+     *
+     * @throws DatabaseException If a database-related error occurs.
+     * @throws Exception If the article could not be found or another error occurs.
      */
     public static function getArticleBySlug(string $slug): Article
     {
+        // Select article from database
         $articleData = ArticleModel::selectArticle('WHERE slug = "'. $slug .'" LIMIT 1;');
 
+        // On null throw exception
         if (!$articleData) {
-            throw new Exception('Nepodařilo se načíst článek z databáze podle nazvu.');
+            throw new Exception('Error while fetching article from database with title');
         }
 
+        // Get imagepaths
         $imagePaths = isset($articleData['image_paths']) ? explode(',', $articleData['image_paths']) : null;
 
+        // Create object
         try {
             return new Article(
                 id: (int)$articleData['id'],
@@ -72,25 +128,28 @@ class Article
                 createdAt: $articleData['created_at'],
             );
         } catch (Exception $e) {
-            throw new Exception('Nepodařilo se načíst článek z databáze. ' . $e->getMessage());
+            throw new Exception('Error while fetching article from database with title');
         }
     }
 
     /**
-     * @param string|null $id
-     * @return Article|null
-     * @throws DatabaseException
+     * Retrieve an article from the database based on its ID.
+     *
+     * Uses the `ArticleModel` to fetch the article details and constructs an `Article` object.
+     *
+     * @param string $id The unique identifier of the article.
+     *
+     * @return Article The `Article` object representing the fetched article.
+     *
+     * @throws DatabaseException If a database-related error occurs.
+     * @throws Exception If the article could not be found or another error occurs.
      */
-    public static function getArticleById(?string $id): ?Article
+    public static function getArticleById(string $id): Article
     {
-        if (!$id) {
-            return null;
-        }
-
         $articleData = ArticleModel::selectArticle('WHERE id = '. $id .' LIMIT 1;');
 
         if (!$articleData) {
-            throw new Exception('Nepodařilo se načíst článek z databáze podle id.');
+            throw new Exception('Error while fetching article from database with id');
         }
 
         $imagePaths = isset($articleData['image_paths']) ? explode(',', $articleData['image_paths']) : null;
@@ -108,12 +167,12 @@ class Article
                 createdAt: $articleData['created_at'],
             );
         } catch (Exception $e) {
-            throw new Exception('Nepodařilo se načíst článek z databáze. ' . $e->getMessage());
+            throw new Exception('Error while fetching article from database with id');
         }
     }
 
     /**
-     * @return int
+     * @return int The article's ID
      */
     public function getId(): int
     {
@@ -121,7 +180,7 @@ class Article
     }
 
     /**
-     * @return string
+     * @return string The article's title
      */
     public function getTitle(): string
     {
@@ -129,7 +188,7 @@ class Article
     }
 
     /**
-     * @return string
+     * @return string The article's subtitle
      */
     public function getSubtitle(): string
     {
@@ -137,7 +196,7 @@ class Article
     }
 
     /**
-     * @return string
+     * @return string The article's text content
      */
     public function getContent(): string
     {
@@ -145,7 +204,7 @@ class Article
     }
 
     /**
-     * @return string
+     * @return string The article's slug
      */
     public function getSlug(): string
     {
@@ -153,7 +212,7 @@ class Article
     }
 
     /**
-     * @return array<string>|null
+     * @return array<string>|null A list of image paths or `null` if no images are associated
      */
     public function getImagePaths(): ?array
     {
@@ -161,7 +220,7 @@ class Article
     }
 
     /**
-     * @return int
+     * @return int The author's user ID
      */
     public function getAuthorId(): int
     {
@@ -169,7 +228,7 @@ class Article
     }
 
     /**
-     * @return string
+     * @return string The article's creation date and time
      */
     public function getCreatedAt(): string
     {

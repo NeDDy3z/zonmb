@@ -5,25 +5,60 @@ declare(strict_types=1);
 namespace Logic;
 
 use Exception;
-use Models\DatabaseConnector;
 use Models\UserModel;
 
+/**
+ * User
+ *
+ * The `User` class represents a user entity in the application. It provides functionality to fetch user
+ * records from the database as well as methods to get and set user-related information, such as their
+ * name, role, and image. This class also includes permissions-related utilities to determine
+ * the user's capabilities based on their role.
+ *
+ * @package Logic
+ */
 class User
 {
+    /**
+     * @var int $id The user's unique identifier
+     */
     private int $id;
+
+    /**
+     * @var string $username The user's username
+     */
     private string $username;
+
+    /**
+     * @var string $fullname The user's full name
+     */
     private string $fullname;
+
+    /**
+     * @var string $image The path to the user's profile image
+     */
     private string $image;
+
+    /**
+     * @var string $role The user's role (e.g., admin, owner, editor, etc.)
+     */
     private string $role;
+
+    /**
+     * @var string $createdAt The date and time the user was created
+     */
     private string $createdAt;
 
 
     /**
-     * @param int $id
-     * @param string $username
-     * @param string $image
-     * @param string $role
-     * @param string $createdAt
+     * User constructor.
+     *
+     * @param int $id The user's unique identifier.
+     * @param string $username The user's username.
+     * @param string $fullname The user's full name.
+     * @param string $image The path to the user's profile image.
+     * @param string $role The user's role (e.g., admin, owner, editor, etc.).
+     * @param string $createdAt The date and time the user was created.
      */
     public function __construct(int $id, string $username, string $fullname, string $image, string $role, string $createdAt)
     {
@@ -37,10 +72,13 @@ class User
 
 
     /**
-     * @param string $username
-     * @return User
-     * @throws DatabaseException
-     * @throws Exception
+     * Fetch a `User` object from the database using the username.
+     *
+     * @param string $username The username to look up in the database.
+     *
+     * @return User The user object with the fetched data.
+     *
+     * @throws Exception If the user cannot be retrieved.
      */
     public static function getUserByUsername(string $username): User
     {
@@ -61,9 +99,13 @@ class User
     }
 
     /**
-     * @param int $id
-     * @return User
-     * @throws Exception
+     * Fetch a `User` object from the database using the user's ID.
+     *
+     * @param int $id The user's ID to look up in the database.
+     *
+     * @return User The user object with the fetched data.
+     *
+     * @throws Exception If the user cannot be retrieved.
      */
     public static function getUserById(int $id): User
     {
@@ -84,8 +126,9 @@ class User
     }
 
     /**
-     * Get if user can manage other users
-     * @return bool
+     * Check if the user has an admin or owner role.
+     *
+     * @return bool Returns `true` if the user is an admin or owner; otherwise `false`.
      */
     public function isAdmin(): bool
     {
@@ -96,8 +139,11 @@ class User
     }
 
     /**
-     * Get if user can edit articles
-     * @return bool
+     * Check if the user has permission to edit articles.
+     *
+     * This method checks if the user role is `admin`, `editor`, or `owner`.
+     *
+     * @return bool Returns `true` if the user can edit articles; otherwise `false`.
      */
     public function isEditor(): bool
     {
@@ -108,7 +154,7 @@ class User
     }
 
     /**
-     * @return int
+     * @return int The user's ID
      */
     public function getId(): int
     {
@@ -116,7 +162,7 @@ class User
     }
 
     /**
-     * @return string
+     * @return string The username of the user
      */
     public function getUsername(): string
     {
@@ -124,7 +170,7 @@ class User
     }
 
     /**
-     * @return string
+     * @return string The full name of the user
      */
     public function getFullname(): string
     {
@@ -132,8 +178,7 @@ class User
     }
 
     /**
-     * @param string $fullname
-     * @return voidnotLoggedIn
+     * @param string $fullname The new full name of the user
      */
     public function setFullname(string $fullname): void
     {
@@ -141,7 +186,7 @@ class User
     }
 
     /**
-     * @return string
+     * @return string The path to the user's profile image
      */
     public function getImage(): string
     {
@@ -149,7 +194,10 @@ class User
     }
 
     /**
-     * @param string $imagePath
+     * Update the path of the user's profile image.
+     *
+     * @param string $imagePath The new path to the user's profile image.
+     *
      * @return void
      */
     public function setImage(string $imagePath): void
@@ -158,7 +206,7 @@ class User
     }
 
     /**
-     * @return string
+     * @return string The role of the user
      */
     public function getRole(): string
     {
@@ -166,7 +214,7 @@ class User
     }
 
     /**
-     * @return string
+     * @return string The creation date in string format
      */
     public function getCreatedAt(): string
     {

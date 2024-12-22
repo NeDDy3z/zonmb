@@ -2,6 +2,7 @@ const URL_PARAMS = new URLSearchParams(window.location.search);
 const successContainer = document.querySelector('.success-container');
 const errorContainer = document.querySelector(' .error-container');
 
+// TODO: FIXXXXX!!!!!
 const successMessages = {
     // General success
     'login': 'Přihlášení proběhlo úspěšně',

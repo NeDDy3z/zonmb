@@ -8,30 +8,51 @@ use Helpers\ImageHelper;
 use Helpers\PrivilegeRedirect;
 use Helpers\ReplaceHelper;
 use Logic\Article;
-use Logic\DatabaseException;
 use Logic\Router;
 use Logic\Validator;
 use Models\ArticleModel;
 use Models\DatabaseConnector;
 
-class ArticleController
+/**
+ * ArticleController
+ *
+ * The ArticleController class is responsible for handling actions related to articles,
+ * such as retrieving, adding, editing, deleting articles and their associated images.
+ *
+ * It also manages the rendering of views for article-related operations and implements
+ * validation and privilege checks where necessary.
+ *
+ * @package Controllers
+ */
+class ArticleController extends Controller
 {
     /**
-     * @var string $page
+     * @var string $page The default article view page path
      */
     private string $page = ROOT . 'src/Views/article.php';
+
+    /**
+     * @var string $editorPage The path to the article editor page
+     */
     private string $editorPage = ROOT . 'src/Views/article-editor.php';
 
     /**
-     * @var string $action
+     * @var string $action The current action being performed
      */
     private string $action;
 
+    /**
+     * @var Validator $validator The validator instance for validating article data
+     */
     private Validator $validator;
 
     /**
      * Constructor
-     * @param string|null $action
+     *
+     * Initializes the controller based on the provided action.
+     * Handles routing and checks for user privileges for certain actions.
+     *
+     * @param string|null $action The action to be performed (e.g., 'get', 'add', 'edit', 'delete', etc.)
      */
     public function __construct(?string $action = '')
     {
@@ -67,8 +88,13 @@ class ArticleController
     }
 
     /**
-     * Render webpage
-     * @throws Exception
+     * Render the appropriate webpage based on the action.
+     *
+     * Handles redirection or rendering of article content or the editor page
+     * based on the action and provided data.
+     *
+     * @throws Exception If any error occurs during rendering
+     * @return void
      */
     public function render(): void
     {
@@ -78,7 +104,9 @@ class ArticleController
                 break;
             case 'add':
             case 'edit':
-                $article = Article::getArticleById($_GET['id'] ?? null);
+                if ($_GET['id']) {
+                    $article = Article::getArticleById($_GET['id']);
+                }
                 $this->page = $this->editorPage;
                 break;
             case 'delete':
@@ -93,7 +121,12 @@ class ArticleController
 
 
     /**
-     * Get articles from DB
+     * Retrieve articles from the database.
+     *
+     * Supports filtering, sorting, and pagination of retrieved articles.
+     * Sends the articles as a JSON response.
+     *
+     * @return void
      */
     public function getArticles(): void
     {
@@ -105,6 +138,7 @@ class ArticleController
         // Convert date format
         $search = DateHelper::ifPrettyConvertToISO($search);
 
+        // Create query
         $conditions = ($search) ? "WHERE id like '$search%' or title LIKE '%$search%' OR subtitle LIKE '%$search%' OR content LIKE '%$search%' OR created_at LIKE '%$search%'" : "";
         $conditions .= ($sort) ? " ORDER BY $sort" : "";
         $conditions .= ($sortDirection) ? " $sortDirection" : "";
@@ -128,9 +162,13 @@ class ArticleController
     }
 
     /**
-     * Add article to DB
+     * Add a new article to the database.
+     *
+     * Validates the provided article data and saves it along with its associated images.
+     * Redirects to the created article upon success.
+     *
+     * @throws Exception If validation or saving data fails
      * @return void
-     * @throws Exception
      */
     public function addArticle(): void
     {
@@ -192,7 +230,12 @@ class ArticleController
     }
 
     /**
-     * Edit article in DB
+     * Edit an existing article in the database.
+     *
+     * Allows modification of article data and the addition of new images while
+     * preserving or updating existing ones.
+     *
+     * @throws Exception If validation or saving data fails
      * @return void
      */
     public function editArticle(): void
@@ -271,7 +314,12 @@ class ArticleController
     }
 
     /**
-     * Delete article or just an image
+     * Delete an article and all its associated images.
+     *
+     * Ensures that all images related to the article are removed from the server
+     * when the article is deleted.
+     *
+     * @throws Exception If deleting data fails
      * @return void
      */
     public function deleteArticle(): void
@@ -297,7 +345,12 @@ class ArticleController
     }
 
     /**
-     * Delete single image from article
+     * Delete a single image from an article.
+     *
+     * Removes the specified image from the server and updates the database record.
+     * Regenerates a thumbnail if necessary or adds a placeholder when no images remain.
+     *
+     * @throws Exception If deleting the image or updating the database fails
      * @return void
      */
     public function deleteArticleImage(): void
