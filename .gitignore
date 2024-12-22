@@ -1,5 +1,14 @@
 # Folders
 .idea
+.cache
+.config
+.java
+.local
+.ssh
+
+# Files
+.bash_history
+.lesshst
 
 # Configuration file
 config.local.php
