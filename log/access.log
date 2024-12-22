@@ -10955,3 +10955,5 @@
 127.0.0.1 - - [22/Dec/2024:22:52:52 +0100] "GET /assets/uploads/profile_images/_default.png HTTP/1.1" 200 2928 "http://zonmb.local/users/admin?success=login" "Mozilla/5.0 (X11; Linux x86_64; rv:133.0) Gecko/20100101 Firefox/133.0"
 127.0.0.1 - - [22/Dec/2024:22:52:52 +0100] "GET /assets/images/logo-wide.png HTTP/1.1" 404 1204 "http://zonmb.local/users/admin?success=login" "Mozilla/5.0 (X11; Linux x86_64; rv:133.0) Gecko/20100101 Firefox/133.0"
 127.0.0.1 - - [22/Dec/2024:22:52:52 +0100] "GET /assets/images/favicon.ico HTTP/1.1" 200 197120 "http://zonmb.local/users/admin?success=login" "Mozilla/5.0 (X11; Linux x86_64; rv:133.0) Gecko/20100101 Firefox/133.0"
+127.0.0.1 - - [22/Dec/2024:22:57:25 +0100] "GET / HTTP/1.1" 500 5 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:133.0) Gecko/20100101 Firefox/133.0"
+127.0.0.1 - - [22/Dec/2024:22:57:26 +0100] "GET /favicon.ico HTTP/1.1" 500 5 "http://zonmb.local/" "Mozilla/5.0 (X11; Linux x86_64; rv:133.0) Gecko/20100101 Firefox/133.0"

@@ -1,6 +1,9 @@
 <?php
 
 namespace App;
+namespace Controllers;
+namespace Logic;
+namespace Models;
 
 /**
  * <h1>Global Application Configuration</h1>
