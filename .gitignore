@@ -1,15 +1,5 @@
-## Ignore everything
-#*
-#
-## Keep these files
-#!.gitignore
-#!README.md
-#!LICENSE
-#!_database/*
-#!_docs/*
-#
-#!bin/*
-#!src/*
-#!www/*
-
+# Folders
 .idea
+
+# Configuration file
+config.local.php
