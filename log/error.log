@@ -1221,3 +1221,13 @@ Stack trace:
   thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 340" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/delete?id=6&img=%2Fassets%2Fuploads%2Farticles%2F6_0.jpeg HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=6"
 2024/12/22 22:32:40 [error] 569591#569591: *7471 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key "id" in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 107" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/add HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/admin"
 2024/12/22 22:32:53 [error] 569591#569591: *7471 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key "id" in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 107" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/add HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/admin"
+2024/12/22 22:49:30 [error] 569591#569591: *7494 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php:34
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php(34): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php(187): Logic\Validator->throwExceptionOnError()
+#2 /home/erikvanek/Dev/School/zonmb/src/Controllers/LoginController.php(79): Logic\Validator->validatePassword()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(138): Controllers\LoginController->login()
+#4 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(80): Logic\Router::POST()
+#5 /home/erikvanek/Dev/School/zonmb/www/index.php(66): Logic\Router::route()
+#6 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 34" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /login HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/login"

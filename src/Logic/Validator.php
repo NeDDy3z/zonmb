@@ -22,15 +22,15 @@ class Validator
      * This method converts an array of error messages into a single string and throws
      * an `IncorrectInputException` if any errors exist.
      *
-     * @param array<string>|null $error The array of error messages, or `null` if no errors.
+     * @param array<string>|string|null $error The array of error messages, or `null` if no errors.
      *
      * @return bool Returns `true` if no errors are present.
      *
      * @throws IncorrectInputException If any errors are detected.
      */
-    private function throwExceptionOnError(?array $error): bool
+    private function throwExceptionOnError(array|null $error): bool
     {
-        if (!isset($error) or $error === null) {
+        if (isset($error) or $error !== null) {
             $str_error = implode('-', $error);
             throw new IncorrectInputException($str_error);
         }

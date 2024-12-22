@@ -16,7 +16,7 @@ config.local.php
 
 
 # Exclude log files
-log/*
+log/
 
 # Exclude user uploaded files
 www/uploads/articles/*
