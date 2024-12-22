@@ -218,14 +218,14 @@ class UserController extends Controller
     public function updateProfileImage(): void
     {
         try {
-            $pfpImage = $_FILES['profile-image'] ?? null;
+            $pfpImage = ImageHelper::getUsableImageArray($_FILES['profile-image'])[0] ?? null;
 
             // Validate image
             $this->validator->validateImage($pfpImage);
 
             // Remove old image
             $oldImagePath = $_SESSION['user_data']->getImage();
-            if (file_exists($oldImagePath)) {
+            if ($oldImagePath !== DEFAULT_PFP and file_exists($oldImagePath)) {
                 unlink($oldImagePath);
             }
 
@@ -245,9 +245,9 @@ class UserController extends Controller
             // Update user data
             $_SESSION['user_data']->setImage($pfpImagePath);
 
-            Router::redirect(path: 'user', query: ['success' => 'imageUpload']);
+            Router::redirect(path: 'users/' . $this->username, query: ['success' => 'imageUpload']);
         } catch (Exception $e) {
-            Router::redirect(path: 'user', query: ['error' => $e->getMessage()]);
+            Router::redirect(path: 'users/' . $this->username, query: ['error' => $e->getMessage()]);
         }
 
     }

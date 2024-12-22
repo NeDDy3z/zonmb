@@ -32,7 +32,7 @@ use Helpers\UrlHelper;
 
             <label for="profile-image">Profilová fotka</label>
             <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpeg"
-                   title="Obrázek musí mít minimálně 500x500px, 2MB a být ve formátu PNG nebo JPEG"
+                   title="Obrázek minimálně 200x200px a maximálně 4000x4000px, 2MB a být ve formátu PNG nebo JPEG"
                    tabindex="5">
 
             <button type="submit" tabindex="5">Registrovat se</button>

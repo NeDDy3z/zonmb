@@ -50,7 +50,8 @@ class RegisterController extends Controller
             $fullname = $_POST['fullname'] ?? null;
             $password = $_POST['password'] ?? null;
             $passConf = $_POST['password-confirm'] ?? null;
-            $pfpImage = ImageHelper::getUsableImageArray($_FILES['profile-image']) ?? null;
+            $pfpImage = ImageHelper::getUsableImageArray($_FILES['profile-image'])[0] ?? null;
+
 
             // validate every input
             $this->validator->validateUsername($username);
@@ -65,7 +66,7 @@ class RegisterController extends Controller
             );
 
             // Save image
-            if ($pfpImage[0]['tmp_name'] !== '') {
+            if ($pfpImage['tmp_name'] !== '') {
                 $pfpImagePath = "assets/uploads/profile_images/$username.jpeg";
                 ImageHelper::saveImage(
                     image: ImageHelper::processProfilePicture($pfpImage),

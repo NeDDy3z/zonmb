@@ -37,12 +37,18 @@ function loadArticles(data) {
                         <h2>${encodeHtml(article.subtitle)}</h2>
                     </div>`;
             if (article.image_paths !== "") {
-                articleElement.innerHTML +=
-                    `<div class="news-article-image">
-                        <a href="'. UrlHelper::baseUrl('articles/'. $article->getSlug()) .'">
-                            <img src="${article.image_paths[0]}" alt="Obrázek článku">
-                        </a>
-                    </div>`;
+                article.image_paths = article.image_paths.split(',');
+                article.image_paths.forEach(image => {
+                    if (image.includes('thumbnail')) {
+                        articleElement.innerHTML +=
+                            `<div class="news-article-image">
+                                <a href="articles/${article.slug}">
+                                    <img src="${image}" alt="Obrázek článku">
+                                </a>
+                            </div>`;
+                    }
+                })
+
             }
 
             newsArticles.appendChild(articleElement);

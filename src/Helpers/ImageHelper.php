@@ -29,7 +29,7 @@ class ImageHelper {
      * @param int $dstHeight
      * @return GdImage
      */
-    private static function resize(GdImage $image, int $dstWidth, int $dstHeight): GdImage
+    public static function resize(GdImage $image, int $dstWidth, int $dstHeight): GdImage
     {
         $width = imagesx($image);
         $height = imagesy($image);
@@ -107,14 +107,16 @@ class ImageHelper {
         $results = [];
         $keys = array_keys($images);
 
-        $count = count($images[$keys[0]]);
+        if (is_string($images['tmp_name'])) {
+            $results[0] = $images;
+        } else {
+            $count = count($images['tmp_name']);
 
-        for ($i = 0; $i < $count; $i++) {
-            $item = [];
             foreach ($keys as $key) {
-                $item[$key] = $images[$key][$i];
+                for ($i = 0; $i < $count; $i++) {
+                    $results[$i][$key] = $images[$key][$i];
+                }
             }
-            $results[] = $item;
         }
 
         return $results;
@@ -141,8 +143,8 @@ class ImageHelper {
         $height = imagesy($image);
 
         // Crop if too large
-        if ($width > 500 or $height > 500) {
-            $image = self::resize($image, 500, 500);
+        if ($width > 200 or $height > 200) {
+            $image = self::resize($image, 200, 200);
         }
 
         return $image;
@@ -156,8 +158,6 @@ class ImageHelper {
      */
     public static function processArticleImage(array $uploadedImage): GdImage|null
     {
-        return self::getGdImage($uploadedImage);
-
         // Check if image was really uploaded
         if (self::isImageUploaded($uploadedImage)) {
             return self::getGdImage($uploadedImage); // Convert to GDImage object based on an image type

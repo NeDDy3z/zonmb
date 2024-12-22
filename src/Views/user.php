@@ -65,7 +65,7 @@ $user = $_SESSION['user_data'];
                 <h2>Změna profilové fotky</h2>
                 <label for="profile-image">Profilová fotka</label>
                 <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpg, image/jpeg"
-                       title="Obrázek musí mít minimálně 500x500px, 2MB a být ve formátu PNG nebo JPEG"
+                       title="Obrázek musí mít minimálně 200x200px a maximálně 4000x4000px, 2MB a být ve formátu PNG nebo JPEG"
                        required>
 
                 <button type="submit" id="change-profile-image">Změnit profilovou fotku</button>

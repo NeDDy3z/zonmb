@@ -21,7 +21,7 @@ use Helpers\UrlHelper;
 
             <label for="profile-image">Profilová fotka</label>
             <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpg, image/jpeg"
-                   title="Obrázek musí mít poměr 1:1, maximálně 500x500px, 1MB a být ve formátu PNG nebo JPG"
+                   title="Obrázek musí mít minimálně 200x200px a maximálně 4000x4000px, 2MB a být ve formátu PNG nebo JPG"
                    tabindex="5">
 
             <button type="submit">Upravit</button>

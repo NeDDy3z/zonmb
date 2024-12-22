@@ -636,3 +636,244 @@ Stack trace:
 #3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
 #4 {main}
   thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 157" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/add HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/add"
+2024/12/21 23:24:35 [error] 569589#569589: *5404 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 1 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 150; PHP message: PHP Fatal error:  Uncaught TypeError: Helpers\ImageHelper::processArticleImage(): Argument #1 ($uploadedImage) must be of type array, null given, called in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 150 and defined in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:157
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(150): Helpers\ImageHelper::processArticleImage()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(104): Controllers\ArticleController->addArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 157" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/add HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/add"
+2024/12/21 23:25:00 [error] 569589#569589: *5404 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:110
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php(110): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/RegisterController.php(53): Helpers\ImageHelper::getUsableImageArray()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(103): Controllers\RegisterController->register()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 110" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /register HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/register"
+2024/12/21 23:25:30 [error] 569588#569588: *5421 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:110
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php(110): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/RegisterController.php(53): Helpers\ImageHelper::getUsableImageArray()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(103): Controllers\RegisterController->register()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 110" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /register HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/register"
+2024/12/21 23:26:31 [error] 569591#569591: *5430 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:110
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php(110): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/RegisterController.php(53): Helpers\ImageHelper::getUsableImageArray()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(103): Controllers\RegisterController->register()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 110" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /register HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/register"
+2024/12/21 23:31:39 [error] 569593#569593: *5436 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:110
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php(110): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/RegisterController.php(53): Helpers\ImageHelper::getUsableImageArray()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(103): Controllers\RegisterController->register()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 110" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /register HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/register"
+2024/12/21 23:32:19 [error] 569594#569594: *5439 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 110; PHP message: PHP Warning:  Trying to access array offset on null in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 110; PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:110
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php(110): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/RegisterController.php(53): Helpers\ImageHelper::getUsableImageArray()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(103): Controllers\RegisterController->register()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 110" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /register HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/register"
+2024/12/21 23:32:25 [error] 569595#569595: *5442 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:110
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php(110): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/RegisterController.php(53): Helpers\ImageHelper::getUsableImageArray()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(103): Controllers\RegisterController->register()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 110" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /register HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/register"
+2024/12/21 23:32:44 [error] 569596#569596: *5445 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:110
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php(110): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/RegisterController.php(53): Helpers\ImageHelper::getUsableImageArray()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(103): Controllers\RegisterController->register()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 110" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /register HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/register"
+2024/12/21 23:34:12 [error] 569599#569599: *5473 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 107" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/add HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/add"
+2024/12/21 23:35:44 [error] 569587#569587: *5489 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 1 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 150; PHP message: PHP Fatal error:  Uncaught TypeError: Helpers\ImageHelper::processArticleImage(): Argument #1 ($uploadedImage) must be of type array, null given, called in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 150 and defined in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:154
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(150): Helpers\ImageHelper::processArticleImage()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(104): Controllers\ArticleController->addArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 154" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/add HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/add"
+2024/12/21 23:36:08 [error] 569587#569587: *5492 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 1 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 149; PHP message: PHP Warning:  Undefined array key 1 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 152; PHP message: PHP Fatal error:  Uncaught TypeError: Helpers\ImageHelper::processArticleImage(): Argument #1 ($uploadedImage) must be of type array, null given, called in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 152 and defined in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:154
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(152): Helpers\ImageHelper::processArticleImage()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(104): Controllers\ArticleController->addArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 154" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/add HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/add"
+2024/12/21 23:36:43 [error] 569587#569587: *5495 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 1 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 150; PHP message: PHP Warning:  Undefined array key 1 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 153; PHP message: PHP Fatal error:  Uncaught TypeError: Helpers\ImageHelper::processArticleImage(): Argument #1 ($uploadedImage) must be of type array, null given, called in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 153 and defined in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:154
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(153): Helpers\ImageHelper::processArticleImage()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(104): Controllers\ArticleController->addArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 154" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/add HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/add"
+2024/12/21 23:37:04 [error] 569587#569587: *5498 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 1 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 153; PHP message: PHP Fatal error:  Uncaught TypeError: Helpers\ImageHelper::processArticleImage(): Argument #1 ($uploadedImage) must be of type array, null given, called in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 153 and defined in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:154
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(153): Helpers\ImageHelper::processArticleImage()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(104): Controllers\ArticleController->addArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 154" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/add HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/add"
+2024/12/21 23:37:11 [error] 569587#569587: *5501 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 1 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 152; PHP message: PHP Fatal error:  Uncaught TypeError: Helpers\ImageHelper::processArticleImage(): Argument #1 ($uploadedImage) must be of type array, null given, called in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 152 and defined in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:154
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(152): Helpers\ImageHelper::processArticleImage()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(104): Controllers\ArticleController->addArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 154" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/add HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/add"
+2024/12/21 23:38:24 [error] 569587#569587: *5504 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 1 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 152; PHP message: PHP Fatal error:  Uncaught TypeError: Helpers\ImageHelper::processArticleImage(): Argument #1 ($uploadedImage) must be of type array, null given, called in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 152 and defined in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:154
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(152): Helpers\ImageHelper::processArticleImage()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(104): Controllers\ArticleController->addArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 154" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/add HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/add"
+2024/12/21 23:38:35 [error] 569587#569587: *5507 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 1 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 152; PHP message: PHP Fatal error:  Uncaught TypeError: Helpers\ImageHelper::processArticleImage(): Argument #1 ($uploadedImage) must be of type array, null given, called in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 152 and defined in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:154
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(152): Helpers\ImageHelper::processArticleImage()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(104): Controllers\ArticleController->addArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 154" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/add HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/add"
+2024/12/21 23:40:31 [error] 569587#569587: *5526 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 42" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/testing-article---one-images) HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/news"
+2024/12/21 23:42:28 [error] 569589#569589: *5543 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: filesize(): Argument #1 ($filename) must be of type string, GdImage given in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php:159
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php(159): filesize()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/UserController.php(224): Logic\Validator->validateImage()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(109): Controllers\UserController->updateProfileImage()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 159" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:42:56 [error] 569589#569589: *5543 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: filesize(): Argument #1 ($filename) must be of type string, GdImage given in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php:159
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php(159): filesize()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/UserController.php(224): Logic\Validator->validateImage()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(109): Controllers\UserController->updateProfileImage()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 159" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:43:32 [error] 569589#569589: *5576 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:109
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php(109): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/UserController.php(221): Helpers\ImageHelper::getUsableImageArray()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(109): Controllers\UserController->updateProfileImage()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 109" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:44:55 [error] 569589#569589: *5579 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:109
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php(109): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/UserController.php(221): Helpers\ImageHelper::getUsableImageArray()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(109): Controllers\UserController->updateProfileImage()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 109" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:45:42 [error] 569589#569589: *5582 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:109
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php(109): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/UserController.php(221): Helpers\ImageHelper::getUsableImageArray()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(109): Controllers\UserController->updateProfileImage()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 109" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:45:53 [error] 569589#569589: *5585 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:110
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php(110): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/UserController.php(221): Helpers\ImageHelper::getUsableImageArray()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(109): Controllers\UserController->updateProfileImage()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 110" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:46:05 [error] 569589#569589: *5588 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:110
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php(110): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/UserController.php(221): Helpers\ImageHelper::getUsableImageArray()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(109): Controllers\UserController->updateProfileImage()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 110" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:47:56 [error] 569589#569589: *5591 FastCGI sent in stderr: "PHP message: PHP Warning:  Trying to access array offset on int in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 113; PHP message: PHP Warning:  Trying to access array offset on int in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 113; PHP message: PHP Warning:  Undefined array key "tmp_name" in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146; PHP message: PHP Deprecated:  is_uploaded_file(): Passing null to parameter #1 ($filename) of type string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:48:04 [error] 569589#569589: *5593 FastCGI sent in stderr: "PHP message: PHP Warning:  Trying to access array offset on int in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 113; PHP message: PHP Warning:  Trying to access array offset on int in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 113; PHP message: PHP Warning:  Undefined array key "tmp_name" in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146; PHP message: PHP Deprecated:  is_uploaded_file(): Passing null to parameter #1 ($filename) of type string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:48:57 [error] 569589#569589: *5601 FastCGI sent in stderr: "PHP message: PHP Warning:  Trying to access array offset on int in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 113; PHP message: PHP Warning:  Trying to access array offset on int in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 113; PHP message: PHP Warning:  Undefined array key "tmp_name" in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146; PHP message: PHP Deprecated:  is_uploaded_file(): Passing null to parameter #1 ($filename) of type string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:49:06 [error] 569589#569589: *5601 FastCGI sent in stderr: "PHP message: PHP Warning:  Trying to access array offset on int in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 113; PHP message: PHP Warning:  Trying to access array offset on int in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 113" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:49:31 [error] 569589#569589: *5614 FastCGI sent in stderr: "PHP message: PHP Warning:  Trying to access array offset on int in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 115; PHP message: PHP Warning:  Trying to access array offset on int in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 115" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:50:25 [error] 569589#569589: *5617 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:111
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php(111): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/UserController.php(221): Helpers\ImageHelper::getUsableImageArray()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(109): Controllers\UserController->updateProfileImage()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 111" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:50:43 [error] 569589#569589: *5617 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:111
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php(111): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/UserController.php(221): Helpers\ImageHelper::getUsableImageArray()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(109): Controllers\UserController->updateProfileImage()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 111" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:51:39 [error] 569589#569589: *5624 FastCGI sent in stderr: "PHP message: PHP Warning:  Trying to access array offset on int in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 118; PHP message: PHP Warning:  Trying to access array offset on int in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 118" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:52:48 [error] 569588#569588: *5630 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key "tmp_name" in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146; PHP message: PHP Deprecated:  is_uploaded_file(): Passing null to parameter #1 ($filename) of type string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/21 23:59:29 [error] 569588#569588: *5640 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key "tmp_name" in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146; PHP message: PHP Deprecated:  is_uploaded_file(): Passing null to parameter #1 ($filename) of type string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/22 00:04:43 [error] 569588#569588: *5648 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key "tmp_name" in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146; PHP message: PHP Deprecated:  is_uploaded_file(): Passing null to parameter #1 ($filename) of type string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/22 00:06:51 [error] 569588#569588: *5680 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key "tmp_name" in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146; PHP message: PHP Deprecated:  is_uploaded_file(): Passing null to parameter #1 ($filename) of type string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/22 00:07:10 [error] 569588#569588: *5683 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key "tmp_name" in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 146" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/22 00:07:35 [error] 569590#569590: *5689 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: filesize(): Argument #1 ($filename) must be of type string, GdImage given in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php:159
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php(159): filesize()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/UserController.php(224): Logic\Validator->validateImage()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(109): Controllers\UserController->updateProfileImage()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 159" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/22 00:10:53 [error] 569590#569590: *5695 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Error: Cannot use object of type GdImage as array in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php:159
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/UserController.php(224): Logic\Validator->validateImage()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(109): Controllers\UserController->updateProfileImage()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Logic/Validator.php on line 159" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /users/edit/profile-image HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/users/admin"
+2024/12/22 00:37:25 [error] 569591#569591: *5762 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 42" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/testing-article---one-images) HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/news"
+2024/12/22 00:37:29 [error] 569591#569591: *5762 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 42" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/testing-article---one-images) HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/news"
+2024/12/22 00:38:46 [error] 569591#569591: *5783 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 42" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/testing-article---one-images) HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/news"

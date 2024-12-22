@@ -142,10 +142,20 @@ class ArticleController
             $articleId = DatabaseConnector::selectMaxId('article') + 1;
 
             if (isset($images) and $images[0]['tmp_name'] !== '') {
-                for ($i = 0; $i < $images; $i++) {
+                for ($i = 0; $i < count($images); $i++) {
+                    // Generate thumbnail from first image
+                    if ($i === 0) {
+                        $thumbnailPath = 'assets/uploads/articles/' . $articleId . '_0_thumbnail.jpeg';
+                        $imagePaths[] = $thumbnailPath;
+                        ImageHelper::saveImage(
+                            image: ImageHelper::resize(ImageHelper::processArticleImage($images[$i]), 300, 200),
+                            imagePath: $thumbnailPath,
+                        );
+                    }
+
+                    // Save image
                     $imagePath = 'assets/uploads/articles/' . $articleId . '_' . $i .'.jpeg';
                     $imagePaths[] = $imagePath; // Add to array
-
                     ImageHelper::saveImage(
                         image: ImageHelper::processArticleImage($images[$i]),
                         imagePath: $imagePath,
@@ -204,7 +214,7 @@ class ArticleController
                     $imagePath = 'assets/uploads/articles/' . $id . '_' . $lastImageId .'.'. explode('/', $images['type'][$i])[1];
                     $imagePaths[] = $imagePath; // Add to array
 
-                    move_uploaded_file( // Save to server location
+                    move_uploaded_file( // Save to server location // TODO images
                         from: $images['tmp_name'][$i],
                         to: $imagePath,
                     );

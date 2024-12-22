@@ -27,16 +27,18 @@ $type ??= 'add';
 
             <label for="images">Přidat obrázky: </label>
             <input type="file" name="images[]" id="images" accept="image/png, image/jpeg"
-                   title="Obrázek musí být ve formátu PNG nebo JPEG, můžete nahrát více obrázků najednou"
+                   title="Obrázek musí být ve formátu PNG nebo JPEG, můžete nahrát více obrázků najednou, každý obrázek může mít max 2MB a musí mít minimálně 200x200 a maximálně 4000x4000px"
                    multiple>
 
             <div class="article-images">
                 <?php if (isset($article) and $article->getImagePaths() !== null) {
                     foreach ($article->getImagePaths() as $image) {
-                        echo '<div class="article-image">
+                        if (!str_contains($image, 'thumbnail')) {
+                            echo '<div class="article-image">
                                 <button type="button" class="danger remove-image" value="'. UrlHelper::baseUrl($image) .'">Odstranit</button>
                                 <img src="'. UrlHelper::baseUrl($image) .'" alt="Obrázek článku">
                             </div>';
+                        }
                     }
                 }  ?>
                 <p>Žádné obrázky u článku</p>

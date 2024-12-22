@@ -128,38 +128,35 @@ class Validator
 
     /**
      * Validate image (size, format, dimensions) - used for registration
-     * @param array<string, string> $image
+     * @param array<string, string>|null $image
      * @param int $size
-     * @param int $width
-     * @param int $height
+     * @param int $minWidth
+     * @param int $minHeight
      * @return bool
      * @throws IncorrectInputException
      * @throws Exception
      */
     public function validateImage(
-        array  $image,
-        int   $size = 2_000_000, // 1MB - default max size
-        int $width = 500,
-        int $height = 500,
+        ?array $image,
+        int    $size = 2_000_000, // 1MB - default max size
+        int    $minWidth = 200,
+        int    $minHeight = 200,
+        int    $maxWidth = 4000,
+        int    $maxHeight = 4000,
     ): bool {
         // Check if image was really uploaded
         if (!isset($image) or !is_uploaded_file($image['tmp_name'])) {
             throw new Exception('uploadError');
         }
 
-        // Convert to GDImage object based on an image type
-        $image = match ($image['type']) {
-            'image/jpeg' => imagecreatefromjpeg($image['tmp_name']),
-            'image/png' => imagecreatefrompng($image['tmp_name']),
-            default => throw new Exception('imageType'),
-        };
-
         // Validate last image variables
+        list($width, $height) = getimagesize($image['tmp_name']);
         switch (true) {
-            case filesize($image) > $size: // Size in MB...
+            case $image['size'] > $size: // Size in MB...
                 $error[] = 'imageSize';
                 // no break
-            case imagesx($image) < $width or imagesy($image) < $height: // Dimension
+            case $width < $minWidth or $width > $maxWidth or
+                $height < $minHeight or $height > $maxHeight: // Dimension
                 $error[] = 'imageDimensions';
                 // no break
         }

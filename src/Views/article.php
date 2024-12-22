@@ -27,7 +27,9 @@ if (!isset($article)) {
                 <?php
                 if ($article->getImagePaths() !== null) {
                 foreach ($article->getImagePaths() as $img) {
-                    echo '<img src="'. UrlHelper::baseUrl($img) .'" alt="Obrázek článku">';
+                    if (!strpos($img, 'thumbnail')) {
+                        echo '<img src="'. UrlHelper::baseUrl($img) .'" alt="Obrázek článku">';
+                    }
                 }
                 }
             ?>
