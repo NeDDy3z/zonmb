@@ -157,7 +157,7 @@ class ArticleController
                     $imagePath = 'assets/uploads/articles/' . $articleId . '_' . $i .'.jpeg';
                     $imagePaths[] = $imagePath; // Add to array
                     ImageHelper::saveImage(
-                        image: ImageHelper::processArticleImage($images[$i]),
+                        image: ImageHelper::resize(ImageHelper::processArticleImage($images[$i]), 800, 450),
                         imagePath: $imagePath,
                     );
                 }
