@@ -877,3 +877,345 @@ Stack trace:
 2024/12/22 00:37:25 [error] 569591#569591: *5762 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 42" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/testing-article---one-images) HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/news"
 2024/12/22 00:37:29 [error] 569591#569591: *5762 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 42" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/testing-article---one-images) HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/news"
 2024/12/22 00:38:46 [error] 569591#569591: *5783 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 42" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/testing-article---one-images) HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/news"
+2024/12/22 10:02:46 [error] 569593#569593: *5934 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 1 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 214; PHP message: PHP Fatal error:  Uncaught Error: [] operator not supported for strings in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:215
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#2 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#3 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 215" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:08:23 [error] 569593#569593: *5969 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key "tmp_name" in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 193; PHP message: PHP Warning:  Undefined array key "size" in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 216; PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:216
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(216): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 216" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:08:35 [error] 569593#569593: *5976 FastCGI sent in stderr: "PHP message: PHP Warning:  Trying to access array offset on null in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 216; PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:216
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(216): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 216" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:09:10 [error] 569594#569594: *5990 FastCGI sent in stderr: "PHP message: PHP Warning:  Trying to access array offset on null in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 217; PHP message: PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:217
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(217): count()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 217" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:10:08 [error] 569594#569594: *5990 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:90
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(90): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 90" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:10:40 [error] 569594#569594: *5996 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:90
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(90): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 90" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:11:05 [error] 569594#569594: *6005 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:90
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(90): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 90" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:11:10 [error] 569594#569594: *6005 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:90
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(90): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 90" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:11:52 [error] 569594#569594: *6011 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:91
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(91): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 91" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:12:06 [error] 569594#569594: *6014 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:91
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(91): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 91" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:12:12 [error] 569594#569594: *6017 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:90
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(90): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 90" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:13:21 [error] 569594#569594: *6020 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:90
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(90): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 90" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:14:25 [error] 569594#569594: *6026 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:90
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(90): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(233): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 90" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:15:24 [error] 569594#569594: *6029 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:90
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(90): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 90" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:15:56 [error] 569595#569595: *6032 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:92
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(92): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 92" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:16:15 [error] 569595#569595: *6035 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:92
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(92): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 92" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:16:47 [error] 569595#569595: *6038 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:92
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(92): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 92" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:17:29 [error] 569595#569595: *6041 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:92
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(92): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 92" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:17:34 [error] 569595#569595: *6044 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined variable $images in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 232; PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:92
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(92): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 92" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:17:57 [error] 569595#569595: *6047 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:94
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(94): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 94" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:18:11 [error] 569595#569595: *6050 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:92
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(92): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 92" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:18:16 [error] 569595#569595: *6053 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:92
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(92): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 92" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:18:42 [error] 569595#569595: *6056 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:95
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(95): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 95" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:18:50 [error] 569595#569595: *6059 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:96
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(96): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 96" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 10:19:05 [error] 569595#569595: *6062 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: implode(): Argument #1 ($array) must be of type array, string given in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php:97
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php(97): implode()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(231): Models\ArticleModel::updateArticle()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 97" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 11:10:55 [error] 569596#569596: *6121 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Error: [] operator not supported for strings in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:229
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#2 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#3 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 229" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 11:16:06 [error] 569596#569596: *6134 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Error: [] operator not supported for strings in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:234
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#2 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#3 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 234" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 11:16:16 [error] 569596#569596: *6137 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Error: [] operator not supported for strings in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:234
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#2 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#3 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 234" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 11:16:21 [error] 569596#569596: *6137 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Error: [] operator not supported for strings in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:234
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#2 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#3 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 234" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 11:16:32 [error] 569596#569596: *6143 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Error: [] operator not supported for strings in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:235
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#2 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#3 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 235" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 11:17:14 [error] 569596#569596: *6143 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Error: Call to a member function getId() on null in /home/erikvanek/Dev/School/zonmb/src/Views/article-editor.php:16
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(91): require_once()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(89): Controllers\ArticleController->render()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(59): Logic\Router::GET()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Views/article-editor.php on line 16" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 11:17:29 [error] 569596#569596: *6151 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Error: [] operator not supported for strings in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:235
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#2 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#3 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 235" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 11:17:46 [error] 569596#569596: *6165 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Error: [] operator not supported for strings in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:235
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(105): Controllers\ArticleController->editArticle()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(60): Logic\Router::POST()
+#2 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#3 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 235" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 11:18:12 [error] 569597#569597: *6175 FastCGI sent in stderr: "PHP message: PHP Warning:  imagejpeg(assets/uploads/articles/36_0.jpeg): Failed to open stream: Permission denied in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 87" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 11:20:10 [error] 569597#569597: *6196 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Error: Call to a member function getId() on null in /home/erikvanek/Dev/School/zonmb/src/Views/article-editor.php:16
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(91): require_once()
+#1 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(89): Controllers\ArticleController->render()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(59): Logic\Router::GET()
+#3 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#4 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Views/article-editor.php on line 16" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36&error=articleEditError&errorDetails=Failed%20to%20save%20image"
+2024/12/22 11:20:34 [error] 569598#569598: *6211 FastCGI sent in stderr: "PHP message: PHP Warning:  imagejpeg(assets/uploads/articles/36_0.jpeg): Failed to open stream: Permission denied in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 87" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "POST /articles/edit HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=36"
+2024/12/22 11:45:36 [error] 569599#569599: *6472 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Models/ArticleModel.php on line 44" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/edit?id=44 HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/test---image-id-test?success=articleAdded"
+2024/12/22 11:49:17 [error] 569601#569601: *6524 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 335; PHP message: PHP Deprecated:  str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 335; PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 337; PHP message: PHP Deprecated:  imagecreatefromjpeg(): Passing null to parameter #1 ($filename) of type string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 337; PHP message: PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:337
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(337): imagecreatefromjpeg()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(58): Controllers\ArticleController->deleteArticleImage()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(76): Controllers\ArticleController->__construct()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(59): Logic\Router::GET()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 337" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/delete?id=3&img=%2Fassets%2Fuploads%2Farticles%2F3_0.jpeg HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=3"
+2024/12/22 11:49:39 [error] 569600#569600: *6574 FastCGI sent in stderr: "PHP message: PHP Warning:  imagecreatefromjpeg(assets/uploads/articles/3_0_thumbnail.jpeg): Failed to open stream: No such file or directory in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 337; PHP message: PHP Fatal error:  Uncaught TypeError: Helpers\ImageHelper::generateThumbnail(): Argument #1 ($image) must be of type GdImage|array, false given, called in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 336 and defined in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php:178
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(336): Helpers\ImageHelper::generateThumbnail()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(58): Controllers\ArticleController->deleteArticleImage()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(76): Controllers\ArticleController->__construct()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(59): Logic\Router::GET()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Helpers/ImageHelper.php on line 178" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/delete?id=3&img=%2Fassets%2Fuploads%2Farticles%2F3_1.jpeg HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=3"
+2024/12/22 16:47:59 [error] 569600#569600: *6584 FastCGI sent in stderr: "PHP message: PHP Warning:  unlink(assets/uploads/articles/3_0_thumbnail.jpeg): No such file or directory in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 325; PHP message: PHP Warning:  unlink(assets/uploads/articles/3_0.jpeg): No such file or directory in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 325; PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 336; PHP message: PHP Deprecated:  str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 336; PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 338; PHP message: PHP Deprecated:  imagecreatefromjpeg(): Passing null to parameter #1 ($filename) of type string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 338; PHP message: PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:338
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(338): imagecreatefromjpeg()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(58): Controllers\ArticleController->deleteArticleImage()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(76): Controllers\ArticleController->__construct()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(59): Logic\Router::GET()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 338" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/delete?id=3&img=%2Fassets%2Fuplo
+2024/12/22 16:50:16 [error] 569600#569600: *6606 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 338; PHP message: PHP Deprecated:  str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 338; PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 340; PHP message: PHP Deprecated:  imagecreatefromjpeg(): Passing null to parameter #1 ($filename) of type string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 340; PHP message: PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:340
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(340): imagecreatefromjpeg()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(58): Controllers\ArticleController->deleteArticleImage()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(76): Controllers\ArticleController->__construct()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(59): Logic\Router::GET()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 340" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/delete?id=4&img=%2Fassets%2Fuploads%2Farticles%2F3_0.jpeg HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=4"
+2024/12/22 16:51:16 [error] 569600#569600: *6598 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 332; PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 338; PHP message: PHP Deprecated:  str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 338; PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 340; PHP message: PHP Deprecated:  imagecreatefromjpeg(): Passing null to parameter #1 ($filename) of type string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 340; PHP message: PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:340
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(340): imagecreatefromjpeg()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(58): Controllers\ArticleController->deleteArticleImage()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(76): Controllers\ArticleController->__construct()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(59): Logic\Router::GET()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 340" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/delete?id=5&img=%2Fassets%2Fuploads%2Farticles%2F5_0.jpeg HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=5"
+2024/12/22 16:52:48 [error] 569600#569600: *6598 FastCGI sent in stderr: "PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 338; PHP message: PHP Deprecated:  str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 338; PHP message: PHP Warning:  Undefined array key 0 in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 340; PHP message: PHP Deprecated:  imagecreatefromjpeg(): Passing null to parameter #1 ($filename) of type string is deprecated in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 340; PHP message: PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php:340
+Stack trace:
+#0 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(340): imagecreatefromjpeg()
+#1 /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php(58): Controllers\ArticleController->deleteArticleImage()
+#2 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(76): Controllers\ArticleController->__construct()
+#3 /home/erikvanek/Dev/School/zonmb/src/Logic/Router.php(59): Logic\Router::GET()
+#4 /home/erikvanek/Dev/School/zonmb/www/index.php(34): Logic\Router::route()
+#5 {main}
+  thrown in /home/erikvanek/Dev/School/zonmb/src/Controllers/ArticleController.php on line 340" while reading response header from upstream, client: 127.0.0.1, server: zonmb.local, request: "GET /articles/delete?id=6&img=%2Fassets%2Fuploads%2Farticles%2F6_0.jpeg HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/www.sock:", host: "zonmb.local", referrer: "http://zonmb.local/articles/edit?id=6"

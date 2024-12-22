@@ -36,16 +36,17 @@ function loadArticles(data) {
                         <a href="articles/${article.slug}"><h1>${encodeHtml(article.title)}</h1></a>
                         <h2>${encodeHtml(article.subtitle)}</h2>
                     </div>`;
-            if (article.image_paths !== "") {
-                article.image_paths = article.image_paths.split(',');
-                article.image_paths.forEach(image => {
-                    if (image.includes('thumbnail')) {
+            if (article.image_paths !== "" && article.image_paths !== null) {
+                let stop = false; // Print only one thumbnail in case of multiple ones
+                article.image_paths.split(',').forEach(image => {
+                    if (image.includes('thumbnail') && !stop) {
                         articleElement.innerHTML +=
                             `<div class="news-article-image">
                                 <a href="articles/${article.slug}">
                                     <img src="${image}" alt="Obrázek článku">
                                 </a>
                             </div>`;
+                        stop = true;
                     }
                 })
 
@@ -101,9 +102,22 @@ function addEventListenerToPage() {
 addEventListenerToPage();
 addEventListenerToSort();
 
-document.querySelector('.search').addEventListener('input', function (e) {
-    e.preventDefault();
+const search = document.querySelector('.search');
+search.addEventListener('input', function (e) { // Wait one second
+    clearTimeout(this.timer);
+
+    this.timer = setTimeout(() => {
+        fetchAndLoadArticles();
+    }, 1000);
+});
+search.addEventListener('keydown', function (e) { // On enter search
+    if (e.key === 'Enter') {
+        fetchAndLoadArticles();
+    }
+});
+search.addEventListener('blur', function () {
     fetchAndLoadArticles();
-})
+}); // On lost focus
+
 
 fetchAndLoadArticles();

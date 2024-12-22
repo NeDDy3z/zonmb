@@ -8,6 +8,7 @@ use Helpers\ImageHelper;
 use Helpers\PrivilegeRedirect;
 use Helpers\ReplaceHelper;
 use Logic\Article;
+use Logic\DatabaseException;
 use Logic\Router;
 use Logic\Validator;
 use Models\ArticleModel;
@@ -49,7 +50,16 @@ class ArticleController
                 break;
             case 'delete':
                 $privilegeRedirect->redirectUser();
-                $this->deleteArticle();
+                if (!isset($_GET['id'])) {
+                    echo json_encode(['error' => 'missingID']);
+                    exit();
+                } else {
+                    if (isset($_GET['img'])) {
+                        $this->deleteArticleImage();
+                    } else {
+                        $this->deleteArticle();
+                    }
+                }
                 break;
             default:
                 break;
@@ -141,6 +151,10 @@ class ArticleController
             $slug = ReplaceHelper::getUrlFriendlyString($title);
             $articleId = DatabaseConnector::selectMaxId('article') + 1;
 
+            if ($articleId === 1) {
+                DatabaseConnector::resetAutoIncrement('article');
+            }
+
             if (isset($images) and $images[0]['tmp_name'] !== '') {
                 for ($i = 0; $i < count($images); $i++) {
                     // Generate thumbnail from first image
@@ -167,7 +181,6 @@ class ArticleController
                 title: $title,
                 subtitle: $subtitle,
                 content: $content,
-                slug: $slug,
                 imagePaths: $imagePaths ?? null,
                 authorId: $author,
             );
@@ -189,48 +202,66 @@ class ArticleController
             $title = $_POST['title'] ?? null;
             $subtitle = $_POST['subtitle'] ?? null;
             $content = $_POST['content'] ?? null;
-            $images = $_FILES['images'] ?? null;
+            $images = ImageHelper::getUsableImageArray($_FILES['images']) ?? null;
 
+            if ($images[0]['tmp_name'] === "") {
+                unset($images);
+            }
+
+            // Check titles etc..
             $this->validator->validateArticle(
                 title: $title,
                 subtitle: $subtitle,
                 content: $content,
             );
+            // Check images
+            if (isset($images)) {
+                foreach ($images as $image) {
+                    $this->validator->validateImage($image);
+                }
+            }
 
             try {
-                $imagePaths = ArticleModel::selectArticle(conditions: 'WHERE id = '. $id)['image_paths'];
-                $lastImageId = 0;
+                if (isset($images)) {
+                    $imagePaths = explode(',', ArticleModel::selectArticle(conditions: 'WHERE id = '. $id)['image_paths']);
+                    $lastImageId = 0;
 
-                // Get last imgid
-                foreach ((array)scandir('assets/uploads/articles') as $file) {
-                    if (str_starts_with((string)$file, $id . '_') and (int)explode('_', (string)$file)[1] > $lastImageId) {
-                        $lastImageId = (int)explode('_', (string)$file)[1];
+                    // Get last img id and add 1 to it
+                    foreach ((array)scandir('assets/uploads/articles') as $file) {
+                        if (str_starts_with((string)$file, $id . '_') and (int)explode('_', (string)$file)[1] > $lastImageId) {
+                            $lastImageId = (int)explode('_', (string)$file)[1];
+                        }
+                    }
+
+                    $lastImageId++;
+
+                    for ($i = 0; $i < count($images); $i++) {
+                        $imagePath = 'assets/uploads/articles/' . $id . '_' . $lastImageId .'.jpeg';
+                        $imagePaths[] = $imagePath; // Add to array
+
+                        // Save image
+                        ImageHelper::saveImage(
+                            image: ImageHelper::processArticleImage($images[$i]),
+                            imagePath: $imagePath,
+                        );
+
+                        $lastImageId++;
                     }
                 }
 
-                $lastImageId++;
-
-                for ($i = 0; $i < count($images['size']); $i++) {
-                    $imagePath = 'assets/uploads/articles/' . $id . '_' . $lastImageId .'.'. explode('/', $images['type'][$i])[1];
-                    $imagePaths[] = $imagePath; // Add to array
-
-                    move_uploaded_file( // Save to server location // TODO images
-                        from: $images['tmp_name'][$i],
-                        to: $imagePath,
-                    );
-
-                    $lastImageId++;
-                }
-
+                // Update data in DB
                 ArticleModel::updateArticle(
                     id: $id,
                     title: $title,
                     subtitle: $subtitle,
                     content: $content,
-                    imagePaths: $images,
+                    imagePaths: $imagePaths ?? null,
                 );
 
-                Router::redirect(path: 'articles', query: ['success' => 'articleEdited']);
+                // Replace slug for a urlfirendlified title
+                $slug = ReplaceHelper::getUrlFriendlyString($title);
+
+                Router::redirect(path: "articles/$slug", query: ['success' => 'articleEdited']);
             } catch (Exception $e) {
                 Router::redirect(path: 'articles/edit', query: ['id' => $id, 'error' => 'articleEditError', 'errorDetails' => $e->getMessage()]);
             }
@@ -239,42 +270,89 @@ class ArticleController
         }
     }
 
+    /**
+     * Delete article or just an image
+     * @return void
+     */
     public function deleteArticle(): void
     {
         if (!isset($_GET['id'])) {
-            echo json_encode(['error' => 'Chybí ID článku']);
-        } else {
-            try {
-                switch (true) {
-                    case isset($_GET['img']):
-                        $img = substr($_GET['img'], 1); // Remove the slash infront of the image path
-
-                        $imagePaths = explode(',', ArticleModel::selectArticle(conditions: 'WHERE id = '. $_GET['id'])['image_paths']); // Get image paths
-                        $newImagePaths = array_diff($imagePaths, [$img]); // Remove the unwanted one
-                        $newImagePaths = (count($newImagePaths) === 0) ? ['null'] : $newImagePaths;
-
-                        ArticleModel::updateArticle(id: $_GET['id'], imagePaths: $newImagePaths); // Set new image paths
-
-                        unlink($img); // Remove img from server files
-
-                        echo json_encode(['success' => 'imageDelete']);
-                        break;
-                    default:
-                        ArticleModel::removeArticle(id: $_GET['id']); // Delete article
-
-                        foreach ((array)scandir('assets/uploads/articles') as $file) { // Remove all images associated with it
-                            if (strpos($file, $_GET['id'] . '_') === 0) { // if the file starts with the article ID remove it
-                                unlink('assets/uploads/articles/' . $file);
-                            }
-                        }
-
-                        echo json_encode(['success' => 'articleDelete']);
-                }
-            } catch (Exception $e) {
-                echo json_encode(['error' => $e->getMessage()]);
-            }
+            echo json_encode(['error' => 'missingID']);
+            exit();
         }
 
+        try {
+            ArticleModel::removeArticle(id: $_GET['id']); // Delete article
+            foreach ((array)scandir('assets/uploads/articles') as $file) { // Remove all images associated with it
+                if (str_starts_with($file, $_GET['id'] . '_')) { // if the file starts with the article ID remove it
+                    unlink('assets/uploads/articles/' . $file);
+                }
+            }
+
+            echo json_encode(['success' => 'articleDelete']);
+        } catch (Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
         exit();
     }
+
+    /**
+     * Delete single image from article
+     * @return void
+     */
+    public function deleteArticleImage(): void
+    {
+        if (!isset($_GET['id'])) {
+            echo json_encode(['error' => 'missingID']);
+            exit();
+        }
+
+        try {
+            $img = substr($_GET['img'], 1); // Get image path without '/' on the beginning
+            $imgId = preg_match('/\/(\d+_\d+)(?:_thumbnail)?\.jpeg$/', $img, $matches) ? $matches[1] : null; // Get img id (35_0, 21_2, ...)
+
+
+            // Get image paths from server
+            $imagePaths = explode(',', ArticleModel::selectArticle(conditions: 'WHERE id = '. $_GET['id'])['image_paths']);
+
+            // Get all images that contain img id
+            $imagePathsToRemove = array_filter($imagePaths, function ($item) use ($imgId) {
+                return str_contains($item, $imgId);
+            });
+
+            // Remove files from server
+            foreach ($imagePathsToRemove as $imagePath) {
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+
+            // Create different array where are not removed images
+            $newImagePaths = array_values(array_diff($imagePaths, $imagePathsToRemove));
+            $thumbnail = '_thumbnail.jpeg';
+            $hasThumbnail = !empty(array_filter($newImagePaths, fn($str) => str_contains($str, $thumbnail))); // Check if thumbnail is present
+
+            // If new imagepath is empty fill it with 'null' because of the DB
+            if (count($newImagePaths) === 0) {
+                $newImagePaths = ['null'];
+            } elseif (!$hasThumbnail and count($newImagePaths) > 0) {
+                $thumbnailPath = str_replace('.jpeg', $thumbnail, $newImagePaths[0]);
+                ImageHelper::generateThumbnail(
+                    image: imagecreatefromjpeg($newImagePaths[0]),
+                    imagePath: $thumbnailPath,
+                );
+
+                $newImagePaths[] = $thumbnailPath;
+            }
+
+            // Update data in DB
+            ArticleModel::updateArticle(id: $_GET['id'], imagePaths: $newImagePaths);
+
+            echo json_encode(['success' => 'imageDelete']);
+        } catch (Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+        exit();
+    }
+
 }

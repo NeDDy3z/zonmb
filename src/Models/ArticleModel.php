@@ -3,6 +3,7 @@
 namespace Models;
 
 use Controllers\ArticleController;
+use Exception;
 use Helpers\ReplaceHelper;
 use Logic\DatabaseException;
 
@@ -17,8 +18,9 @@ class ArticleModel
      * @return void
      * @throws DatabaseException
      */
-    public static function insertArticle(string $title, string $subtitle, string $content, string $slug, ?array $imagePaths = [], int $authorId = 1): void
+    public static function insertArticle(string $title, string $subtitle, string $content, ?array $imagePaths = [], int $authorId = 1): void
     {
+        $slug = ReplaceHelper::getUrlFriendlyString($title);
         $imagePaths = isset($imagePaths) ? implode(',', $imagePaths) : '';
 
         DatabaseConnector::insert(
@@ -64,39 +66,43 @@ class ArticleModel
      * @param array<string> $imagePaths
      * @return void
      * @throws DatabaseException
+     * @throws Exception
      */
     public static function updateArticle(int $id, ?string $title = null, ?string $subtitle = null, ?string $content = null, ?array $imagePaths = []): void
     {
-        $items = [];
-        $values = [];
+        if ($title) {
+            $items[] = 'title';
+            $values[] = $title;
 
-        switch (true) {
-            case $title:
-                $items[] = 'title';
-                $values[] = $title;
-                $items[] = 'slug';
-                $values[] = ReplaceHelper::getUrlFriendlyString($title);
-                // no break
-            case $subtitle:
-                $items[] = 'subtitle';
-                $values[] = $subtitle;
-                // no break
-            case $content:
-                $items[] = 'content';
-                $values[] = $content;
-                // no break
-            case $imagePaths:
-                $items[] = 'image_paths';
-                $values[] = implode(',', $imagePaths);
-                break;
+            $items[] = 'slug';
+            $values[] = ReplaceHelper::getUrlFriendlyString($title);
         }
 
-        DatabaseConnector::update(
-            table: 'article',
-            items: $items,
-            values: $values,
-            conditions: "WHERE id = $id",
-        );
+        if ($subtitle) {
+            $items[] = 'subtitle';
+            $values[] = $subtitle;
+        }
+
+        if ($content) {
+            $items[] = 'content';
+            $values[] = $content;
+        }
+
+        if ($imagePaths) {
+            $items[] = 'image_paths';
+            $values[] = implode(',', $imagePaths);
+        }
+
+        if (isset($items) and isset($values)) {
+            DatabaseConnector::update(
+                table: 'article',
+                items: $items,
+                values: $values,
+                conditions: "WHERE id = $id",
+            );
+        } else {
+            throw new Exception('Nothing to update');
+        }
     }
 
     /**
@@ -110,17 +116,5 @@ class ArticleModel
             table: 'article',
             conditions: 'WHERE id = ' . $id,
         );
-    }
-
-    /**
-     * @param int $id
-     * @param string $string
-     * @return void
-     * @throws DatabaseException
-     */
-    public static function removeImageFromArticle(int $id, string $string): void
-    {
-        $imagePathsData = self::selectArticle(conditions: 'WHERE id = ' . $id);
-        self::updateArticle(id: $id, imagePaths: array_diff($imagePathsData, [$string]));
     }
 }

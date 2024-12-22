@@ -1,5 +1,6 @@
 <?php
 use Helpers\UrlHelper;
+use Models\DatabaseConnector;
 
 ?>
 
@@ -27,8 +28,8 @@ use Helpers\UrlHelper;
                 </tbody>
             </table>
             <div class="table-footer">
-                <p id="page-users">Strana <span>1</span></p>
                 <button class="prev-page">←</button>
+                <p id="page-users"><span>1</span>/<?= ceil(DatabaseConnector::count('user') / 10) ?></p>
                 <button class="next-page">→</button>
             </div>
         </section>
@@ -48,8 +49,8 @@ use Helpers\UrlHelper;
                     <th><a href="#" class="sort" id="articles-title">Nadpis<span></span></a></th>
                     <th><a href="#" class="sort" id="articles-subtitle">Podnadpis<span></span></a></th>
                     <th><a href="#" class="sort" id="articles-content">Obsah<span></span></a></th>
-                    <th><a href="#" class="sort" id="articles-images">Obrázky<span></span></a></th>
-                    <th><a href="#" class="sort" id="articles-author">ID Autora<span></span></a></th>
+                    <th>Obrázky</th>
+                    <th>ID Autora</th>
                     <th><a href="#" class="sort" id="articles-created_at">Datum zveřejnění<span></span></a></th>
                     <th></th>
                 </tr>
@@ -58,8 +59,8 @@ use Helpers\UrlHelper;
                 </tbody>
             </table>
             <div class="table-footer">
-                <p id="page-articles">Strana <span>1</span></p>
                 <button class="prev-page">←</button>
+                <p id="page-articles"><span>1</span>/<?= ceil(DatabaseConnector::count('article') / 10) ?></p>
                 <button class="next-page">→</button>
             </div>
         </section>

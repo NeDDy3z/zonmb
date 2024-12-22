@@ -1,6 +1,7 @@
 <?php
 
 use Helpers\UrlHelper;
+use Models\DatabaseConnector;
 
 ?>
 
@@ -11,18 +12,19 @@ use Helpers\UrlHelper;
             <input type="text" class="search" placeholder="Vyhledat článek...">
             <select name="sort" class="sort">
                 <option value="" disabled selected>Seřadit podle</option>
-                <option value="&sort=title&asc">Nadpis A-Z</option>
-                <option value="&sort=title&desc">Nadpis Z-A</option>
-                <option value="&sort=created_at&asc">Datum vzestupně</option>
-                <option value="&sort=created_at&asc">Datum sestupně</option>
+                <option value="&sort=title&sortDirection=asc">Nadpis A-Z</option>
+                <option value="&sort=title&sortDirection=desc">Nadpis Z-A</option>
+                <option value="&sort=created_at&sortDirection=asc">Datum vzestupně</option>
+                <option value="&sort=created_at&sortDirection=desc">Datum sestupně</option>
             </select>
         </div>
     </div>
     <div class="container news-articles">
+        <!--Placeholder div for displaying articles using JS-->
     </div>
     <div class="news-footer">
-        <p id="page-news">Strana <span>1</span></p>
         <button class="prev-page">←</button>
+        <p id="page-news"><span>1</span>/<?= ceil(DatabaseConnector::count('article') / 10) ?></p>
         <button class="next-page">→</button>
     </div>
 </main>

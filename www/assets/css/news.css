@@ -55,6 +55,19 @@ article.article-news {
     }
 }
 
+.news-footer {
+    margin-top: 1rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    & > * {
+        margin: 0 0.5rem;
+    }
+}
+
 @media (min-width: 50rem) {
     article.article-news {
         flex-direction: row;

@@ -3,3 +3,14 @@
 
 # Configuration file
 config.local.php
+
+
+# Exclude log files
+log/*
+
+# Exclude user uploaded files
+www/uploads/articles/*
+www/uploads/profile_images/*
+
+# Keep default pfp
+!www/uploads/profile_images/_default.png

@@ -91,7 +91,7 @@ class ImageHelper {
         );
 
         if (!$savedImage) {
-            throw new Exception('Failed to save image');
+            throw new Exception('imageSave');
         }
 
         imagedestroy($image);
@@ -165,5 +165,25 @@ class ImageHelper {
         else {
             return null;
         }
+    }
+
+    /**
+     * @param array|GdImage $uploadedImage
+     * @param string $imagePath
+     * @param int $width
+     * @param int $height
+     * @return void
+     * @throws Exception
+     */
+    public static function generateThumbnail(array|GdImage $image, string $imagePath, int $width = 350, int $height = 200): void
+    {
+        if (is_array($image)) {
+            $image = self::getGdImage($image);
+        }
+
+        self::saveImage(
+            image: self::resize($image, $width, $height),
+            imagePath: $imagePath,
+        );
     }
 }

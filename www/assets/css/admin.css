@@ -30,6 +30,17 @@
             justify-content: space-between;
         }
 
+        .table-footer {
+            margin-top: 0.5rem;
+
+            display: flex;
+            align-items: center;
+
+            & > * {
+                margin: 0 0.5rem;
+            }
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;

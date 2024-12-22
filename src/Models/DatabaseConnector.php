@@ -216,6 +216,31 @@ class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
     }
 
     /**
+     * Count number of columns - good for paging
+     * @param string $table
+     * @return int
+     * @throws DatabaseException
+     */
+    public static function count(string $table): int
+    {
+        // If connection is null create a new connection
+        if (!isset(self::$connection)) {
+            self::connect();
+        }
+
+        $query = "SELECT COUNT(id) as column_count FROM {$table};";
+
+        // Execute query and fetch data
+        try {
+            $result = self::$connection->query($query)->fetchAll();
+        } catch (PDOException $e) {
+            throw new DatabaseException('Nepodařilo se načíst data z databáze: ' . $e->getMessage());
+        }
+
+        return (int)$result[0]['column_count'];
+    }
+
+    /**
      * Get top id - used for articles
      * @param string $table
      * @return int
@@ -238,5 +263,28 @@ class DatabaseConnector // TODO: Refactor this class to use Dependency Injection
         }
 
         return (int)$result[0]['max_id'];
+    }
+
+    /**
+     * Reset auto increment on an empty db
+     * @param string $table
+     * @return void
+     * @throws DatabaseException
+     */
+    public static function resetAutoIncrement(string $table): void
+    {
+        // If connection is null create a new connection
+        if (!isset(self::$connection)) {
+            self::connect();
+        }
+
+        $query = "ALTER TABLE {$table} AUTO_INCREMENT = 1;";
+
+        // Execute query and fetch data
+        try {
+            self::$connection->prepare($query)->execute();
+        } catch (PDOException $e) {
+            throw new DatabaseException('Nepodařilo se načíst data z databáze: ' . $e->getMessage());
+        }
     }
 }
