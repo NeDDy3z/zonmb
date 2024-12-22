@@ -17,13 +17,13 @@ $type ??= 'add';
             } ?>
 
             <label for="title">*Titulek: </label>
-            <input type="text" name="title" id="title" placeholder="*Titulek" value="<?= isset($article) ? htmlspecialchars($article->getTitle()) : ''; ?>">
+            <input type="text" name="title" id="title" placeholder="*Titulek" value="<?= isset($article) ? htmlspecialchars($article->getTitle()) : ''; ?>" required>
 
-            <label for="subtitle">Podtitulek: </label>
-            <input type="text" name="subtitle" id="subtitle" placeholder="Podtitulek" value="<?= isset($article) ? htmlspecialchars($article->getSubtitle()) : ''; ?>">
+            <label for="subtitle">*Podtitulek: </label>
+            <input type="text" name="subtitle" id="subtitle" placeholder="Podtitulek" value="<?= isset($article) ? htmlspecialchars($article->getSubtitle()) : ''; ?>" required>
 
             <label for="content">*Obsah: </label>
-            <textarea name="content" id="content" cols="30" rows="10" placeholder="*Obsah"><?= isset($article) ? htmlspecialchars($article->getContent()) : ''; ?></textarea>
+            <textarea name="content" id="content" cols="30" rows="10" placeholder="*Obsah" required><?= isset($article) ? htmlspecialchars($article->getContent()) : ''; ?></textarea>
 
             <label for="images">Přidat obrázky: </label>
             <input type="file" name="images[]" id="images" accept="image/png, image/jpeg"
