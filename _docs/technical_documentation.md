@@ -16,8 +16,8 @@ For more indepth technical documentation visit the auto-generated [documentation
 │   └── database_scheme.sql                 # SQL file to create database
 │
 ├── /_docs                                  # Documentation 
-├── /bin
-├── /log
+├── /bin                                    # Dev tools
+├── /log                                    # Error and access log location
 │
 ├── /src                                    # Source of the project - app logic
 │   ├── /Controllers                        # Controllers for each page
