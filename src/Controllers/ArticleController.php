@@ -104,7 +104,7 @@ class ArticleController extends Controller
                 break;
             case 'add':
             case 'edit':
-                if ($_GET['id']) {
+                if (isset($_GET['id'])) {
                     $article = Article::getArticleById($_GET['id']);
                 }
                 $this->page = $this->editorPage;
