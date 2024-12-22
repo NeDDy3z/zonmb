@@ -1,11 +1,11 @@
 # Folders
-.idea
-.cache
-.config
-.java
-.local
-.ssh
-.phpdoc
+.idea/
+.cache/
+.config/
+.java/
+.local/
+.ssh/
+.phpdoc/
 
 # Files
 .bash_history
