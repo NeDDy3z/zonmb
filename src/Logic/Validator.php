@@ -218,6 +218,7 @@ class Validator
         }
 
         // Validate last image variables
+        $error = null;
         list($width, $height) = getimagesize($image['tmp_name']);
         switch (true) {
             case $image['size'] > $size: // Size in MB...
