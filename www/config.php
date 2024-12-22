@@ -1,4 +1,7 @@
 <?php
+
+namespace App;
+
 /**
  * <h1>Global Application Configuration</h1>
  *
@@ -48,8 +51,8 @@ $_ENV['database'] = [
 
 // Configure PHP settings for file uploads
 ini_set('file_uploads', '1');               // Enable file uploads
-ini_set('upload_max_filesize', '1M');       // Set maximum file size for uploaded files
-ini_set('post_max_size', '1M');             // Set maximum size of POST data
+ini_set('upload_max_filesize', '2M');       // Set maximum file size for uploaded files
+ini_set('post_max_size', '2M');             // Set maximum size of POST data
 ini_set('max_execution_time', '30');        // Maximum script execution time in seconds
 ini_set('max_input_time', '60');            // Maximum request input processing time in seconds
 

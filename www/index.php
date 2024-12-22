@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace App;
 
 // Include configuration and autoload scripts.
-require 'config.php';
+require_once 'config.php';
 require_once ROOT . 'src/autoload.php';
 
 use Exception;
