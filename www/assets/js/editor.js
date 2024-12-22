@@ -11,7 +11,7 @@ function deleteImage(src) {
     xhr.withCredentials = true;
     xhr.open('GET', `delete?id=${article.id}&img=${encodeURIComponent(src)}`, true);
     xhr.onload = function () {
-        if (xhr.status === 200 && xhr.responseText.includes('success')) { // If comeback message is successfull, remove img locally
+        if (xhr.status === 200 && xhr.responseText.includes('success')) { // If comeback message is successful, remove img locally
             article.imagesDiv.forEach(div => {
                 let imgSrc = div.querySelector('img').src
                 if (new URL(imgSrc).pathname === src) {
