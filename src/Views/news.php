@@ -23,10 +23,9 @@ use Models\DatabaseConnector;
         <!--Placeholder div for displaying articles using JS-->
     </div>
     <div class="news-footer">
-        <button class="prev-page">←</button>
+        <button class="prev-page">&#10094;</button>
         <p id="page-news"><span>1</span>/<?= ceil(DatabaseConnector::count('article') / 10) ?></p>
-        <button class="next-page">→</button>
+        <button class="next-page">&#10095;</button>
     </div>
 </main>
-<script type="module" src="<?= UrlHelper::baseUrl('assets/js/xhr.js') ?>"></script>
 <script type="module" src="<?= UrlHelper::baseUrl('assets/js/news.js') ?>"></script>

@@ -86,6 +86,28 @@ class ArticleModel
     }
 
     /**
+     * Check if an article title exists in the database.
+     *
+     * Returns `true` if the article is found or `false` otherwise.
+     *
+     * @param string $username The username to check for existence.
+     *
+     * @return bool The result of the existence check.
+     *
+     * @throws DatabaseException If there is an issue with the database query.
+     */
+    public static function existsArticle(string $username): bool
+    {
+        $exists = DatabaseConnector::select(
+            table: 'article',
+            items: ['title'],
+            conditions: 'WHERE title = "' . $username . '"',
+        );
+
+        return (count($exists) > 0);
+    }
+
+    /**
      * Update an existing article in the database.
      *
      * Updates fields such as title, subtitle, content, and image paths based on what is provided.
@@ -105,7 +127,6 @@ class ArticleModel
     public static function updateArticle(int $id, ?string $title = null, ?string $subtitle = null, ?string $content = null, ?array $imagePaths = []): void
     {
         // For each item, check if it is set, than add it to an arrays for change
-
         if ($title) {
             $items[] = 'title';
             $values[] = $title;
@@ -113,17 +134,14 @@ class ArticleModel
             $items[] = 'slug';
             $values[] = ReplaceHelper::getUrlFriendlyString($title);
         }
-
         if ($subtitle) {
             $items[] = 'subtitle';
             $values[] = $subtitle;
         }
-
         if ($content) {
             $items[] = 'content';
             $values[] = $content;
         }
-
         if ($imagePaths) {
             $items[] = 'image_paths';
             $values[] = implode(',', $imagePaths);

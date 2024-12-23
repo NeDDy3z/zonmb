@@ -11,7 +11,7 @@ function openOverlay(header, content) {
     overlay.querySelector('p').innerHTML = content;
 
     // Display images if there are any
-    if (header.includes('Obrázky')) {
+    if (header.includes('Obrázky') || header.includes('obrázek')) {
         let images = content.split(',');
         images.forEach(image => {
             let img = new Image();

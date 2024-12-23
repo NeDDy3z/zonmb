@@ -19,7 +19,7 @@ function newsQuery() {
 }
 
 function fetchAndLoadArticles() {
-    getData('articles', newsQuery(), function (data) {
+    getData(newsQuery(), function (data) {
         loadArticles(data);
     })
 }
@@ -64,6 +64,7 @@ function loadArticles(data) {
 }
 
 
+// Add event listeners
 function addEventListenerToSort() {
     const sortSelect = document.querySelector('.sort');
 

@@ -5,8 +5,10 @@ use Helpers\UrlHelper;
 
 <main>
     <div class="container">
-        <form action="<?= UrlHelper::baseUrl('login') ?>" method="post" name="loginForm" id="login-form">
-            <label for="username">*Jméno: </label>
+        <form action="<?= UrlHelper::baseUrl('login') ?>" method="post" name="loginForm">
+            <h1>Přihlášení</h1>
+
+            <label for="username">*Přezdívka: </label>
             <input type="text" id="username" name="username" minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
                    title="Jméno může obsahovat pouze písmena, číslice, podrtžítka a tečky"
                    tabindex="1" placeholder="*Jméno" required>
@@ -20,12 +22,10 @@ use Helpers\UrlHelper;
             <button type="submit" tabindex="3">Přihlásit se</button>
             <p><span class="grayed-out">* povinná pole</span></p>
 
-            <div class="error-container"></div>
-            <div class="success-container"></div>
+            <div class="message-container static"></div>
 
             <a href="<?= UrlHelper::baseUrl('register') ?>">Registrace</a>
         </form>
     </div>
 </main>
-<script src="<?= UrlHelper::baseUrl('assets/js/dataValidation.js') ?>"></script>
 <script src="<?= UrlHelper::baseUrl('assets/js/loadDataOnRefresh.js') ?>"></script>

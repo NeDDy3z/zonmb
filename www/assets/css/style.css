@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,700;0,800;0,900;1,300&display=swap');
-@import url('homepage.css');
-@import url('user.css');
-@import url('news.css');
-@import url('editor.css');
 @import url('admin.css');
+@import url('editor.css');
+@import url('homepage.css');
+@import url('message.css');
+@import url('news.css');
+@import url('user.css');
 
 
 :root {
@@ -142,6 +143,11 @@ input, textarea, select {
         border-radius: 0;
         border-bottom: var(--text) 2px solid;
     }
+
+    &[disabled], &[readonly] {
+        outline: none;
+        color: grey;
+    }
 }
 
 input:-webkit-autofill {
@@ -162,6 +168,10 @@ form {
 
     button {
         padding: .5rem .75rem;
+    }
+
+    h1 {
+        text-align: center;
     }
 
     .error-message, .success-message {

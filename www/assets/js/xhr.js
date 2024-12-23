@@ -1,7 +1,8 @@
 // Fetch data from server
-function getData(element, query, callback) {
+function getData(query, callback) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', query, true);
+
     xhr.onload = function () {
         if (xhr.status === 200) {
             callback(JSON.parse(xhr.responseText));
@@ -9,6 +10,7 @@ function getData(element, query, callback) {
     };
     xhr.send();
 }
+
 // TODO display error
 
 // Delete data

@@ -39,7 +39,7 @@ try {
 } catch (DatabaseException $e) {
     // Redirect to an error page if a database exception occurs.
     $error_msg = 'Database Error 500. Error message: ' . $e->getMessage();
-    Router::redirect(path: '', query: ['popup' => $error_msg]);
+    Router::redirect(path: '', query: ['error' => $error_msg]);
 }
 
 // Process the requested URL.
@@ -67,5 +67,5 @@ try {
 } catch (Exception $e) {
     // Redirect to an error page if a general server exception occurs.
     $error_msg = 'Server Error 500. Error message: ' . $e->getMessage();
-    Router::redirect(path: '', query: ['popup' => $error_msg]);
+    Router::redirect(path: '', query: ['error' => $error_msg]);
 }

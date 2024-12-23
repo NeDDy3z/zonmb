@@ -96,11 +96,15 @@ class RegisterController extends Controller
             $pfpImage = ImageHelper::getUsableImageArray($_FILES['profile-image'])[0] ?? null;
 
 
+
             // Validate every input
             $this->validator->validateUsername($username);
             $this->validator->validateFullname($fullname);
             $this->validator->validatePassword($password, $passConf);
-            $this->validator->validateImage($pfpImage);
+
+            if (isset($pfpImage)) {
+                $this->validator->validateImage($pfpImage);
+            }
 
             // Hash password
             $password = password_hash(
@@ -109,7 +113,7 @@ class RegisterController extends Controller
             );
 
             // Save image
-            if ($pfpImage['tmp_name'] !== '') {
+            if (isset($pfpImage)) {
                 $pfpImagePath = "assets/uploads/profile_images/$username.jpeg";
                 ImageHelper::saveImage(
                     image: ImageHelper::processProfilePicture($pfpImage),

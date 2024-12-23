@@ -121,7 +121,7 @@
 }
 
 
-@media (max-width: 50rem) {
+@media (max-width: 60rem) {
     .tables {
         .table-data {
             display: none;

@@ -1,8 +1,7 @@
 const URL_PARAMS = new URLSearchParams(window.location.search);
-const successContainer = document.querySelector('.success-container');
-const errorContainer = document.querySelector(' .error-container');
+const staticMessageContainer = document.querySelector('.message-container.static');
 
-// TODO: FIXXXXX!!!!!
+// Success message dictionary
 const successMessages = {
     // General success
     'login': 'Přihlášení proběhlo úspěšně',
@@ -19,6 +18,7 @@ const successMessages = {
     'articleDeleted': 'Článek byl úspěšně smazán',
 };
 
+// Error message dictionary
 const errorMessages = {
     // General errors
     'emptyValues': 'Vyplňte všechna povinná pole',
@@ -30,91 +30,149 @@ const errorMessages = {
     'updateError': 'Profil se nepodařilo upravit', // Profile update error
     'notAuthorized': 'K tomuto obsahu nemáte povolený přístup', // Not authorized error
 
+
     // Article form errors - temporary
     'articleAddError': 'Článek se nepodařilo vytvořit',
     'articleEditError': 'Článek se nepodařilo upravit',
     'articleDeleteError': 'Článek se nepodařilo smazat',
     'articleNotFound': 'Článek nebyl nalezen',
 
+
     // Data errors
-    'usernameEmpty': 'Vyplňte uživatelské jméno',
+    'usernameEmpty': 'Vyplňte přezdívku',
     'usernameSize': 'Jméno musí mít délku minimálně 3 a maxilmálně 30 znkaů',
     'usernameRegex': 'Jméno může obsahovat pouze následující znaky: a-z A-Z 0-9 . _',
     'usernameTaken': 'Uživatelské jméno již existuje',
+
+    'fullnameEmpty': 'Vyplňte jméno',
+    'fullnameSize': 'Jméno musí mít délku minimálně 3 a maxilmálně 30 znkaů',
+    'fullnameRegex': 'Jméno může obsahovat pouze písmena a mezery',
+
     'passwordEmpty': 'Vyplňte heslo',
     'passwordMatch': 'Hesla se neshodují',
     'passwordSize': 'Heslo musí mít délku minimálně 8 znaků',
     'passwordRegex': 'Heslo musí bsahovat alespoň jedno velké písmeno a číslici',
+
     'imageUploadError': 'Obrázek se nepodařilo nahrát',
     'imageSize': 'Obrázek je příliš velký, max 2MB',
     'imageFormat': 'Nahrávejte pouze obrázky ve formátu JPG nebo PNG',
     'imageDimensions': 'Obrázek musí mít minimálně 200x200px a maximálně 4000x4000px',
+
     'titleEmpty': 'Vyplňte titulek',
     'titleSize': 'Titulek musí mít délku minimálně 3 a maxilmálně 100 znkaů',
+    'titleExists': 'Článek s tímto titulkem již existuje',
+    'subtitleEmpty': 'Vyplňte titulek',
+    'subtitleSize': 'Titulek musí mít délku minimálně 3 a maxilmálně 500 znkaů',
     'contentEmpty': 'Vyplňte obsah',
-    'contentSize': 'Obsah musí mít délku minimálně 10 znaků',
+    'contentSize': 'Obsah musí mít délku minimálně 5 znaků a maximálně 5000',
 };
 
-function displayMessage(type) {
-    // Get messages from URL
-    let errors = URL_PARAMS.get('error') ?? null;
-    let success = URL_PARAMS.get('success') ?? null;
 
-    // Create message container
-    let messageContainer = document.createElement('div');
-    messageContainer.className = 'message-container';
-    messageContainer.addEventListener('click', () => { // remove on click
-        messageContainer.remove();
-    }, true);
-
-    if (!errors && !success) {
+// Display message
+function displayMessage(type, message, container = 'popup', countdown = 10) {
+    // If there are no messages - return
+    if (!type && !message) {
         return;
     }
 
-    // Append messages to container
-    if (errors) {
-        errors.split('-').forEach(message => {
-            let messageElement = document.createElement('p');
-            messageElement.className = 'error-message';
-            messageElement.textContent = errorMessages[message];
-            messageContainer.appendChild(messageElement);
-        });
-    }
-    if (success) {
-        success.split('-').forEach(message => {
-            let messageElement = document.createElement('p');
-            messageElement.className = 'success-message';
-            messageElement.textContent = successMessages[message];
-            messageContainer.appendChild(messageElement);
-        });
-    }
+    // Build messages
+    let messages = message.map(msg => {
+        let messageElement = document.createElement('p');
+        messageElement.className = type + '-message';
+        messageElement.textContent = (type === 'success') ? successMessages[msg] ?? msg : errorMessages[msg] ?? msg;
 
-    // Countdown timer
-    let countdown = 10;
-    let countdownElement = document.createElement('p');
-    countdownElement.className = 'countdown';
-    countdownElement.textContent = `Dvojklik pro skrýtí zprávy / ${countdown}s`;
+        return messageElement;
+    });
 
-    messageContainer.appendChild(countdownElement);
+    console.log(messages);
 
-    setInterval(() => {
-        countdown--;
-        countdownElement.textContent = `Dvojklik pro skrýtí zprávy / ${countdown}s`;
-        if (countdown <= 0) {
+    // Place message where it is supposed to be
+    if (container === 'popup') {
+        document.querySelector('.message-container.popup')?.remove();
+
+        // Create message container
+        let messageContainer = document.createElement('div');
+        messageContainer.classList.add('message-container');
+        messageContainer.classList.add('popup');
+        messageContainer.addEventListener('click', (e) => { // Hide on click
+            e.preventDefault();
             messageContainer.remove();
+        }, true);
+
+        messages.forEach(msg => {
+            messageContainer.appendChild(msg);
+        });
+
+        // Countdown timer
+        let countdownElement = document.createElement('p');
+        countdownElement.className = 'countdown';
+        countdownElement.textContent = `${countdown}s`;
+        messageContainer.appendChild(countdownElement);
+
+        document.querySelector('body').appendChild(messageContainer);
+
+        // Countdown timer
+        setInterval(() => {
+            countdown--;
+            countdownElement.textContent = `${countdown}s`;
+            if (countdown <= 0) {
+                messageContainer.remove();
+            }
+        }, 1000);
+
+        // Remove after 20 seconds
+        setTimeout(() => {
+            messageContainer.remove();
+        }, countdown * 1000);
+    } else if (container === 'static') {
+        if (staticMessageContainer !== undefined) {
+            staticMessageContainer.innerHTML = '';
+            messages.forEach(msg => {
+                staticMessageContainer.appendChild(msg);
+            })
         }
-    }, 1000);
-
-    document.querySelector('header').appendChild(messageContainer);
-
-    // Remove after 20 seconds
-    setTimeout(() => {
-        messageContainer.remove();
-    }, countdown * 1000);
+    }
 }
 
-displayMessage();
 
-document.addEventListener('DOMContentLoaded', () => {
-    displayMessage();
+// Send message signal - used for messages inside URL
+function sendSignalOnURLMessage() {
+    let error = URL_PARAMS.get('error') ?? null;
+    let success = URL_PARAMS.get('success') ?? null;
+
+    // Construct error event
+    if (error) {
+        let customEvent = new CustomEvent('message', {
+            detail: {
+                type: 'error',
+                message: error.split('-'),
+                container: 'popup',
+            }
+        });
+
+        window.dispatchEvent(customEvent);
+    }
+
+    // Construct success event
+    if (success) {
+        let customEvent = new CustomEvent('message', {
+            detail: {
+                type: 'success',
+                message: success.split('-'),
+                container: 'popup',
+            }
+        });
+
+        window.dispatchEvent(customEvent);
+    }
+}
+
+// Check for messages in incoming signals
+window.addEventListener('message', (event) => {
+    displayMessage(event.detail.type, event.detail.message, event.detail.container ?? 'popup');
 });
+
+// Check for messages inside URL
+document.addEventListener('DOMContentLoaded', sendSignalOnURLMessage);
+
+

@@ -16,6 +16,28 @@ use Models\UserModel;
  */
 class Validator
 {
+    const USERNAME_REGEX = '/^[a-zA-Z0-9_.]{3,30}$/';
+    const USERNAME_MIN_LENGTH = 3;
+    const USERNAME_MAX_LENGTH = 30;
+
+    const FULLNAME_REGEX = '/^[a-zA-ZáčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ ]{3,30}$/';
+    const FULLNAME_MIN_LENGTH = 3;
+    const FULLNAME_MAX_LENGTH = 30;
+
+
+    const PASSWORD_REGEX = '/^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,255}$/';
+    const PASSWOR_MIN_LENGTH = 5;
+    const PASSWORD_MAX_LENGTH = 255;
+
+    const IMAGE_REGEX = '/^image\/(png|jpg|jpeg)$/';
+
+    const TITLE_MIN_LENGTH = 3;
+    const TITLE_MAX_LENGTH = 50;
+    const SUBTITLE_MIN_LENGTH = 3;
+    const SUBTITLE_MAX_LENGTH = 500;
+    const CONTENT_MIN_LENGTH = 3;
+    const CONTENT_MAX_LENGTH = 5_000;
+
     /**
      * Throw an exception if there are validation errors.
      *
@@ -87,7 +109,7 @@ class Validator
      * @throws DatabaseException If a database-related error occurs.
      * @throws IncorrectInputException If the username is invalid.
      */
-    public function validateUsername(string $username): bool
+    public function validateUsername(string $username, bool $checkExistence = true): bool
     {
         $error = null;
         switch (true) {
@@ -95,17 +117,15 @@ class Validator
                 $error[] = 'usernameEmpty';
                 break;
 
-            case count(UserModel::existsUser($username)) > 0: // Exists
-                $error[] = 'usernameTaken';
-                break;
-
             case strlen($username) < 3 || strlen($username) > 30: // Length
                 $error[] = 'usernameSize';
-                // no break
 
             case !preg_match('/^[a-zA-Z0-9._]+$/', $username): // Regex
                 $error[] = 'usernameRegex';
-                // no break
+
+            case $checkExistence and UserModel::existsUser($username): // Exists
+                $error[] = 'usernameTaken';
+                break;
         }
 
         // Throw exception on any error
@@ -174,7 +194,7 @@ class Validator
                 $error[] = 'passwordMatch';
                 // no break
 
-            case strlen($password) < 5 || strlen($password) > 50: // Length
+            case strlen($password) < 5 || strlen($password) > 255: // Length
                 $error[] = 'passwordSize';
                 // no break
 
@@ -257,11 +277,11 @@ class Validator
                 $error[] = 'titleEmpty';
                 // no break
 
-            case strlen($title) < 3 || strlen($title) > 100: // Length
+            case strlen($title) < 3 || strlen($title) > 50: // Length
                 $error[] = 'titleSize';
                 // no break
 
-            case isset($subtitle) && strlen($subtitle) < 3 || strlen($subtitle) > 1000: // Length
+            case isset($subtitle) && strlen($subtitle) < 3 || strlen($subtitle) > 500: // Length
                 $error[] = 'subtitleSize';
                 // no break
 
@@ -269,7 +289,7 @@ class Validator
                 $error[] = 'contentEmpty';
                 // no break
 
-            case strlen($content) < 3 || strlen($content) > 10_000: // Length
+            case strlen($content) < 3 || strlen($content) > 5_000: // Length
                 $error[] = 'contentSize';
         }
 

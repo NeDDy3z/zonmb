@@ -137,9 +137,9 @@ class ImageHelper {
      *
      * @param array $images The uploaded files array (from `$_FILES`).
      *
-     * @return array<array<string, string>> A simplified array of file entries.
+     * @return array<array<string, string>>|null A simplified array of file entries.
      */
-    public static function getUsableImageArray(array $images): array
+    public static function getUsableImageArray(array $images): array|null
     {
         $results = [];
         $keys = array_keys($images);
@@ -156,6 +156,9 @@ class ImageHelper {
             }
         }
 
+        if ($results[0]['tmp_name'] === "") {
+            $results = null;
+        }
         return $results;
     }
 
@@ -175,7 +178,7 @@ class ImageHelper {
     {
         // Check if image was really uploaded
         if (!self::isImageUploaded($uploadedImage)) {
-            throw new Exception('uploadError');
+            throw new Exception('imageUploadError');
         }
 
         // Convert to GDImage object based on an image type

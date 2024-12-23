@@ -23,16 +23,24 @@ if (!isset($article)) {
         <article class="article-page">
             <h1><?= htmlspecialchars($article->getTitle()); ?></h1>
             <h2><?= htmlspecialchars($article->getSubtitle()); ?></h2>
-            <div class="article-image"> <?php // TODO: Image slideshow?>
+            <div class="article-image slideshow-container">
                 <?php
                 if ($article->getImagePaths() !== null) {
-                foreach ($article->getImagePaths() as $img) {
+                    $displayed = false;
+                foreach ($article->getImagePaths() as $i => $img) {
                     if (!str_contains($img, 'thumbnail')) {
-                        echo '<img src="'. UrlHelper::baseUrl($img) .'" alt="Obrázek článku">';
+                        $active = (!$displayed) ? "active" : "";
+                        $displayed = true;
+                        $imgUrl = UrlHelper::baseUrl($img);
+                        echo "<div class='slide $active'>
+                                <img src='$imgUrl' alt='Obrázek článku'>
+                              </div>";
                     }
                 }
                 }
             ?>
+                <button class="prev-button">&#10094;</button>
+                <button class="next-button">&#10095;</button>
             </div>
             <div>
                 <p><?= nl2br(htmlspecialchars($article->getContent())); ?></p>
@@ -56,3 +64,4 @@ if (!isset($article)) {
         <a href="<?= UrlHelper::baseUrl('news'); ?>">Zpět na zprávy</a>
     </div>
 </main>
+<script src="<?= UrlHelper::baseUrl('assets/js/imageSlideshow.js') ?>"></script>

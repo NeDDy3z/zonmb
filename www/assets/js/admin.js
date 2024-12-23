@@ -6,7 +6,7 @@ import {openOverlay} from "./overlay.js";
 
 
 // Open details on article-data click
-function addOpenOverlayToArticlesTable() {
+function addOpenOverlay() {
     let rows = document.querySelector('.table-articles').querySelectorAll('tr');
 
     // For each row add "open overley with detailed content on click", except for the first row (header) & ID & buttons
@@ -21,6 +21,8 @@ function addOpenOverlayToArticlesTable() {
             }
         }
     }
+
+    // TODO: add ability for user pfp
 }
 
 
@@ -81,7 +83,7 @@ function loadData(table, data) {
 
             tbody.appendChild(row);
         });
-        addOpenOverlayToArticlesTable();
+        addOpenOverlay();
     }
 
     if (tbody.innerText === '') {
@@ -111,7 +113,7 @@ function tableQuery(table) {
 
 // Single function to fetch and load data
 function fetchAndLoadData(table) {
-    getData(table, tableQuery(table), function (data) {
+    getData(tableQuery(table), function (data) {
         loadData(table, data);
     });
 }
@@ -121,10 +123,11 @@ function fetchAndLoadData(table) {
 function userRow(user) {
     let row = document.createElement('tr');
     row.innerHTML = `
-            <td><a href="./users/${user.username}">${encodeHtml(user.id)}</a></td>
+            <td>${encodeHtml(user.id)}</td>
             <td>${encodeHtml(user.username)}</td>
             <td>${encodeHtml(user.fullname)}</td>
             <td>${encodeHtml(user.role)}</td>
+            <td>${encodeHtml(user.profile_image_path)}</td>
             <td>${encodeHtml(prettyDate(user.created_at))}</td>
             <td class="buttons"></td>`;
 
@@ -256,9 +259,11 @@ function addEventListenerToPage(table) {
 addEventListenerToSearch('users');
 addEventListenerToSort('users');
 addEventListenerToPage('users');
+
 addEventListenerToSearch('articles');
 addEventListenerToSort('articles');
 addEventListenerToPage('articles');
+
 
 // Initial load
 fetchAndLoadData('users');

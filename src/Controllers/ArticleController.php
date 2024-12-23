@@ -8,6 +8,7 @@ use Helpers\ImageHelper;
 use Helpers\PrivilegeRedirect;
 use Helpers\ReplaceHelper;
 use Logic\Article;
+use Logic\DatabaseException;
 use Logic\Router;
 use Logic\Validator;
 use Models\ArticleModel;
@@ -62,7 +63,15 @@ class ArticleController extends Controller
 
         switch ($this->action) {
             case 'get':
-                $this->getArticles();
+                $this->getArticles(
+                    $_GET['search'] ?? null,
+                    $_GET['sort'] ?? null,
+                    $_GET['sortDirection'] ?? null,
+                    $_GET['page'] ?? 1,
+                );
+                break;
+            case 'exists':
+                $this->existsArticleTitle($_GET['title'] ?? null);
                 break;
             case 'add':
             case 'edit':
@@ -76,7 +85,7 @@ class ArticleController extends Controller
                     exit();
                 } else {
                     if (isset($_GET['img'])) {
-                        $this->deleteArticleImage();
+                        $this->deleteArticleImage($_GET['id']);
                     } else {
                         $this->deleteArticle();
                     }
@@ -93,8 +102,8 @@ class ArticleController extends Controller
      * Handles redirection or rendering of article content or the editor page
      * based on the action and provided data.
      *
-     * @throws Exception If any error occurs during rendering
      * @return void
+     * @throws Exception If any error occurs during rendering
      */
     public function render(): void
     {
@@ -111,7 +120,8 @@ class ArticleController extends Controller
                 break;
             case 'delete':
                 break;
-            default: $article = Article::getArticleBySlug($this->action);
+            default:
+                $article = Article::getArticleBySlug($this->action);
         };
 
         $user = $_SESSION['user_data'] ?? null;
@@ -126,15 +136,14 @@ class ArticleController extends Controller
      * Supports filtering, sorting, and pagination of retrieved articles.
      * Sends the articles as a JSON response.
      *
+     * @param string|null $search
+     * @param string|null $sort
+     * @param string|null $sortDirection
+     * @param int|null $page
      * @return void
      */
-    public function getArticles(): void
+    private function getArticles(?string $search = null, ?string $sort = null, ?string $sortDirection = null, ?int $page = 1): void
     {
-        $search = $_GET['search'] ?? null;
-        $sort = $_GET['sort'] ?? null;
-        $sortDirection = $_GET['sortDirection'] ?? null;
-        $page = $_GET['page'] ?? 1;
-
         // Convert date format
         $search = DateHelper::ifPrettyConvertToISO($search);
 
@@ -162,13 +171,31 @@ class ArticleController extends Controller
     }
 
     /**
+     * Check if an article title exists in the database.
+     *
+     * @param string $title
+     * @return void
+     */
+    private function existsArticleTitle(string $title): void
+    {
+        try {
+            $exists = ArticleModel::existsArticle($title);
+            echo json_encode(['exists' => $exists]);
+        } catch (Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+
+        exit();
+    }
+
+    /**
      * Add a new article to the database.
      *
      * Validates the provided article data and saves it along with its associated images.
      * Redirects to the created article upon success.
      *
-     * @throws Exception If validation or saving data fails
      * @return void
+     * @throws Exception If validation or saving data fails
      */
     public function addArticle(): void
     {
@@ -200,13 +227,13 @@ class ArticleController extends Controller
                         $thumbnailPath = 'assets/uploads/articles/' . $articleId . '_0_thumbnail.jpeg';
                         $imagePaths[] = $thumbnailPath;
                         ImageHelper::saveImage(
-                            image: ImageHelper::resize(ImageHelper::processArticleImage($images[$i]), 300, 200),
+                            image: ImageHelper::resize(ImageHelper::processArticleImage($images[$i]), 360, 200),
                             imagePath: $thumbnailPath,
                         );
                     }
 
                     // Save image
-                    $imagePath = 'assets/uploads/articles/' . $articleId . '_' . $i .'.jpeg';
+                    $imagePath = 'assets/uploads/articles/' . $articleId . '_' . $i . '.jpeg';
                     $imagePaths[] = $imagePath; // Add to array
                     ImageHelper::saveImage(
                         image: ImageHelper::resize(ImageHelper::processArticleImage($images[$i]), 800, 450),
@@ -235,8 +262,8 @@ class ArticleController extends Controller
      * Allows modification of article data and the addition of new images while
      * preserving or updating existing ones.
      *
-     * @throws Exception If validation or saving data fails
      * @return void
+     * @throws Exception If validation or saving data fails
      */
     public function editArticle(): void
     {
@@ -266,7 +293,10 @@ class ArticleController extends Controller
 
             try {
                 if (isset($images)) {
-                    $imagePaths = explode(',', ArticleModel::selectArticle(conditions: 'WHERE id = '. $id)['image_paths']);
+                    $articleImages = ArticleModel::selectArticle(conditions: 'WHERE id = ' . $id)['image_paths'] ?? null;
+                    if ($articleImages) {
+                        $imagePaths = explode(',', $articleImages);
+                    }
                     $lastImageId = 0;
 
                     // Get last img id and add 1 to it
@@ -279,7 +309,7 @@ class ArticleController extends Controller
                     $lastImageId++;
 
                     for ($i = 0; $i < count($images); $i++) {
-                        $imagePath = 'assets/uploads/articles/' . $id . '_' . $lastImageId .'.jpeg';
+                        $imagePath = 'assets/uploads/articles/' . $id . '_' . $lastImageId . '.jpeg';
                         $imagePaths[] = $imagePath; // Add to array
 
                         // Save image
@@ -290,6 +320,11 @@ class ArticleController extends Controller
 
                         $lastImageId++;
                     }
+                }
+
+                $thumbnailPath = $this->generateThumbnailIfNoneIsPresent($imagePaths);
+                if ($thumbnailPath) {
+                    $imagePaths[] = $thumbnailPath;
                 }
 
                 // Update data in DB
@@ -319,8 +354,8 @@ class ArticleController extends Controller
      * Ensures that all images related to the article are removed from the server
      * when the article is deleted.
      *
-     * @throws Exception If deleting data fails
      * @return void
+     * @throws Exception If deleting data fails
      */
     public function deleteArticle(): void
     {
@@ -350,12 +385,12 @@ class ArticleController extends Controller
      * Removes the specified image from the server and updates the database record.
      * Regenerates a thumbnail if necessary or adds a placeholder when no images remain.
      *
-     * @throws Exception If deleting the image or updating the database fails
      * @return void
+     * @throws Exception If deleting the image or updating the database fails
      */
-    public function deleteArticleImage(): void
+    public function deleteArticleImage(?int $id = null): void
     {
-        if (!isset($_GET['id'])) {
+        if (!isset($id)) {
             echo json_encode(['error' => 'missingID']);
             exit();
         }
@@ -366,7 +401,7 @@ class ArticleController extends Controller
 
 
             // Get image paths from server
-            $imagePaths = explode(',', ArticleModel::selectArticle(conditions: 'WHERE id = '. $_GET['id'])['image_paths']);
+            $imagePaths = explode(',', ArticleModel::selectArticle(conditions: 'WHERE id = ' . $id)['image_paths']);
 
             // Get all images that contain img id
             $imagePathsToRemove = array_filter($imagePaths, function ($item) use ($imgId) {
@@ -382,24 +417,19 @@ class ArticleController extends Controller
 
             // Create different array where are not removed images
             $newImagePaths = array_values(array_diff($imagePaths, $imagePathsToRemove));
-            $thumbnail = '_thumbnail.jpeg';
-            $hasThumbnail = !empty(array_filter($newImagePaths, fn($str) => str_contains($str, $thumbnail))); // Check if thumbnail is present
 
             // If new imagepath is empty fill it with 'null' because of the DB
             if (count($newImagePaths) === 0) {
-                $newImagePaths = ['null'];
-            } elseif (!$hasThumbnail and count($newImagePaths) > 0) {
-                $thumbnailPath = str_replace('.jpeg', $thumbnail, $newImagePaths[0]);
-                ImageHelper::generateThumbnail(
-                    image: imagecreatefromjpeg($newImagePaths[0]),
-                    imagePath: $thumbnailPath,
-                );
+                $newImagePaths = null;
+            }
 
+            $thumbnailPath = $this->generateThumbnailIfNoneIsPresent($newImagePaths);
+            if ($thumbnailPath) {
                 $newImagePaths[] = $thumbnailPath;
             }
 
             // Update data in DB
-            ArticleModel::updateArticle(id: $_GET['id'], imagePaths: $newImagePaths);
+            ArticleModel::updateArticle(id: $_GET['id'], imagePaths: $newImagePaths ?? ['null']);
 
             echo json_encode(['success' => 'imageDelete']);
         } catch (Exception $e) {
@@ -408,4 +438,34 @@ class ArticleController extends Controller
         exit();
     }
 
+    /**
+     * Generate a thumbnail if none is present
+     *
+     * Generates a thumbnail if necessary.
+     *
+     * @param array|null $imagePaths
+     * @return string|null
+     * @throws Exception If deleting the image or updating the database fails
+     */
+    private function generateThumbnailIfNoneIsPresent(?array $imagePaths): string|null
+    {
+        if (!$imagePaths) {
+            return null;
+        }
+
+        $thumbnail = '_thumbnail.jpeg';
+        $hasThumbnail = !empty(array_filter($imagePaths, fn($str) => str_contains($str, $thumbnail))); // Check if thumbnail is present
+
+        if (!$hasThumbnail and count($imagePaths) > 0) {
+            $thumbnailPath = str_replace('.jpeg', $thumbnail, $imagePaths[0]);
+            ImageHelper::generateThumbnail(
+                image: imagecreatefromjpeg($imagePaths[0]),
+                imagePath: $thumbnailPath,
+            );
+
+            return $thumbnailPath;
+        }
+
+        return null;
+    }
 }

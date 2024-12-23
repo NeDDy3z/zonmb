@@ -5,7 +5,9 @@ use Helpers\UrlHelper;
 ?>
 <main>
     <div class="container">
-        <form action="<?= UrlHelper::baseUrl('register') ?>" method="post" enctype="multipart/form-data" name="registerForm" id="register-form">
+        <form action="<?= UrlHelper::baseUrl('register') ?>" method="post" enctype="multipart/form-data" name="registerForm">
+            <h1>Registrace</h1>
+
             <label for="username">Přezdívka</label>
             <input type="text" id="username" name="username"
                    minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
@@ -38,12 +40,10 @@ use Helpers\UrlHelper;
             <button type="submit" tabindex="5">Registrovat se</button>
             <p><span class="grayed-out">* povinná pole</span></p>
 
-            <div class="error-container"></div>
-            <div class="success-container"></div>
+            <div class="message-container static"></div>
 
             <a href="<?= UrlHelper::baseUrl('login') ?>">Přihlášení</a>
         </form>
     </div>
 </main>
-<script src="<?= UrlHelper::baseUrl('assets/js/dataValidation.js') ?>"></script>
 <script src="<?= UrlHelper::baseUrl('assets/js/loadDataOnRefresh.js') ?>"></script>

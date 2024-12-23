@@ -7,7 +7,7 @@ use Models\DatabaseConnector;
 <main>
     <div class="tables">
         <h1>Administrace</h1>
-        <p id="warning-display">Tato stránka není podporovaná v portrétním režimu, zkuste otočtit prosím zařízení na šířku, nebo použijte počítač.</p>
+        <p id="warning-display">Tato stránka není podporovaná v portrétním režimu, prosím, zkuste otočtit zařízení na šířku, nebo použijte počítač.</p>
         <section class="table-data table-users">
             <div class="table-header">
                 <h2>Uživatelé</h2>
@@ -16,10 +16,12 @@ use Models\DatabaseConnector;
             <table class="users-table">
                 <thead>
                 <tr>
+                    <!--TODO add pfp image-->
                     <th><a href="#" class="sort active asc" id="users-id">ID<span> &#9650;</span></a></th>
                     <th><a href="#" class="sort" id="users-username">Uživatelské jméno<span></span></a></th>
                     <th><a href="#" class="sort" id="users-fullname">Celé jméno<span></span></a></th>
                     <th><a href="#" class="sort" id="users-role">Role<span></span></a></th>
+                    <th>Profilový obrázek</th>
                     <th><a href="#" class="sort" id="users-created_at">Datum registrace<span></span></a></th>
                     <th></th>
                 </tr>
@@ -28,9 +30,9 @@ use Models\DatabaseConnector;
                 </tbody>
             </table>
             <div class="table-footer">
-                <button class="prev-page">←</button>
+                <button class="prev-page">&#10094;</button>
                 <p id="page-users"><span>1</span>/<?= ceil(DatabaseConnector::count('user') / 10) ?></p>
-                <button class="next-page">→</button>
+                <button class="next-page">&#10095;</button>
             </div>
         </section>
         <section class="table-data table-articles">
@@ -59,9 +61,9 @@ use Models\DatabaseConnector;
                 </tbody>
             </table>
             <div class="table-footer">
-                <button class="prev-page">←</button>
+                <button class="prev-page">&#10094;</button>
                 <p id="page-articles"><span>1</span>/<?= ceil(DatabaseConnector::count('article') / 10) ?></p>
-                <button class="next-page">→</button>
+                <button class="next-page">&#10095;</button>
             </div>
         </section>
     </div>
@@ -73,7 +75,6 @@ use Models\DatabaseConnector;
         </div>
     </div>
 </main>
-<script type="module" src="<?= UrlHelper::baseUrl('assets/js/xhr.js') ?>"></script>
 <script type="module" src="<?= UrlHelper::baseUrl('assets/js/utils.js') ?>"></script>
 <script type="module" src="<?= UrlHelper::baseUrl('assets/js/overlay.js') ?>"></script>
 <script type="module" src="<?= UrlHelper::baseUrl('assets/js/admin.js') ?>"></script>
