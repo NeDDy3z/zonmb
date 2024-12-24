@@ -277,6 +277,13 @@ class UserController extends Controller
                     image: ImageHelper::processProfilePicture($image),
                     imagePath: $imagePath,
                 );
+
+                // Update pfp
+                UserModel::updateUser(
+                    id: $id,
+                    profile_image_path: $imagePath,
+                );
+
             }
 
             // Prevent setting an owner
@@ -289,7 +296,6 @@ class UserController extends Controller
                 id: $id,
                 fullname: $fullname,
                 role: $role,
-                profile_image_path: $imagePath ?? DEFAULT_PFP,
             );
 
 

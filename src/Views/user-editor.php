@@ -56,9 +56,6 @@ use Helpers\UrlHelper;
                 }
                 ?>
             </div>
-            <input type="file" id="image" name="image" accept="image/png, image/jpg, image/jpeg"
-                   title="Obrázek musí mít minimálně 200x200px a maximálně 4000x4000px, 2MB a být ve formátu PNG nebo JPG"
-                   tabindex="5">
 
             <button type="submit">Upravit</button>
             <p><span class="grayed-out">* povinná pole</span></p>
