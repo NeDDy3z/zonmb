@@ -269,7 +269,7 @@ class Validator
      *
      * @throws IncorrectInputException If any validation fails.
      */
-    public function validateArticle(string $title, ?string $subtitle, string $content): bool
+    public function validateArticle(string $title, string $subtitle, string $content, ?bool $checkExistence = true): bool
     {
         $error = null;
         switch (true) {
@@ -280,6 +280,10 @@ class Validator
             case strlen($title) < 3 || strlen($title) > 50: // Length
                 $error[] = 'titleSize';
                 // no break
+
+            case $checkExistence and UserModel::existsUser($title): // Exists
+                $error[] = 'titleTaken';
+                break;
 
             case isset($subtitle) && strlen($subtitle) < 3 || strlen($subtitle) > 500: // Length
                 $error[] = 'subtitleSize';

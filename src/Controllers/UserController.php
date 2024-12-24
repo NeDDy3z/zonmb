@@ -70,7 +70,7 @@ class UserController extends Controller
         }
 
         // Redirect host user - not logged-in user
-        $privilegeRedirect->redirectHost('login');
+        $privilegeRedirect->redirectHost();
 
         // Get userdata
         $this->user = $_SESSION['user_data'];

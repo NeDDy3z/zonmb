@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Controllers;
 
 use Exception;
+use Helpers\PrivilegeRedirect;
 use Logic\Router;
 use Logic\User;
 use Logic\Validator;
@@ -33,6 +34,8 @@ class LoginController extends Controller
     private Validator $validator;
 
 
+
+
     /**
      * Constructor.
      *
@@ -42,6 +45,9 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->validator = new Validator();
+        $privilegeRedirect = new PrivilegeRedirect();
+
+        $privilegeRedirect->redirectLoggedIn();
     }
 
     /**

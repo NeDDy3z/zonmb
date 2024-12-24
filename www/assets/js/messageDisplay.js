@@ -29,6 +29,7 @@ const errorMessages = {
     'registerError': 'Registrace se nezdařila', // Registar error
     'updateError': 'Profil se nepodařilo upravit', // Profile update error
     'notAuthorized': 'K tomuto obsahu nemáte povolený přístup', // Not authorized error
+    'alreadyLoggedIn': 'Již jste přihlášeni',
 
 
     // Article form errors - temporary
@@ -60,7 +61,7 @@ const errorMessages = {
 
     'titleEmpty': 'Vyplňte titulek',
     'titleSize': 'Titulek musí mít délku minimálně 3 a maxilmálně 100 znkaů',
-    'titleExists': 'Článek s tímto titulkem již existuje',
+    'titleTaken': 'Článek s tímto titulkem již existuje',
     'subtitleEmpty': 'Vyplňte titulek',
     'subtitleSize': 'Titulek musí mít délku minimálně 3 a maxilmálně 500 znkaů',
     'contentEmpty': 'Vyplňte obsah',
@@ -70,10 +71,9 @@ const errorMessages = {
 
 // Display message
 function displayMessage(type, message, container = 'popup', countdown = 10) {
-    // If there are no messages - return
-    if (!type && !message) {
-        return;
-    }
+    // Convert string into array
+    message = (typeof message === 'string') ? [message] : message;
+
 
     // Build messages
     let messages = message.map(msg => {
@@ -84,7 +84,8 @@ function displayMessage(type, message, container = 'popup', countdown = 10) {
         return messageElement;
     });
 
-    console.log(messages);
+
+
 
     // Place message where it is supposed to be
     if (container === 'popup') {
@@ -142,7 +143,7 @@ function sendSignalOnURLMessage() {
 
     // Construct error event
     if (error) {
-        let customEvent = new CustomEvent('message', {
+        let customEvent = new CustomEvent('infoMessage', {
             detail: {
                 type: 'error',
                 message: error.split('-'),
@@ -155,7 +156,7 @@ function sendSignalOnURLMessage() {
 
     // Construct success event
     if (success) {
-        let customEvent = new CustomEvent('message', {
+        let customEvent = new CustomEvent('infoMessage', {
             detail: {
                 type: 'success',
                 message: success.split('-'),
@@ -168,7 +169,7 @@ function sendSignalOnURLMessage() {
 }
 
 // Check for messages in incoming signals
-window.addEventListener('message', (event) => {
+window.addEventListener('infoMessage', (event) => {
     displayMessage(event.detail.type, event.detail.message, event.detail.container ?? 'popup');
 });
 

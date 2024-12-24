@@ -36,21 +36,29 @@ class PrivilegeRedirect
      * Redirect users who are not authenticated or lack privileges.
      *
      * If the user is not authenticated (i.e., `$user` is `null`), they are redirected to
-     * the login page. Optionally, this method accepts a page parameter, which can be used
-     * to customize the redirection behavior (e.g., redirect to the login page with a specific query).
+     * the login page. Optionally, this method has a parameter for a custom query string.
      *
-     * @param string|null $page The page identifier (e.g., 'login'). Defaults to `null`.
-     *
+     * @param array<string, string>|null $query
      * @return void
      */
-    public function redirectHost(?string $page = null): void
+    public function redirectHost(?array $query = ['error' => 'notAuthorized']): void
     {
-        if ($this->user === null) {
-            $query = match ($page) {
-                'login' => [],
-                default => ['error' => 'notAuthorized'],
-            };
+        if (!isset($this->user)) {
             Router::redirect(path: 'login', query: $query);
+        }
+    }
+
+    /**
+     *  Redirect users who logged-in
+     *
+     *  This method ensures the user cannot access the registration or login page while they are logged-in.
+     *  If the user is authorized, they will be redirected to their user page.
+     * @return void
+     */
+    public function redirectLoggedIn(): void
+    {
+        if (isset($this->user)) {
+            Router::redirect(path: 'users', query: ['error' => 'alreadyLoggedIn']);
         }
     }
 

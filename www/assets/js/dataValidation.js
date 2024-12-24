@@ -34,14 +34,21 @@ const form = document.querySelector('form') ?? null;
 
 // Send message signal
 function sendErrorSignal(error) {
-    let cont = (!window.location.href.includes('/users') || !window.location.href.includes('/login')) ? 'static' : 'popup';
-    const event = new CustomEvent('message', {
+    let href = window.location.href;
+
+    if (href.includes('/login')) {
+        return;
+    }
+
+    let cont = (href.includes('/users')) ? 'popup' : 'static';
+    const event = new CustomEvent('infoMessage', {
         detail: {
             type: 'error',
             message: error,
             container: cont,
         }
     });
+
     window.dispatchEvent(event);
 }
 
@@ -94,7 +101,9 @@ function validateUsername(username) {
     // Check if username is taken
     getData('users/exists?username=' + username, function (data) {
         if (data.exists) {
-            error.push('usernameTaken');
+            sendErrorSignal(['usernameTaken']);
+        } else if (data.error) {
+            sendErrorSignal(data.error);
         }
     });
 
@@ -155,10 +164,12 @@ function validateTitle(title) {
 
     }
 
-    // Check if title exists
-    getData('articles/exists?title=' + title, function (data) {
+    // Check if title is taken
+    getData('exists?title=' + title, function (data) {
         if (data.exists) {
-            error.push('titleExists');
+            sendErrorSignal(['titleTaken']);
+        } else if (data.error) {
+            sendErrorSignal(data.error);
         }
     });
 

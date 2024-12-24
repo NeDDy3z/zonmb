@@ -6,6 +6,7 @@ namespace Controllers;
 
 use Exception;
 use Helpers\ImageHelper;
+use Helpers\PrivilegeRedirect;
 use Logic\Router;
 use Logic\Validator;
 use Models\UserModel;
@@ -54,6 +55,9 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->validator = new Validator();
+        $privilegeRedirect = new PrivilegeRedirect();
+
+        $privilegeRedirect->redirectLoggedIn();
     }
 
     /**

@@ -90,18 +90,18 @@ class ArticleModel
      *
      * Returns `true` if the article is found or `false` otherwise.
      *
-     * @param string $username The username to check for existence.
+     * @param string $title The title to check for existence.
      *
      * @return bool The result of the existence check.
      *
      * @throws DatabaseException If there is an issue with the database query.
      */
-    public static function existsArticle(string $username): bool
+    public static function existsArticle(string $title): bool
     {
         $exists = DatabaseConnector::select(
             table: 'article',
             items: ['title'],
-            conditions: 'WHERE title = "' . $username . '"',
+            conditions: 'WHERE title LIKE "' . $title . '"',
         );
 
         return (count($exists) > 0);

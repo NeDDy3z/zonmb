@@ -252,7 +252,7 @@ class ArticleController extends Controller
 
             Router::redirect(path: "articles/$slug", query: ['success' => 'articleAdded']);
         } catch (Exception $e) {
-            Router::redirect(path: 'articles/add', query: ['error' => 'articleAddError', 'errorDetails' => $e->getMessage()]);
+            Router::redirect(path: 'articles/add', query: ['error' => $e->getMessage()]);
         }
     }
 
