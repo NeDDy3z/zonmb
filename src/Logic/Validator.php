@@ -35,7 +35,7 @@ class Validator
     const TITLE_MIN_LENGTH = 10;
     const TITLE_MAX_LENGTH = 100;
     const SUBTITLE_MIN_LENGTH = 3;
-    const SUBTITLE_MAX_LENGTH = 500;
+    const SUBTITLE_MAX_LENGTH = 255;
     const CONTENT_MIN_LENGTH = 3;
     const CONTENT_MAX_LENGTH = 5_000;
 

@@ -179,7 +179,7 @@ class DatabaseConnector
         try {
             self::$connection?->prepare($query)->execute($values);
         } catch (PDOException $e) {
-            throw new DatabaseException('Error while inserting data into database');
+            throw new DatabaseException('Error while inserting data into database'. $e->getMessage());
         }
     }
 

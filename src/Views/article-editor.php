@@ -1,4 +1,5 @@
 <?php
+
 use Helpers\UrlHelper;
 
 $type ??= 'add';
@@ -7,24 +8,36 @@ $type ??= 'add';
 
 <main>
     <div class="container editor" id="article-editor">
-        <form action="<?= UrlHelper::baseUrl('articles/'. $type) ?>" method="post" enctype="multipart/form-data" name="articleForm" class="article-form">
+        <form action="<?= UrlHelper::baseUrl('articles/' . $type) ?>" method="post" enctype="multipart/form-data"
+              name="articleForm" class="article-form">
             <label for="author-id">*Autorské ID: </label>
-            <input type="text" name="author" id="author-id" value="<?= $_SESSION['user_data']->getId() ?>" hidden readonly required>
+            <input type="text" name="author" id="author-id" value="<?= $_SESSION['user_data']->getId() ?>" hidden
+                   readonly required>
 
             <?php if ($type === 'edit') {
                 $id = (isset($article)) ? $article->getId() : '';
                 echo '<label for="id">ID Článku: </label>
-                      <input type="text" name="id" id="id" value="'. $id .'" readonly hidden>';
+                      <input type="text" name="id" id="id" value="' . $id . '" readonly hidden>';
             } ?>
 
             <label for="title">*Titulek: </label>
-            <input type="text" name="title" id="title" placeholder="*Titulek" value="<?= isset($article) ? htmlspecialchars($article->getTitle()) : ''; ?>" required>
+            <input type="text" name="title" id="title" placeholder="*Titulek"
+                   value="<?= isset($article) ? htmlspecialchars($article->getTitle()) : ''; ?>" required
+                   title="Titulek musí mít minimálně 10 a maximálně 100 znaků"
+                   minlength="3" maxlength="100">
 
             <label for="subtitle">*Podtitulek: </label>
-            <input type="text" name="subtitle" id="subtitle" placeholder="*Podtitulek" value="<?= isset($article) ? htmlspecialchars($article->getSubtitle()) : ''; ?>" required>
+            <input type="text" name="subtitle" id="subtitle" placeholder="*Podtitulek"
+                   value="<?= isset($article) ? htmlspecialchars($article->getSubtitle()) : ''; ?>" required
+                   title="Podtitluek musí mít minimálně 3 a maximálně 100 znaků"
+                   minlength="3" maxlength="255">
 
             <label for="content">*Obsah: </label>
-            <textarea name="content" id="content" cols="30" rows="10" placeholder="*Obsah" required><?= isset($article) ? htmlspecialchars($article->getContent()) : ''; ?></textarea>
+            <textarea name="content" id="content" cols="30" rows="10" placeholder="*Obsah" required
+                      title="Obsah musí mít minimálně 3 a maximálně 255 znaků"
+                      minlength="3" maxlength="5000">
+                <?= isset($article) ? htmlspecialchars($article->getContent()) : ''; ?>\
+            </textarea>
 
             <label for="image">Přidat obrázky: </label>
             <input type="file" name="image" id="image" accept="image/png, image/jpeg"
@@ -36,12 +49,12 @@ $type ??= 'add';
                     foreach ($article->getImagePaths() as $image) {
                         if (!str_contains($image, 'thumbnail')) {
                             echo '<div class="editor-image">
-                                <button type="button" class="danger remove-image" value="'. UrlHelper::baseUrl($image) .'" id="'. $article->getId() .'">X</button>
-                                <img src="'. UrlHelper::baseUrl($image) .'" alt="Obrázek článku">
+                                <button type="button" class="danger remove-image" value="' . UrlHelper::baseUrl($image) . '" id="' . $article->getId() . '">X</button>
+                                <img src="' . UrlHelper::baseUrl($image) . '" alt="Obrázek článku">
                             </div>';
                         }
                     }
-                }  ?>
+                } ?>
                 <p>Nebyly nalezeny žádné obrázky</p>
             </div>
 
