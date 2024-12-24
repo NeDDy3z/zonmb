@@ -100,7 +100,6 @@ function tableQuery(table) {
 
     return query;
 }
-
 // Single function to fetch and load data
 function fetchAndLoadData(table) {
     sendRequest('GET', tableQuery(table), function (data) {
@@ -191,7 +190,7 @@ function toggleArrow(sort, state) {
 // Event listener
 function addEventListenerToSearch(table) {
     const search = document.querySelector(`.table-${table} .search`);
-    search.addEventListener('input', function () {
+    search?.addEventListener('input', function () {
         fetchAndLoadData(table);
     })
 }
@@ -246,15 +245,18 @@ function addEventListenerToPage(table) {
 }
 
 // Add Event listeners
-addEventListenerToSearch('users');
-addEventListenerToSort('users');
-addEventListenerToPage('users');
+document.addEventListener('DOMContentLoaded', function () {
+    addEventListenerToSearch('users');
+    addEventListenerToSort('users');
+    addEventListenerToPage('users');
 
-addEventListenerToSearch('articles');
-addEventListenerToSort('articles');
-addEventListenerToPage('articles');
+    addEventListenerToSearch('articles');
+    addEventListenerToSort('articles');
+    addEventListenerToPage('articles');
 
 
 // Initial load
-fetchAndLoadData('users');
-fetchAndLoadData('articles');
+    fetchAndLoadData('users');
+    fetchAndLoadData('articles');
+});
+

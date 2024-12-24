@@ -41,7 +41,7 @@ use Models\DatabaseConnector;
                 <div>
                     <a href="<?= UrlHelper::baseUrl('articles/add') ?>" class="btn">Přidat článek</a>
                     <label name="search-articles" for="search">Vyhledat článek</label>
-                    <input type="text" class="search-articles" placeholder="Vyhledat článek...">
+                    <input type="text" class="search" name="search-articles" placeholder="Vyhledat článek...">
                 </div>
             </div>
             <p id="warning-display-articles">Zobrazení článků není podporované, kvůli množštví informací, v takto uzkem formátu, zkuste otočtit prosím zařízení na šířku, nebo použijte počítač.</p>
