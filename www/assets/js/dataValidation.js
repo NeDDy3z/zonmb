@@ -80,7 +80,6 @@ function validate(type, value) {
             break;
         default:
             return {valid: true, message: ''}; // Default for unhandled input types
-            break;
     }
 }
 

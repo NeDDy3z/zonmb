@@ -11,8 +11,8 @@ use Models\DatabaseConnector;
         <section class="table-data table-users">
             <div class="table-header">
                 <h2>Uživatelé</h2>
-                <label for="search">Vyhledat uživatele</label>
-                <input type="text" class="search" placeholder="Vyhledat uživatele...">
+                <label for="search-users">Vyhledat uživatele</label>
+                <input type="text" name="search-users" class="search" placeholder="Vyhledat uživatele...">
             </div>
             <table class="users-table">
                 <thead>
@@ -40,8 +40,8 @@ use Models\DatabaseConnector;
                 <h2>Články</h2>
                 <div>
                     <a href="<?= UrlHelper::baseUrl('articles/add') ?>" class="btn">Přidat článek</a>
-                    <label for="search">Vyhledat článek</label>
-                    <input type="text" class="search" placeholder="Vyhledat článek...">
+                    <label name="search-articles" for="search">Vyhledat článek</label>
+                    <input type="text" class="search-articles" placeholder="Vyhledat článek...">
                 </div>
             </div>
             <p id="warning-display-articles">Zobrazení článků není podporované, kvůli množštví informací, v takto uzkem formátu, zkuste otočtit prosím zařízení na šířku, nebo použijte počítač.</p>

@@ -1,5 +1,5 @@
 // Dependencies: xhr.js, utils.js
-import {getData} from "./xhr.js";
+import {sendRequest} from "./xhr.js";
 import {encodeHtml} from "./utils.js";
 
 
@@ -19,8 +19,8 @@ function newsQuery() {
 }
 
 function fetchAndLoadArticles() {
-    getData(newsQuery(), function (data) {
-        loadArticles(data);
+    sendRequest('GET', newsQuery(), function (data) {
+        loadArticles(JSON.parse(data.response));
     })
 }
 
