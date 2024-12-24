@@ -45,9 +45,6 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->validator = new Validator();
-        $privilegeRedirect = new PrivilegeRedirect();
-
-        $privilegeRedirect->redirectLoggedIn();
     }
 
     /**
@@ -80,7 +77,6 @@ class LoginController extends Controller
             $username = $_POST['username'] ?? null;
             $password = $_POST['password'] ?? null;
 
-            // Validate if request contains username and password - if not redirect to login page
             // Validate if request contains a valid username and password, redirects if invalid.
             $this->validator->validatePassword($password, $password);
 

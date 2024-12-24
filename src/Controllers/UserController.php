@@ -88,7 +88,12 @@ class UserController extends Controller
                 break;
             case 'delete':
                 $privilegeRedirect->redirectEditor();
-                $this->deleteUser($_GET['id'] ?? null);
+                $id = (int)$_GET['id'] ?? null;
+                if (isset($_GET['image'])) {
+                    $this->deleteUserProfileImage($id, $_GET['image']);
+                } else {
+                    $this->deleteUser($id);
+                }
                 break;
             case 'logout':
                 $this->logout();
@@ -114,8 +119,11 @@ class UserController extends Controller
                 if (!$this->user->isAdmin()) {
                     Router::redirect(path: 'admin', query: ['error' => 'notAuthorized']);
                 }
-
                 $editedUser = User::getUserById($_GET['id'] ?? null);
+
+                if ($editedUser->getRole() === 'owner' && $this->user->getUsername() !== $editedUser->getUsername()) {
+                    Router::redirect(path: 'admin', query: ['error' => 'cannotUpdateOwner']);
+                }
                 break;
             default: // Render logged in user data
                 $user = $this->loadUserData();
@@ -243,20 +251,31 @@ class UserController extends Controller
             $username = $_POST['username'] ?? null;
             $fullname = $_POST['fullname'] ?? null;
             $role = $_POST['role'] ?? null;
-            $image = ImageHelper::getUsableImageArray($_FILES['profile-image']);
+            $image = ImageHelper::getUsableImageArray($_FILES['image'])[0] ?? null;
+
 
             // Check data etc..
             $this->validator->validateUsername($username, false);
             $this->validator->validateFullname($fullname);
 
-            // Check images
-            if ($image[0]['tmp_name'] === "") {
-                unset($image);
-            }
 
             // Change pfp
             if (isset($image)) {
-                $this->updateProfileImage($image);
+                // Validate image
+                $this->validator->validateImage($image);
+
+                // Remove old image
+                $oldImagePath = $_SESSION['user_data']->getImage();
+                if ($oldImagePath !== DEFAULT_PFP and file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+
+                // Save new image
+                $imagePath = 'assets/uploads/profile_images/' . $_SESSION['username'] . '.jpeg';
+                ImageHelper::saveImage(
+                    image: ImageHelper::processProfilePicture($image),
+                    imagePath: $imagePath,
+                );
             }
 
             // Prevent setting an owner
@@ -269,6 +288,7 @@ class UserController extends Controller
                 id: $id,
                 fullname: $fullname,
                 role: $role,
+                profile_image_path: $imagePath ?? DEFAULT_PFP,
             );
 
 
@@ -320,12 +340,11 @@ class UserController extends Controller
      * updates the database and session to reflect the changes.
      *
      * @return void
-     * @throws DatabaseException If there is an issue with the database operation
      */
-    public function updateProfileImage(?array $image = null): void
+    public function updateProfileImage(): void
     {
         try {
-            $pfpImage = $image ?? ImageHelper::getUsableImageArray($_FILES['profile-image'])[0] ?? null;
+            $pfpImage = $image ?? ImageHelper::getUsableImageArray($_FILES['image'])[0] ?? null;
 
             // Validate image
             $this->validator->validateImage($pfpImage);
@@ -352,11 +371,10 @@ class UserController extends Controller
             // Update user data
             $_SESSION['user_data']->setImage($pfpImagePath);
 
-            Router::redirect(path: 'users/' . $this->username, query: ['success' => 'imageUpload']);
+            Router::redirect(path: 'users/' . $this->user->getUsername(), query: ['success' => 'imageUpload']);
         } catch (Exception $e) {
-            Router::redirect(path: 'users/' . $this->username, query: ['error' => $e->getMessage()]);
+            Router::redirect(path: 'users/' . $this->user->getUsername(), query: ['error' => $e->getMessage()]);
         }
-
     }
 
     /**
@@ -374,15 +392,53 @@ class UserController extends Controller
     }
 
     /**
+     * Delete a user pfp
+     *
+     * Removes the image from the server and updates the database record.
+     *
+     * @param int|null $id
+     * @param string|null $image
+     * @return void
+     */
+    public function deleteUserProfileImage(?int $id, ?string $image): void
+    {
+        if (!isset($id) or !isset($image)) {
+            echo json_encode(['error' => 'missingID']);
+            exit();
+        }
+
+        try {
+            UserModel::updateUserProfileImage(
+                id: $id,
+                profile_image_path: DEFAULT_PFP,
+            );
+
+            $user = User::getUserById($id);
+
+            foreach ((array)scandir('assets/uploads/profile_images') as $file) { // Remove pfp
+                if (str_starts_with($file, $user->getUsername())) { // if the file starts with the username remove it
+                    unlink('assets/uploads/profile_images/' . $file);
+                }
+            }
+
+            echo json_encode(['success' => 'userImageDeleted']);
+        } catch (Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+        exit();
+    }
+
+    /**
      * Delete user and all its associated data.
      *
-     * Ensures that all images related to the yser are removed from the server
+     * Ensures that all images related to the user are removed from the server
      * when the user is deleted.
      *
      * @param int|null $id
      * @return void
      */
-    private function deleteUser(?int $id): void {
+    public function deleteUser(?int $id): void
+    {
         if (!isset($id)) {
             echo json_encode(['error' => 'missingID']);
             exit();
@@ -396,21 +452,29 @@ class UserController extends Controller
                 exit();
             }
 
-            UserModel::removeUser(
-                id: $id,
-            );
-
-            foreach ((array)scandir('assets/uploads/profile_images') as $file) { // Remove pfp
-                if (str_starts_with($file, $id)) { // if the file starts with the username remove it
-                    unlink('assets/uploads/profile_images/' . $file);
-                }
-            }
+            UserModel::removeUser(id: $id,);
+            $this->delteUserImageFromServer($user->getUsername());
 
             echo json_encode(['success' => 'userDeleted']);
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
         }
         exit();
+    }
+
+    /**
+     * Delete user profile image from server file system
+     *
+     * @param string $username
+     * @return void
+     */
+    private function delteUserImageFromServer(string $username): void
+    {
+        foreach ((array)scandir('assets/uploads/profile_images') as $file) { // Remove pfp
+            if ($username !== false and str_starts_with($file, $username)) { // if the file starts with the username remove it
+                unlink('assets/uploads/profile_images/' . $file);
+            }
+        }
     }
 
 }

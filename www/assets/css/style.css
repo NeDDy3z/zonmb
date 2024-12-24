@@ -148,6 +148,10 @@ input, textarea, select {
         outline: none;
         color: grey;
     }
+
+    &.hidden {
+        display: none;
+    }
 }
 
 input:-webkit-autofill {

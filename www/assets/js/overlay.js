@@ -5,21 +5,20 @@ const overlayClose = document.querySelector('.overlay-close');
 
 
 // Opening & closing overlay
-function openOverlay(header, content) {
+function openOverlay(element) {
     overlay.style.display = 'block';
-    overlay.querySelector('h1').textContent = header;
-    overlay.querySelector('p').innerHTML = content;
+    overlay.querySelector('p').innerHTML = element.innerHTML;
 
     // Display images if there are any
-    if (header.includes('Obrázky') || header.includes('obrázek')) {
-        let images = content.split(',');
+    if (element.classList.contains('overlay-image-item')) {
+        let images = element.innerHTML.split(',');
         images.forEach(image => {
             let img = new Image();
             img.src = image;
             overlayContent.appendChild(img);
         });
 
-        overlay.querySelector('p').innerHTML = content.split(',').join('<br>');
+        overlay.querySelector('p').innerHTML = element.innerHTML.split(',').join('<br>');
     }
 }
 

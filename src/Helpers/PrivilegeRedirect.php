@@ -49,20 +49,6 @@ class PrivilegeRedirect
     }
 
     /**
-     *  Redirect users who logged-in
-     *
-     *  This method ensures the user cannot access the registration or login page while they are logged-in.
-     *  If the user is authorized, they will be redirected to their user page.
-     * @return void
-     */
-    public function redirectLoggedIn(): void
-    {
-        if (isset($this->user)) {
-            Router::redirect(path: 'users', query: ['error' => 'alreadyLoggedIn']);
-        }
-    }
-
-    /**
      * Redirect users who are not at least Editors.
      *
      * This method ensures the user is authenticated and has Editor or higher privileges.
@@ -96,4 +82,11 @@ class PrivilegeRedirect
         }
     }
 
+    public function redirectAdmin(): void
+    {
+        $this->redirectHost();
+        if (isset($this->user) and $this->user->getRole() !== 'owner') {
+            Router::redirect(path: 'login', query: ['error' => 'notAuthorized']);
+        }
+    }
 }

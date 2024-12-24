@@ -11,6 +11,7 @@ use Models\DatabaseConnector;
         <section class="table-data table-users">
             <div class="table-header">
                 <h2>Uživatelé</h2>
+                <label for="search">Vyhledat uživatele</label>
                 <input type="text" class="search" placeholder="Vyhledat uživatele...">
             </div>
             <table class="users-table">
@@ -39,6 +40,7 @@ use Models\DatabaseConnector;
                 <h2>Články</h2>
                 <div>
                     <a href="<?= UrlHelper::baseUrl('articles/add') ?>" class="btn">Přidat článek</a>
+                    <label for="search">Vyhledat článek</label>
                     <input type="text" class="search" placeholder="Vyhledat článek...">
                 </div>
             </div>
@@ -69,8 +71,7 @@ use Models\DatabaseConnector;
     <div class="overlay">
         <div class="overlay-content">
             <button class="overlay-close">X</button>
-            <h1>-</h1>
-            <p>-</p>
+            <p>---</p>
         </div>
     </div>
 </main>

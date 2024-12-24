@@ -32,8 +32,8 @@ use Helpers\UrlHelper;
                    title="Heslo musí mít minimálně 5 a maximálně 50 znaků, a obsahovat alespoň jedno velké psímeno a číslici"
                    tabindex="4" placeholder="*Potvrďte heslo" required>
 
-            <label for="profile-image">Profilová fotka</label>
-            <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpeg"
+            <label for="image">Profilová fotka</label>
+            <input type="file" id="image" name="image" accept="image/png, image/jpeg"
                    title="Obrázek minimálně 200x200px a maximálně 4000x4000px, 2MB a být ve formátu PNG nebo JPEG"
                    tabindex="5">
 

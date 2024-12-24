@@ -78,7 +78,6 @@ class UserModel
      */
     public static function existsUser(string $username): bool
     {
-
         $exists = DatabaseConnector::select(
             table: 'user',
             items: ['username'],

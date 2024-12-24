@@ -61,10 +61,10 @@ $user = $_SESSION['user_data'];
     </section>
     <section class="userpage">
         <div class="user-container user-change">
-            <form action="<?= UrlHelper::baseUrl('users/edit/profile-image') ?>" method="post" enctype="multipart/form-data" class="one-line-form">
+            <form action="<?= UrlHelper::baseUrl('users/edit/image') ?>" method="post" enctype="multipart/form-data" class="one-line-form">
                 <h2>Změna profilové fotky</h2>
-                <label for="profile-image">Profilová fotka</label>
-                <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpg, image/jpeg"
+                <label for="image">Profilová fotka</label>
+                <input type="file" id="image" name="image" accept="image/png, image/jpeg"
                        title="Obrázek musí mít minimálně 200x200px a maximálně 4000x4000px, 2MB a být ve formátu PNG nebo JPEG"
                        required>
 

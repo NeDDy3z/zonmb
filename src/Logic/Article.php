@@ -89,49 +89,6 @@ class Article
         }
     }
 
-
-    /**
-     * Retrieve an article from the database based on its slug.
-     *
-     * Uses the `ArticleModel` to fetch the article details and constructs an `Article` object.
-     *
-     * @param string $slug The slug (URL-friendly identifier) of the article.
-     *
-     * @return Article The `Article` object representing the fetched article.
-     *
-     * @throws DatabaseException If a database-related error occurs.
-     * @throws Exception If the article could not be found or another error occurs.
-     */
-    public static function getArticleBySlug(string $slug): Article
-    {
-        // Select article from database
-        $articleData = ArticleModel::selectArticle('WHERE slug = "'. $slug .'" LIMIT 1;');
-
-        // On null throw exception
-        if (!$articleData) {
-            throw new Exception('Error while fetching article from database with title');
-        }
-
-        // Get imagepaths
-        $imagePaths = isset($articleData['image_paths']) ? explode(',', $articleData['image_paths']) : null;
-
-        // Create object
-        try {
-            return new Article(
-                id: (int)$articleData['id'],
-                title: $articleData['title'],
-                subtitle: $articleData['subtitle'],
-                content: $articleData['content'],
-                slug: $articleData['slug'],
-                imagePaths: $imagePaths,
-                authorId: (int)$articleData['author_id'],
-                createdAt: $articleData['created_at'],
-            );
-        } catch (Exception $e) {
-            throw new Exception('Error while fetching article from database with title');
-        }
-    }
-
     /**
      * Retrieve an article from the database based on its ID.
      *
@@ -152,9 +109,67 @@ class Article
             throw new Exception('Error while fetching article from database with id');
         }
 
-        $imagePaths = isset($articleData['image_paths']) ? explode(',', $articleData['image_paths']) : null;
+        return self::returnArticleObject($articleData);
+    }
 
+    /**
+     * Retrieve an article from the database based on its title.
+     *
+     * Uses the `ArticleModel` to fetch the article details and constructs an `Article` object.
+     *
+     * @param string $title
+     * @return Article The `Article` object representing the fetched article.
+     *
+     * @throws DatabaseException If a database-related error occurs.
+     * @throws Exception
+     */
+    public static function getArticleByTitle(string $title): Article
+    {
+        $articleData = ArticleModel::selectArticle('WHERE title = "'. $title .'" LIMIT 1;');
 
+        if (!$articleData) {
+            throw new Exception('Error while fetching article from database with title');
+        }
+
+        return self::returnArticleObject($articleData);
+    }
+
+    /**
+     * Retrieve an article from the database based on its slug.
+     *
+     * Uses the `ArticleModel` to fetch the article details and constructs an `Article` object.
+     *
+     * @param string $slug The slug (URL-friendly identifier) of the article.
+     *
+     * @return Article The `Article` object representing the fetched article.
+     *
+     * @throws DatabaseException If a database-related error occurs.
+     * @throws Exception If the article could not be found or another error occurs.
+     */
+    public static function getArticleBySlug(string $slug): Article
+    {
+        // Select article from database
+        $articleData = ArticleModel::selectArticle('WHERE slug = "'. $slug .'" LIMIT 1;');
+
+        // On null throw exception
+        if (!$articleData) {
+            throw new Exception('Error while fetching article from database with slug');
+        }
+
+        return self::returnArticleObject($articleData);
+    }
+
+    /**
+     * Return Article object from array
+     *
+     * @param array<string, string> $articleData
+     * @return Article
+     * @throws Exception
+     *
+     * @package Logic
+     */
+    private static function returnArticleObject(array $articleData): Article
+    {
         try {
             return new Article(
                 id: (int)$articleData['id'],
@@ -162,12 +177,12 @@ class Article
                 subtitle: $articleData['subtitle'],
                 content: $articleData['content'],
                 slug: $articleData['slug'],
-                imagePaths: $imagePaths,
+                imagePaths: isset($articleData['image_paths']) ? explode(',', $articleData['image_paths']) : null,
                 authorId: (int)$articleData['author_id'],
                 createdAt: $articleData['created_at'],
             );
         } catch (Exception $e) {
-            throw new Exception('Error while fetching article from database with id');
+            throw new Exception('Error while creating Article object');
         }
     }
 

@@ -8,7 +8,6 @@ use Helpers\ImageHelper;
 use Helpers\PrivilegeRedirect;
 use Helpers\ReplaceHelper;
 use Logic\Article;
-use Logic\DatabaseException;
 use Logic\Router;
 use Logic\Validator;
 use Models\ArticleModel;
@@ -80,15 +79,11 @@ class ArticleController extends Controller
                 break;
             case 'delete':
                 $privilegeRedirect->redirectUser();
-                if (!isset($_GET['id'])) {
-                    echo json_encode(['error' => 'missingID']);
-                    exit();
+                $id = (int)$_GET['id'] ?? null;
+                if (isset($_GET['image'])) {
+                    $this->deleteArticleImage($id, $_GET['image']);
                 } else {
-                    if (isset($_GET['img'])) {
-                        $this->deleteArticleImage($_GET['id']);
-                    } else {
-                        $this->deleteArticle();
-                    }
+                    $this->deleteArticle($id);
                 }
                 break;
             default:
@@ -122,7 +117,8 @@ class ArticleController extends Controller
                 break;
             default:
                 $article = Article::getArticleBySlug($this->action);
-        };
+                break;
+        }
 
         $user = $_SESSION['user_data'] ?? null;
         $type = $this->action;
@@ -268,22 +264,19 @@ class ArticleController extends Controller
     public function editArticle(): void
     {
         try {
-            $id = $_POST['id'] ?? null;
+            $id = (int)$_POST['id'] ?? null;
             $title = $_POST['title'] ?? null;
             $subtitle = $_POST['subtitle'] ?? null;
             $content = $_POST['content'] ?? null;
-            $images = ImageHelper::getUsableImageArray($_FILES['images']) ?? null;
+            $images = ImageHelper::getUsableImageArray($_FILES['image']) ;
 
-            if ($images[0]['tmp_name'] === "") {
-                unset($images);
-            }
-
-            // Check titles etc..
+            // Check titles etc...
             $this->validator->validateArticle(
                 title: $title,
                 subtitle: $subtitle,
                 content: $content,
             );
+
             // Check images
             if (isset($images)) {
                 foreach ($images as $image) {
@@ -291,12 +284,13 @@ class ArticleController extends Controller
                 }
             }
 
+            $imagePaths = ArticleModel::selectArticle(conditions: 'WHERE id = ' . $id)['image_paths'] ?? null;
             try {
+                if ($imagePaths) {
+                    $imagePaths = explode(',', $imagePaths);
+                }
+
                 if (isset($images)) {
-                    $articleImages = ArticleModel::selectArticle(conditions: 'WHERE id = ' . $id)['image_paths'] ?? null;
-                    if ($articleImages) {
-                        $imagePaths = explode(',', $articleImages);
-                    }
                     $lastImageId = 0;
 
                     // Get last img id and add 1 to it
@@ -341,10 +335,10 @@ class ArticleController extends Controller
 
                 Router::redirect(path: "articles/$slug", query: ['success' => 'articleEdited']);
             } catch (Exception $e) {
-                Router::redirect(path: 'articles/edit', query: ['id' => $id, 'error' => 'articleEditError', 'errorDetails' => $e->getMessage()]);
+                Router::redirect(path: 'articles/edit', query: ['id' => $id, 'error' => $e->getMessage()]);
             }
         } catch (Exception $e) {
-            Router::redirect(path: 'articles/edit', query: ['error' => 'articleEditError', 'errorDetails' => $e->getMessage()]);
+            Router::redirect(path: 'articles/edit', query: ['error' => $e->getMessage()]);
         }
     }
 
@@ -354,20 +348,20 @@ class ArticleController extends Controller
      * Ensures that all images related to the article are removed from the server
      * when the article is deleted.
      *
+     * @param int|null $id
      * @return void
-     * @throws Exception If deleting data fails
      */
-    public function deleteArticle(): void
+    public function deleteArticle(?int $id = null): void
     {
-        if (!isset($_GET['id'])) {
+        if (!isset($id)) {
             echo json_encode(['error' => 'missingID']);
             exit();
         }
 
         try {
-            ArticleModel::removeArticle(id: $_GET['id']); // Delete article
+            ArticleModel::removeArticle(id: $id); // Delete article
             foreach ((array)scandir('assets/uploads/articles') as $file) { // Remove all images associated with it
-                if (str_starts_with($file, $_GET['id'] . '_')) { // if the file starts with the article ID remove it
+                if (str_starts_with($file, $id . '_')) { // if the file starts with the article ID remove it
                     unlink('assets/uploads/articles/' . $file);
                 }
             }
@@ -385,18 +379,19 @@ class ArticleController extends Controller
      * Removes the specified image from the server and updates the database record.
      * Regenerates a thumbnail if necessary or adds a placeholder when no images remain.
      *
+     * @param int|null $id
+     * @param string|null $img
      * @return void
-     * @throws Exception If deleting the image or updating the database fails
      */
-    public function deleteArticleImage(?int $id = null): void
+    public function deleteArticleImage(?int $id = null, ?string $img = null): void
     {
-        if (!isset($id)) {
+        if (!isset($id) or !isset($img)) {
             echo json_encode(['error' => 'missingID']);
             exit();
         }
 
         try {
-            $img = substr($_GET['img'], 1); // Get image path without '/' on the beginning
+            $img = substr($img, 1); // Get image path without '/' on the beginning
             $imgId = preg_match('/\/(\d+_\d+)(?:_thumbnail)?\.jpeg$/', $img, $matches) ? $matches[1] : null; // Get img id (35_0, 21_2, ...)
 
 

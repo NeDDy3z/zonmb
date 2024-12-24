@@ -24,26 +24,31 @@ use Helpers\UrlHelper;
                    tabindex="2" placeholder="*Celé jméno" value="<?= isset($editedUser) ? htmlspecialchars($editedUser->getFullname()) : ''; ?>" required>
 
             <label for="role">Role</label>
-            <select name="role" id="role" tabindex="3" required>
-                <?php
-                    if (isset($userRole)) {
-                        foreach ($userRole as $key => $value) {
-                            if ($key === 'owner') {
-                                continue;
-                            }
-                            $selected = ($key === $editedUser->getRole()) ? " selected" : "";
-                            echo "<option value='$key' $selected>$value</option>";
-                        }
+
+            <?php
+            if (isset($userRole)) {
+                $isOwner = ($editedUser->getRole() === 'owner');
+                $disabled = ($isOwner) ? 'disabled' : '';
+
+                echo "<select name='role' id='role' tabindex='3' $disabled required>";
+
+                foreach ($userRole as $key => $value) {
+                    if (!$isOwner and $key === 'owner') {
+                        continue;
                     }
-                ?>
-            </select>
+                    $selected = ($key === $editedUser->getRole()) ? " selected" : "";
+                    echo "<option value='$key' $selected>$value</option>";
+                }
+                echo '</select>';
+            }
+            ?>
 
             <label for="profile-image">Profilová fotka</label>
-            <div class="user-image">
+            <div class="user-image editor-images-container">
                 <?php if (isset($editedUser) and $editedUser->getImage() !== DEFAULT_PFP) {
                     $image = $editedUser->getImage();
-                    echo '<div>
-                                <button type="button" class="danger remove-image" value="'. UrlHelper::baseUrl($image) .'">X</button>
+                    echo '<div class="editor-image">
+                                <button type="button" class="danger remove-image" value="'. UrlHelper::baseUrl($image) .'" id="'. $editedUser->getId() .'">X</button>
                                 <img src="'. UrlHelper::baseUrl($image) .'" alt="Profilový obrázek uživatele">
                           </div>';
                     } else {
@@ -51,18 +56,18 @@ use Helpers\UrlHelper;
                 }
                 ?>
             </div>
-            <input type="file" id="profile-image" name="profile-image" accept="image/png, image/jpg, image/jpeg"
+            <input type="file" id="image" name="image" accept="image/png, image/jpg, image/jpeg"
                    title="Obrázek musí mít minimálně 200x200px a maximálně 4000x4000px, 2MB a být ve formátu PNG nebo JPG"
                    tabindex="5">
 
             <button type="submit">Upravit</button>
             <p><span class="grayed-out">* povinná pole</span></p>
 
-            <div class="static-message-container"></div>
+            <div class="message-container static"></div>
 
             <a href="<?= UrlHelper::baseUrl('admin') ?>">Administrátorská stránka</a>
         </form>
     </div>
 </main>
 <script src="<?= UrlHelper::baseUrl('assets/js/loadDataOnRefresh.js') ?>"></script>
-<script src="<?= UrlHelper::baseUrl('assets/js/editor.js') ?>"></script>
+<script type="module" src="<?= UrlHelper::baseUrl('assets/js/editor.js') ?>"></script>

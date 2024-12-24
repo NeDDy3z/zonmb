@@ -1,7 +1,4 @@
-import {getData} from "./xhr.js";
-// TODO FIXXXXXXXXXx
-
-
+import {sendRequest} from "./xhr.js";
 // All the regular expressions and constants used for data validation
 const USERNAME_REGEX = /^[a-zA-Z0-9_.]{3,30}$/;
 const USERNAME_MIN_LENGTH = 3;
@@ -11,7 +8,7 @@ const FULLNAME_REGEX = /^[a-zA-ZáčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘ
 const FULLNAME_MIN_LENGTH = 3;
 const FULLNAME_MAX_LENGTH = 30;
 
-const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,255}$/; // TODO: fix all regexes
+const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*\d).+$/;
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_MAX_LENGTH = 255;
 
@@ -25,7 +22,8 @@ const CONTENT_MIN_LENGTH = 3;
 const CONTENT_MAX_LENGTH = 5000;
 
 const IMG_SIZE = 1000000;
-const IMG_PX = 500;
+const IMG_MIN_PX = 200;
+const IMG_MAX_PX = 4000;
 const IMG_TYPES = ['image/jpeg', 'image/png'];
 
 // Page form
@@ -64,7 +62,9 @@ function validate(type, value) {
             break;
         case 'password':
             validatePasswords(value, document.querySelector('input[name="password-confirm"]')?.value);
-            3
+            break;
+        case 'password-confirm':
+            validatePasswords(document.querySelector('input[name="password"]')?.value, value);
             break;
         case 'title':
             validateTitle(value);
@@ -99,7 +99,7 @@ function validateUsername(username) {
     }
 
     // Check if username is taken
-    getData('users/exists?username=' + username, function (data) {
+    sendRequest('GET', 'users/exists?username=' + username, function (data) {
         if (data.exists) {
             sendErrorSignal(['usernameTaken']);
         } else if (data.error) {
@@ -111,7 +111,7 @@ function validateUsername(username) {
 }
 
 function validateFullname(fullname) {
-    const error = [];
+    let error = [];
 
     switch (true) {
         case fullname === null || fullname === '': // Empty
@@ -130,7 +130,7 @@ function validateFullname(fullname) {
 }
 
 function validatePasswords(password, passwordConfirm) {
-    const error = [];
+    let error = [];
 
     switch (true) {
         case password === null || passwordConfirm === null || password === '' || passwordConfirm === '': // Empty
@@ -143,7 +143,7 @@ function validatePasswords(password, passwordConfirm) {
         case password !== passwordConfirm: // Matching passwords
             error.push('passwordMatch');
 
-        case PASSWORD_REGEX.test(password): // Regex
+        case !PASSWORD_REGEX.test(password): // Regex
             error.push('passwordRegex');
             break;
     }
@@ -152,7 +152,7 @@ function validatePasswords(password, passwordConfirm) {
 }
 
 function validateTitle(title) {
-    const error = [];
+    let error = [];
 
     switch (true) {
         case title === null || title === '': // Empty
@@ -165,7 +165,7 @@ function validateTitle(title) {
     }
 
     // Check if title is taken
-    getData('exists?title=' + title, function (data) {
+    sendRequest('GET','exists?title=' + title, function (data) {
         if (data.exists) {
             sendErrorSignal(['titleTaken']);
         } else if (data.error) {
@@ -177,7 +177,7 @@ function validateTitle(title) {
 }
 
 function validateSubtitle(subtitle) {
-    const error = [];
+    let error = [];
 
     switch (true) {
         case subtitle === null || subtitle === '': // Empty
@@ -192,7 +192,7 @@ function validateSubtitle(subtitle) {
 }
 
 function validateContent(content) {
-    const error = [];
+    let error = [];
 
     switch (true) {
         case content === null || content === '': // Empty
@@ -206,55 +206,44 @@ function validateContent(content) {
     sendErrorSignal(error);
 }
 
-function validateImage(image) {
-    const {
-        size = 2_000_000, // Default max size in bytes (2MB)
-        minWidth = 200,
-        minHeight = 200,
-        maxWidth = 4000,
-        maxHeight = 4000
-    } = options;
+function validateImage(images) {
+    let error = [];
 
-    // Check if the image exists and a file was uploaded
-    if (!image || !image.tmp_name) {
-        throw new Error('uploadError');
-    }
+    Array.from(images).forEach(file => {
+        if (file.type.startsWith('image/')) { // Ensure the file is an image
+            let reader = new FileReader();
 
-    const error = [];
 
-    // Validate the image size
-    if (image.size > size) {
-        error.push('imageSize');
-    }
+            reader.onload = function (event) {
+                const img = new Image();
+                img.src = event.target.result; // Base64 image source
 
-    // Validate the image dimensions
-    const img = new Image();
-    img.src = URL.createObjectURL(image); // Create a temporary URL for the uploaded image
+                img.onload = function () {
+                    console.log(`Image: ${file.name}`);
+                    console.log(`Width: ${img.width}px, Height: ${img.height}px`);
 
-    img.onload = () => {
-        const {width, height} = img;
 
-        if (
-            width < minWidth ||
-            width > maxWidth ||
-            height < minHeight ||
-            height > maxHeight
-        ) {
-            error.push('imageDimensions');
+                    switch (true) {
+                        case !IMG_TYPES.includes(file.type): // jpeg or png
+                            error.push('imageFormat');
+                            break;
+
+                        case file.size > IMG_SIZE: // Size
+                            error.push('imageSize');
+                            break;
+
+                        case img.width < IMG_MIN_PX || img.width > IMG_MAX_PX ||
+                        img.height < IMG_MIN_PX || img.height > IMG_MAX_PX: // Dimension
+                            error.push('imageDimensions');
+                            break;
+                    }
+
+                    sendErrorSignal(error);
+                };
+            };
+            reader.readAsDataURL(file); // Convert image file to Base64
         }
-
-        // If there are any errors, throw them
-        if (error.length > 0) {
-            sendErrorSignal(error);
-        }
-
-        // If all validation passes
-        return true;
-    };
-
-    img.onerror = () => {
-        sendErrorSignal(error);
-    };
+    });
 }
 
 
@@ -264,20 +253,20 @@ function addEventListenerToFormInputs(form) {
         return;
     }
 
-
-
     const inputs = [...form.querySelectorAll('input'), ...form.querySelectorAll('textarea')];
 
     inputs.forEach(input => {
         input.addEventListener('blur', function () { // On unfocus
-            validate(input.name, input.value);
+            let value = (input.type === 'file') ? input.files : input.value;
+            validate(input.name, value);
         });
 
-        input.addEventListener('input', function (e) { // Wait one second
+        input.addEventListener('input', function () { // Wait one second
             clearTimeout(this.timer);
 
             this.timer = setTimeout(() => {
-                validate(input.name, input.value);
+                let value = (input.type === 'file') ? input.files : input.value;
+                validate(input.name, value);
             }, 1000);
         });
     });

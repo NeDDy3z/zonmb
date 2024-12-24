@@ -1,4 +1,4 @@
-import {getData, deleteData} from "./xhr.js";
+import {sendRequest} from "./xhr.js";
 import {encodeHtml, prettyDate} from "./utils.js";
 import {openOverlay} from "./overlay.js";
 
@@ -7,22 +7,12 @@ import {openOverlay} from "./overlay.js";
 
 // Open details on article-data click
 function addOpenOverlay() {
-    let rows = document.querySelector('.table-articles').querySelectorAll('tr');
-
-    // For each row add "open overley with detailed content on click", except for the first row (header) & ID & buttons
-    for (let i = 1; i < rows.length; i++) {
-        for (let j = 1; j < rows[i].children.length; j++) {
-            let row = rows[i].children[j];
-
-            if (row.querySelectorAll('button').length === 0 && row.querySelectorAll('a').length === 0) {
-                row.addEventListener('click', () => {
-                    openOverlay(rows[0].children[j].textContent, rows[i].children[j].innerHTML);
-                });
-            }
-        }
-    }
-
-    // TODO: add ability for user pfp
+    let overlayItems = document.querySelectorAll('.overlay-item');
+    overlayItems.forEach(item => {
+        item.addEventListener('click', () => {
+            openOverlay(item);
+        });
+    });
 }
 
 
@@ -48,13 +38,13 @@ function createDeleteButton(table, param) {
         switch (table) {
             case 'users':
                 if (confirm('Opravdu chcete smazat uživatele s ID: ' + param + ' ?')) {
-                    deleteData('users', param);
+                    sendRequest('GET', `../users/delete?id=${param}`);
                     fetchAndLoadData('users');
                 }
                 break;
             case 'articles':
                 if (confirm('Opravdu chcete smazat článek s ID: ' + param + ' ?')) {
-                    deleteData('articles', param);
+                    sendRequest('GET', `../articles/delete?id=${param}`);
                     fetchAndLoadData('articles');
                 }
                 break;
@@ -113,8 +103,8 @@ function tableQuery(table) {
 
 // Single function to fetch and load data
 function fetchAndLoadData(table) {
-    getData(tableQuery(table), function (data) {
-        loadData(table, data);
+    sendRequest('GET', tableQuery(table), function (data) {
+        loadData(table, JSON.parse(data.response));
     });
 }
 
@@ -127,7 +117,7 @@ function userRow(user) {
             <td>${encodeHtml(user.username)}</td>
             <td>${encodeHtml(user.fullname)}</td>
             <td>${encodeHtml(user.role)}</td>
-            <td>${encodeHtml(user.profile_image_path)}</td>
+            <td class="overlay-item overlay-image-item">${encodeHtml(user.profile_image_path)}</td>
             <td>${encodeHtml(prettyDate(user.created_at))}</td>
             <td class="buttons"></td>`;
 
@@ -138,12 +128,12 @@ function articleRow(article) {
     let row = document.createElement('tr');
     row.innerHTML = `
             <td><a href="./articles/${article.slug}">${encodeHtml(article.id)}</a></td>
-            <td>${encodeHtml(article.title)}</td>
-            <td>${encodeHtml(article.subtitle)}</td>
-            <td>${encodeHtml(article.content)}</td>
-            <td>${encodeHtml(article.image_paths)}</td>
-            <td>${encodeHtml(article.author_id)}</td>
-            <td>${encodeHtml(prettyDate(article.created_at))}</td>
+            <td class="overlay-item">${encodeHtml(article.title)}</td>
+            <td class="overlay-item" >${encodeHtml(article.subtitle)}</td>
+            <td class="overlay-item" >${encodeHtml(article.content)}</td>
+            <td class="overlay-item overlay-image-item" >${encodeHtml(article.image_paths)}</td>
+            <td class="overlay-item" >${encodeHtml(article.author_id)}</td>
+            <td class="overlay-item" >${encodeHtml(prettyDate(article.created_at))}</td>
             <td class="buttons"></td>                
         `;
 

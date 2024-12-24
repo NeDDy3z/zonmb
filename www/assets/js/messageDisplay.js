@@ -88,7 +88,7 @@ function displayMessage(type, message, container = 'popup', countdown = 10) {
 
 
     // Place message where it is supposed to be
-    if (container === 'popup') {
+    if (container === 'popup' && messages.length > 0) {
         document.querySelector('.message-container.popup')?.remove();
 
         // Create message container

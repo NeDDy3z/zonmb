@@ -126,7 +126,7 @@ class DatabaseConnector
         try {
             $result = self::$connection?->query($query)?->fetchAll();
         } catch (PDOException $e) {
-            throw new DatabaseException('Error while loading data from database');
+            throw new DatabaseException('Error while loading data from database'. $e->getMessage());
         }
 
         // Convert into Array<Array<String>>

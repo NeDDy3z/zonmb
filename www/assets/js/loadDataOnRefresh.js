@@ -25,7 +25,9 @@ function loadFormDataOnLoad() {
 
     fields.forEach(field => {
         if (sessionStorage.getItem(field.name)) {
-            field.value = sessionStorage.getItem(field.name);
+            if (field.value === '') {
+                field.value = sessionStorage.getItem(field.name);
+            }
         }
     });
 }

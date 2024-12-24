@@ -3,6 +3,7 @@
 namespace Logic;
 
 use Exception;
+use Models\ArticleModel;
 use Models\UserModel;
 
 /**
@@ -25,7 +26,7 @@ class Validator
     const FULLNAME_MAX_LENGTH = 30;
 
 
-    const PASSWORD_REGEX = '/^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,255}$/';
+    const PASSWORD_REGEX = '/^(?=.*[A-Z])(?=.*\d).+$/';
     const PASSWOR_MIN_LENGTH = 5;
     const PASSWORD_MAX_LENGTH = 255;
 
@@ -262,11 +263,12 @@ class Validator
      * and are not empty.
      *
      * @param string $title The article title.
-     * @param string|null $subtitle The optional article subtitle.
+     * @param string $subtitle The optional article subtitle.
      * @param string $content The article content.
-     *
+     * @param bool|null $checkExistence
      * @return bool Returns `true` if the article is valid.
      *
+     * @throws DatabaseException
      * @throws IncorrectInputException If any validation fails.
      */
     public function validateArticle(string $title, string $subtitle, string $content, ?bool $checkExistence = true): bool
@@ -275,30 +277,34 @@ class Validator
         switch (true) {
             case $title == null || $title == '': // Empty
                 $error[] = 'titleEmpty';
-                // no break
+                break;
 
             case strlen($title) < self::TITLE_MIN_LENGTH || strlen($title) > self::TITLE_MAX_LENGTH: // Length
                 $error[] = 'titleSize';
-                // no break
+                break;
 
-            case $checkExistence and UserModel::existsUser($title): // Exists
-                $error[] = 'titleTaken';
-                // no break
+            case $checkExistence and ArticleModel::existsArticle($title): // Exists
+                $article = Article::getArticleByTitle($title);
+                if ($article->getTitle() !== $title) {
+                    $error[] = 'titleTaken';
+                }
+                break;
 
-            case $subtitle == null || $subtitle = '':
+            case $subtitle == null || $subtitle == '':
                 $error[] = 'subtitleEmpty';
-                // no break
+                break;
 
             case strlen($subtitle) < self::SUBTITLE_MIN_LENGTH || strlen($subtitle) > self::SUBTITLE_MAX_LENGTH: // Length
                 $error[] = 'subtitleSize';
-                // no break
+                break;
 
             case $content == null || $content == '': // Empty
                 $error[] = 'contentEmpty';
-                // no break
+                break;
 
             case strlen($content) < self::CONTENT_MIN_LENGTH || strlen($content) > self::CONTENT_MAX_LENGTH: // Length
                 $error[] = 'contentSize';
+                break;
         }
 
         // Throw exception on any error

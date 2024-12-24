@@ -142,7 +142,7 @@ class Router
             'testing/image-upload' => (new TestingController())->testImageUpload(),
             'users/edit' => (new UserController())->updateUser(),
             'users/edit/fullname' => (new UserController())->updateFullname(),
-            'users/edit/profile-image' => (new UserController())->updateProfileImage(),
+            'users/edit/image' => (new UserController())->updateProfileImage(),
             default => (new ErrorController())->render(),
         };
     }

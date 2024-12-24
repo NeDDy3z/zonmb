@@ -6,7 +6,6 @@ namespace Controllers;
 
 use Exception;
 use Helpers\ImageHelper;
-use Helpers\PrivilegeRedirect;
 use Logic\Router;
 use Logic\Validator;
 use Models\UserModel;
@@ -55,9 +54,6 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->validator = new Validator();
-        $privilegeRedirect = new PrivilegeRedirect();
-
-        $privilegeRedirect->redirectLoggedIn();
     }
 
     /**
@@ -97,7 +93,7 @@ class RegisterController extends Controller
             $fullname = $_POST['fullname'] ?? null;
             $password = $_POST['password'] ?? null;
             $passConf = $_POST['password-confirm'] ?? null;
-            $pfpImage = ImageHelper::getUsableImageArray($_FILES['profile-image'])[0] ?? null;
+            $pfpImage = ImageHelper::getUsableImageArray($_FILES['image'])[0] ?? null;
 
 
 
