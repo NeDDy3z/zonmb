@@ -45,6 +45,7 @@ class UserController extends Controller
      */
     public array $userRole = [
         'user' => 'Uživatel',
+        'editor' => 'Editor',
         'admin' => 'Administrátor',
         'owner' => 'Vlastník',
     ];

@@ -1,4 +1,4 @@
-.editor {admin
+.editor {
     form {
         width: 100%;
 
@@ -68,5 +68,9 @@
 @media (min-width: 50rem) {
     .editor {
         width: 50vw;
+    }
+
+    #user-editor {
+        width: 20vw;
     }
 }
