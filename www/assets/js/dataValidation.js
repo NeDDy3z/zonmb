@@ -15,7 +15,7 @@ const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,255}$/; // TODO: fix al
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_MAX_LENGTH = 255;
 
-const TITLE_MIN_LENGTH = 3;
+const TITLE_MIN_LENGTH = 10;
 const TITLE_MAX_LENGTH = 100;
 
 const SUBTITLE_MIN_LENGTH = 3;
@@ -264,7 +264,9 @@ function addEventListenerToFormInputs(form) {
         return;
     }
 
-    const inputs = form.querySelectorAll('input');
+
+
+    const inputs = [...form.querySelectorAll('input'), ...form.querySelectorAll('textarea')];
 
     inputs.forEach(input => {
         input.addEventListener('blur', function () { // On unfocus

@@ -60,10 +60,10 @@ const errorMessages = {
     'imageDimensions': 'Obrázek musí mít minimálně 200x200px a maximálně 4000x4000px',
 
     'titleEmpty': 'Vyplňte titulek',
-    'titleSize': 'Titulek musí mít délku minimálně 3 a maxilmálně 100 znkaů',
+    'titleSize': 'Titulek musí mít délku minimálně 10 a maxilmálně 100 znkaů',
     'titleTaken': 'Článek s tímto titulkem již existuje',
-    'subtitleEmpty': 'Vyplňte titulek',
-    'subtitleSize': 'Titulek musí mít délku minimálně 3 a maxilmálně 500 znkaů',
+    'subtitleEmpty': 'Vyplňte podtitulek',
+    'subtitleSize': 'Poditulek musí mít délku minimálně 3 a maxilmálně 500 znkaů',
     'contentEmpty': 'Vyplňte obsah',
     'contentSize': 'Obsah musí mít délku minimálně 5 znaků a maximálně 5000',
 };

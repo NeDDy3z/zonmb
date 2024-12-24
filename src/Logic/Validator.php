@@ -31,8 +31,8 @@ class Validator
 
     const IMAGE_REGEX = '/^image\/(png|jpg|jpeg)$/';
 
-    const TITLE_MIN_LENGTH = 3;
-    const TITLE_MAX_LENGTH = 50;
+    const TITLE_MIN_LENGTH = 10;
+    const TITLE_MAX_LENGTH = 100;
     const SUBTITLE_MIN_LENGTH = 3;
     const SUBTITLE_MAX_LENGTH = 500;
     const CONTENT_MIN_LENGTH = 3;
@@ -117,10 +117,10 @@ class Validator
                 $error[] = 'usernameEmpty';
                 break;
 
-            case strlen($username) < 3 || strlen($username) > 30: // Length
+            case strlen($username) < self::USERNAME_MIN_LENGTH || strlen($username) > self::USERNAME_MAX_LENGTH: // Length
                 $error[] = 'usernameSize';
 
-            case !preg_match('/^[a-zA-Z0-9._]+$/', $username): // Regex
+            case !preg_match(self::USERNAME_REGEX, $username): // Regex
                 $error[] = 'usernameRegex';
 
             case $checkExistence and UserModel::existsUser($username): // Exists
@@ -152,11 +152,11 @@ class Validator
                 $error[] = 'fullnameEmpty';
                 // no break
 
-            case strlen($fullname) < 3 || strlen($fullname) > 30: // Length
+            case strlen($fullname) < self::FULLNAME_MIN_LENGTH || strlen($fullname) > self::FULLNAME_MAX_LENGTH: // Length
                 $error[] = 'fullnameSize';
                 // no break
 
-            case !preg_match('/^[a-zA-ZáčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ ]+$/', $fullname): // Regex
+            case !preg_match(self::FULLNAME_REGEX, $fullname): // Regex
                 $error[] = 'fullnameRegex';
                 break;
         }
@@ -194,11 +194,11 @@ class Validator
                 $error[] = 'passwordMatch';
                 // no break
 
-            case strlen($password) < 5 || strlen($password) > 255: // Length
+            case strlen($password) < self::PASSWOR_MIN_LENGTH || strlen($password) > self::PASSWORD_MAX_LENGTH: // Length
                 $error[] = 'passwordSize';
                 // no break
 
-            case !preg_match('/(?=.*[A-Z])(?=.*\d)/', $password): // Regex
+            case !preg_match(self::PASSWORD_REGEX, $password): // Regex
                 $error[] = 'passwordRegex';
                 break;
         }
@@ -277,15 +277,19 @@ class Validator
                 $error[] = 'titleEmpty';
                 // no break
 
-            case strlen($title) < 3 || strlen($title) > 50: // Length
+            case strlen($title) < self::TITLE_MIN_LENGTH || strlen($title) > self::TITLE_MAX_LENGTH: // Length
                 $error[] = 'titleSize';
                 // no break
 
             case $checkExistence and UserModel::existsUser($title): // Exists
                 $error[] = 'titleTaken';
-                break;
+                // no break
 
-            case isset($subtitle) && strlen($subtitle) < 3 || strlen($subtitle) > 500: // Length
+            case $subtitle == null || $subtitle = '':
+                $error[] = 'subtitleEmpty';
+                // no break
+
+            case strlen($subtitle) < self::SUBTITLE_MIN_LENGTH || strlen($subtitle) > self::SUBTITLE_MAX_LENGTH: // Length
                 $error[] = 'subtitleSize';
                 // no break
 
@@ -293,7 +297,7 @@ class Validator
                 $error[] = 'contentEmpty';
                 // no break
 
-            case strlen($content) < 3 || strlen($content) > 5_000: // Length
+            case strlen($content) < self::CONTENT_MIN_LENGTH || strlen($content) > self::CONTENT_MAX_LENGTH: // Length
                 $error[] = 'contentSize';
         }
 
