@@ -32,9 +32,11 @@ CREATE TABLE `article` (
   `author_id` int NOT NULL DEFAULT '1',
   `created_at` date NOT NULL DEFAULT (curdate()),
   PRIMARY KEY (`id`),
+  UNIQUE KEY `article_pk` (`slug`),
+  UNIQUE KEY `article_pk_2` (`subtitle`),
   KEY `article_ibfk_1` (`author_id`),
   CONSTRAINT `article_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE SET DEFAULT
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -52,8 +54,9 @@ CREATE TABLE `user` (
   `profile_image_path` varchar(100) NOT NULL DEFAULT 'assets/uploads/profile_images/_default.png',
   `role` varchar(10) NOT NULL DEFAULT 'user',
   `created_at` date NOT NULL DEFAULT (curdate()),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_pk` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -65,20 +68,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Insert admin user
-INSERT INTO `user` (
-    `username`,
-    `fullname`,
-    `password`,
-    `profile_image_path`,
-    `role`,
-    `created_at`
-) VALUES ('admin',
-'Administrator',
-'$2y$10$wH/HFwHo7zDSZ.loK7k11O04B63aKsaKGwfABAndTxOncfG/IuiB6',
-'assets/uploads/profile_images/_default.png',
-'owner',
-'2025-01-01'
-);
-
--- Dump completed on 2024-12-22 22:22:03
+-- Dump completed on 2024-12-24 18:18:22

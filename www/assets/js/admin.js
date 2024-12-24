@@ -38,13 +38,13 @@ function createDeleteButton(table, param) {
         switch (table) {
             case 'users':
                 if (confirm('Opravdu chcete smazat uživatele s ID: ' + param + ' ?')) {
-                    sendRequest('GET', `../users/delete?id=${param}`);
+                    sendRequest('GET', `users/delete?id=${param}`);
                     fetchAndLoadData('users');
                 }
                 break;
             case 'articles':
                 if (confirm('Opravdu chcete smazat článek s ID: ' + param + ' ?')) {
-                    sendRequest('GET', `../articles/delete?id=${param}`);
+                    sendRequest('GET', `articles/delete?id=${param}`);
                     fetchAndLoadData('articles');
                 }
                 break;
