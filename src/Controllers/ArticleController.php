@@ -201,7 +201,7 @@ class ArticleController extends Controller
             $subtitle = $_POST['subtitle'] ?? null;
             $content = $_POST['content'] ?? null;
             $author = $_POST['author'] ?? null;
-            $images = ImageHelper::getUsableImageArray($_FILES['images']) ?? null;
+            $images = ImageHelper::getUsableImageArray($_FILES['image']) ?? null;
 
             $this->validator->validateArticle(
                 title: $title,
