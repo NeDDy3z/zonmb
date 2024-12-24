@@ -33,7 +33,7 @@ CREATE TABLE `article` (
   `created_at` date NOT NULL DEFAULT (curdate()),
   PRIMARY KEY (`id`),
   UNIQUE KEY `article_pk` (`slug`),
-  UNIQUE KEY `article_pk_2` (`subtitle`),
+  UNIQUE KEY `article_pk_2` (`title`),
   KEY `article_ibfk_1` (`author_id`),
   CONSTRAINT `article_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE SET DEFAULT
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -68,4 +68,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-24 18:18:22
+-- Dump completed on 2024-12-24 18:48:25
