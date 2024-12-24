@@ -116,7 +116,7 @@ function userRow(user) {
             <td>${encodeHtml(user.username)}</td>
             <td>${encodeHtml(user.fullname)}</td>
             <td>${encodeHtml(user.role)}</td>
-            <td class="overlay-item overlay-image-item">${encodeHtml(user.profile_image_path)}</td>
+            <td class="overlay-item overlay-image-item user">${encodeHtml(user.profile_image_path)}</td>
             <td>${encodeHtml(prettyDate(user.created_at))}</td>
             <td class="buttons"></td>`;
 

@@ -20,6 +20,14 @@ function openOverlay(element) {
 
         overlay.querySelector('p').innerHTML = element.innerHTML.split(',').join('<br>');
     }
+
+    if (element.classList.contains('user')) {
+        let imgs = overlay.querySelectorAll('img');
+
+        for (let i = 1; i < imgs.length; i++) {
+            imgs[i].remove();
+        }
+    }
 }
 
 function closeOverlay() {

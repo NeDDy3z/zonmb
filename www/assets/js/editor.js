@@ -36,7 +36,6 @@ function displayNoImagesMessage() {
     let editorImagesContainer = document.querySelector('.editor-images-container');
     let editorImages = document.querySelectorAll('.editor-image');
     if (editorImages.length === 0 || editorImagesContainer.children.length <= 1) {
-        console.log('balls');
         editorImagesContainer.querySelector('p').style.display = 'block';
     }
 }
