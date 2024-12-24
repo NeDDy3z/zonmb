@@ -16,7 +16,6 @@ use Models\DatabaseConnector;
             <table class="users-table">
                 <thead>
                 <tr>
-                    <!--TODO add pfp image-->
                     <th><a href="#" class="sort active asc" id="users-id">ID<span> &#9650;</span></a></th>
                     <th><a href="#" class="sort" id="users-username">Uživatelské jméno<span></span></a></th>
                     <th><a href="#" class="sort" id="users-fullname">Celé jméno<span></span></a></th>

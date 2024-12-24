@@ -254,8 +254,14 @@ class UserController extends Controller
                 unset($image);
             }
 
+            // Change pfp
             if (isset($image)) {
                 $this->updateProfileImage($image);
+            }
+
+            // Prevent setting an owner
+            if ($role === 'owner') {
+                $role = 'admin';
             }
 
             // Update data in DB

@@ -28,6 +28,9 @@ use Helpers\UrlHelper;
                 <?php
                     if (isset($userRole)) {
                         foreach ($userRole as $key => $value) {
+                            if ($key === 'owner') {
+                                continue;
+                            }
                             $selected = ($key === $editedUser->getRole()) ? " selected" : "";
                             echo "<option value='$key' $selected>$value</option>";
                         }
