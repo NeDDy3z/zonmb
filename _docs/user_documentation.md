@@ -51,7 +51,9 @@ Welcome to **ZONMB** *Základní organizace neslyšících Mladá Boleslav*. Thi
 
 ## Website features
 ### Navigation
+
 ![navigation.png](images/navigation.png)
+
 Use the main menu to access different sections of the website:
 - **ZONMB** (Home):
     - Overview of the site
@@ -95,17 +97,15 @@ Login form through which you log in to the platform using your registered creden
 
 
 ### User dashboard
+
 ![User dashboard overview](images/user.png)
+
 An overview of your account details and user management
 - See your account username, fullname and profile picture
 - Update your personal information
 - Change your password
 
-![user_detail.png](images/user_detail.png)
-
-Additionally, admin dashboard link will show up when logged-in user is an owner or admin
-![user_adminlink.png](images/user_adminlink.png)
-
+![user_detail.png](images/user_details.png)
 
 #### User settings
 Change Fullname
@@ -116,6 +116,10 @@ Change profile picutre
 
 Change password
 ![Change password form](images/user_changepassword.png)
+
+Additionally, admin dashboard link will show up when logged-in user is an owner or admin
+
+![user_adminlink.png](images/user_adminlink.png)
 
 
 ### Admin dashboard
@@ -167,6 +171,7 @@ Page for adding or editing articles, any input can contain any character, so fee
     - each image must be at least 200x200 and up to 4000x4000px
 
 Additionally, when editing an article with images, user can click on a small X near the image to directly delete it.
+
 ![Article editing page](images/editor_article.png)
 
 ### User editing page
@@ -182,6 +187,7 @@ Page for editing basic user details, admin can edit users "rank", set user eithe
 
 Here you can also delete a users profile picture by clicking on a small X near the image.
 See [user rank structure](#user-rank-structure) for more information on who can edit who
+
 ![User editing page](images/editor_user.png)
 
 
@@ -191,9 +197,10 @@ News and Admin Dashboard sections contain a Search and Sort functionality.
 Type any words or characters inside the search bar to find the article
 
 Sort items by selecting prefered sort item
-![search.png](images/search.png)
-![search2.png](images/search2.png)
-![sort.png](images/sort.png)
+
+![News](images/news.png)
+![Sorting](images/news_sort.png)
+![Searching](images/news_search.png)
 
 
 ## How to Perform Key Actions
@@ -232,19 +239,19 @@ Sort items by selecting prefered sort item
 ### Uploading articles
 1. Access the article upload page either via admin dashboard or news page
 2. Locate the **Add article** button and click on it
-3. Fill out the article details like title, subtitle etc..
+3. Fill out the article details like title, subtitle, etc.
 4. Click **Publish**
 
 ### Editing articles
 1. Access the article editing page either via admin dashboard or news page
 2. Locate the **Edit** button and click on it
-3. Fill out the article details like title, subtitle etc..
+3. Fill out the article details like title, subtitle, etc.
 4. Click **Edit**
 
 ### Editing users
 1. Access the user editing page via admin dashboard
 2. Locate the **Edit** button next to a user you want to edit and click on it
-3. Fill out the article details like title, subtitle etc..
+3. Fill out the article details like title, subtitle, etc.
 4. Click **Edit**
 
 
