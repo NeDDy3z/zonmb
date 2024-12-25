@@ -213,6 +213,10 @@ label.visible {
     color: var(--success);
 }
 
+.incorrect {
+    outline: var(--danger) 2px solid;
+}
+
 span.grayed-out {
     font-size: .8rem;
 
