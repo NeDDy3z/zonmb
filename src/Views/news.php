@@ -12,9 +12,9 @@ $user = $_SESSION['user_data'] ?? null;
         <h1>Novinky</h1>
         <div class="news-search">
             <label for="search-articles">Vyhledat článek</label>
-            <input type="text" class="search" name="search-articles" placeholder="Vyhledat článek...">
-            <label for="sort">Seradit</label>
-            <select name="sort" class="sort">
+            <input type="text" class="search" id="search-articles" name="search-articles" placeholder="Vyhledat článek...">
+            <label for="sorter">Seradit</label>
+            <select name="sort" id="sorter" class="sort">
                 <option value="" disabled selected>Seřadit podle</option>
                 <option value="&sort=title&sortDirection=asc">Nadpis A-Z</option>
                 <option value="&sort=title&sortDirection=desc">Nadpis Z-A</option>
