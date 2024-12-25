@@ -4,44 +4,52 @@
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Getting Started](#getting-started)
-    - [Requirements](#system-requirements)
-    - [Account Creation](#account-creation)
-3. [Website Features](#website-features)
-    - [Dashboard](#dashboard)
-    - [Navigation](#navigation)
-    - [Search Functionality](#search-functionality)
-    - [User Profile Management](#user-profile-management)
-4. [How to Perform Key Actions](#how-to-perform-key-actions)
-    - [Logging In](#logging-in)
-    - [Resetting Your Password](#resetting-your-password)
-    - [Uploading Content](#uploading-content)
-    - [Downloading Reports](#downloading-reports)
-5. [FAQs](#faqs)
-6. [Troubleshooting](#troubleshooting)
-7. [Support](#support)
-8. [Legal Information](#legal-information)
-
+3. [Account Creation](#account-creation)
+4. [Website Features](#website-features)
+   - [Navigation](#navigation)
+   - [Register](#register)
+   - [Login](#login)
+   - [User dashboard](#user-dashboard)
+   - [User settings](#user-settings)
+   - [Admin dashboard](#admin-dashboard)
+   - [News](#news)
+   - [Article](#article)
+   - [Article add/edit page](#article-add-edit-page)
+   - [User editing page](#user-editing-page)
+   - [Search and Sort functionality](#search-and-sort-functionality)
+5. [How to Perform Key Actions](#how-to-perform-key-actions)
+   - [Registering](#registering) 
+   - [Logging In](#logging-in)
+   - [Changing your fullname](#changing-your-fullname)
+   - [Changing your profile picture](#changing-your-profile-picture)
+   - [Changing your password](#changing-your-password)
+   - [Uploading articles](#uploading-articles)
+   - [Editing articles](#editing-articles)
+   - [Editing users](#editing-users)
+6. [Additional information](#additional-information)
+   - [User rank structure](#user-rank-structure) 
+7. [Notes](#notes)
 ---
 
 ## Introduction
 Welcome to **ZONMB** *Základní organizace neslyšících Mladá Boleslav*. This guide provides comprehensive instructions to help you navigate and use the website effectively.
 
-## Getting Started
+## Getting started
 
 ### Requirements
-- The website is not platform limited
+- The website is not platform-limited
 - Internet connection
 - Web-browser
     - supported web-browsers are: Firefox and Chrome
 
-### Account Creation
-1. Go to the **Sign Up** page
+### Account creation
+1. Go to the **Sign-Up** page
 2. Fill out the registration form
 4. Log in to start using the website
 
 
 
-## Website Features
+## Website features
 ### Navigation
 ![navigation.png](images/navigation.png)
 Use the main menu to access different sections of the website:
@@ -51,8 +59,8 @@ Use the main menu to access different sections of the website:
     - See all published articles
 - **PROFILE**:
     - This navigation element has two features depending on your login status
-        - When you are logged-in you can access your account details and settings
-        - Otherwise this button leads to login and registration page
+        - When you are logged in, you can access your account details and settings
+        - Otherwise, this button leads to log in and registration page
 
 
 ### Register
@@ -142,10 +150,10 @@ Article page where all data of article are displayed, including the title, subti
 There is also a backlink to news page and a link to directly edit opened article.
 ![img]()
 
-If article contains multiple images, user can cycle through them using image slide arrows.
+If an article contains multiple images, user can cycle through them using image slide arrows.
 ![Image slides gif](images/article_imageslide.gif)
 
-### Article add/edit page
+### Article add edit page
 Page for adding or editing articles, any input can contain any character, so feel free to go wild ;)
 - Title
     - must be at least 10 and up to 100 characters long
@@ -177,7 +185,7 @@ See [user rank structure](#user-rank-structure) for more information on who can 
 ![User editing page](images/editor_user.png)
 
 
-### Search & Sort functionality
+### Search and Sort functionality
 News and Admin Dashboard sections contain a Search and Sort functionality.
 
 Type any words or characters inside the search bar to find the article
@@ -198,7 +206,7 @@ Sort items by selecting prefered sort item
     - (optionally) Profile picture
 3. Click **Login**
 
-### Logging-In
+### Logging In
 1. Navigate to the [Login](#) page
 2. Enter your username and password
 3. Click **Login**
@@ -220,8 +228,6 @@ Sort items by selecting prefered sort item
 2. Navigate to change password section
 3. Fill out the form with your old password and new password
 4. Click **Change password**
-
-
 
 ### Uploading articles
 1. Access the article upload page either via admin dashboard or news page
