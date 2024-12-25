@@ -39,14 +39,14 @@ class ImageHelper {
     }
 
     /**
-     * Crop and resize an image to the specified dimensions.
+     * Resize an image while maintaining its aspect ratio to fit within the specified dimensions.
      *
-     * This method trims the image to a centered rectangle of the desired
-     * width and height, returning the resized result.
+     * This method scales the image down so it fits within the given width and height
+     * while maintaining the original aspect ratio.
      *
      * @param GdImage $image The input `GdImage` object.
-     * @param int $dstWidth The desired width of the cropped/resized image.
-     * @param int $dstHeight The desired height of the cropped/resized image.
+     * @param int $dstWidth The maximum width of the resized image.
+     * @param int $dstHeight The maximum height of the resized image.
      *
      * @return GdImage The resized `GdImage` object.
      */
@@ -55,30 +55,39 @@ class ImageHelper {
         $width = imagesx($image);
         $height = imagesy($image);
 
-        $x = (int)(($width - $dstWidth) / 2);
-        $y = (int)(($height - $dstHeight) / 2);
+        // Calculate the aspect ratio
+        $aspectRatio = $width / $height;
 
-        // Create the cropped image
-        $croppedImage = imagecreatetruecolor(
-            width: $dstWidth,
-            height: $dstHeight,
-        );
+        // Adjust dimensions to maintain aspect ratio
+        if ($dstWidth / $dstHeight > $aspectRatio) {
+            $newWidth = (int)($dstHeight * $aspectRatio);
+            $newHeight = $dstHeight;
+        } else {
+            $newWidth = $dstWidth;
+            $newHeight = (int)($dstWidth / $aspectRatio);
+        }
 
+        // Create a new true color image with the calculated dimensions
+        $resizedImage = imagecreatetruecolor(width: $newWidth, height: $newHeight);
 
-        imagecopy(
-            dst_image: $croppedImage,
+        // Resample the image to the new dimensions
+        imagecopyresampled(
+            dst_image: $resizedImage,
             src_image: $image,
             dst_x: 0,
             dst_y: 0,
-            src_x: $x,
-            src_y: $y,
-            src_width: $dstWidth,
-            src_height: $dstHeight,
+            src_x: 0,
+            src_y: 0,
+            dst_width: $newWidth,
+            dst_height: $newHeight,
+            src_width: $width,
+            src_height: $height,
         );
 
+        // Free memory occupied by the original image
         imagedestroy($image);
 
-        return $croppedImage;
+        return $resizedImage;
     }
 
     /**

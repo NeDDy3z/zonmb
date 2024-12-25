@@ -9,7 +9,7 @@ use Models\DatabaseConnector;
     <div class="container">
         <h1>Novinky</h1>
         <div class="news-search">
-            <label for="search-articles">Vyhledat uživatele</label>
+            <label for="search-articles">Vyhledat článek</label>
             <input type="text" class="search" name="search-articles" placeholder="Vyhledat článek...">
             <label for="sort">Seradit</label>
             <select name="sort" class="sort" name="sort">

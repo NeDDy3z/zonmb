@@ -182,16 +182,19 @@ form {
         text-align: center;
     }
 
-    label {
-        display: none;
-    }
-
     &.one-line-form {
         display: flex;
         flex-direction: row;
     }
 }
 
+label {
+    display: none;
+}
+
+label.visible {
+    display: block;
+}
 
 /* Messages & text styling */
 .error-message {

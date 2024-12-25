@@ -252,39 +252,10 @@ class UserController extends Controller
             $username = $_POST['username'] ?? null;
             $fullname = $_POST['fullname'] ?? null;
             $role = $_POST['role'] ?? null;
-            $image = ImageHelper::getUsableImageArray($_FILES['image'])[0] ?? null;
-
 
             // Check data etc..
             $this->validator->validateUsername($username, false);
             $this->validator->validateFullname($fullname);
-
-
-            // Change pfp
-            if (isset($image)) {
-                // Validate image
-                $this->validator->validateImage($image);
-
-                // Remove old image
-                $oldImagePath = $_SESSION['user_data']->getImage();
-                if ($oldImagePath !== DEFAULT_PFP and file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }
-
-                // Save new image
-                $imagePath = 'assets/uploads/profile_images/' . $_SESSION['username'] . '.jpeg';
-                ImageHelper::saveImage(
-                    image: ImageHelper::processProfilePicture($image),
-                    imagePath: $imagePath,
-                );
-
-                // Update pfp
-                UserModel::updateUser(
-                    id: $id,
-                    profile_image_path: $imagePath,
-                );
-
-            }
 
             // Prevent setting an owner
             if ($role === 'owner') {
@@ -297,8 +268,7 @@ class UserController extends Controller
                 fullname: $fullname,
                 role: $role,
             );
-
-
+            
             Router::redirect(path: 'admin', query: ['success' => 'userEdited']);
         } catch (Exception $e) {
             Router::redirect(path: 'admin', query: ['error' => 'userEditError', 'errorDetails' => $e->getMessage()]);
