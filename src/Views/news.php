@@ -3,6 +3,8 @@
 use Helpers\UrlHelper;
 use Models\DatabaseConnector;
 
+$user = $_SESSION['user_data'] ?? null;
+
 ?>
 
 <main>
@@ -19,6 +21,11 @@ use Models\DatabaseConnector;
                 <option value="&sort=created_at&sortDirection=asc">Datum vzestupně</option>
                 <option value="&sort=created_at&sortDirection=desc">Datum sestupně</option>
             </select>
+            <?php
+            if (isset($user) && $user->isEditor()) {
+                echo '<a href="'. UrlHelper::baseUrl('articles/add') .'" class="btn">Přidat článek</a>';
+            }
+            ?>
         </div>
     </div>
     <div class="container news-articles">

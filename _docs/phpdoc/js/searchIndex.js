@@ -56,6 +56,11 @@ Search.appendIndex(
             "summary": "Retrieve\u0020articles\u0020from\u0020the\u0020database.",
             "url": "classes/Controllers-ArticleController.html#method_getArticles"
         },                {
+            "fqsen": "\\Controllers\\ArticleController\u003A\u003AexistsArticleTitle\u0028\u0029",
+            "name": "existsArticleTitle",
+            "summary": "Check\u0020if\u0020an\u0020article\u0020title\u0020exists\u0020in\u0020the\u0020database.",
+            "url": "classes/Controllers-ArticleController.html#method_existsArticleTitle"
+        },                {
             "fqsen": "\\Controllers\\ArticleController\u003A\u003AaddArticle\u0028\u0029",
             "name": "addArticle",
             "summary": "Add\u0020a\u0020new\u0020article\u0020to\u0020the\u0020database.",
@@ -75,6 +80,11 @@ Search.appendIndex(
             "name": "deleteArticleImage",
             "summary": "Delete\u0020a\u0020single\u0020image\u0020from\u0020an\u0020article.",
             "url": "classes/Controllers-ArticleController.html#method_deleteArticleImage"
+        },                {
+            "fqsen": "\\Controllers\\ArticleController\u003A\u003AgenerateThumbnailIfNoneIsPresent\u0028\u0029",
+            "name": "generateThumbnailIfNoneIsPresent",
+            "summary": "Generate\u0020a\u0020thumbnail\u0020if\u0020none\u0020is\u0020present",
+            "url": "classes/Controllers-ArticleController.html#method_generateThumbnailIfNoneIsPresent"
         },                {
             "fqsen": "\\Controllers\\ArticleController\u003A\u003A\u0024page",
             "name": "page",
@@ -276,15 +286,30 @@ Search.appendIndex(
             "summary": "Render\u0020the\u0020appropriate\u0020webpage\u0020based\u0020on\u0020the\u0020action.",
             "url": "classes/Controllers-UserController.html#method_render"
         },                {
+            "fqsen": "\\Controllers\\UserController\u003A\u003AgetSelf\u0028\u0029",
+            "name": "getSelf",
+            "summary": "Retrieve\u0020logged\u002Din\u0020user\u0020data.",
+            "url": "classes/Controllers-UserController.html#method_getSelf"
+        },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003AgetUsers\u0028\u0029",
             "name": "getUsers",
             "summary": "Retrieve\u0020users\u0020from\u0020the\u0020database.",
             "url": "classes/Controllers-UserController.html#method_getUsers"
         },                {
+            "fqsen": "\\Controllers\\UserController\u003A\u003AexistsUsername\u0028\u0029",
+            "name": "existsUsername",
+            "summary": "Check\u0020if\u0020username\u0020exists\u0020in\u0020the\u0020database.",
+            "url": "classes/Controllers-UserController.html#method_existsUsername"
+        },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003AloadUserData\u0028\u0029",
             "name": "loadUserData",
             "summary": "Load\u0020the\u0020currently\u0020authenticated\u0020user\u0027s\u0020data.",
             "url": "classes/Controllers-UserController.html#method_loadUserData"
+        },                {
+            "fqsen": "\\Controllers\\UserController\u003A\u003AupdateUser\u0028\u0029",
+            "name": "updateUser",
+            "summary": "Edit\u0020user\u0020data.",
+            "url": "classes/Controllers-UserController.html#method_updateUser"
         },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003AupdateFullname\u0028\u0029",
             "name": "updateFullname",
@@ -296,10 +321,30 @@ Search.appendIndex(
             "summary": "Update\u0020the\u0020profile\u0020image\u0020of\u0020the\u0020logged\u002Din\u0020user.",
             "url": "classes/Controllers-UserController.html#method_updateProfileImage"
         },                {
+            "fqsen": "\\Controllers\\UserController\u003A\u003AupdatePassword\u0028\u0029",
+            "name": "updatePassword",
+            "summary": "Update\u0020the\u0020password\u0020of\u0020the\u0020logged\u002Din\u0020user.",
+            "url": "classes/Controllers-UserController.html#method_updatePassword"
+        },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003Alogout\u0028\u0029",
             "name": "logout",
             "summary": "Log\u0020out\u0020the\u0020user.",
             "url": "classes/Controllers-UserController.html#method_logout"
+        },                {
+            "fqsen": "\\Controllers\\UserController\u003A\u003AdeleteUserProfileImage\u0028\u0029",
+            "name": "deleteUserProfileImage",
+            "summary": "Delete\u0020a\u0020user\u0020pfp",
+            "url": "classes/Controllers-UserController.html#method_deleteUserProfileImage"
+        },                {
+            "fqsen": "\\Controllers\\UserController\u003A\u003AdeleteUser\u0028\u0029",
+            "name": "deleteUser",
+            "summary": "Delete\u0020user\u0020and\u0020all\u0020its\u0020associated\u0020data.",
+            "url": "classes/Controllers-UserController.html#method_deleteUser"
+        },                {
+            "fqsen": "\\Controllers\\UserController\u003A\u003AdelteUserImageFromServer\u0028\u0029",
+            "name": "delteUserImageFromServer",
+            "summary": "Delete\u0020user\u0020profile\u0020image\u0020from\u0020server\u0020file\u0020system",
+            "url": "classes/Controllers-UserController.html#method_delteUserImageFromServer"
         },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003A\u0024page",
             "name": "page",
@@ -316,15 +361,20 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Controllers-UserController.html#property_action"
         },                {
-            "fqsen": "\\Controllers\\UserController\u003A\u003A\u0024username",
-            "name": "username",
+            "fqsen": "\\Controllers\\UserController\u003A\u003A\u0024user",
+            "name": "user",
             "summary": "",
-            "url": "classes/Controllers-UserController.html#property_username"
+            "url": "classes/Controllers-UserController.html#property_user"
         },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003A\u0024validator",
             "name": "validator",
             "summary": "",
             "url": "classes/Controllers-UserController.html#property_validator"
+        },                {
+            "fqsen": "\\Controllers\\UserController\u003A\u003A\u0024privilegeRedirect",
+            "name": "privilegeRedirect",
+            "summary": "",
+            "url": "classes/Controllers-UserController.html#property_privilegeRedirect"
         },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003A\u0024userRole",
             "name": "userRole",
@@ -373,7 +423,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Helpers\\ImageHelper\u003A\u003Aresize\u0028\u0029",
             "name": "resize",
-            "summary": "Crop\u0020and\u0020resize\u0020an\u0020image\u0020to\u0020the\u0020specified\u0020dimensions.",
+            "summary": "Resize\u0020an\u0020image\u0020while\u0020maintaining\u0020its\u0020aspect\u0020ratio\u0020to\u0020fit\u0020within\u0020the\u0020specified\u0020dimensions.",
             "url": "classes/Helpers-ImageHelper.html#method_resize"
         },                {
             "fqsen": "\\Helpers\\ImageHelper\u003A\u003AisImageUploaded\u0028\u0029",
@@ -431,6 +481,11 @@ Search.appendIndex(
             "summary": "Redirect\u0020users\u0020who\u0020are\u0020not\u0020Admins.",
             "url": "classes/Helpers-PrivilegeRedirect.html#method_redirectEditor"
         },                {
+            "fqsen": "\\Helpers\\PrivilegeRedirect\u003A\u003AredirectUserEditing\u0028\u0029",
+            "name": "redirectUserEditing",
+            "summary": "",
+            "url": "classes/Helpers-PrivilegeRedirect.html#method_redirectUserEditing"
+        },                {
             "fqsen": "\\Helpers\\PrivilegeRedirect\u003A\u003A\u0024user",
             "name": "user",
             "summary": "",
@@ -471,15 +526,25 @@ Search.appendIndex(
             "summary": "Article\u0020constructor.",
             "url": "classes/Logic-Article.html#method___construct"
         },                {
+            "fqsen": "\\Logic\\Article\u003A\u003AgetArticleById\u0028\u0029",
+            "name": "getArticleById",
+            "summary": "Retrieve\u0020an\u0020article\u0020from\u0020the\u0020database\u0020based\u0020on\u0020its\u0020ID.",
+            "url": "classes/Logic-Article.html#method_getArticleById"
+        },                {
+            "fqsen": "\\Logic\\Article\u003A\u003AgetArticleByTitle\u0028\u0029",
+            "name": "getArticleByTitle",
+            "summary": "Retrieve\u0020an\u0020article\u0020from\u0020the\u0020database\u0020based\u0020on\u0020its\u0020title.",
+            "url": "classes/Logic-Article.html#method_getArticleByTitle"
+        },                {
             "fqsen": "\\Logic\\Article\u003A\u003AgetArticleBySlug\u0028\u0029",
             "name": "getArticleBySlug",
             "summary": "Retrieve\u0020an\u0020article\u0020from\u0020the\u0020database\u0020based\u0020on\u0020its\u0020slug.",
             "url": "classes/Logic-Article.html#method_getArticleBySlug"
         },                {
-            "fqsen": "\\Logic\\Article\u003A\u003AgetArticleById\u0028\u0029",
-            "name": "getArticleById",
-            "summary": "Retrieve\u0020an\u0020article\u0020from\u0020the\u0020database\u0020based\u0020on\u0020its\u0020ID.",
-            "url": "classes/Logic-Article.html#method_getArticleById"
+            "fqsen": "\\Logic\\Article\u003A\u003AreturnArticleObject\u0028\u0029",
+            "name": "returnArticleObject",
+            "summary": "Return\u0020Article\u0020object\u0020from\u0020array",
+            "url": "classes/Logic-Article.html#method_returnArticleObject"
         },                {
             "fqsen": "\\Logic\\Article\u003A\u003AgetId\u0028\u0029",
             "name": "getId",
@@ -746,6 +811,86 @@ Search.appendIndex(
             "summary": "Validate\u0020an\u0020article\u0027s\u0020title,\u0020subtitle,\u0020and\u0020content.",
             "url": "classes/Logic-Validator.html#method_validateArticle"
         },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003AUSERNAME_REGEX",
+            "name": "USERNAME_REGEX",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_USERNAME_REGEX"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003AUSERNAME_MIN_LENGTH",
+            "name": "USERNAME_MIN_LENGTH",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_USERNAME_MIN_LENGTH"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003AUSERNAME_MAX_LENGTH",
+            "name": "USERNAME_MAX_LENGTH",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_USERNAME_MAX_LENGTH"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003AFULLNAME_REGEX",
+            "name": "FULLNAME_REGEX",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_FULLNAME_REGEX"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003AFULLNAME_MIN_LENGTH",
+            "name": "FULLNAME_MIN_LENGTH",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_FULLNAME_MIN_LENGTH"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003AFULLNAME_MAX_LENGTH",
+            "name": "FULLNAME_MAX_LENGTH",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_FULLNAME_MAX_LENGTH"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003APASSWORD_REGEX",
+            "name": "PASSWORD_REGEX",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_PASSWORD_REGEX"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003APASSWOR_MIN_LENGTH",
+            "name": "PASSWOR_MIN_LENGTH",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_PASSWOR_MIN_LENGTH"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003APASSWORD_MAX_LENGTH",
+            "name": "PASSWORD_MAX_LENGTH",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_PASSWORD_MAX_LENGTH"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003AIMAGE_REGEX",
+            "name": "IMAGE_REGEX",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_IMAGE_REGEX"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003ATITLE_MIN_LENGTH",
+            "name": "TITLE_MIN_LENGTH",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_TITLE_MIN_LENGTH"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003ATITLE_MAX_LENGTH",
+            "name": "TITLE_MAX_LENGTH",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_TITLE_MAX_LENGTH"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003ASUBTITLE_MIN_LENGTH",
+            "name": "SUBTITLE_MIN_LENGTH",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_SUBTITLE_MIN_LENGTH"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003ASUBTITLE_MAX_LENGTH",
+            "name": "SUBTITLE_MAX_LENGTH",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_SUBTITLE_MAX_LENGTH"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003ACONTENT_MIN_LENGTH",
+            "name": "CONTENT_MIN_LENGTH",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_CONTENT_MIN_LENGTH"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003ACONTENT_MAX_LENGTH",
+            "name": "CONTENT_MAX_LENGTH",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_CONTENT_MAX_LENGTH"
+        },                {
             "fqsen": "\\Models\\ArticleModel",
             "name": "ArticleModel",
             "summary": "ArticleModel",
@@ -765,6 +910,11 @@ Search.appendIndex(
             "name": "selectArticles",
             "summary": "Retrieve\u0020all\u0020articles\u0020from\u0020the\u0020database,\u0020with\u0020optional\u0020filtering\u0020conditions.",
             "url": "classes/Models-ArticleModel.html#method_selectArticles"
+        },                {
+            "fqsen": "\\Models\\ArticleModel\u003A\u003AexistsArticle\u0028\u0029",
+            "name": "existsArticle",
+            "summary": "Check\u0020if\u0020an\u0020article\u0020title\u0020exists\u0020in\u0020the\u0020database.",
+            "url": "classes/Models-ArticleModel.html#method_existsArticle"
         },                {
             "fqsen": "\\Models\\ArticleModel\u003A\u003AupdateArticle\u0028\u0029",
             "name": "updateArticle",
@@ -876,10 +1026,20 @@ Search.appendIndex(
             "summary": "Check\u0020if\u0020a\u0020user\u0020exists\u0020in\u0020the\u0020database\u0020by\u0020their\u0020username.",
             "url": "classes/Models-UserModel.html#method_existsUser"
         },                {
+            "fqsen": "\\Models\\UserModel\u003A\u003AselectUserPassword\u0028\u0029",
+            "name": "selectUserPassword",
+            "summary": "Retrieve\u0020user\u0020password\u0020from\u0020the\u0020database.",
+            "url": "classes/Models-UserModel.html#method_selectUserPassword"
+        },                {
             "fqsen": "\\Models\\UserModel\u003A\u003AinsertUser\u0028\u0029",
             "name": "insertUser",
             "summary": "Insert\u0020a\u0020new\u0020user\u0020into\u0020the\u0020database.",
             "url": "classes/Models-UserModel.html#method_insertUser"
+        },                {
+            "fqsen": "\\Models\\UserModel\u003A\u003AupdateUser\u0028\u0029",
+            "name": "updateUser",
+            "summary": "Update\u0020an\u0020existing\u0020user\u0020in\u0020the\u0020database.",
+            "url": "classes/Models-UserModel.html#method_updateUser"
         },                {
             "fqsen": "\\Models\\UserModel\u003A\u003AupdateUserFullname\u0028\u0029",
             "name": "updateUserFullname",
@@ -890,6 +1050,16 @@ Search.appendIndex(
             "name": "updateUserProfileImage",
             "summary": "Update\u0020a\u0020user\u0027s\u0020profile\u0020image\u0020path\u0020in\u0020the\u0020database.",
             "url": "classes/Models-UserModel.html#method_updateUserProfileImage"
+        },                {
+            "fqsen": "\\Models\\UserModel\u003A\u003AupdateUserPassword\u0028\u0029",
+            "name": "updateUserPassword",
+            "summary": "Update\u0020a\u0020user\u0027s\u0020password\u0020in\u0020the\u0020database.",
+            "url": "classes/Models-UserModel.html#method_updateUserPassword"
+        },                {
+            "fqsen": "\\Models\\UserModel\u003A\u003AremoveUser\u0028\u0029",
+            "name": "removeUser",
+            "summary": "Remove\u0020user\u0020from\u0020the\u0020database.",
+            "url": "classes/Models-UserModel.html#method_removeUser"
         },                {
             "fqsen": "\\ROOT",
             "name": "ROOT",

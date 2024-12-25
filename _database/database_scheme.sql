@@ -60,7 +60,7 @@ CREATE TABLE `user` (
   `username` varchar(15) NOT NULL,
   `fullname` varchar(30) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `profile_image_path` varchar(100) NOT NULL DEFAULT 'assets/uploads/profile_images/_default.png',
+  `profile_image_path` varchar(100) NOT NULL DEFAULT 'assets/uploads/profile_images/_default.jpeg',
   `role` varchar(10) NOT NULL DEFAULT 'user',
   `created_at` date NOT NULL DEFAULT (curdate()),
   PRIMARY KEY (`id`),
@@ -74,7 +74,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'owner','Petr Pavel','$2y$10$/Bk5otGzLoxWwLqdTrpyDOnjlKPCkOzja/ZY1tC0npeO3S.LUm2Pq','assets/uploads/profile_images/owner.jpeg','user','2024-12-01');
+INSERT INTO `user` VALUES (1,'owner','Administrator','$2y$10$/Bk5otGzLoxWwLqdTrpyDOnjlKPCkOzja/ZY1tC0npeO3S.LUm2Pq','assets/uploads/profile_images/admin.jpeg','owner','2024-12-01');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -87,4 +87,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-25 17:12:16
+-- Dump completed on 2024-12-25 17:44:37

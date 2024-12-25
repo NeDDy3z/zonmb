@@ -255,6 +255,13 @@ by their slug or ID directly from the database.</p>
 <dd>Retrieve an article from the database based on its slug.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Logic-Article.html#method_getArticleByTitle">getArticleByTitle()</a>
+    <span>
+                                &nbsp;: <a href="classes/Logic-Article.html"><abbr title="\Logic\Article">Article</abbr></a>    </span>
+</dt>
+<dd>Retrieve an article from the database based on its title.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Logic-Article.html#method_getAuthorId">getAuthorId()</a>
     <span>
                                 &nbsp;: int    </span>
@@ -301,6 +308,13 @@ by their slug or ID directly from the database.</p>
     <span>
                                 &nbsp;: string    </span>
 </dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/Logic-Article.html#method_returnArticleObject">returnArticleObject()</a>
+    <span>
+                                &nbsp;: <a href="classes/Logic-Article.html"><abbr title="\Logic\Article">Article</abbr></a>    </span>
+</dt>
+<dd>Return Article object from array</dd>
 
     </dl>
 
@@ -754,7 +768,7 @@ array by converting it to <code class="prettyprint">null</code>.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Article.php"><a href="files/src-logic-article.html"><abbr title="src/Logic/Article.php">Article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">147</span>
+    <span class="phpdocumentor-element-found-in__line">104</span>
 
     </aside>
 
@@ -838,7 +852,7 @@ array by converting it to <code class="prettyprint">null</code>.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Article.php"><a href="files/src-logic-article.html"><abbr title="src/Logic/Article.php">Article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">105</span>
+    <span class="phpdocumentor-element-found-in__line">149</span>
 
     </aside>
 
@@ -912,6 +926,86 @@ array by converting it to <code class="prettyprint">null</code>.</p>
         class="phpdocumentor-element
             -method
             -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getArticleByTitle">
+        getArticleByTitle()
+        <a href="classes/Logic-Article.html#method_getArticleByTitle" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Article.php"><a href="files/src-logic-article.html"><abbr title="src/Logic/Article.php">Article.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">126</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Retrieve an article from the database based on its title.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getArticleByTitle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Logic-Article.html"><abbr title="\Logic\Article">Article</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Uses the <code class="prettyprint">ArticleModel</code> to fetch the article details and constructs an <code class="prettyprint">Article</code> object.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$title</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Logic-Article.html#method_getArticleByTitle#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/Logic-DatabaseException.html"><abbr title="\Logic\DatabaseException">DatabaseException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If a database-related error occurs.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/Logic-Article.html"><abbr title="\Logic\Article">Article</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The <code class="prettyprint">Article</code> object representing the fetched article.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_getAuthorId">
@@ -922,7 +1016,7 @@ array by converting it to <code class="prettyprint">null</code>.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Article.php"><a href="files/src-logic-article.html"><abbr title="src/Logic/Article.php">Article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">225</span>
+    <span class="phpdocumentor-element-found-in__line">240</span>
 
     </aside>
 
@@ -964,7 +1058,7 @@ array by converting it to <code class="prettyprint">null</code>.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Article.php"><a href="files/src-logic-article.html"><abbr title="src/Logic/Article.php">Article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">201</span>
+    <span class="phpdocumentor-element-found-in__line">216</span>
 
     </aside>
 
@@ -1006,7 +1100,7 @@ array by converting it to <code class="prettyprint">null</code>.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Article.php"><a href="files/src-logic-article.html"><abbr title="src/Logic/Article.php">Article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">233</span>
+    <span class="phpdocumentor-element-found-in__line">248</span>
 
     </aside>
 
@@ -1048,7 +1142,7 @@ array by converting it to <code class="prettyprint">null</code>.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Article.php"><a href="files/src-logic-article.html"><abbr title="src/Logic/Article.php">Article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">177</span>
+    <span class="phpdocumentor-element-found-in__line">192</span>
 
     </aside>
 
@@ -1090,7 +1184,7 @@ array by converting it to <code class="prettyprint">null</code>.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Article.php"><a href="files/src-logic-article.html"><abbr title="src/Logic/Article.php">Article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">217</span>
+    <span class="phpdocumentor-element-found-in__line">232</span>
 
     </aside>
 
@@ -1132,7 +1226,7 @@ array by converting it to <code class="prettyprint">null</code>.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Article.php"><a href="files/src-logic-article.html"><abbr title="src/Logic/Article.php">Article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">209</span>
+    <span class="phpdocumentor-element-found-in__line">224</span>
 
     </aside>
 
@@ -1174,7 +1268,7 @@ array by converting it to <code class="prettyprint">null</code>.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Article.php"><a href="files/src-logic-article.html"><abbr title="src/Logic/Article.php">Article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">193</span>
+    <span class="phpdocumentor-element-found-in__line">208</span>
 
     </aside>
 
@@ -1216,7 +1310,7 @@ array by converting it to <code class="prettyprint">null</code>.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Article.php"><a href="files/src-logic-article.html"><abbr title="src/Logic/Article.php">Article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">185</span>
+    <span class="phpdocumentor-element-found-in__line">200</span>
 
     </aside>
 
@@ -1241,6 +1335,70 @@ array by converting it to <code class="prettyprint">null</code>.</p>
                 <section class="phpdocumentor-description"><p>The article's title</p>
 </section>
 
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_returnArticleObject">
+        returnArticleObject()
+        <a href="classes/Logic-Article.html#method_returnArticleObject" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Article.php"><a href="files/src-logic-article.html"><abbr title="src/Logic/Article.php">Article.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">171</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Return Article object from array</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">returnArticleObject</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$articleData</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Logic-Article.html"><abbr title="\Logic\Article">Article</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$articleData</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string, string&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Logic-Article.html#method_returnArticleObject#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/Logic-Article.html"><abbr title="\Logic\Article">Article</abbr></a></span>
             </section>
 
 </article>
@@ -1374,6 +1532,7 @@ array by converting it to <code class="prettyprint">null</code>.</p>
                                             <li class=""><a href="classes/Logic-Article.html#method___construct">__construct()</a></li>
                                             <li class=""><a href="classes/Logic-Article.html#method_getArticleById">getArticleById()</a></li>
                                             <li class=""><a href="classes/Logic-Article.html#method_getArticleBySlug">getArticleBySlug()</a></li>
+                                            <li class=""><a href="classes/Logic-Article.html#method_getArticleByTitle">getArticleByTitle()</a></li>
                                             <li class=""><a href="classes/Logic-Article.html#method_getAuthorId">getAuthorId()</a></li>
                                             <li class=""><a href="classes/Logic-Article.html#method_getContent">getContent()</a></li>
                                             <li class=""><a href="classes/Logic-Article.html#method_getCreatedAt">getCreatedAt()</a></li>
@@ -1382,6 +1541,7 @@ array by converting it to <code class="prettyprint">null</code>.</p>
                                             <li class=""><a href="classes/Logic-Article.html#method_getSlug">getSlug()</a></li>
                                             <li class=""><a href="classes/Logic-Article.html#method_getSubtitle">getSubtitle()</a></li>
                                             <li class=""><a href="classes/Logic-Article.html#method_getTitle">getTitle()</a></li>
+                                            <li class=""><a href="classes/Logic-Article.html#method_returnArticleObject">returnArticleObject()</a></li>
                                     </ul>
             </li>
                     </ul>

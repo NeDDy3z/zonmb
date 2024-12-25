@@ -1,7 +1,5 @@
 /* News */
 article.article-news {
-    min-width: 50rem;
-
     padding: 1rem;
     margin-top: 2rem;
 
@@ -16,7 +14,10 @@ article.article-news {
     text-overflow: ellipsis;
 
     .news-article-text {
+        display: flex;
+        flex-direction: column;
         padding-right: 1rem;
+
 
         h1 {
             text-align: center;
@@ -26,8 +27,6 @@ article.article-news {
         }
 
         h2 {
-            display: none;
-
             overflow: hidden;
             text-overflow: ellipsis;
             line-height: 1.5;

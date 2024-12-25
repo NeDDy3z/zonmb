@@ -139,7 +139,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/UserModel.php"><a href="files/src-models-usermodel.html"><abbr title="src/Models/UserModel.php">UserModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">16</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
@@ -181,7 +181,7 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Models-UserModel.html#method_existsUser">existsUser()</a>
     <span>
-                                &nbsp;: array&lt;string|int, array&lt;string, float|int|string|null&gt;|int<0, max>&gt;|null    </span>
+                                &nbsp;: bool    </span>
 </dt>
 <dd>Check if a user exists in the database by their username.</dd>
 
@@ -193,11 +193,25 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
 <dd>Insert a new user into the database.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Models-UserModel.html#method_removeUser">removeUser()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Remove user from the database.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Models-UserModel.html#method_selectUser">selectUser()</a>
     <span>
                                 &nbsp;: array&lt;string, float|int|string|null&gt;|null    </span>
 </dt>
 <dd>Retrieve a single user from the database.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Models-UserModel.html#method_selectUserPassword">selectUserPassword()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Retrieve user password from the database.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Models-UserModel.html#method_selectUsers">selectUsers()</a>
@@ -207,11 +221,25 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
 <dd>Retrieve all users from the database.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Models-UserModel.html#method_updateUser">updateUser()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Update an existing user in the database.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Models-UserModel.html#method_updateUserFullname">updateUserFullname()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Update a user&#039;s full name in the database.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Models-UserModel.html#method_updateUserPassword">updateUserPassword()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Update a user&#039;s password in the database.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Models-UserModel.html#method_updateUserProfileImage">updateUserProfileImage()</a>
@@ -248,7 +276,7 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/UserModel.php"><a href="files/src-models-usermodel.html"><abbr title="src/Models/UserModel.php">UserModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">77</span>
+    <span class="phpdocumentor-element-found-in__line">79</span>
 
     </aside>
 
@@ -256,12 +284,12 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">existsUser</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$username</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, array&lt;string, float|int|string|null&gt;|int<0, max>&gt;|null</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">existsUser</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$username</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
-        <section class="phpdocumentor-description"><p>Returns the username if the user is found or <code class="prettyprint">null</code> otherwise.</p>
+        <section class="phpdocumentor-description"><p>Returns <code class="prettyprint">true</code> if the user is found or <code class="prettyprint">false</code> otherwise.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -300,9 +328,9 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, array&lt;string, float|int|string|null&gt;|int<0, max>&gt;|null</span>
+        <span class="phpdocumentor-signature__response_type">bool</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>The result of the existence check or <code class="prettyprint">null</code>.</p>
+                <section class="phpdocumentor-description"><p>The result of the existence check.</p>
 </section>
 
             </section>
@@ -322,7 +350,7 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/UserModel.php"><a href="files/src-models-usermodel.html"><abbr title="src/Models/UserModel.php">UserModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">100</span>
+    <span class="phpdocumentor-element-found-in__line">117</span>
 
     </aside>
 
@@ -407,6 +435,72 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_removeUser">
+        removeUser()
+        <a href="classes/Models-UserModel.html#method_removeUser" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Models/UserModel.php"><a href="files/src-models-usermodel.html"><abbr title="src/Models/UserModel.php">UserModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">246</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Remove user from the database.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">removeUser</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Deletes the user for the given ID.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The ID of the user to delete.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Models-UserModel.html#method_removeUser#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/Logic-DatabaseException.html"><abbr title="\Logic\DatabaseException">DatabaseException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If there is an issue with the deletion.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_selectUser">
         selectUser()
         <a href="classes/Models-UserModel.html#method_selectUser" class="headerlink"><i class="fas fa-link"></i></a>
@@ -415,7 +509,7 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/UserModel.php"><a href="files/src-models-usermodel.html"><abbr title="src/Models/UserModel.php">UserModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 
     </aside>
 
@@ -490,6 +584,70 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_selectUserPassword">
+        selectUserPassword()
+        <a href="classes/Models-UserModel.html#method_selectUserPassword" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Models/UserModel.php"><a href="files/src-models-usermodel.html"><abbr title="src/Models/UserModel.php">UserModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">96</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Retrieve user password from the database.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">selectUserPassword</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Models-UserModel.html#method_selectUserPassword#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/Logic-DatabaseException.html"><abbr title="\Logic\DatabaseException">DatabaseException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_selectUsers">
         selectUsers()
         <a href="classes/Models-UserModel.html#method_selectUsers" class="headerlink"><i class="fas fa-link"></i></a>
@@ -498,7 +656,7 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/UserModel.php"><a href="files/src-models-usermodel.html"><abbr title="src/Models/UserModel.php">UserModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
@@ -564,6 +722,101 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_updateUser">
+        updateUser()
+        <a href="classes/Models-UserModel.html#method_updateUser" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Models/UserModel.php"><a href="files/src-models-usermodel.html"><abbr title="src/Models/UserModel.php">UserModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">148</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Update an existing user in the database.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">updateUser</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fullname</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$role</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$profile_image_path</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Updates fields such as fullname, role and profile image path based on what is provided.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The ID of the article to update.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fullname</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$role</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$profile_image_path</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Models-UserModel.html#method_updateUser#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/Logic-DatabaseException.html"><abbr title="\Logic\DatabaseException">DatabaseException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If there is an issue with the database update.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_updateUserFullname">
         updateUserFullname()
         <a href="classes/Models-UserModel.html#method_updateUserFullname" class="headerlink"><i class="fas fa-link"></i></a>
@@ -572,7 +825,7 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/UserModel.php"><a href="files/src-models-usermodel.html"><abbr title="src/Models/UserModel.php">UserModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">127</span>
+    <span class="phpdocumentor-element-found-in__line">187</span>
 
     </aside>
 
@@ -637,6 +890,73 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_updateUserPassword">
+        updateUserPassword()
+        <a href="classes/Models-UserModel.html#method_updateUserPassword" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Models/UserModel.php"><a href="files/src-models-usermodel.html"><abbr title="src/Models/UserModel.php">UserModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">225</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Update a user&#039;s password in the database.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">updateUserPassword</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$password</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$password</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Models-UserModel.html#method_updateUserPassword#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/Logic-DatabaseException.html"><abbr title="\Logic\DatabaseException">DatabaseException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_updateUserProfileImage">
         updateUserProfileImage()
         <a href="classes/Models-UserModel.html#method_updateUserProfileImage" class="headerlink"><i class="fas fa-link"></i></a>
@@ -645,7 +965,7 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/UserModel.php"><a href="files/src-models-usermodel.html"><abbr title="src/Models/UserModel.php">UserModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">147</span>
+    <span class="phpdocumentor-element-found-in__line">207</span>
 
     </aside>
 
@@ -819,9 +1139,13 @@ user existence. Throws <code class="prettyprint">DatabaseException</code> in cas
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/Models-UserModel.html#method_existsUser">existsUser()</a></li>
                                             <li class=""><a href="classes/Models-UserModel.html#method_insertUser">insertUser()</a></li>
+                                            <li class=""><a href="classes/Models-UserModel.html#method_removeUser">removeUser()</a></li>
                                             <li class=""><a href="classes/Models-UserModel.html#method_selectUser">selectUser()</a></li>
+                                            <li class=""><a href="classes/Models-UserModel.html#method_selectUserPassword">selectUserPassword()</a></li>
                                             <li class=""><a href="classes/Models-UserModel.html#method_selectUsers">selectUsers()</a></li>
+                                            <li class=""><a href="classes/Models-UserModel.html#method_updateUser">updateUser()</a></li>
                                             <li class=""><a href="classes/Models-UserModel.html#method_updateUserFullname">updateUserFullname()</a></li>
+                                            <li class=""><a href="classes/Models-UserModel.html#method_updateUserPassword">updateUserPassword()</a></li>
                                             <li class=""><a href="classes/Models-UserModel.html#method_updateUserProfileImage">updateUserProfileImage()</a></li>
                                     </ul>
             </li>

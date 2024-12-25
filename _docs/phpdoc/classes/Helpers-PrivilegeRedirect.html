@@ -219,6 +219,12 @@ rights (User, Editor, Admin) and redirects unauthorized users to a specified pag
 </dt>
 <dd>Redirect users who are not at least Editors.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Helpers-PrivilegeRedirect.html#method_redirectUserEditing">redirectUserEditing()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+
     </dl>
 
 
@@ -330,7 +336,7 @@ If no user data is present in the session, the <code class="prettyprint">$user</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/PrivilegeRedirect.php"><a href="files/src-helpers-privilegeredirect.html"><abbr title="src/Helpers/PrivilegeRedirect.php">PrivilegeRedirect.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">77</span>
 
     </aside>
 
@@ -369,7 +375,7 @@ query string error.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/PrivilegeRedirect.php"><a href="files/src-helpers-privilegeredirect.html"><abbr title="src/Helpers/PrivilegeRedirect.php">PrivilegeRedirect.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 
     </aside>
 
@@ -377,26 +383,23 @@ query string error.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">redirectHost</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$page</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">redirectHost</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">array&lt;string, string&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$query</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[&#039;error&#039; =&gt; &#039;notAuthorized&#039;]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
         <section class="phpdocumentor-description"><p>If the user is not authenticated (i.e., <code class="prettyprint">$user</code> is <code class="prettyprint">null</code>), they are redirected to
-the login page. Optionally, this method accepts a page parameter, which can be used
-to customize the redirection behavior (e.g., redirect to the login page with a specific query).</p>
+the login page. Optionally, this method has a parameter for a custom query string.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$page</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+                <span class="phpdocumentor-signature__argument__name">$query</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string, string&gt;|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[&#039;error&#039; =&gt; &#039;notAuthorized&#039;]</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The page identifier (e.g., 'login'). Defaults to <code class="prettyprint">null</code>.</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -420,7 +423,7 @@ to customize the redirection behavior (e.g., redirect to the login page with a s
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/PrivilegeRedirect.php"><a href="files/src-helpers-privilegeredirect.html"><abbr title="src/Helpers/PrivilegeRedirect.php">PrivilegeRedirect.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">66</span>
+    <span class="phpdocumentor-element-found-in__line">60</span>
 
     </aside>
 
@@ -439,6 +442,50 @@ query string error.</p>
 </section>
 
     
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_redirectUserEditing">
+        redirectUserEditing()
+        <a href="classes/Helpers-PrivilegeRedirect.html#method_redirectUserEditing" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/PrivilegeRedirect.php"><a href="files/src-helpers-privilegeredirect.html"><abbr title="src/Helpers/PrivilegeRedirect.php">PrivilegeRedirect.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">86</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">redirectUserEditing</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$editedUser</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$editedUser</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
     
 
     
@@ -569,6 +616,7 @@ query string error.</p>
                                             <li class=""><a href="classes/Helpers-PrivilegeRedirect.html#method_redirectEditor">redirectEditor()</a></li>
                                             <li class=""><a href="classes/Helpers-PrivilegeRedirect.html#method_redirectHost">redirectHost()</a></li>
                                             <li class=""><a href="classes/Helpers-PrivilegeRedirect.html#method_redirectUser">redirectUser()</a></li>
+                                            <li class=""><a href="classes/Helpers-PrivilegeRedirect.html#method_redirectUserEditing">redirectUserEditing()</a></li>
                                     </ul>
             </li>
                     </ul>
