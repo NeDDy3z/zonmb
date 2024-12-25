@@ -40,7 +40,7 @@ use Models\DatabaseConnector;
                 <h2>Články</h2>
                 <div>
                     <a href="<?= UrlHelper::baseUrl('articles/add') ?>" class="btn">Přidat článek</a>
-                    <label name="search-articles" for="search">Vyhledat článek</label>
+                    <label for="search">Vyhledat článek</label>
                     <input type="text" class="search" name="search-articles" placeholder="Vyhledat článek...">
                 </div>
             </div>

@@ -95,7 +95,7 @@ $user = $_SESSION['user_data'];
                        title="Heslo musí mít minimálně 5 a maximálně 50 znaků, a obsahovat alespoň jedno velké psímeno a číslici"
                        tabindex="3" placeholder="*Potvrďte nové heslo" required>
 
-                <button type="submit" id="change-profile-image">Změnit heslo</button>
+                <button type="submit">Změnit heslo</button>
             </form>
         </div>
     </section>

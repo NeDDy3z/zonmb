@@ -14,7 +14,7 @@ $user = $_SESSION['user_data'] ?? null;
             <label for="search-articles">Vyhledat článek</label>
             <input type="text" class="search" name="search-articles" placeholder="Vyhledat článek...">
             <label for="sort">Seradit</label>
-            <select name="sort" class="sort" name="sort">
+            <select name="sort" class="sort">
                 <option value="" disabled selected>Seřadit podle</option>
                 <option value="&sort=title&sortDirection=asc">Nadpis A-Z</option>
                 <option value="&sort=title&sortDirection=desc">Nadpis Z-A</option>

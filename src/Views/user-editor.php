@@ -43,7 +43,6 @@ use Helpers\UrlHelper;
             }
             ?>
 
-            <label for="profile-image" class="visible">Profilová fotka</label>
             <div class="user-image editor-images-container">
                 <?php if (isset($editedUser) and $editedUser->getImage() !== DEFAULT_PFP) {
                     $image = $editedUser->getImage();

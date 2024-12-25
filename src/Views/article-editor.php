@@ -36,7 +36,7 @@ $type ??= 'add';
                       title="Obsah musí mít minimálně 3 a maximálně 255 znaků"
                       minlength="3" maxlength="5000"><?= isset($article) ? htmlspecialchars($article->getContent()) : ''; ?></textarea>
 
-            <label for="image[]" class="visible">Přidat obrázky (nepovinné): </label>
+            <label for="image" class="visible">Přidat obrázky (nepovinné): </label>
             <input type="file" name="image[]" id="image" accept="image/png, image/jpeg"
                    title="Obrázek musí být ve formátu PNG nebo JPEG, můžete nahrát více obrázků najednou, každý obrázek může mít max 2MB a musí mít minimálně 200x200 a maximálně 4000x4000px"
                    multiple>
