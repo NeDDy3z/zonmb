@@ -27,9 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
         showSlide(prevIndex);
     }
 
-    // Initialize automatic slide transition every 5 seconds
-    let autoSlideInterval = setInterval(nextSlide, 5000);
-
     // Add event listeners for navigation buttons
     nextButton.addEventListener("click", () => {
         nextSlide();

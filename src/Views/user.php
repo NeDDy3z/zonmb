@@ -48,14 +48,14 @@ $user = $_SESSION['user_data'];
     <section class="userpage">
         <div class="user-container user-change">
             <form action="<?= UrlHelper::baseUrl('users/edit/fullname') ?>" method="post" class="one-line-form">
-                <h2>Změna jména</h2>
+                <h2>Změna celého jména</h2>
                 <label for="fullname">Celé jméno</label>
                 <input type="text" id="fullname" name="fullname"
                        minlength="3" maxlength="30" pattern="[a-zA-ZáčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ ]+"
                        title="Jméno musí mít nejméně 3 a maximálně 30 znaků, a může obsahovat pouze písmena a mezery"
-                       tabindex="2" placeholder="Nové jméno" required>
+                       tabindex="2" placeholder="*Nové celé jméno" required>
 
-                <button type="submit" id="change-name">Změnit jméno</button>
+                <button type="submit" id="change-name">Změnit celé jméno</button>
             </form>
         </div>
     </section>
@@ -69,6 +69,33 @@ $user = $_SESSION['user_data'];
                        required>
 
                 <button type="submit" id="change-profile-image">Změnit profilovou fotku</button>
+            </form>
+        </div>
+    </section>
+    <section class="userpage">
+        <div class="user-container user-change">
+            <form action="<?= UrlHelper::baseUrl('users/edit/password') ?>" method="post" enctype="multipart/form-data">
+                <h2>Změna hesla</h2>
+
+                <label for="password-old" class="visible">*Staré heslo</label>
+                <input type="password" id="password-old" name="password-old"
+                       minlength="5" maxlength="50"
+                       title="Heslo musí mít minimálně 5 a maximálně 50 znaků, a obsahovat alespoň jedno velké psímeno a číslici"
+                       tabindex="3" placeholder="*Staré heslo" required>
+
+                <label for="password" class="visible">*Nové heslo</label>
+                <input type="password" id="password" name="password"
+                       minlength="5" maxlength="50"
+                       title="Heslo musí mít minimálně 5 a maximálně 50 znaků, a obsahovat alespoň jedno velké psímeno a číslici"
+                       tabindex="3" placeholder="*Nové heslo" required>
+
+                <label for="password-confirm" class="visible">*Potvrďte nové heslo</label>
+                <input type="password" id="password-confirm" name="password-confirm"
+                       minlength="5" maxlength="50"
+                       title="Heslo musí mít minimálně 5 a maximálně 50 znaků, a obsahovat alespoň jedno velké psímeno a číslici"
+                       tabindex="3" placeholder="*Potvrďte nové heslo" required>
+
+                <button type="submit" id="change-profile-image">Změnit heslo</button>
             </form>
         </div>
     </section>

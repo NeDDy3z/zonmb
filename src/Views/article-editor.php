@@ -3,7 +3,6 @@
 use Helpers\UrlHelper;
 
 $type ??= 'add';
-
 ?>
 
 <main>
@@ -20,27 +19,25 @@ $type ??= 'add';
                       <input type="text" name="id" id="id" value="' . $id . '" readonly hidden>';
             } ?>
 
-            <label for="title">*Titulek: </label>
+            <label for="title" class="visible">*Titulek: </label>
             <input type="text" name="title" id="title" placeholder="*Titulek"
                    value="<?= isset($article) ? htmlspecialchars($article->getTitle()) : ''; ?>" required
                    title="Titulek musí mít minimálně 10 a maximálně 100 znaků"
                    minlength="3" maxlength="100">
 
-            <label for="subtitle">*Podtitulek: </label>
+            <label for="subtitle" class="visible">*Podtitulek: </label>
             <input type="text" name="subtitle" id="subtitle" placeholder="*Podtitulek"
                    value="<?= isset($article) ? htmlspecialchars($article->getSubtitle()) : ''; ?>" required
                    title="Podtitluek musí mít minimálně 3 a maximálně 100 znaků"
                    minlength="3" maxlength="255">
 
-            <label for="content">*Obsah: </label>
+            <label for="content" class="visible">*Obsah: </label>
             <textarea name="content" id="content" cols="30" rows="10" placeholder="*Obsah" required
                       title="Obsah musí mít minimálně 3 a maximálně 255 znaků"
-                      minlength="3" maxlength="5000">
-                <?= isset($article) ? htmlspecialchars($article->getContent()) : ''; ?>\
-            </textarea>
+                      minlength="3" maxlength="5000"><?= isset($article) ? htmlspecialchars($article->getContent()) : ''; ?></textarea>
 
-            <label for="image">Přidat obrázky: </label>
-            <input type="file" name="image" id="image" accept="image/png, image/jpeg"
+            <label for="image[]" class="visible">Přidat obrázky (nepovinné): </label>
+            <input type="file" name="image[]" id="image" accept="image/png, image/jpeg"
                    title="Obrázek musí být ve formátu PNG nebo JPEG, můžete nahrát více obrázků najednou, každý obrázek může mít max 2MB a musí mít minimálně 200x200 a maximálně 4000x4000px"
                    multiple>
 

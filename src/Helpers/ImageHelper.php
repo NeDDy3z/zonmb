@@ -221,7 +221,7 @@ class ImageHelper {
     {
         // Check if image was really uploaded
         if (self::isImageUploaded($uploadedImage)) {
-            return self::getGdImage($uploadedImage); // Convert to GDImage object based on an image type
+            return self::resize(self::getGdImage($uploadedImage), 640, 420); // Convert to GDImage object based on an image type
         }
         else {
             return null;

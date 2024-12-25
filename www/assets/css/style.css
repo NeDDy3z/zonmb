@@ -185,15 +185,23 @@ form {
     &.one-line-form {
         display: flex;
         flex-direction: row;
+        align-items: center;
     }
 }
+
+
 
 label {
     display: none;
 }
 
 label.visible {
-    display: block;
+    display: block !important;
+
+    margin-bottom: -1rem;
+
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 /* Messages & text styling */

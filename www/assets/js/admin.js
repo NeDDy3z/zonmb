@@ -2,7 +2,13 @@ import {sendRequest} from "./xhr.js";
 import {encodeHtml, prettyDate} from "./utils.js";
 import {openOverlay} from "./overlay.js";
 
-
+// Get and assign user data
+let user;
+sendRequest('GET', 'users/me', function (data) {
+    if (data.status === 200) {
+        user = JSON.parse(data.responseText);
+    }
+});
 
 
 // Open details on article-data click
@@ -65,10 +71,17 @@ function loadData(table, data) {
         data.forEach(dataItem => {
             let row = (table === 'users') ? userRow(dataItem) : articleRow(dataItem);
 
-            if (dataItem.role !== 'owner') {
-                let buttonDiv = row.querySelector('.buttons');
-                buttonDiv.appendChild(createEditButton(`${table}/edit`, dataItem.id));
-                buttonDiv.appendChild(createDeleteButton(`${table}`, dataItem.id)); // Append delete button to row
+            switch (true) {
+                case dataItem.role === 'owner': // Skip on owner
+                    break;
+                case user.role === 'admin' && dataItem.role === 'admin': // Skip on admin editing admin
+                    break;
+                case user.role === 'owner' && dataItem.role !== 'owner': // Enable owner editing everyone except owner
+                case user.role === 'admin' && dataItem.role !== 'admin': // Enable admin editing everyone except admin
+                    let buttonDiv = row.querySelector('.buttons');
+                    buttonDiv.appendChild(createEditButton(`${table}/edit`, dataItem.id));
+                    buttonDiv.appendChild(createDeleteButton(`${table}`, dataItem.id)); // Append delete button to row
+                // pass
             }
 
             tbody.appendChild(row);
@@ -100,6 +113,7 @@ function tableQuery(table) {
 
     return query;
 }
+
 // Single function to fetch and load data
 function fetchAndLoadData(table) {
     sendRequest('GET', tableQuery(table), function (data) {

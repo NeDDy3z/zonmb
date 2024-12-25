@@ -11,15 +11,19 @@ const article = {
 function deleteImage(page, id, src) {
     let url = `${page}/delete?id=${id}&image=${encodeURIComponent(src)}`;
     sendRequest('GET', url, function (xhr) {
-        let data = JSON.parse(xhr.responseText);
+        // Construct data for custom event
+        let parsedData = JSON.parse(xhr.responseText);
+        let type = (parsedData.success) ? 'success' : 'error';
+        let data = (parsedData.success) ? parsedData.success : parsedData.error;
+
         let customEvent = new CustomEvent('infoMessage', {
             detail: {
-                type: 'error',
-                message: data,
+                type: type,
+                message: data.split('-'),
                 container: 'popup',
             }
         });
-        window.dispatchEvent(customEvent);
+        window.dispatchEvent(customEvent); // Sned signal
 
         article.imagesDiv.forEach(div => { // Remove image
             let imgSrc = div.querySelector('img').src

@@ -21,13 +21,10 @@ const SUBTITLE_MAX_LENGTH = 255;
 const CONTENT_MIN_LENGTH = 3;
 const CONTENT_MAX_LENGTH = 5000;
 
-const IMG_SIZE = 1000000;
+const IMG_SIZE = 2_000_000;
 const IMG_MIN_PX = 200;
 const IMG_MAX_PX = 4000;
 const IMG_TYPES = ['image/jpeg', 'image/png'];
-
-// Page form
-const form = document.querySelector('form') ?? null;
 
 
 // Send message signal
@@ -66,6 +63,9 @@ function validate(type, value) {
         case 'password-confirm':
             validatePasswords(document.querySelector('input[name="password"]')?.value, value);
             break;
+        case 'password-old':
+            validatePasswords(value, value);
+            break;
         case 'title':
             validateTitle(value);
             break;
@@ -76,6 +76,7 @@ function validate(type, value) {
             validateContent(value);
             break;
         case 'image':
+        case 'image[]':
             validateImage(value);
             break;
         default:
@@ -98,7 +99,8 @@ function validateUsername(username) {
     }
 
     // Check if username is taken
-    sendRequest('GET', 'users/exists?username=' + username, function (data) {
+    sendRequest('GET', 'users/exists?username=' + encodeURIComponent(username), function (data) {
+        data = JSON.parse(data.response);
         if (data.exists) {
             sendErrorSignal(['usernameTaken']);
         } else if (data.error) {
@@ -164,7 +166,8 @@ function validateTitle(title) {
     }
 
     // Check if title is taken
-    sendRequest('GET','exists?title=' + title, function (data) {
+    sendRequest('GET','exists?title=' + encodeURIComponent(title), function (data) {
+        data = JSON.parse(data.response);
         if (data.exists) {
             sendErrorSignal(['titleTaken']);
         } else if (data.error) {
@@ -212,16 +215,11 @@ function validateImage(images) {
         if (file.type.startsWith('image/')) { // Ensure the file is an image
             let reader = new FileReader();
 
-
             reader.onload = function (event) {
                 const img = new Image();
                 img.src = event.target.result; // Base64 image source
 
                 img.onload = function () {
-                    console.log(`Image: ${file.name}`);
-                    console.log(`Width: ${img.width}px, Height: ${img.height}px`);
-
-
                     switch (true) {
                         case !IMG_TYPES.includes(file.type): // jpeg or png
                             error.push('imageFormat');
@@ -273,4 +271,11 @@ function addEventListenerToFormInputs(form) {
 
 }
 
-addEventListenerToFormInputs(form);
+// Page form
+document.addEventListener('DOMContentLoaded', function () {
+    const forms = document.querySelectorAll('form') ?? null;
+
+    forms.forEach(form => {
+        addEventListenerToFormInputs(form);
+    });
+});

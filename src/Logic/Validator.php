@@ -284,10 +284,7 @@ class Validator
                 break;
 
             case $checkExistence and ArticleModel::existsArticle($title): // Exists
-                $article = Article::getArticleByTitle($title);
-                if ($article->getTitle() !== $title) {
-                    $error[] = 'titleTaken';
-                }
+                $error[] = 'titleTaken';
                 break;
 
             case $subtitle == null || $subtitle == '':

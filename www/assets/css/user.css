@@ -49,7 +49,12 @@ section.userpage {
             font-size: 1rem;
         }
 
-        form {
+        label {
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        .one-line-form {
             flex-direction: column;
         }
     }
@@ -75,9 +80,8 @@ section.userpage {
         }
 
         .user-change {
-            form {
+            .one-line-form {
                 flex-direction: row;
-                align-items: center;
 
                 h2 {
                     white-space: nowrap;

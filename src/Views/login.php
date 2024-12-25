@@ -11,7 +11,7 @@ use Helpers\UrlHelper;
             <label for="username">*Přezdívka: </label>
             <input type="text" id="username" name="username" minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
                    title="Jméno může obsahovat pouze písmena, číslice, podrtžítka a tečky"
-                   tabindex="1" placeholder="*Jméno" required>
+                   tabindex="1" placeholder="*Přezdívka" required>
 
             <label for="password">*Heslo: </label>
             <input type="password" id="password" name="password"

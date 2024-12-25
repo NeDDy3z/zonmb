@@ -41,6 +41,11 @@ class UserController extends Controller
     private Validator $validator;
 
     /**
+     * @var PrivilegeRedirect $privilegeRedirect PrivilegeRedirect instance for redirecting users
+     */
+    private PrivilegeRedirect $privilegeRedirect;
+
+    /**
      * @var array|string[] $userRole Dictionary of user roles and their display names
      */
     public array $userRole = [
@@ -63,7 +68,7 @@ class UserController extends Controller
     {
         // Declare classes
         $this->validator = new Validator();
-        $privilegeRedirect = new PrivilegeRedirect();
+        $this->privilegeRedirect = new PrivilegeRedirect();
 
         // Put search infront of everything
         if (isset($action) and $action === 'exists') {
@@ -71,7 +76,7 @@ class UserController extends Controller
         }
 
         // Redirect host user - not logged-in user
-        $privilegeRedirect->redirectHost();
+        $this->privilegeRedirect->redirectHost();
 
         // Get userdata
         $this->user = $_SESSION['user_data'];
@@ -80,15 +85,18 @@ class UserController extends Controller
         // Proceed based on action
         switch ($this->action) {
             case 'get': // Return all users - used for admin page
-                $privilegeRedirect->redirectEditor();
+                $this->privilegeRedirect->redirectEditor();
                 $this->getUsers();
                 break;
+            case 'me':
+                $this->getSelf();
+                break;
             case 'edit': // Redirect to editing page - for admins
-                $privilegeRedirect->redirectEditor();
+                $this->privilegeRedirect->redirectEditor();
                 $this->page = $this->editorPage;
                 break;
             case 'delete':
-                $privilegeRedirect->redirectEditor();
+                $this->privilegeRedirect->redirectEditor();
                 $id = (int)$_GET['id'] ?? null;
                 if (isset($_GET['image'])) {
                     $this->deleteUserProfileImage($id, $_GET['image']);
@@ -117,14 +125,8 @@ class UserController extends Controller
     {
         switch ($this->action) {
             case 'edit':
-                if (!$this->user->isAdmin()) {
-                    Router::redirect(path: 'admin', query: ['error' => 'notAuthorized']);
-                }
                 $editedUser = User::getUserById($_GET['id'] ?? null);
-
-                if ($editedUser->getRole() === 'owner' && $this->user->getUsername() !== $editedUser->getUsername()) {
-                    Router::redirect(path: 'admin', query: ['error' => 'cannotUpdateOwner']);
-                }
+                $this->privilegeRedirect->redirectUserEditing($editedUser);
                 break;
             default: // Render logged in user data
                 $user = $this->loadUserData();
@@ -136,6 +138,25 @@ class UserController extends Controller
 
         // Check if user is logged in & load data
         require_once $this->page; // Load page content
+    }
+
+    /**
+     * Retrieve logged-in user data.
+     *
+     * Fetches user role, and outputs the data as a JSON response.
+     *
+     * @return string
+     */
+    public function getSelf(): string
+    {
+        echo json_encode([
+            'username' => $this->user->getUsername(),
+            'fullname' => $this->user->getFullname(),
+            'role' => $this->user->getRole(),
+            'pfp' => $this->user->getImage(),
+            'created_at' => $this->user->getCreatedAt(),
+        ]);
+        exit();
     }
 
     /**
@@ -268,7 +289,7 @@ class UserController extends Controller
                 fullname: $fullname,
                 role: $role,
             );
-            
+
             Router::redirect(path: 'admin', query: ['success' => 'userEdited']);
         } catch (Exception $e) {
             Router::redirect(path: 'admin', query: ['error' => 'userEditError', 'errorDetails' => $e->getMessage()]);
@@ -355,6 +376,41 @@ class UserController extends Controller
     }
 
     /**
+     * Update the password of the logged-in user.
+     *
+     * Handles validating, and replacing the user's password. Alsoupdates the database.
+     * @return void
+     */
+    public function updatePassword(): void
+    {
+        try {
+            $oldPassword = $_POST['password-old'] ?? null;
+            $newPassword = $_POST['password'] ?? null;
+            $newPasswordConfirm = $_POST['password-confirm'] ?? null;
+            $userOldPasswordDB = UserModel::selectUserPassword($this->user->getId());
+
+            // Validate passwords
+            if (!isset($oldPassword)) {
+                throw new Exception('missingOldPassword');
+            }
+            if (!password_verify($oldPassword, $userOldPasswordDB)) {
+                throw new Exception('oldPasswordIncorrect');
+            }
+            $this->validator->validatePassword($newPassword, $newPasswordConfirm);
+
+            // Change passwd in db
+            UserModel::updateUserPassword(
+                id: $this->user->getId(),
+                password: password_hash($newPassword, PASSWORD_DEFAULT),
+            );
+
+            Router::redirect(path: 'users/' . $this->user->getUsername(), query: ['success' => 'passwordChanged']);
+        } catch (Exception $e) {
+            Router::redirect(path: 'users/' . $this->user->getUsername(), query: ['error' => $e->getMessage()]);
+        }
+    }
+
+    /**
      * Log out the user.
      *
      * Destroys the session and redirects the user to the home page with a logout confirmation message.
@@ -385,12 +441,14 @@ class UserController extends Controller
         }
 
         try {
+            $user = User::getUserById($id);
+
+            $this->privilegeRedirect->redirectUserEditing($user);
+
             UserModel::updateUserProfileImage(
                 id: $id,
                 profile_image_path: DEFAULT_PFP,
             );
-
-            $user = User::getUserById($id);
 
             foreach ((array)scandir('assets/uploads/profile_images') as $file) { // Remove pfp
                 if (str_starts_with($file, $user->getUsername())) { // if the file starts with the username remove it
@@ -424,12 +482,9 @@ class UserController extends Controller
         try {
             $user = User::getUserById($id);
 
-            if ($user->getRole() === 'owner') {
-                echo json_encode(['error' => 'cannotRemoveOwner']);
-                exit();
-            }
+            $this->privilegeRedirect->redirectUserEditing($user);
 
-            UserModel::removeUser(id: $id,);
+            UserModel::removeUser(id: $id);
             $this->delteUserImageFromServer($user->getUsername());
 
             echo json_encode(['success' => 'userDeleted']);

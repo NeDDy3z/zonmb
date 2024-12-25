@@ -82,11 +82,22 @@ class PrivilegeRedirect
         }
     }
 
-    public function redirectAdmin(): void
+
+    public function redirectUserEditing(User $editedUser): void
     {
-        $this->redirectHost();
-        if (isset($this->user) and $this->user->getRole() !== 'owner') {
-            Router::redirect(path: 'login', query: ['error' => 'notAuthorized']);
+        $this->redirectEditor();
+
+        /** @var User $user */
+        $user = $this->user;
+
+        switch (true) {
+            case $user->getUsername() === $editedUser->getUsername(): // Enable self editing
+            case $user->getRole() === 'owner' and $editedUser->getRole() !== 'owner': // Owner can edit everyone except other owners
+            case $user->getRole() === 'admin' and $editedUser->getRole() !== 'owner' and $editedUser->getRole() !== 'admin': // Admin can edit anyone except owners and admins
+                break;
+            default:
+                Router::redirect(path: 'admin', query: ['error' => 'notAuthorized', 'errorDetails' => 'You cannot edit same rank or higher (eg. Admin can edit Users and Editors but not Admins and Owners)']);
+                break;
         }
     }
 }

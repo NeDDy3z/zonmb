@@ -9,21 +9,21 @@ use Helpers\UrlHelper;
         <form action="<?= UrlHelper::baseUrl('users/edit') ?>" method="post" enctype="multipart/form-data" name="userEditForm">
             <h1>Úprava uživatele</h1>
 
-            <label for="id">ID Uživatele</label>
+            <label for="id" class="visible">ID Uživatele</label>
             <input type="text" name="id" id="id" value="<?= isset($editedUser) ? $editedUser->getId() : ''; ?>" readonly>
 
-            <label for="username">Přezdívka </label>
+            <label for="username" class="visible">Přezdívka </label>
             <input type="text" id="username" name="username" minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.]+"
                    title="Přezdívku není možné upravit, protože se pomocí jí uživatel přihlašuje"
                    tabindex="1" placeholder="*Jméno" value="<?= isset($editedUser) ? htmlspecialchars($editedUser->getUsername()) : ''; ?>" readonly required>
 
-            <label for="fullname">Celé jméno</label>
+            <label for="fullname" class="visible">Celé jméno</label>
             <input type="text" id="fullname" name="fullname"
                    minlength="3" maxlength="30" pattern="[a-zA-ZáčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ ]+"
                    title="Jméno musí mít nejméně 3 a maximálně 30 znaků, a může obsahovat pouze písmena a mezery"
                    tabindex="2" placeholder="*Celé jméno" value="<?= isset($editedUser) ? htmlspecialchars($editedUser->getFullname()) : ''; ?>" required>
 
-            <label for="role">Role</label>
+            <label for="role" class="visible">Role</label>
 
             <?php
             if (isset($userRole)) {
@@ -43,7 +43,7 @@ use Helpers\UrlHelper;
             }
             ?>
 
-            <label for="profile-image">Profilová fotka</label>
+            <label for="profile-image" class="visible">Profilová fotka</label>
             <div class="user-image editor-images-container">
                 <?php if (isset($editedUser) and $editedUser->getImage() !== DEFAULT_PFP) {
                     $image = $editedUser->getImage();

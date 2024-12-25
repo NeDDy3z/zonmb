@@ -96,7 +96,6 @@ class RegisterController extends Controller
             $pfpImage = ImageHelper::getUsableImageArray($_FILES['image'])[0] ?? null;
 
 
-
             // Validate every input
             $this->validator->validateUsername($username);
             $this->validator->validateFullname($fullname);

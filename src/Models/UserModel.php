@@ -60,7 +60,7 @@ class UserModel
 
         return DatabaseConnector::select(
             table: 'user',
-            items: ['*'],
+            items: ['id', 'username', 'fullname', 'role', 'profile_image_path', 'created_at'],
             conditions: $conditions,
         );
     }
@@ -85,6 +85,19 @@ class UserModel
         );
 
         return (count($exists) > 0);
+    }
+
+    /**
+     * Retrieve user password from the database.
+     * @param int $id
+     * @return string
+     * @throws DatabaseException
+     */
+    public static function selectUserPassword(int $id): string
+    {
+        return self::selectUser(
+            id: $id,
+        )['password'];
     }
 
     /**
@@ -197,6 +210,24 @@ class UserModel
             table: 'user',
             items: ['profile_image_path'],
             values: [$profile_image_path],
+            conditions: 'WHERE id = ' . $id,
+        );
+    }
+
+    /**
+     * Update a user's password in the database.
+     *
+     * @param int $id
+     * @param string $password
+     * @return void
+     * @throws DatabaseException
+     */
+    public static function updateUserPassword(int $id, string $password): void
+    {
+        DatabaseConnector::update(
+            table: 'user',
+            items: ['password'],
+            values: [$password],
             conditions: 'WHERE id = ' . $id,
         );
     }

@@ -143,6 +143,7 @@ class Router
             'users/edit' => (new UserController())->updateUser(),
             'users/edit/fullname' => (new UserController())->updateFullname(),
             'users/edit/image' => (new UserController())->updateProfileImage(),
+            'users/edit/password' => (new UserController())->updatePassword(),
             default => (new ErrorController())->render(),
         };
     }

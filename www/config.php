@@ -80,5 +80,5 @@ if (!defined('DEFAULT_PFP')) {
      *
      * @var string DEFAULT_PFP
      */
-    define('DEFAULT_PFP', 'assets/uploads/profile_images/_default.png');
+    define('DEFAULT_PFP', 'assets/uploads/profile_images/_default.jpeg');
 }

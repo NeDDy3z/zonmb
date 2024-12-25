@@ -29,27 +29,15 @@
 }
 
 
-#user-editor {
-    label {
-        display: block !important;
-
-        margin-bottom: -1rem;
-
-        font-weight: bold;
-        font-size: 1.2rem;
-    }
-}
-
-.editor-image-container {
+.editor-images-container {
     display: flex;
 
     gap: 16px;
     padding: 1rem;
 
     border-radius: 1rem;
-
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     overflow: auto;
-
     outline: black 1px solid;
 
     button {
@@ -66,10 +54,6 @@
 }
 
 @media (min-width: 50rem) {
-    .editor {
-        width: 50vw;
-    }
-
     #user-editor {
         width: 20vw;
     }

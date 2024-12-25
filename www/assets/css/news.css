@@ -72,7 +72,7 @@ article.article-news {
 
 /* Article page */
 article.article-page {
-    min-width: 50rem;
+    min-width: 50vw;
     padding: 1rem;
     margin: 2rem 0;
 
@@ -106,27 +106,24 @@ article.article-page {
     .slideshow-container {
         position: relative;
         width: 100%;
-        max-width: 800px; /* Adjust as needed */
+        max-width: 800px;
         margin: 0 auto;
         overflow: hidden;
     }
 
     /* Slides */
     .slide {
-        display: none; /* Hide all slides by default */
+        display: none;
 
         img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-
             border-radius: 1rem;
         }
     }
 
     /* Show the active slide */
     .slide.active {
-        display: block;
+        display: flex;
+        justify-content: center;
     }
 
     /* Navigation buttons */

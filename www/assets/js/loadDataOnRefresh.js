@@ -1,19 +1,21 @@
-function getInputFields() {
-    let form = document.querySelector('form');
-    let inputs = Array.from(form.getElementsByTagName('input'));
-    let textareas = Array.from(form.getElementsByTagName('textarea'));
-
-    return [...textareas, ...inputs];
-}
+const inputs = [
+    ...Array.from(document.querySelectorAll('input')),
+    ...Array.from(document.querySelectorAll('textarea'))
+];
 
 // Save data to sessionStorage on input change
-function enableSavingFormDataOnBlur() {
-    let fields = getInputFields();
-
-    fields.forEach(field => {
+function enableSavingData() {
+    // Enable saving on blur or change input
+    inputs.forEach(field => {
         if (field.name.includes('password')) return;
+        if (field.value !== '') {
+            sessionStorage.setItem(field.name, field.value);
+        }
+
+        field.addEventListener('input', () => {
+            sessionStorage.setItem(field.name, field.value);
+        });
         field.addEventListener('blur', () => {
-            
             sessionStorage.setItem(field.name, field.value);
         });
     });
@@ -21,17 +23,16 @@ function enableSavingFormDataOnBlur() {
 
 // Load data into form
 function loadFormDataOnLoad() {
-    let fields = getInputFields();
-
-    fields.forEach(field => {
-        if (sessionStorage.getItem(field.name)) {
-            if (field.value === '') {
-                field.value = sessionStorage.getItem(field.name);
-            }
+    if (inputs.length === 0) return;
+    inputs.forEach(field => {
+        let val = sessionStorage.getItem(field.name)
+        if (!field.name.includes('image') && val && window.location.href.includes('error')) {
+            field.value = sessionStorage.getItem(field.name);
         }
     });
 }
 
+// Clear data
 function clearDataFromSessionStorageOnSuccess() {
     if (new URLSearchParams(window.location.search).has('success')) {
         sessionStorage.clear();
@@ -39,9 +40,9 @@ function clearDataFromSessionStorageOnSuccess() {
 }
 
 
-document.addEventListener('DOMContentLoaded', clearDataFromSessionStorageOnSuccess);
 document.addEventListener('DOMContentLoaded', loadFormDataOnLoad);
-enableSavingFormDataOnBlur();
+document.addEventListener('DOMContentLoaded', enableSavingData);
+document.addEventListener('DOMContentLoaded', clearDataFromSessionStorageOnSuccess);
 
 
 // I'm well aware that the fields are saved even on successful form submission. It is an intention.

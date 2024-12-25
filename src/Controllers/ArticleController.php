@@ -275,6 +275,7 @@ class ArticleController extends Controller
                 title: $title,
                 subtitle: $subtitle,
                 content: $content,
+                checkExistence: false,
             );
 
             // Check images
@@ -335,10 +336,10 @@ class ArticleController extends Controller
 
                 Router::redirect(path: "articles/$slug", query: ['success' => 'articleEdited']);
             } catch (Exception $e) {
-                Router::redirect(path: 'articles/edit', query: ['id' => $id, 'error' => $e->getMessage()]);
+                Router::redirect(path: "articles/edit", query: ['id' => $id, 'error' => $e->getMessage()]);
             }
         } catch (Exception $e) {
-            Router::redirect(path: 'articles/edit', query: ['error' => $e->getMessage()]);
+            Router::redirect(path: "articles/edit", query: ['id' => $id, 'error' => $e->getMessage()]);
         }
     }
 

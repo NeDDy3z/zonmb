@@ -11,11 +11,13 @@ const successMessages = {
     // Data uploads success
     'imageUpload': 'Obrázek byl úspěšně nahrán',
     'fullnameEdited': 'Jméno bylo úspěšně upraveno',
+    'passwordChanged': 'Heslo bylo změněno',
     'userEdited': 'Profil byl úspěšně upraven',
     'userDeleted': 'Uživatel byl úspěšně smazán',
     'articleAdded': 'Článek byl úspěšně vytvořen',
     'articleEdited': 'Článek byl úspěšně upraven',
     'articleDeleted': 'Článek byl úspěšně smazán',
+    'imageDelete': 'Obrázek odstraněn',
 };
 
 // Error message dictionary
@@ -49,10 +51,11 @@ const errorMessages = {
     'fullnameSize': 'Jméno musí mít délku minimálně 3 a maxilmálně 30 znkaů',
     'fullnameRegex': 'Jméno může obsahovat pouze písmena a mezery',
 
-    'passwordEmpty': 'Vyplňte heslo',
+    'passwordEmpty': 'Vyplňte hesla',
     'passwordMatch': 'Hesla se neshodují',
     'passwordSize': 'Heslo musí mít délku minimálně 8 znaků',
-    'passwordRegex': 'Heslo musí bsahovat alespoň jedno velké písmeno a číslici',
+    'passwordRegex': 'Heslo musí obsahovat alespoň jedno velké písmeno a číslici',
+    'missingOldPassword': 'Vyplňte staré heslo',
 
     'imageUploadError': 'Obrázek se nepodařilo nahrát',
     'imageSize': 'Obrázek je příliš velký, max 2MB',
@@ -65,15 +68,14 @@ const errorMessages = {
     'subtitleEmpty': 'Vyplňte podtitulek',
     'subtitleSize': 'Poditulek musí mít délku minimálně 3 a maxilmálně 500 znkaů',
     'contentEmpty': 'Vyplňte obsah',
-    'contentSize': 'Obsah musí mít délku minimálně 5 znaků a maximálně 5000',
+    'contentSize': 'Obsah musí mít délku minimálně 3 znaků a maximálně 5000',
 };
 
 
 // Display message
 function displayMessage(type, message, container = 'popup', countdown = 10) {
     // Convert string into array
-    message = (typeof message === 'string') ? [message] : message;
-
+    message = (typeof message === 'string') ? Array.from(message) : message;
 
     // Build messages
     let messages = message.map(msg => {
@@ -83,9 +85,6 @@ function displayMessage(type, message, container = 'popup', countdown = 10) {
 
         return messageElement;
     });
-
-
-
 
     // Place message where it is supposed to be
     if (container === 'popup' && messages.length > 0) {
