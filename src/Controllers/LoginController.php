@@ -81,19 +81,20 @@ class LoginController extends Controller
             $this->validator->validatePassword($password, $password);
 
             // Retrieve user data from the database based on the username.
-            $databaseData = UserModel::selectUser(username: $username);
+            $databaseData = User::getUserByUsername(username: $username);
 
             // Check if user exists in the database, redirects if not found.
             if (!$databaseData) {
                 Router::redirect(path: 'login', query: ['error' => 'loginError']);
             }
 
+            /** @var User $databaseData */
             // Verify the provided username and password against the database credentials.
             $this->validator->validateUserCredentials(
                 username: $username,
-                databaseUsername: (string)$databaseData['username'],
+                databaseUsername: $databaseData->getUsername(),
                 password: $password,
-                databasePassword: (string)$databaseData['password'],
+                databasePassword: UserModel::selectUserPassword($databaseData->getId()),
             );
 
             if (!isset($_SESSION)) {
@@ -102,7 +103,7 @@ class LoginController extends Controller
 
             // Set session
             $_SESSION['username'] = $username;
-            $_SESSION['user_data'] = User::getUserByUsername($username);
+            $_SESSION['user_data'] = $databaseData;
             $_SESSION['valid'] = true;
             $_SESSION['timeout'] = time();
 

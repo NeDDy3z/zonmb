@@ -41,7 +41,7 @@ class UserModel
             table: 'user',
             items: ['*'],
             conditions: $condition,
-        )[0];
+        )[0] ?? null;
     }
 
     /**
@@ -89,15 +89,19 @@ class UserModel
 
     /**
      * Retrieve user password from the database.
-     * @param int $id
-     * @return string
+     * @param int|null $id
+     * @return string|null
      * @throws DatabaseException
      */
-    public static function selectUserPassword(int $id): string
+    public static function selectUserPassword(?int $id): ?string
     {
-        return self::selectUser(
+        if (!$id) {
+            return null;
+        }
+
+        return (string)self::selectUser(
             id: $id,
-        )['password'];
+        )['password'] ?? null;
     }
 
     /**

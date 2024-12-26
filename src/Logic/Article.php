@@ -92,46 +92,32 @@ class Article
     /**
      * Retrieve an article from the database based on its ID.
      *
-     * Uses the `ArticleModel` to fetch the article details and constructs an `Article` object.
+     * Uses the `ArticleModel` to fetch the article details and construct an `Article` object.
      *
-     * @param string $id The unique identifier of the article.
+     * @param int|null $id The unique identifier of the article.
      *
-     * @return Article The `Article` object representing the fetched article.
+     * @return Article|null The `Article` object representing the fetched article.
      *
-     * @throws DatabaseException If a database-related error occurs.
      * @throws Exception If the article could not be found or another error occurs.
      */
-    public static function getArticleById(string $id): Article
+    public static function getArticleById(?int $id): ?Article
     {
-        $articleData = ArticleModel::selectArticle('WHERE id = '. $id .' LIMIT 1;');
+        if ($id === null) {
+            return null;
+        }
 
-        if (!$articleData) {
+        try {
+            // Select article from a database
+            $articleData = ArticleModel::selectArticle('WHERE id = '. $id .' LIMIT 1;');
+
+            if (!$articleData) {
+                return null;
+            } else {
+                return self::returnArticleObject($articleData);
+            }
+        } catch (Exception $e) {
             throw new Exception('Error while fetching article from database with id');
         }
-
-        return self::returnArticleObject($articleData);
-    }
-
-    /**
-     * Retrieve an article from the database based on its title.
-     *
-     * Uses the `ArticleModel` to fetch the article details and constructs an `Article` object.
-     *
-     * @param string $title
-     * @return Article The `Article` object representing the fetched article.
-     *
-     * @throws DatabaseException If a database-related error occurs.
-     * @throws Exception
-     */
-    public static function getArticleByTitle(string $title): Article
-    {
-        $articleData = ArticleModel::selectArticle('WHERE title = "'. $title .'" LIMIT 1;');
-
-        if (!$articleData) {
-            throw new Exception('Error while fetching article from database with title');
-        }
-
-        return self::returnArticleObject($articleData);
     }
 
     /**
@@ -146,21 +132,28 @@ class Article
      * @throws DatabaseException If a database-related error occurs.
      * @throws Exception If the article could not be found or another error occurs.
      */
-    public static function getArticleBySlug(string $slug): Article
+    public static function getArticleBySlug(?string $slug): ?Article
     {
-        // Select article from a database
-        $articleData = ArticleModel::selectArticle('WHERE slug = "'. $slug .'" LIMIT 1;');
-
-        // On null throw exception
-        if (!$articleData) {
-            throw new Exception('Error while fetching article from database with slug');
+        if ($slug === null) {
+            return null;
         }
 
-        return self::returnArticleObject($articleData);
+        try {
+            // Select article from a database
+            $articleData = ArticleModel::selectArticle('WHERE slug = "'. $slug .'" LIMIT 1;');
+
+            if (!$articleData) {
+                return null;
+            } else {
+                return self::returnArticleObject($articleData);
+            }
+        } catch (Exception $e) {
+            throw new Exception('Error while fetching article from database with slug');
+        }
     }
 
     /**
-     * Return Article object from array
+     * Return an Article object from an array
      *
      * @param array<string, string> $articleData
      * @return Article

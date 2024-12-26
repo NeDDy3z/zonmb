@@ -126,6 +126,11 @@ class UserController extends Controller
         switch ($this->action) {
             case 'edit':
                 $editedUser = User::getUserById($_GET['id'] ?? null);
+
+                if (!$editedUser) {
+                    Router::redirect(path: 'admin', query: ['error' => 'incorrectID']);
+                }
+
                 $this->privilegeRedirect->redirectUserEditing($editedUser);
                 break;
             default: // Render logged in user data
@@ -230,17 +235,22 @@ class UserController extends Controller
      */
     private function loadUserData(): ?User
     {
-        // If user is logged in proceed, else redirect to login page
+        // If a user is logged in proceed, else redirect to login page
         if (isset($_SESSION['user_data'])) {
             $_SESSION['cache_time'] = $_SESSION['cache_time'] ?? 0;
 
-            // If user_data have been set and aren't older more than ~30 minutes, load them, else pull new from database
+            // If user_data have been set and aren't older more than ~30 minutes, load them, else pull new from a database
             if (time() - $_SESSION['cache_time'] < 1800) {
                 $user = $_SESSION['user_data'];
             } else {
                 try {
                     // Set user data to session and set expiration
-                    $user = User::getUserByUsername($_SESSION['user_data']->getUsername());
+                    $user = User::getUserByUsername($_SESSION['user_data']->getUsername() ?? null);
+
+                    if (!$user) {
+                        Router::redirect(path: 'login', query: ['error' => 'Could not load user data']);
+                    }
+
                     $_SESSION['user_data'] = $user;
                     $_SESSION['cache_time'] = time();
 

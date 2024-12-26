@@ -74,54 +74,79 @@ class User
     /**
      * Fetch a `User` object from the database using the username.
      *
-     * @param string $username The username to look up in the database.
+     * @param string|null $username The username to look up in the database.
      *
-     * @return User The user object with the fetched data.
+     * @return User|null The user object with the fetched data.
      *
      * @throws Exception If the user cannot be retrieved.
      */
-    public static function getUserByUsername(string $username): User
+    public static function getUserByUsername(?string $username): ?User
     {
+        if ($username === null) {
+            return null;
+        }
+
         try {
             $userData = UserModel::selectUser(username: $username);
 
-            return new User(
-                id: (int)$userData['id'],
-                username: $userData['username'],
-                fullname: $userData['fullname'],
-                image: file_exists($userData['profile_image_path']) ? $userData['profile_image_path'] : DEFAULT_PFP,
-                role: $userData['role'],
-                createdAt: $userData['created_at'],
-            );
+            if (!$userData) {
+                return null;
+            } else {
+                return self::returnUserObject($userData);
+            }
         } catch (Exception $e) {
-            throw new Exception('Nepodařilo se načíst uživatelská data z databáze. ' . $e->getMessage());
+            throw new Exception('Error while fetching user from database with username');
         }
     }
 
     /**
      * Fetch a `User` object from the database using the user's ID.
      *
-     * @param int $id The user's ID to look up in the database.
+     * @param int|null $id The user's ID to look up in the database.
      *
-     * @return User The user object with the fetched data.
+     * @return User|null The user object with the fetched data.
      *
      * @throws Exception If the user cannot be retrieved.
      */
-    public static function getUserById(int $id): User
+    public static function getUserById(?int $id): ?User
     {
+        if ($id === null) {
+            return null;
+        }
+
         try {
             $userData = UserModel::selectUser(id: $id);
 
+            if (!$userData) {
+                return null;
+            } else {
+                return self::returnUserObject($userData);
+            }
+        } catch (Exception $e) {
+            throw new Exception('Error while fetching user from database with id');
+        }
+    }
+
+    /**
+     * Return a User object from an array
+     *
+     * @param array<string, float|int|string|null> $userData
+     * @return User
+     * @throws Exception
+     */
+    private static function returnUserObject(array $userData): User
+    {
+        try {
             return new User(
                 id: (int)$userData['id'],
-                username: $userData['username'],
-                fullname: $userData['fullname'],
-                image: file_exists($userData['profile_image_path']) ? $userData['profile_image_path'] : DEFAULT_PFP,
-                role: $userData['role'],
-                createdAt: $userData['created_at'],
+                username: (string)$userData['username'],
+                fullname: (string)$userData['fullname'],
+                image: (string)file_exists((string)$userData['profile_image_path']) ? (string)$userData['profile_image_path'] : DEFAULT_PFP,
+                role: (string)$userData['role'],
+                createdAt: (string)$userData['created_at'],
             );
         } catch (Exception $e) {
-            throw new Exception('Nepodařilo se načíst uživatelská data z databáze. ' . $e->getMessage());
+            throw new Exception('Error while creating User object');
         }
     }
 

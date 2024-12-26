@@ -73,16 +73,8 @@ class ArticleController extends Controller
                 $this->existsArticleTitle($_GET['title'] ?? null);
                 break;
             case 'add':
-                $privilegeRedirect->redirectUser();
-                $this->page = $this->editorPage;
-                break;
             case 'edit':
                 $privilegeRedirect->redirectUser();
-
-                if (!isset($_GET['id'])) {
-                    Router::redirect(path: 'articles/add');
-                }
-
                 $this->page = $this->editorPage;
                 break;
             case 'delete':
@@ -115,17 +107,22 @@ class ArticleController extends Controller
                 Router::redirect(path: 'news', query: ['error' => 'articleNotFound']);
                 break;
             case 'add':
+                $this->page = $this->editorPage;
+                break;
             case 'edit':
-                if (isset($_GET['id'])) {
-                    $article = Article::getArticleById($_GET['id']);
+                $article = Article::getArticleById($_GET['id'] ?? null);
+
+                if (!$article) {
+                    Router::redirect(path: 'error', query: ['error' => 'incorrectID']);
                 }
+
                 $this->page = $this->editorPage;
                 break;
             case 'delete':
                 break;
             default:
                 try {
-                    $article = Article::getArticleBySlug($this->action);
+                    $article = Article::getArticleBySlug($this->action ?? null);
                 } catch (Exception $e) {
                     Router::redirect(path: 'error', query: ['error' => 'articleNotFound']);
                 }
@@ -280,7 +277,7 @@ class ArticleController extends Controller
             $title = $_POST['title'] ?? null;
             $subtitle = $_POST['subtitle'] ?? null;
             $content = $_POST['content'] ?? null;
-            $images = ImageHelper::getUsableImageArray($_FILES['image']) ;
+            $images = ImageHelper::getUsableImageArray($_FILES['image']);
 
             // Check titles etc...
             $this->validator->validateArticle(
