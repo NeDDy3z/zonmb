@@ -20,4 +20,4 @@ It is a final semestral project for the 1st semester of ČVUT FEL - SIT in subec
 ### Documentation
 - [User documentation](./_docs/user_documentation.md)
 - [Technical documentation](./_docs/technical_documentation.md)
-- [Auto-generated documentation]()
+- [Auto-generated documentation](https://neddy3z.github.io/ZONMB-PHPDoc/)
