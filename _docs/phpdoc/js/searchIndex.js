@@ -106,6 +106,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Controllers-ArticleController.html#property_validator"
         },                {
+            "fqsen": "\\Controllers\\ArticleController\u003A\u003A\u0024article",
+            "name": "article",
+            "summary": "",
+            "url": "classes/Controllers-ArticleController.html#property_article"
+        },                {
             "fqsen": "\\Controllers\\Controller",
             "name": "Controller",
             "summary": "Controller",
@@ -366,6 +371,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Controllers-UserController.html#property_user"
         },                {
+            "fqsen": "\\Controllers\\UserController\u003A\u003A\u0024editedUser",
+            "name": "editedUser",
+            "summary": "",
+            "url": "classes/Controllers-UserController.html#property_editedUser"
+        },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003A\u0024validator",
             "name": "validator",
             "summary": "",
@@ -531,11 +541,6 @@ Search.appendIndex(
             "summary": "Retrieve\u0020an\u0020article\u0020from\u0020the\u0020database\u0020based\u0020on\u0020its\u0020ID.",
             "url": "classes/Logic-Article.html#method_getArticleById"
         },                {
-            "fqsen": "\\Logic\\Article\u003A\u003AgetArticleByTitle\u0028\u0029",
-            "name": "getArticleByTitle",
-            "summary": "Retrieve\u0020an\u0020article\u0020from\u0020the\u0020database\u0020based\u0020on\u0020its\u0020title.",
-            "url": "classes/Logic-Article.html#method_getArticleByTitle"
-        },                {
             "fqsen": "\\Logic\\Article\u003A\u003AgetArticleBySlug\u0028\u0029",
             "name": "getArticleBySlug",
             "summary": "Retrieve\u0020an\u0020article\u0020from\u0020the\u0020database\u0020based\u0020on\u0020its\u0020slug.",
@@ -543,7 +548,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Logic\\Article\u003A\u003AreturnArticleObject\u0028\u0029",
             "name": "returnArticleObject",
-            "summary": "Return\u0020Article\u0020object\u0020from\u0020array",
+            "summary": "Return\u0020an\u0020Article\u0020object\u0020from\u0020an\u0020array",
             "url": "classes/Logic-Article.html#method_returnArticleObject"
         },                {
             "fqsen": "\\Logic\\Article\u003A\u003AgetId\u0028\u0029",
@@ -690,6 +695,11 @@ Search.appendIndex(
             "name": "getUserById",
             "summary": "Fetch\u0020a\u0020\u0060User\u0060\u0020object\u0020from\u0020the\u0020database\u0020using\u0020the\u0020user\u0027s\u0020ID.",
             "url": "classes/Logic-User.html#method_getUserById"
+        },                {
+            "fqsen": "\\Logic\\User\u003A\u003AreturnUserObject\u0028\u0029",
+            "name": "returnUserObject",
+            "summary": "Return\u0020a\u0020User\u0020object\u0020from\u0020an\u0020array",
+            "url": "classes/Logic-User.html#method_returnUserObject"
         },                {
             "fqsen": "\\Logic\\User\u003A\u003AisAdmin\u0028\u0029",
             "name": "isAdmin",
