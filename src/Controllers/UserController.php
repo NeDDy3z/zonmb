@@ -36,6 +36,11 @@ class UserController extends Controller
     private User $user;
 
     /**
+     * @var User|null $editedUser User to be manipulated with
+     */
+    private ?User $editedUser;
+
+    /**
      * @var Validator $validator Validator instance for validating user data
      */
     private Validator $validator;
@@ -66,13 +71,21 @@ class UserController extends Controller
      */
     public function __construct(?string $action = null)
     {
-        // Declare classes
+        // Declaration
         $this->validator = new Validator();
         $this->privilegeRedirect = new PrivilegeRedirect();
+        $this->action = $action ?? '';
 
-        // Put search infront of everything
+        // Put search in front of everything
         if (isset($action) and $action === 'exists') {
             $this->existsUsername($_GET['username'] ?? null);
+        }
+
+        // Check for missing ID and redirect
+        if ($this->action === 'edit' or $this->action === 'delete') {
+            if (!isset($_GET['id'])) {
+                Router::redirect(path: 'admin', query: ['error' => 'missingID']);
+            }
         }
 
         // Redirect host user - not logged-in user
@@ -80,7 +93,6 @@ class UserController extends Controller
 
         // Get userdata
         $this->user = $_SESSION['user_data'];
-        $this->action = $action ?? '';
 
         // Proceed based on action
         switch ($this->action) {
@@ -92,20 +104,15 @@ class UserController extends Controller
                 $this->getSelf();
                 break;
             case 'edit': // Redirect to editing page - for admins
-                if (!isset($_GET['id'])) {
-                    Router::redirect(path: 'admin', query: ['error' => 'missingID']);
-                }
-
                 $this->privilegeRedirect->redirectEditor();
                 $this->page = $this->editorPage;
                 break;
             case 'delete':
                 $this->privilegeRedirect->redirectEditor();
-                $id = (int)$_GET['id'] ?? null;
                 if (isset($_GET['image'])) {
-                    $this->deleteUserProfileImage($id, $_GET['image']);
+                    $this->deleteUserProfileImage($_GET['id'], $_GET['image']);
                 } else {
-                    $this->deleteUser($id);
+                    $this->deleteUser($_GET['id']);
                 }
                 break;
             case 'logout':
@@ -129,12 +136,8 @@ class UserController extends Controller
     {
         switch ($this->action) {
             case 'edit':
-                $editedUser = User::getUserById($_GET['id'] ?? null);
-
-                if (!$editedUser) {
-                    Router::redirect(path: 'admin', query: ['error' => 'incorrectID']);
-                }
-
+                /** @var User $editedUser */
+                $editedUser = $this->editedUser;
                 $this->privilegeRedirect->redirectUserEditing($editedUser);
                 break;
             default: // Render logged in user data
@@ -145,14 +148,14 @@ class UserController extends Controller
 
         $userRole = $this->userRole;
 
-        // Check if user is logged in & load data
+        // Check if a user is logged in & load data
         require_once $this->page; // Load page content
     }
 
     /**
      * Retrieve logged-in user data.
      *
-     * Fetches user role, and outputs the data as a JSON response.
+     * Fetches a user role, and outputs the data as a JSON response.
      *
      * @return string
      */

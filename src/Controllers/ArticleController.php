@@ -47,18 +47,31 @@ class ArticleController extends Controller
     private Validator $validator;
 
     /**
+     * @var Article|null $article Article to be manipulated with
+     */
+    private ?Article $article;
+
+    /**
      * Constructor
      *
      * Initializes the controller based on the provided action.
      * Handles routing and checks for user privileges for certain actions.
      *
      * @param string|null $action The action to be performed (e.g., 'get', 'add', 'edit', 'delete', etc.)
+     * @throws Exception
      */
     public function __construct(?string $action = '')
     {
         $privilegeRedirect = new PrivilegeRedirect();
         $this->validator = new Validator();
         $this->action = $action ?? '';
+
+        // Check for missing ID and redirect
+        if ($this->action === 'edit' or $this->action === 'delete') {
+            if (!isset($_GET['id'])) {
+                Router::redirect(path: 'error', query: ['error' => 'missingID']);
+            }
+        }
 
         switch ($this->action) {
             case 'get':
@@ -77,8 +90,10 @@ class ArticleController extends Controller
                 $this->page = $this->editorPage;
                 break;
             case 'edit':
-                if (!isset($_GET['id'])) {
-                    Router::redirect(path: 'error', query: ['error' => 'missingID']);
+                $this->article = Article::getArticleById($_GET['id']);
+
+                if (!isset($this->article)) {
+                    Router::redirect(path: 'error', query: ['error' => 'incorrectID']);
                 }
 
                 $privilegeRedirect->redirectUser();
@@ -86,14 +101,18 @@ class ArticleController extends Controller
                 break;
             case 'delete':
                 $privilegeRedirect->redirectUser();
-                $id = (int)$_GET['id'] ?? null;
                 if (isset($_GET['image'])) {
-                    $this->deleteArticleImage($id, $_GET['image']);
+                    $this->deleteArticleImage($_GET['id'], $_GET['image']);
                 } else {
-                    $this->deleteArticle($id);
+                    $this->deleteArticle($_GET['id']);
                 }
                 break;
             default:
+                $this->article = Article::getArticleBySlug($this->action);
+
+                if (!isset($this->article)) {
+                    Router::redirect(path: 'error', query: ['error' => 'articleNotFound']);
+                }
                 break;
         }
     }
@@ -110,32 +129,13 @@ class ArticleController extends Controller
     public function render(): void
     {
         switch ($this->action) {
-            case null:
-                Router::redirect(path: 'error', query: ['error' => 'articleNotFound']);
-                break;
             case 'add':
-                $this->page = $this->editorPage;
-                break;
             case 'edit':
-                $article = Article::getArticleById($_GET['id'] ?? null);
-
-                if (!$article) {
-                    Router::redirect(path: 'articles/add', query: ['error' => 'incorrectID']);
-                }
-
                 $this->page = $this->editorPage;
-                break;
-            case 'delete':
-                break;
-            default:
-                $article = Article::getArticleBySlug($this->action ?? null);
-
-                if (!$article) {
-                    Router::redirect(path: 'error', query: ['error' => 'articleNotFound']);
-                }
                 break;
         }
 
+        $article = $this->article;
         $user = $_SESSION['user_data'] ?? null;
         $type = $this->action;
         require_once $this->page; // Load page content
@@ -159,7 +159,7 @@ class ArticleController extends Controller
         // Convert date format
         $search = DateHelper::ifPrettyConvertToISO($search);
 
-        // Create query
+        // Create a query
         $conditions = ($search) ? "WHERE id like '$search%' or title LIKE '%$search%' OR subtitle LIKE '%$search%' OR content LIKE '%$search%' OR created_at LIKE '%$search%'" : "";
         $conditions .= ($sort) ? " ORDER BY $sort" : "";
         $conditions .= ($sortDirection) ? " $sortDirection" : "";
