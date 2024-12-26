@@ -92,6 +92,10 @@ class UserController extends Controller
                 $this->getSelf();
                 break;
             case 'edit': // Redirect to editing page - for admins
+                if (!isset($_GET['id'])) {
+                    Router::redirect(path: 'admin', query: ['error' => 'missingID']);
+                }
+
                 $this->privilegeRedirect->redirectEditor();
                 $this->page = $this->editorPage;
                 break;

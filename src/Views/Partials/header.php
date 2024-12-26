@@ -5,8 +5,6 @@ $user = $_SESSION['user_data'] ?? null;
 $username = $user?->getUsername();
 $link = isset($user) ? UrlHelper::baseUrl('users/'. $username) : UrlHelper::baseUrl('login');
 
-
-
 ?>
 <!DOCTYPE html>
 <html lang="cs">

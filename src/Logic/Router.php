@@ -39,7 +39,12 @@ class Router
      */
     public static function redirect(string $path, ?array $query = null, int $responseCode = 200): void
     {
-        // Build query
+        // Avoid headers already sent error
+        if (!headers_sent()) {
+            ob_start();
+        }
+
+        // Build a query
         $resultQuery = [];
         if ($query) {
             foreach ($query as $key => $value) {

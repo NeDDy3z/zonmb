@@ -33,13 +33,15 @@ const errorMessages = {
     'notAuthorized': 'K tomuto obsahu nemáte povolený přístup', // Not authorized error
     'alreadyLoggedIn': 'Již jste přihlášeni',
 
+    // Get errors
+    'missingID': 'Nezadali jste žádné ID',
+    'incorrectID': 'Zadané ID je chybné či neexistuje',
 
     // Article form errors - temporary
     'articleAddError': 'Článek se nepodařilo vytvořit',
     'articleEditError': 'Článek se nepodařilo upravit',
     'articleDeleteError': 'Článek se nepodařilo smazat',
     'articleNotFound': 'Článek nebyl nalezen',
-
 
     // Data errors
     'usernameEmpty': 'Vyplňte přezdívku',
