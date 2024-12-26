@@ -68,6 +68,7 @@ class UserController extends Controller
      * Redirects unauthorized users and handles role-specific restrictions for certain actions.
      *
      * @param string|null $action The action to be performed (e.g., 'get', 'edit', 'logout')
+     * @throws Exception
      */
     public function __construct(?string $action = null)
     {
@@ -104,6 +105,12 @@ class UserController extends Controller
                 $this->getSelf();
                 break;
             case 'edit': // Redirect to editing page - for admins
+                $this->editedUser = User::getUserById($_GET['id']);
+
+                if (!isset($this->editedUser)) {
+                    Router::redirect(path: 'admin', query: ['error' => 'incorrectID']);
+                }
+
                 $this->privilegeRedirect->redirectEditor();
                 $this->page = $this->editorPage;
                 break;
