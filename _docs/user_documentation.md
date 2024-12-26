@@ -65,14 +65,14 @@ Use the main menu to access different sections of the website:
         - Otherwise, this button leads to log in and registration page
 
 
-### Register
+### [Register](https://zwa.toad.cz/~vanekeri/register)
 Register form through which you can register on the platform
 *All required inputs are marked with \*(star)*
 - Username
-    - must be at least 3 and up to 30 characters long
-    - can contain only letters, numbers, dots and underscord
+    - it must be at least 3 and up to 30 characters long
+    - it can contain only letters, numbers, dots and underscord
 - Fullname
-    - must be at least 3 and up to 30 characters long
+    - it must be at least 3 and up to 30 characters long
     - can contain only letters and spaces
 - Password & Password Confirmation
     - must be at least 8 and up to 255 characters long
@@ -83,10 +83,10 @@ Register form through which you can register on the platform
     - at least 200x200 px and up to 4000x4000px
 - Additionally, there is a login page link
 
-![Register form](images/register.png)
+![Register form](simages/register.png)
 
 
-### Login
+### [Login](https://zwa.toad.cz/~vanekeri/login)
 Login form through which you log in to the platform using your registered credentials
 *All required inputs are marked with \*(star)*
 - Username
@@ -96,7 +96,7 @@ Login form through which you log in to the platform using your registered creden
 ![Login form](images/login.png)
 
 
-### User dashboard
+### [User dashboard](https://zwa.toad.cz/~vanekeri/users/placeholder)
 
 ![User dashboard overview](images/user.png)
 
@@ -117,54 +117,54 @@ Change profile picutre
 Change password
 ![Change password form](images/user_changepassword.png)
 
-Additionally, admin dashboard link will show up when logged-in user is an owner or admin
+Additionally, an admin dashboard link will show up when logged-in user is an owner or admin
 
 ![user_adminlink.png](images/user_adminlink.png)
 
 
-### Admin dashboard
-An overview of all users and articles, user can sort (by clicking on any the top row item) and search data in each section, additionally there is an add article button
+### [Admin dashboard](https://zwa.toad.cz/~vanekeri/admin)
+An overview of all users and articles, user can sort (by clicking on any the top row item) and search data in each section. additionally, there is an add article button
 
 There are also a page navigation buttons at the bottom, to scroll throughout the pages of each table
 ![Admin dashboard](images/admin.png)
 
-Users table contains and ID, Username, Fullname, Role, Profile picture path, and Date of Registration for each user
-(Additionally clicking on image path, user can display an actual image that said image path points to)
+Users table contains an ID, Username, Fullname, Role, Profile picture path, and Date of Registration for each user
+(Additionally clicking on an image path, user can display an actual image that said an image path points to)
 ![Users table](images/admin_users_table.png)
 
-Articles table contains and ID, Title, Subtitle, Content, Image paths, Author ID and Date of Creation for each article.
+Articles table contains an ID, Title, Subtitle, Content, Image paths, Author ID and Date of Creation for each article.
 ![Articles table](images/admin_articles_table.png)
 
-By clicking on any item inside articles table, you can open a detailed overlay to display all data inside the element.
+By clicking on any item inside the articles table, you can open a detailed overlay to display all data inside the element.
 ![Overlay with images](images/admin_overlayimg.png)
 ![Overlay with text](images/admin_overlaytext.png)
 
 
-### News
+### [News](https://zwa.toad.cz/~vanekeri/news)
 Page where all published articles are displayed, they can be searched or sorted Alphabetically or by creation date.
 
 There are also a page navigation buttons at the bottom, to scroll throughout the articles.
 ![News - articles](images/news.png)
 
 
-### Article
+### [Article](https://zwa.toad.cz/~vanekeri/articles/testovaci-clanek)
 Article page where all data of article are displayed, including the title, subtitle, images, content and author name an creation date.
 ![Article page](images/article.png)
 
-There is also a backlink to news page and a link to directly edit opened article.
+There is also a backlink to news page and a link to directly edit-opened article.
 ![img]()
 
 If an article contains multiple images, user can cycle through them using image slide arrows.
 ![Image slides gif](images/article_imageslide.gif)
 
-### Article add edit page
+### [Article add edit page](http://zonmb.local/articles/edit?id=1)
 Page for adding or editing articles, any input can contain any character, so feel free to go wild ;)
 - Title
     - must be at least 10 and up to 100 characters long
 - Subtitle
     - must be at least 3 and up to 255 characters long
 - Content
-    - must be at least 3 and up to 5000 characters long
+    - it must be at least 3 and up to 5000 characters long
 - Pictures (optional)
     - images must be of type jpeg or png
     - each image can be up to 2MB
@@ -174,7 +174,7 @@ Additionally, when editing an article with images, user can click on a small X n
 
 ![Article editing page](images/editor_article.png)
 
-### User editing page
+### [User editing page](https://zwa.toad.cz/~vanekeri/users/edit?id=1)
 Page for editing basic user details, admin can edit users "rank", set user either to user/editor, owner can set any rank except owner.
 - ID
     - informative and cannot be changed
@@ -191,12 +191,12 @@ See [user rank structure](#user-rank-structure) for more information on who can 
 ![User editing page](images/editor_user.png)
 
 
-### Search and Sort functionality
+### [Search and Sort functionality](http://zonmb.local/news)
 News and Admin Dashboard sections contain a Search and Sort functionality.
 
 Type any words or characters inside the search bar to find the article
 
-Sort items by selecting prefered sort item
+Sort items by selecting preferred sort item
 
 ![News](images/news.png)
 ![Sorting](images/news_sort.png)
@@ -205,7 +205,7 @@ Sort items by selecting prefered sort item
 
 ## How to Perform Key Actions
 ### Registering
-1. Navigate to the [Register](#) page
+1. Navigate to the [Register](https://zwa.toad.cz/~vanekeri/register) page
 2. Fill out the form with your:
     - Username
     - Fullname
@@ -214,42 +214,42 @@ Sort items by selecting prefered sort item
 3. Click **Login**
 
 ### Logging In
-1. Navigate to the [Login](#) page
+1. Navigate to the [Login](https://zwa.toad.cz/~vanekeri/login) page
 2. Enter your username and password
 3. Click **Login**
 
 ### Changing your fullname
-1. Navigate to the **Userpage** via top right link in the header
+1. Navigate to the **Userpage** via a top right link in the header
 2. Navigate to change fullname section
 3. Fill out your new fullname
 4. Click **Change Fullname**
 
 ### Changing your profile picture
-1. Navigate to the **Userpage** via top right link in the header
-2. Navigate to change profile picture section
+1. Navigate to your [Userpage](https://zwa.toad.cz/~vanekeri/users/placeholder) via a top right link in the header
+2. Navigate to a change profile picture section
 3. Upload your new image
 4. Click **Change Fullname**
 
 ### Changing your password
-1. 1. Navigate to the **Userpage** via top right link in the header
-2. Navigate to change password section
+1. 1. Navigate to the [Userpage](https://zwa.toad.cz/~vanekeri/users/placeholder) via a top right link in the header
+2. Navigate to change a password section
 3. Fill out the form with your old password and new password
 4. Click **Change password**
 
 ### Uploading articles
-1. Access the article upload page either via admin dashboard or news page
+1. Access the article upload page either via [admin dashboard](https://zwa.toad.cz/~vanekeri/admin) or [news page](https://zwa.toad.cz/~vanekeri/news)
 2. Locate the **Add article** button and click on it
 3. Fill out the article details like title, subtitle, etc.
 4. Click **Publish**
 
 ### Editing articles
-1. Access the article editing page either via admin dashboard or news page
+1. Access the article editing page either via [admin dashboard](https://zwa.toad.cz/~vanekeri/admin) or [news page](https://zwa.toad.cz/~vanekeri/news)
 2. Locate the **Edit** button and click on it
 3. Fill out the article details like title, subtitle, etc.
 4. Click **Edit**
 
 ### Editing users
-1. Access the user editing page via admin dashboard
+1. Access the user editing page via [admin dashboard](https://zwa.toad.cz/~vanekeri/admin)
 2. Locate the **Edit** button next to a user you want to edit and click on it
 3. Fill out the article details like title, subtitle, etc.
 4. Click **Edit**
@@ -283,7 +283,7 @@ Here is the list of ranks and their abilities
 **Author -** Erik Vaněk
 - Webpage: [https://github.com/NeDDy3z](https://github.com/NeDDy3z)
 - Email: [erikvanek0@gmail.com](mailto:erikvanek0@gmail.com)
-    - Also feel free to contact me for any details including support and throubleshooting
+    - Also feel free to contact me for any details including support and troubleshooting
 
 *This is a semester project of the ZWA subject for the first semester at ČVUT FEL - SIT, focusing on web-development. The plan for this project is to be used by the ZONMB organization, based in Mladá Boleslav, with which I collaborate.*
 
