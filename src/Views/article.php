@@ -6,7 +6,6 @@ use Logic\User;
 
 if (!isset($article)) {
     echo 'Článek se nepodařilo načíst';
-    die();
 }
 ?>
 

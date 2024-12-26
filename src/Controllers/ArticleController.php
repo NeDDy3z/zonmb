@@ -104,7 +104,7 @@ class ArticleController extends Controller
     {
         switch ($this->action) {
             case null:
-                Router::redirect(path: 'news', query: ['error' => 'articleNotFound']);
+                Router::redirect(path: 'error', query: ['error' => 'articleNotFound']);
                 break;
             case 'add':
                 $this->page = $this->editorPage;
@@ -113,7 +113,7 @@ class ArticleController extends Controller
                 $article = Article::getArticleById($_GET['id'] ?? null);
 
                 if (!$article) {
-                    Router::redirect(path: 'error', query: ['error' => 'incorrectID']);
+                    Router::redirect(path: 'articles/add', query: ['error' => 'incorrectID']);
                 }
 
                 $this->page = $this->editorPage;
@@ -121,9 +121,9 @@ class ArticleController extends Controller
             case 'delete':
                 break;
             default:
-                try {
-                    $article = Article::getArticleBySlug($this->action ?? null);
-                } catch (Exception $e) {
+                $article = Article::getArticleBySlug($this->action ?? null);
+
+                if (!$article) {
                     Router::redirect(path: 'error', query: ['error' => 'articleNotFound']);
                 }
                 break;

@@ -51,7 +51,7 @@ class Router
 
         // Redirect
         http_response_code($responseCode);
-        header(header: ('location: '. BASE_URL .'/' . $path . $resultQuery));
+        header('location: '. BASE_URL .'/' . $path . $resultQuery);
         exit();
     }
 
