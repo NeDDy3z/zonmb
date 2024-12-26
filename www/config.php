@@ -53,10 +53,10 @@ ini_set('post_max_size', '2M');             // Set maximum size of POST data
 ini_set('max_execution_time', '30');        // Maximum script execution time in seconds
 ini_set('max_input_time', '60');            // Maximum request input processing time in seconds
 
-// Enable error reporting for development (TODO: Remove in production)
-ini_set('display_errors', '1');              // Display runtime errors
-ini_set('display_startup_errors', '1');      // Display startup errors
-error_reporting(E_ALL);                      // Report all errors and warnings
+// Disable error reporting for development
+ini_set('display_errors', '0');              // Display runtime errors
+ini_set('display_startup_errors', '0');      // Display startup errors
+error_reporting(1);                      // Report all errors and warnings
 
 // Load local configuration
 if (file_exists(ROOT . 'www/config.local.php')) {
