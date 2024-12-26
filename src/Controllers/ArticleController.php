@@ -73,8 +73,16 @@ class ArticleController extends Controller
                 $this->existsArticleTitle($_GET['title'] ?? null);
                 break;
             case 'add':
+                $privilegeRedirect->redirectUser();
+                $this->page = $this->editorPage;
+                break;
             case 'edit':
                 $privilegeRedirect->redirectUser();
+
+                if (!isset($_GET['id'])) {
+                    Router::redirect(path: 'articles/add');
+                }
+
                 $this->page = $this->editorPage;
                 break;
             case 'delete':
