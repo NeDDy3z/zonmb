@@ -116,7 +116,11 @@ class ArticleController extends Controller
             case 'delete':
                 break;
             default:
-                $article = Article::getArticleBySlug($this->action);
+                try {
+                    $article = Article::getArticleBySlug($this->action);
+                } catch (Exception $e) {
+                    Router::redirect(path: 'error', query: ['error' => 'articleNotFound']);
+                }
                 break;
         }
 

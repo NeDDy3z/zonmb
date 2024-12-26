@@ -63,7 +63,7 @@ class ArticleModel
             table: 'article',
             items: ['*'],
             conditions: $conditions,
-        )[0];
+        )[0] ?? null;
     }
 
     /**

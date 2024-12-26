@@ -148,7 +148,7 @@ class Article
      */
     public static function getArticleBySlug(string $slug): Article
     {
-        // Select article from database
+        // Select article from a database
         $articleData = ArticleModel::selectArticle('WHERE slug = "'. $slug .'" LIMIT 1;');
 
         // On null throw exception
