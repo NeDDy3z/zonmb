@@ -263,6 +263,7 @@ class Validator
      * This method ensures that inputs for all fields meet length requirements
      * and are not empty.
      *
+     * @param int $id
      * @param string $title The article title.
      * @param string $subtitle The optional article subtitle.
      * @param string $content The article content.
@@ -272,7 +273,7 @@ class Validator
      * @throws DatabaseException
      * @throws IncorrectInputException If any validation fails.
      */
-    public function validateArticle(string $title, string $subtitle, string $content, ?bool $checkExistence = true): bool
+    public function validateArticle(?int $id, string $title, string $subtitle, string $content, ?bool $checkExistence = true): bool
     {
         $error = null;
         switch (true) {
@@ -284,8 +285,10 @@ class Validator
                 $error[] = 'titleSize';
                 break;
 
-            case $checkExistence and ArticleModel::existsArticle($title): // Exists
-                $error[] = 'titleTaken';
+            case ArticleModel::existsArticle($title): // Exists
+                if ($id and (int)ArticleModel::selectArticle('WHERE title LIKE "' . $title . '"')['id'] !== $id) {
+                    $error[] = 'titleTaken';
+                }
                 break;
 
             case $subtitle == null || $subtitle == '':

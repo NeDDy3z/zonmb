@@ -228,6 +228,7 @@ class ArticleController extends Controller
             $images = ImageHelper::getUsableImageArray($_FILES['image']) ?? null;
 
             $this->validator->validateArticle(
+                id: null,
                 title: $title,
                 subtitle: $subtitle,
                 content: $content,
@@ -299,11 +300,12 @@ class ArticleController extends Controller
 
             // Check titles etc...
             $this->validator->validateArticle(
+                id: $id,
                 title: $title,
                 subtitle: $subtitle,
                 content: $content,
-                checkExistence: false,
             );
+
 
             // Check images
             if (isset($images)) {
