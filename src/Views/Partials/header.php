@@ -17,8 +17,8 @@ $link = isset($user) ? UrlHelper::baseUrl('users/'. $username) : UrlHelper::base
     <link rel="stylesheet" href="<?= UrlHelper::baseUrl('assets/css/header_footer.css') ?>">
     <link rel="stylesheet" href="<?= UrlHelper::baseUrl('assets/css/style.css') ?>">
     <script type="module" src="<?= UrlHelper::baseUrl('assets/js/xhr.js') ?>"></script>
-    <script defer type="module" src="<?= UrlHelper::baseUrl('assets/js/dataValidation.js') ?>"></script>
-    <script defer type="module" src="<?= UrlHelper::baseUrl('assets/js/messageDisplay.js') ?>"></script>
+    <script type="module" src="<?= UrlHelper::baseUrl('assets/js/dataValidation.js') ?>"></script>
+    <script type="module" src="<?= UrlHelper::baseUrl('assets/js/messageDisplay.js') ?>"></script>
     <title><?= $title ?? 'ZONMB'; ?></title>
 </head>
 <body>

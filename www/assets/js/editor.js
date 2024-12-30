@@ -1,5 +1,5 @@
 import { sendRequest } from './xhr.js';
-import {sendMessageSignal} from "./messageDisplay";
+import {sendMessageSignal} from "./messageDisplay.js";
 
 const article = {
     id: (document.querySelector('input[name="id"]')) ? document.querySelector('input[name="id"]').value : null,

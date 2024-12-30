@@ -1,5 +1,6 @@
 import {sendRequest} from "./xhr.js";
-import {sendMessageSignal} from "./messageDisplay";
+import {sendMessageSignal} from "./messageDisplay.js";
+
 // All the regular expressions and constants used for data validation
 const USERNAME_REGEX = /^[a-zA-Z0-9_.]{3,30}$/;
 const USERNAME_MIN_LENGTH = 3;
