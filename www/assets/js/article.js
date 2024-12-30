@@ -101,6 +101,12 @@ function displayComments(page) {
             })
         }
     });
+
+    if (commentsContainer.children.length === 0) {
+        let p = document.createElement('p');
+        p.innerHTML = `<p>Žádné komentáře</p>`;
+        commentsContainer.appendChild(p);
+    }
 }
 
 // Send comment
@@ -176,6 +182,4 @@ document.addEventListener('DOMContentLoaded', () => {
         commentForm.reset();
     });
 });
-
-
 
