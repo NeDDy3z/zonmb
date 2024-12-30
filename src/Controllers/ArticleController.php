@@ -313,7 +313,6 @@ class ArticleController extends Controller
             }
 
             $imagePaths = ArticleModel::selectArticle(conditions: 'WHERE id = ' . $id)['image_paths'] ?? null;
-            $imagePaths = ($imagePaths) ? [$imagePaths] : null;
             try {
                 if ($imagePaths) {
                     $imagePaths = explode(',', $imagePaths);
@@ -343,11 +342,11 @@ class ArticleController extends Controller
 
                         $lastImageId++;
                     }
-                }
 
-                $thumbnailPath = $this->generateThumbnailIfNoneIsPresent($imagePaths);
-                if ($thumbnailPath) {
-                    $imagePaths[] = $thumbnailPath;
+                    $thumbnailPath = $this->generateThumbnailIfNoneIsPresent($imagePaths);
+                    if ($thumbnailPath) {
+                        $imagePaths[] = $thumbnailPath;
+                    }
                 }
 
                 // Update data in DB
