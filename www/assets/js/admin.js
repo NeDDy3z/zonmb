@@ -42,26 +42,32 @@ function createDeleteButton(table, param) {
     deleteButton.classList.add('delete', 'danger');
     deleteButton.innerText = 'Smazat';
     deleteButton.addEventListener('click', function () {
+        let item;
         switch (table) {
             case 'users':
-                if (confirm('Opravdu chcete smazat uživatele s ID: ' + param + ' ?')) {
-                    sendRequest('GET', `users/delete?id=${param}`);
-                    fetchAndLoadData('users');
-                }
+                item = 'uživatele';
                 break;
             case 'articles':
-                if (confirm('Opravdu chcete smazat článek s ID: ' + param + ' ?')) {
-                    sendRequest('GET', `articles/delete?id=${param}`);
-                    fetchAndLoadData('articles');
-                }
+                item = 'článek';
                 break;
             case 'comments':
-                if (confirm('Opravdu chcete smazat komentář s ID: ' + param + ' ?')) {
-                    sendRequest('GET', `comments/delete?id=${param}`);
-                    fetchAndLoadData('comments');
-                }
+                item = 'komentář';
                 break;
         }
+
+        if (confirm(`Opravdu chcete smazat ${item} s ID: ${param}?`)) {
+            sendRequest('GET', `${table}/delete?id=${param}`, function (data) {
+                let type = (data.response.includes('success')) ? 'success' : 'error';
+                let response = JSON.parse(data.responseText);
+                sendMessageSignal(
+                    type,
+                    (type === 'success') ? response.success : response.error,
+                );
+            });
+            fetchAndLoadData(table);
+        }
+
+
     });
 
     return deleteButton;
