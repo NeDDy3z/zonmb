@@ -17,6 +17,7 @@ use Models\UserModel;
  * for rendering the admin dashboard.
  *
  * @package Controllers
+ * @author Erik Vaněk
  */
 class AdminController extends Controller
 {

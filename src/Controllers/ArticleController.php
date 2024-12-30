@@ -23,6 +23,7 @@ use Models\DatabaseConnector;
  * validation and privilege checks where necessary.
  *
  * @package Controllers
+ * @author Erik Vaněk
  */
 class ArticleController extends Controller
 {
@@ -40,6 +41,11 @@ class ArticleController extends Controller
      * @var string $action The current action being performed
      */
     private string $action;
+
+    /**
+     * @var PrivilegeRedirect $privilegeRedirect The privilege redirect instance for redirecting users
+     */
+    private PrivilegeRedirect $privilegeRedirect;
 
     /**
      * @var Validator $validator The validator instance for validating article data
@@ -62,7 +68,7 @@ class ArticleController extends Controller
      */
     public function __construct(?string $action = '')
     {
-        $privilegeRedirect = new PrivilegeRedirect();
+        $this->privilegeRedirect = new PrivilegeRedirect();
         $this->validator = new Validator();
         $this->action = $action ?? '';
 
@@ -86,7 +92,7 @@ class ArticleController extends Controller
                 $this->existsArticleTitle($_GET['title'] ?? null);
                 break;
             case 'add':
-                $privilegeRedirect->redirectUser();
+                $this->privilegeRedirect->redirectUser();
                 $this->page = $this->editorPage;
                 break;
             case 'edit':
@@ -96,11 +102,11 @@ class ArticleController extends Controller
                     Router::redirect(path: 'error', query: ['error' => 'incorrectID']);
                 }
 
-                $privilegeRedirect->redirectUser();
+                $this->privilegeRedirect->redirectUser();
                 $this->page = $this->editorPage;
                 break;
             case 'delete':
-                $privilegeRedirect->redirectUser();
+                $this->privilegeRedirect->redirectUser();
                 if (isset($_GET['image'])) {
                     $this->deleteArticleImage($_GET['id'], $_GET['image']);
                 } else {

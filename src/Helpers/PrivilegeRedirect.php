@@ -13,6 +13,7 @@ use Logic\User;
  * rights (User, Editor, Admin) and redirects unauthorized users to a specified page.
  *
  * @package Helpers
+ * @author Erik Vaněk
  */
 class PrivilegeRedirect
 {

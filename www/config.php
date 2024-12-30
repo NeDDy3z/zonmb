@@ -58,27 +58,13 @@ ini_set('display_errors', '0');              // Display runtime errors
 ini_set('display_startup_errors', '0');      // Display startup errors
 error_reporting(1);                      // Report all errors and warnings
 
+
+// Define default global constants
+define('BASE_URL', '');
+define('DEFAULT_PFP', 'assets/uploads/profile_images/_default.jpeg');
+
 // Load local configuration
 if (file_exists(ROOT . 'www/config.local.php')) {
     require ROOT . 'www/config.local.php';
     return;
-}
-
-// Define default global constants
-if (!defined('BASE_URL')) {
-    /**
-     * The base URL of the application. Defaults to an empty string (root).
-     *
-     * @var string BASE_URL
-     */
-    define('BASE_URL', '');
-}
-
-if (!defined('DEFAULT_PFP')) {
-    /**
-     * The default profile picture path for user accounts.
-     *
-     * @var string DEFAULT_PFP
-     */
-    define('DEFAULT_PFP', 'assets/uploads/profile_images/_default.jpeg');
 }

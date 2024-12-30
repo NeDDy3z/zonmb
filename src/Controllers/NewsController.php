@@ -15,6 +15,7 @@ use Logic\DatabaseException;
  * - Handle database-related exceptions gracefully during page render.
  *
  * @package Controllers
+ * @author Erik Vaněk
  */
 class NewsController extends Controller
 {

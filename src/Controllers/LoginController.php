@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Controllers;
 
 use Exception;
-use Helpers\PrivilegeRedirect;
 use Logic\Router;
 use Logic\User;
 use Logic\Validator;
@@ -20,6 +19,7 @@ use Models\UserModel;
  * user credentials against the database to allow or deny login attempts.
  *
  * @package Controllers
+ * @author Erik Vaněk
  */
 class LoginController extends Controller
 {

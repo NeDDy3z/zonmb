@@ -3,7 +3,6 @@
 namespace Models;
 
 use Exception;
-use Helpers\ReplaceHelper;
 use Logic\DatabaseException;
 
 /**
@@ -14,6 +13,7 @@ use Logic\DatabaseException;
  * user existence. Throws `DatabaseException` in case of database errors.
  *
  * @package Models
+ * @author Erik Vaněk
  */
 class UserModel
 {

@@ -1,6 +1,7 @@
 import {sendRequest} from "./xhr.js";
-import {encodeHtml, prettyDate} from "./utils.js";
+import {sendMessageSignal} from "./messageDisplay.js";
 import {openOverlay} from "./overlay.js";
+import {encodeHtml, prettyDate} from "./utils.js";
 
 // Get and assign user data
 let user;
@@ -69,7 +70,7 @@ function loadData(table, data) {
 
     if (data instanceof Array) {
         data.forEach(dataItem => {
-            let row = (table === 'users') ? userRow(dataItem) : articleRow(dataItem);
+            let row = (table === 'users') ? userRow(dataItem) : (table === 'articles') ? articleRow(dataItem) : commentsRow(dataItem);
 
             switch (true) {
                 case dataItem.role === 'owner': // Skip on owner
@@ -79,7 +80,10 @@ function loadData(table, data) {
                 case user.role === 'owner' && dataItem.role !== 'owner': // Enable owner editing everyone except owner
                 case user.role === 'admin' && dataItem.role !== 'admin': // Enable admin editing everyone except admin
                     let buttonDiv = row.querySelector('.buttons');
-                    buttonDiv.appendChild(createEditButton(`${table}/edit`, dataItem.id));
+
+                    if (table !== 'comments') {
+                        buttonDiv.appendChild(createEditButton(`${table}/edit`, dataItem.id));
+                    }
                     buttonDiv.appendChild(createDeleteButton(`${table}`, dataItem.id)); // Append delete button to row
                 // pass
             }
@@ -117,7 +121,14 @@ function tableQuery(table) {
 // Single function to fetch and load data
 function fetchAndLoadData(table) {
     sendRequest('GET', tableQuery(table), function (data) {
-        loadData(table, JSON.parse(data.response));
+        let response = JSON.parse(data.responseText);
+        let type = (data.response.includes('success')) ? 'success' : 'error';
+
+        loadData(table, response);
+        sendMessageSignal(
+            type,
+            (type === 'success') ? response.success : response.error,
+        );
     });
 }
 
@@ -147,6 +158,20 @@ function articleRow(article) {
             <td class="overlay-item overlay-image-item" >${encodeHtml(article.image_paths)}</td>
             <td class="overlay-item" >${encodeHtml(article.author_id)}</td>
             <td class="overlay-item" >${encodeHtml(prettyDate(article.created_at))}</td>
+            <td class="buttons"></td>                
+        `;
+
+    return row;
+}
+
+function commentsRow(comment) {
+    let row = document.createElement('tr');
+    row.innerHTML = `
+            <td>${encodeHtml(comment.id)}</td>
+            <td>${encodeHtml(comment.article_id)}</td>
+            <td>${encodeHtml(comment.author_id)}</td>
+            <td class="overlay-item">${encodeHtml(comment.text)}</td>
+            <td>${encodeHtml(prettyDate(comment.created_at))}</td>
             <td class="buttons"></td>                
         `;
 
@@ -268,9 +293,13 @@ document.addEventListener('DOMContentLoaded', function () {
     addEventListenerToSort('articles');
     addEventListenerToPage('articles');
 
+    addEventListenerToSearch('comments');
+    addEventListenerToSort('comments');
+    addEventListenerToPage('comments');
 
 // Initial load
     fetchAndLoadData('users');
     fetchAndLoadData('articles');
+    fetchAndLoadData('comments');
 });
 

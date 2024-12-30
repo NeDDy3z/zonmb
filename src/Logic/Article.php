@@ -15,6 +15,7 @@ use Models\ArticleModel;
  * by their slug or ID directly from the database.
  *
  * @package Logic
+ * @author Erik Vaněk
  */
 class Article
 {

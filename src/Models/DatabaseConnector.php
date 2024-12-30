@@ -15,6 +15,7 @@ use Logic\DatabaseException;
  * Includes methods for CRUD operations, connection management, and utility queries.
  *
  * @package Models
+ * @author Erik Vaněk
  */
 class DatabaseConnector
 {

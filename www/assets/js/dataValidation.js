@@ -1,4 +1,5 @@
 import {sendRequest} from "./xhr.js";
+import {sendMessageSignal} from "./messageDisplay";
 // All the regular expressions and constants used for data validation
 const USERNAME_REGEX = /^[a-zA-Z0-9_.]{3,30}$/;
 const USERNAME_MIN_LENGTH = 3;
@@ -35,16 +36,11 @@ function sendErrorSignal(error) {
         return;
     }
 
-    let cont = (href.includes('/users')) ? 'popup' : 'static';
-    const event = new CustomEvent('infoMessage', {
-        detail: {
-            type: 'error',
-            message: error,
-            container: cont,
-        }
-    });
-
-    window.dispatchEvent(event);
+    sendMessageSignal(
+        'error',
+        error,
+        (href.includes('/users')) ? 'popup' : 'static',
+    );
 }
 
 
@@ -106,7 +102,7 @@ function validateUsername(username) {
         } else if (data.error) {
             sendErrorSignal(data.error);
         }
-    });
+    }, JSON.stringify(payload), {"Content-Type": "application/json"});
 
     sendErrorSignal(error);
 }
@@ -166,14 +162,14 @@ function validateTitle(title) {
     }
 
     // Check if title is taken
-    sendRequest('GET','exists?title=' + encodeURIComponent(title), function (data) {
+    sendRequest('GET', 'exists?title=' + encodeURIComponent(title), function (data) {
         data = JSON.parse(data.response);
         if (data.exists) {
             sendErrorSignal(['titleTaken']);
         } else if (data.error) {
             sendErrorSignal(data.error);
         }
-    });
+    }, JSON.stringify(payload), {"Content-Type": "application/json"});
 
     sendErrorSignal(error);
 }

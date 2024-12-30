@@ -12,6 +12,7 @@ namespace Helpers;
  * using a similarly defined base URL in the configuration.
  *
  * @package Helpers
+ * @author Erik Vaněk
  */
 class UrlHelper
 {

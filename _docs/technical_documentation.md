@@ -10,7 +10,7 @@ For more indepth technical documentation, visit the auto-generated [documentatio
 4. [Algorithm and Logic Design](#algorithm-and-logic-design)
 5. [Scripts](#scripts)
    - [Backend scripts](#backend-scripts)
-   - [Frontnd scripts](#frontend-scripts)
+   - [Frontend scripts](#frontend-scripts)
 6. [Features Explanation](#features-explanation)
 7. [Configuration](#configuration)
 8. [Troubleshooting](#troubleshooting)
@@ -51,6 +51,7 @@ The project scripts and folders structure
 │   ├── /Controllers                        # Controllers for each page
 │   │   ├── AdminController.php
 │   │   ├── ArticleController.php
+│   │   ├── CommentController.php
 │   │   ├── Controller.php
 │   │   ├── ErrorController.php
 │   │   ├── HomepageController.php
@@ -464,6 +465,7 @@ Backend scripts are divided based on functionality, ensuring a modular and maint
 - **Controllers: ** Handle requests and logic
   - [AdminController.php](../src/Controllers/AdminController.php) - handle rendering of the admin dashboard
   - [ArticleController.php](../src/Controllers/ArticleController.php) - manages CRUD operations for articles, including adding or editing, provides AJAX-based data for admin dashboard and news page
+  - [CommentController.php](../src/Controllers/CommentController.php) - manages operations for comments under articles
   - [Controller.php](../src/Controllers/Controller.php) - parent class
   - [ErrorController.php](../src/Controllers/ErrorController.php) - render errors
   - [HomepageController.php](../src/Controllers/HomepageController.php) - render homepage
@@ -509,7 +511,7 @@ Frontend scripts are divided to enhance reusability and interactivity:
   - [editor.js](../www/assets/js/editor.js)
     - handles deleting article/user image via AJAX with server
     - updates the UI asynchronously
-  - [imageSlideshow.js](../www/assets/js/imageSlideshow.js)
+  - [imageSlideshow.js](../www/assets/js/article.js)
     - provides an ability to cycle through images on article page
   - [news.js](../www/assets/js/news.js)
     - dynamically fetches and appends news content from the backend
@@ -595,7 +597,6 @@ More information on how to use the platform is [here](user_documentation.md)
     - returns paginated results as JSON
   - frontend dynamically appends the articles to the news feed
 
-    
 
 ## Configuration
 **Configurations**:

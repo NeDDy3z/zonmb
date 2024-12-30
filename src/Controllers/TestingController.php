@@ -1,4 +1,9 @@
 <?php
+
+namespace Controllers;
+
+use Helpers\PrivilegeRedirect;
+
 /**
  * TestingController
  *
@@ -7,12 +12,8 @@
  * only and will be removed upon deployment to production.
  *
  * @package Controllers
+ * @author Erik Vaněk
  */
-
-namespace Controllers;
-
-use Helpers\PrivilegeRedirect;
-
 class TestingController extends Controller
 {
     /**

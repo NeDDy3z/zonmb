@@ -15,6 +15,7 @@ namespace Controllers;
  * - Offering utility methods to deal with custom application errors or exceptions.
  *
  * @package Controllers
+ * @author Erik Vaněk
  */
 class ErrorController extends Controller
 {

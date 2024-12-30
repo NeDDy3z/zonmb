@@ -101,6 +101,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Controllers-ArticleController.html#property_action"
         },                {
+            "fqsen": "\\Controllers\\ArticleController\u003A\u003A\u0024privilegeRedirect",
+            "name": "privilegeRedirect",
+            "summary": "",
+            "url": "classes/Controllers-ArticleController.html#property_privilegeRedirect"
+        },                {
             "fqsen": "\\Controllers\\ArticleController\u003A\u003A\u0024validator",
             "name": "validator",
             "summary": "",
@@ -110,6 +115,36 @@ Search.appendIndex(
             "name": "article",
             "summary": "",
             "url": "classes/Controllers-ArticleController.html#property_article"
+        },                {
+            "fqsen": "\\Controllers\\CommentController",
+            "name": "CommentController",
+            "summary": "CommentController",
+            "url": "classes/Controllers-CommentController.html"
+        },                {
+            "fqsen": "\\Controllers\\CommentController\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Constructor",
+            "url": "classes/Controllers-CommentController.html#method___construct"
+        },                {
+            "fqsen": "\\Controllers\\CommentController\u003A\u003AaddComment\u0028\u0029",
+            "name": "addComment",
+            "summary": "Add\u0020user\u0020comment",
+            "url": "classes/Controllers-CommentController.html#method_addComment"
+        },                {
+            "fqsen": "\\Controllers\\CommentController\u003A\u003AdeleteComment\u0028\u0029",
+            "name": "deleteComment",
+            "summary": "Delete\u0020a\u0020comment\u0020from\u0020database",
+            "url": "classes/Controllers-CommentController.html#method_deleteComment"
+        },                {
+            "fqsen": "\\Controllers\\CommentController\u003A\u003AgetComments\u0028\u0029",
+            "name": "getComments",
+            "summary": "Get\u0020all\u0020comments\u0020based\u0020on\u0020articleId\u0020or\u0020userId",
+            "url": "classes/Controllers-CommentController.html#method_getComments"
+        },                {
+            "fqsen": "\\Controllers\\CommentController\u003A\u003A\u0024privilegeRedirect",
+            "name": "privilegeRedirect",
+            "summary": "",
+            "url": "classes/Controllers-CommentController.html#property_privilegeRedirect"
         },                {
             "fqsen": "\\Controllers\\Controller",
             "name": "Controller",
@@ -243,7 +278,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controllers\\TestingController",
             "name": "TestingController",
-            "summary": "Controller",
+            "summary": "TestingController",
             "url": "classes/Controllers-TestingController.html"
         },                {
             "fqsen": "\\Controllers\\TestingController\u003A\u003A__construct\u0028\u0029",
@@ -278,7 +313,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controllers\\UserController",
             "name": "UserController",
-            "summary": "Controller",
+            "summary": "UserController",
             "url": "classes/Controllers-UserController.html"
         },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003A__construct\u0028\u0029",
@@ -936,6 +971,31 @@ Search.appendIndex(
             "summary": "Remove\u0020an\u0020article\u0020from\u0020the\u0020database.",
             "url": "classes/Models-ArticleModel.html#method_removeArticle"
         },                {
+            "fqsen": "\\Models\\CommentModel",
+            "name": "CommentModel",
+            "summary": "CommentModel",
+            "url": "classes/Models-CommentModel.html"
+        },                {
+            "fqsen": "\\Models\\CommentModel\u003A\u003AinsertComment\u0028\u0029",
+            "name": "insertComment",
+            "summary": "Insert\u0020a\u0020new\u0020comment\u0020into\u0020the\u0020database.",
+            "url": "classes/Models-CommentModel.html#method_insertComment"
+        },                {
+            "fqsen": "\\Models\\CommentModel\u003A\u003AselectComment\u0028\u0029",
+            "name": "selectComment",
+            "summary": "Retrieve\u0020a\u0020single\u0020comment\u0020from\u0020the\u0020database\u0020based\u0020on\u0020conditions.",
+            "url": "classes/Models-CommentModel.html#method_selectComment"
+        },                {
+            "fqsen": "\\Models\\CommentModel\u003A\u003AselectComments\u0028\u0029",
+            "name": "selectComments",
+            "summary": "Retrieve\u0020all\u0020comments\u0020from\u0020the\u0020database,\u0020with\u0020optional\u0020filtering\u0020conditions.",
+            "url": "classes/Models-CommentModel.html#method_selectComments"
+        },                {
+            "fqsen": "\\Models\\CommentModel\u003A\u003AremoveComment\u0028\u0029",
+            "name": "removeComment",
+            "summary": "Remove\u0020a\u0020comment\u0020from\u0020the\u0020database",
+            "url": "classes/Models-CommentModel.html#method_removeComment"
+        },                {
             "fqsen": "\\Models\\DatabaseConnector",
             "name": "DatabaseConnector",
             "summary": "DatabaseConnector",
@@ -1083,12 +1143,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\BASE_URL",
             "name": "BASE_URL",
-            "summary": "The\u0020base\u0020URL\u0020of\u0020the\u0020application.\u0020Defaults\u0020to\u0020an\u0020empty\u0020string\u0020\u0028root\u0029.",
+            "summary": "",
             "url": "namespaces/default.html#constant_BASE_URL"
         },                {
             "fqsen": "\\DEFAULT_PFP",
             "name": "DEFAULT_PFP",
-            "summary": "The\u0020default\u0020profile\u0020picture\u0020path\u0020for\u0020user\u0020accounts.",
+            "summary": "",
             "url": "namespaces/default.html#constant_DEFAULT_PFP"
         },                {
             "fqsen": "\\",

@@ -13,6 +13,7 @@ use Exception;
  * It also includes utilities for validating and transforming dates.
  *
  * @package Helpers
+ * @author Erik Vaněk
  */
 class DateHelper
 {

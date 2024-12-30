@@ -13,6 +13,7 @@ namespace Controllers;
  * such as rendering view files.
  *
  * @package Controllers
+ * @author Erik Vaněk
  */
 class Controller
 {

@@ -113,18 +113,18 @@
             <div class="phpdocumentor-column -nine phpdocumentor-content">
                                 <section>
                                         <ul class="phpdocumentor-breadcrumbs">
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/logic.html">Logic</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/controllers.html">Controllers</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    Router
+    CommentController
 
     
             <div class="phpdocumentor-element__package">
             in package
             <ul class="phpdocumentor-breadcrumbs">
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Logic.html">Logic</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Controllers.html">Controllers</a></li>
                             </ul>
         </div>
     
@@ -137,24 +137,24 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Router.php"><a href="files/src-logic-router.html"><abbr title="src/Logic/Router.php">Router.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CommentController.php"><a href="files/src-controllers-commentcontroller.html"><abbr title="src/Controllers/CommentController.php">CommentController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">21</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Router</p>
+            <p class="phpdocumentor-summary">CommentController</p>
 
 
-    <section class="phpdocumentor-description"><p>The <code class="prettyprint">Router</code> class manages request routing for the application. It determines the appropriate
-controller and method to handle incoming HTTP requests, processes both <code class="prettyprint">GET</code> and <code class="prettyprint">POST</code> requests,
-and supports redirection to other paths with optional query parameters.</p>
+    <section class="phpdocumentor-description"><p>The CommentController class is responsible for handling actions related to comments,
+such as retrieving, adding, and deleting comments</p>
+<p>It also implements privilege checks where necessary</p>
 </section>
 
 
     <h5 class="phpdocumentor-tag-list__heading" id="tags">
         Tags
-        <a href="classes/Logic-Router.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/Controllers-CommentController.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h5>
     <dl class="phpdocumentor-tag-list">
@@ -175,7 +175,7 @@ and supports redirection to other paths with optional query parameters.</p>
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/Logic-Router.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/Controllers-CommentController.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -187,40 +187,53 @@ and supports redirection to other paths with optional query parameters.</p>
 
 
 
+<h4 id="toc-properties">
+    Properties
+    <a href="classes/Controllers-CommentController.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a class="" href="classes/Controllers-CommentController.html#property_privilegeRedirect">$privilegeRedirect</a>
+    <span>
+                        &nbsp;: <a href="classes/Helpers-PrivilegeRedirect.html"><abbr title="\Helpers\PrivilegeRedirect">PrivilegeRedirect</abbr></a>            </span>
+</dt>
+
+    </dl>
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/Logic-Router.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/Controllers-CommentController.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Logic-Router.html#method_redirect">redirect()</a>
+    <a class="" href="classes/Controllers-CommentController.html#method___construct">__construct()</a>
     <span>
-                                &nbsp;: void    </span>
+                                &nbsp;: mixed    </span>
 </dt>
-<dd>Redirects the user to a specific path, optionally appending query parameters.</dd>
+<dd>Constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Logic-Router.html#method_route">route()</a>
+    <a class="" href="classes/Controllers-CommentController.html#method_addComment">addComment()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Routes an HTTP request to the appropriate controller and method based on the URL and method.</dd>
+<dd>Add user comment</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Logic-Router.html#method_GET">GET()</a>
+    <a class="" href="classes/Controllers-CommentController.html#method_deleteComment">deleteComment()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Handle `GET` requests and route them to the appropriate controller.</dd>
+<dd>Delete a comment from database</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Logic-Router.html#method_POST">POST()</a>
+    <a class="" href="classes/Controllers-CommentController.html#method_getComments">getComments()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Handle `POST` requests and route them to the appropriate controller&#039;s method.</dd>
+<dd>Get all comments based on articleId or userId</dd>
 
     </dl>
 
@@ -229,128 +242,97 @@ and supports redirection to other paths with optional query parameters.</p>
         
 
         
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/Controllers-CommentController.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_privilegeRedirect">
+        $privilegeRedirect
+        <a href="classes/Controllers-CommentController.html#property_privilegeRedirect" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CommentController.php"><a href="files/src-controllers-commentcontroller.html"><abbr title="src/Controllers/CommentController.php">CommentController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">26</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/Helpers-PrivilegeRedirect.html"><abbr title="\Helpers\PrivilegeRedirect">PrivilegeRedirect</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$privilegeRedirect</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"><p>The privilege redirect instance for redirecting users</p>
+</section>
+
+    
+
+    
+
+</article>
+            </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/Logic-Router.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/Controllers-CommentController.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+                                                        "
 >
-    <h4 class="phpdocumentor-element__name" id="method_redirect">
-        redirect()
-        <a href="classes/Logic-Router.html#method_redirect" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method___construct">
+        __construct()
+        <a href="classes/Controllers-CommentController.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Router.php"><a href="files/src-logic-router.html"><abbr title="src/Logic/Router.php">Router.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CommentController.php"><a href="files/src-controllers-commentcontroller.html"><abbr title="src/Controllers/CommentController.php">CommentController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Redirects the user to a specific path, optionally appending query parameters.</p>
+        <p class="phpdocumentor-summary">Constructor</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">redirect</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string, string&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$query</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$responseCode</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">200</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$action</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
-        <section class="phpdocumentor-description"><p>A response header is set, and the script is terminated after redirection.</p>
+        <section class="phpdocumentor-description"><p>Initializes the controller based on the provided action.
+Handles routing and checks for user privileges for certain actions.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$path</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The path to redirect to (relative to the base URL).</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$query</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string, string&gt;|null</span>
+                <span class="phpdocumentor-signature__argument__name">$action</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Optional query parameters for the URL.</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$responseCode</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">200</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The HTTP response code for the redirection (default: <code class="prettyprint">200</code>).</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_route">
-        route()
-        <a href="classes/Logic-Router.html#method_route" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Router.php"><a href="files/src-logic-router.html"><abbr title="src/Logic/Router.php">Router.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">78</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Routes an HTTP request to the appropriate controller and method based on the URL and method.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">route</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <section class="phpdocumentor-description"><p>Handles <code class="prettyprint">GET</code> and <code class="prettyprint">POST</code> requests, with a fallback to render a 405 error
-if the HTTP method is unsupported.</p>
-</section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$url</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The requested URL, relative to the base URL.</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$method</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The HTTP method used for the request (e.g., <code class="prettyprint">GET</code>, <code class="prettyprint">POST</code>).</p>
+                    <section class="phpdocumentor-description"><p>The action to be performed (e.g., 'get', 'add', 'edit', 'delete', etc.)</p>
 </section>
 
             </dd>
@@ -359,76 +341,7 @@ if the HTTP method is unsupported.</p>
     
     <h5 class="phpdocumentor-tag-list__heading" id="tags">
         Tags
-        <a href="classes/Logic-Router.html#method_route#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
-                                                            
-                                                 <section class="phpdocumentor-description"><p>If unable to route the request or if an error occurs.</p>
-</section>
-
-                                    </dd>
-                                            </dl>
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_GET">
-        GET()
-        <a href="classes/Logic-Router.html#method_GET" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Router.php"><a href="files/src-logic-router.html"><abbr title="src/Logic/Router.php">Router.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">107</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Handle `GET` requests and route them to the appropriate controller.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">GET</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <section class="phpdocumentor-description"><p>Routes are determined based on URL segments, with specific controllers
-for predefined paths (e.g., <code class="prettyprint">admin</code>, <code class="prettyprint">news</code>). If no matching controller is found,
-an error (404) controller is shown.</p>
-<p>Headers and footers for the view are included automatically.</p>
-</section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$url</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The requested URL (e.g., <code class="prettyprint">/admin</code>, <code class="prettyprint">/articles/123</code>).</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Logic-Router.html#method_GET#tags" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/Controllers-CommentController.html#method___construct#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h5>
     <dl class="phpdocumentor-tag-list">
@@ -449,75 +362,162 @@ an error (404) controller is shown.</p>
                     <article
         class="phpdocumentor-element
             -method
-            -private
-                                    -static                    "
+            -public
+                                                        "
 >
-    <h4 class="phpdocumentor-element__name" id="method_POST">
-        POST()
-        <a href="classes/Logic-Router.html#method_POST" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_addComment">
+        addComment()
+        <a href="classes/Controllers-CommentController.html#method_addComment" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Router.php"><a href="files/src-logic-router.html"><abbr title="src/Logic/Router.php">Router.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CommentController.php"><a href="files/src-controllers-commentcontroller.html"><abbr title="src/Controllers/CommentController.php">CommentController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">144</span>
+    <span class="phpdocumentor-element-found-in__line">74</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Handle `POST` requests and route them to the appropriate controller&#039;s method.</p>
+        <p class="phpdocumentor-summary">Add user comment</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">POST</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">addComment</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
-        <section class="phpdocumentor-description"><p>Matches specific path segments to defined methods in applicable controllers.
-If no match is found, an error controller is rendered.</p>
+        <section class="phpdocumentor-description"><p>Call the comment model and insert it into a database</p>
+</section>
+
+    
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_deleteComment">
+        deleteComment()
+        <a href="classes/Controllers-CommentController.html#method_deleteComment" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CommentController.php"><a href="files/src-controllers-commentcontroller.html"><abbr title="src/Controllers/CommentController.php">CommentController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">113</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Delete a comment from database</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">deleteComment</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getComments">
+        getComments()
+        <a href="classes/Controllers-CommentController.html#method_getComments" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CommentController.php"><a href="files/src-controllers-commentcontroller.html"><abbr title="src/Controllers/CommentController.php">CommentController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">156</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get all comments based on articleId or userId</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">getComments</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$articleId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$search</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sort</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sortDirection</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$page</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">1</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Build a query and call database</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$url</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                <span class="phpdocumentor-signature__argument__name">$articleId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The requested URL (e.g., <code class="prettyprint">/login</code>, <code class="prettyprint">/articles/add</code>).</p>
-</section>
-
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$userId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$search</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$sort</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$sortDirection</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$page</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">1</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Logic-Router.html#method_POST#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
-                                                            
-                                                 <section class="phpdocumentor-description"><p>If routing fails or the method is not implemented.</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><a href="classes/Logic-DatabaseException.html"><abbr title="\Logic\DatabaseException">DatabaseException</abbr></a></span>
-                                                            
-                                                 <section class="phpdocumentor-description"><p>If a database-related error occurs.</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 
@@ -529,7 +529,7 @@ If no match is found, an error controller is rendered.</p>
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/Logic/Router.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/Controllers/CommentController.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -628,18 +628,25 @@ If no match is found, an error controller is rendered.</p>
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                                                <li><a href="classes/Logic-Router.html#toc-methods">Methods</a></li>
+                                                            <li><a href="classes/Controllers-CommentController.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/Controllers-CommentController.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
+                            <li class="phpdocumentor-on-this-page-section__title">Properties</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li class=""><a href="classes/Controllers-CommentController.html#property_privilegeRedirect">$privilegeRedirect</a></li>
+                                            </ul>
+                </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li class=""><a href="classes/Logic-Router.html#method_redirect">redirect()</a></li>
-                                            <li class=""><a href="classes/Logic-Router.html#method_route">route()</a></li>
-                                            <li class=""><a href="classes/Logic-Router.html#method_GET">GET()</a></li>
-                                            <li class=""><a href="classes/Logic-Router.html#method_POST">POST()</a></li>
+                                            <li class=""><a href="classes/Controllers-CommentController.html#method___construct">__construct()</a></li>
+                                            <li class=""><a href="classes/Controllers-CommentController.html#method_addComment">addComment()</a></li>
+                                            <li class=""><a href="classes/Controllers-CommentController.html#method_deleteComment">deleteComment()</a></li>
+                                            <li class=""><a href="classes/Controllers-CommentController.html#method_getComments">getComments()</a></li>
                                     </ul>
             </li>
                     </ul>
@@ -659,7 +666,7 @@ If no match is found, an error controller is rendered.</p>
     </section>
 </section>
         </div>
-        <a href="classes/Logic-Router.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/Controllers-CommentController.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

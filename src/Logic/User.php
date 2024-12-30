@@ -13,9 +13,10 @@ use Models\UserModel;
  * The `User` class represents a user entity in the application. It provides functionality to fetch user
  * records from the database as well as methods to get and set user-related information, such as their
  * name, role, and image. This class also includes permissions-related utilities to determine
- * the user's capabilities based on their role.
+ * the user's abilities based on their role.
  *
  * @package Logic
+ * @author Erik Vaněk
  */
 class User
 {

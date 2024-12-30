@@ -67,6 +67,34 @@ use Models\DatabaseConnector;
                 <button class="next-page">&#10095;</button>
             </div>
         </section>
+        <section class="table-data table-comments">
+            <div class="table-header">
+                <h2>Komentáře</h2>
+                <div>
+                    <label for="search-comments">Vyhledat komentář</label>
+                    <input type="text" name="search-comments" id="search-comments" class="search" placeholder="Vyhledat komentář...">
+                </div>
+            </div>
+            <table class="comments-table">
+                <thead>
+                <tr>
+                    <th><a href="#" class="sort active asc" id="comments-id">ID<span> &#9650;</span></a></th>
+                    <th><a href="#" class="sort" id="comments-text">Text<span></span></a></th>
+                    <th><a href="#" class="sort" id="comments-article_id">ID Článku<span></span></a></th>
+                    <th><a href="#" class="sort" id="comments-author_id">ID Autora<span></span></a></th>
+                    <th><a href="#" class="sort" id="comments-created_at">Datum zveřejnění<span></span></a></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div class="table-footer">
+                <button class="prev-page">&#10094;</button>
+                <p id="page-comments"><span>1</span>/<?= ceil(DatabaseConnector::count('comment') / 10) ?></p>
+                <button class="next-page">&#10095;</button>
+            </div>
+        </section>
     </div>
     <div class="overlay">
         <div class="overlay-content">

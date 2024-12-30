@@ -15,6 +15,7 @@ use Throwable;
  * additional customization in handling input validation errors.
  *
  * @package Logic
+ * @author Erik Vaněk
  */
 class IncorrectInputException extends Exception
 {

@@ -6,13 +6,23 @@ use Exception;
 use Helpers\DateHelper;
 use Helpers\ImageHelper;
 use Helpers\PrivilegeRedirect;
-use Logic\DatabaseException;
 use Logic\Router;
 use Logic\User;
 use Logic\Validator;
 use Models\UserModel;
 
 
+
+/**
+ * UserController
+ *
+ * Controller for managing user-related actions including viewing, editing,
+ * deleting, and updating user data, as well as handling user-specific operations
+ * such as login/logout, profile image updates, and password changes.
+ *
+ * @package Controllers
+ * @author Erik Vaněk
+ */
 class UserController extends Controller
 {
     /**
@@ -169,6 +179,7 @@ class UserController extends Controller
     public function getSelf(): string
     {
         echo json_encode([
+            'id' => $this->user->getId(),
             'username' => $this->user->getUsername(),
             'fullname' => $this->user->getFullname(),
             'role' => $this->user->getRole(),
@@ -271,7 +282,7 @@ class UserController extends Controller
                     return $user;
 
                 } catch (Exception $e) {
-                    Router::redirect(path: 'login', query: ['error' => 'loginInvalidUsername']);
+                    Router::redirect(path: 'login', query: ['error' => 'login']);
                 }
             }
         } else {

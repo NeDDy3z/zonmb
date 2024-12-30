@@ -16,6 +16,7 @@ use Models\DatabaseConnector;
  * whenever such an exception is thrown.
  *
  * @package Logic
+ * @author Erik Vaněk
  */
 class DatabaseException extends Exception
 {

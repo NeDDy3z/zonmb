@@ -2,12 +2,26 @@
 function sendRequest(method = 'GET', query, callback) {
     const xhr = new XMLHttpRequest();
     xhr.open(method, query, true);
-    xhr.withCredentials = true;
 
     xhr.onload = function () {
-        callback(xhr);
+        if (typeof callback === 'function') {
+            callback(xhr); // Ensure callback is a function before calling it
+        }
+    };
+    xhr.onerror = function () {
+        console.error('Request failed');
     };
     xhr.send();
 }
 
-export {sendRequest};
+function sendRequestWithPayload(method = 'GET', query, callback, data) {
+    const xhr = new XMLHttpRequest();
+    xhr.open(method, query, true);
+
+    xhr.onload = function () {
+        callback(xhr);
+    };
+    xhr.send(data);
+}
+
+export {sendRequest, sendRequestWithPayload};

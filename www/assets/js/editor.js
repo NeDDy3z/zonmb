@@ -1,4 +1,5 @@
 import { sendRequest } from './xhr.js';
+import {sendMessageSignal} from "./messageDisplay";
 
 const article = {
     id: (document.querySelector('input[name="id"]')) ? document.querySelector('input[name="id"]').value : null,
@@ -9,21 +10,14 @@ const article = {
 
 // Send request to delete image
 function deleteImage(page, id, src) {
-    let url = `${page}/delete?id=${id}&image=${encodeURIComponent(src)}`;
-    sendRequest('GET', url, function (xhr) {
+    sendRequest('GET', `${page}/delete?id=${id}&image=${encodeURIComponent(src)}`, function (data) {
         // Construct data for custom event
-        let parsedData = JSON.parse(xhr.responseText);
-        let type = (parsedData.success) ? 'success' : 'error';
-        let data = (parsedData.success) ? parsedData.success : parsedData.error;
+        data = JSON.parse(data.response);
 
-        let customEvent = new CustomEvent('infoMessage', {
-            detail: {
-                type: type,
-                message: data.split('-'),
-                container: 'popup',
-            }
-        });
-        window.dispatchEvent(customEvent); // Sned signal
+        sendMessageSignal(
+            (data.includes('success')) ? 'success' : 'error',
+            data,
+        );
 
         article.imagesDiv.forEach(div => { // Remove image
             let imgSrc = div.querySelector('img').src

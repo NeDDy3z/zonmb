@@ -10,6 +10,7 @@ namespace Helpers;
  * SEO-friendly URLs or for general string normalization.
  *
  * @package Helpers
+ * @author Erik Vaněk
  */
 class ReplaceHelper
 {

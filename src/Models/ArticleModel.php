@@ -14,6 +14,7 @@ use Logic\DatabaseException;
  * and handles slugs and image paths internally.
  *
  * @package Models
+ * @author Erik Vaněk
  */
 class ArticleModel
 {

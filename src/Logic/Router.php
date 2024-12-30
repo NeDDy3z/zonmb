@@ -6,6 +6,7 @@ namespace Logic;
 
 use Controllers\AdminController;
 use Controllers\ArticleController;
+use Controllers\CommentController;
 use Controllers\ErrorController;
 use Controllers\HomepageController;
 use Controllers\LoginController;
@@ -23,6 +24,7 @@ use Exception;
  * and supports redirection to other paths with optional query parameters.
  *
  * @package Logic
+ * @author Erik Vaněk
  */
 class Router
 {
@@ -100,6 +102,7 @@ class Router
      * @param string $url The requested URL (e.g., `/admin`, `/articles/123`).
      *
      * @return void
+     * @throws Exception
      */
     private static function GET(string $url): void
     {
@@ -108,6 +111,7 @@ class Router
             '' => new HomepageController(),
             'admin' => new AdminController(),
             'articles' => new ArticleController($url[1] ?? null),
+            'comments' => new CommentController($url[1] ?? null),
             'login' => new LoginController(),
             'logout' => (new UserController())->logout(),
             'news' => new NewsController(),
@@ -144,6 +148,7 @@ class Router
             'register' => (new RegisterController())->register(),
             'articles/add' => (new ArticleController())->addArticle(),
             'articles/edit' => (new ArticleController())->editArticle(),
+            'comments/add' => (new CommentController('add'))->addComment(),
             'testing/image-upload' => (new TestingController())->testImageUpload(),
             'users/edit' => (new UserController())->updateUser(),
             'users/edit/fullname' => (new UserController())->updateFullname(),

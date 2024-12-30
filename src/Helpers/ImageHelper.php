@@ -14,6 +14,7 @@ use GdImage;
  * pictures or article thumbnails.
  *
  * @package Helpers
+ * @author Erik Vaněk
  */
 class ImageHelper {
 

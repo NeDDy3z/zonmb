@@ -13,6 +13,7 @@ namespace Controllers;
  * the homepage by including the correct PHP view file
  *
  * @package Controllers
+ * @author Erik Vaněk
  */
 class HomepageController extends Controller
 {

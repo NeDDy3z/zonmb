@@ -17,7 +17,9 @@ const successMessages = {
     'articleAdded': 'Článek byl úspěšně vytvořen',
     'articleEdited': 'Článek byl úspěšně upraven',
     'articleDeleted': 'Článek byl úspěšně smazán',
-    'imageDelete': 'Obrázek odstraněn',
+    'imageDeleted': 'Obrázek odstraněn',
+    'commentAdded': 'Komentář přidán',
+    'commentDeleted': 'Komentář odstraněn',
 };
 
 // Error message dictionary
@@ -27,11 +29,12 @@ const errorMessages = {
     'invalidValues': 'Vyplňte správně všechna pole',
     'invalidImageFormat': 'Nahrávejte pouze obrázky ve formátu JPG nebo PNG',
     'invalidImageSize': 'Obrázek je příliš velký, max 1MB',
-    'loginError': 'Nesprávné jméno nebo heslo', // Login error
-    'registerError': 'Registrace se nezdařila', // Registar error
-    'updateError': 'Profil se nepodařilo upravit', // Profile update error
-    'notAuthorized': 'K tomuto obsahu nemáte povolený přístup', // Not authorized error
+    'loginError': 'Nesprávné jméno nebo heslo',
+    'registerError': 'Registrace se nezdařila',
+    'updateError': 'Profil se nepodařilo upravit',
+    'notAuthorized': 'K tomuto obsahu nemáte povolený přístup',
     'alreadyLoggedIn': 'Již jste přihlášeni',
+    'authorNotFound': 'Autor nebyl nalezen',
 
     // Get errors
     'missingID': 'Nezadali jste žádné ID',
@@ -71,13 +74,15 @@ const errorMessages = {
     'subtitleSize': 'Poditulek musí mít délku minimálně 3 a maxilmálně 500 znkaů',
     'contentEmpty': 'Vyplňte obsah',
     'contentSize': 'Obsah musí mít délku minimálně 3 znaků a maximálně 5000',
+
+    'commentSize': 'Komentář musí mít délku minimálně 1 a maximálně 255 znaků',
 };
 
 
 // Display message
 function displayMessage(type, message, container = 'popup', countdown = 10) {
-    // Convert string into array
-    message = (typeof message === 'string') ? Array.from(message) : message;
+    // Convert string into an array
+    message = (typeof message === 'string') ? [message] : message;
 
     // Build messages
     let messages = message.map(msg => {
@@ -88,7 +93,7 @@ function displayMessage(type, message, container = 'popup', countdown = 10) {
         return messageElement;
     });
 
-    // Place message where it is supposed to be
+    // Place the message where it is supposed to be
     if (container === 'popup' && messages.length > 0) {
         document.querySelector('.message-container.popup')?.remove();
 
@@ -135,7 +140,9 @@ function displayMessage(type, message, container = 'popup', countdown = 10) {
         }
     }
 
-    markIncorrect(message);
+    if (type === 'error') {
+        markIncorrect(message);
+    }
 }
 
 function markIncorrect(messages) {
@@ -160,6 +167,17 @@ function markIncorrect(messages) {
     });
 }
 
+function sendMessageSignal(type, message, container = 'popup') {
+    let customEvent = new CustomEvent('infoMessage', {
+        detail: {
+            type: type,
+            message: message.split('-'),
+            container: container,
+        }
+    });
+
+    window.dispatchEvent(customEvent);
+}
 
 // Send message signal - used for messages inside URL
 function sendSignalOnURLMessage() {
@@ -168,28 +186,12 @@ function sendSignalOnURLMessage() {
 
     // Construct error event
     if (error) {
-        let customEvent = new CustomEvent('infoMessage', {
-            detail: {
-                type: 'error',
-                message: error.split('-'),
-                container: 'popup',
-            }
-        });
-
-        window.dispatchEvent(customEvent);
+        sendMessageSignal('error', error, 'popup');
     }
 
     // Construct success event
     if (success) {
-        let customEvent = new CustomEvent('infoMessage', {
-            detail: {
-                type: 'success',
-                message: success.split('-'),
-                container: 'popup',
-            }
-        });
-
-        window.dispatchEvent(customEvent);
+        sendMessageSignal('success', success, 'popup');
     }
 }
 
@@ -200,5 +202,7 @@ window.addEventListener('infoMessage', (event) => {
 
 // Check for messages inside URL
 document.addEventListener('DOMContentLoaded', sendSignalOnURLMessage);
+
+export {sendMessageSignal};
 
 

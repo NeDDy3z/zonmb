@@ -14,6 +14,7 @@ use Models\UserModel;
  * ensuring that invalid input is properly reported.
  *
  * @package Logic
+ * @author Erik Vaněk
  */
 class Validator
 {

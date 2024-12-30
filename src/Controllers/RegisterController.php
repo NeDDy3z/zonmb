@@ -21,6 +21,7 @@ use Models\UserModel;
  * - Redirecting users to appropriate pages (e.g., login or error page).
  *
  * @package Controllers
+ * @author Erik Vaněk
  */
 class RegisterController extends Controller
 {
