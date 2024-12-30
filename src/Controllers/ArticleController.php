@@ -141,7 +141,7 @@ class ArticleController extends Controller
                 break;
         }
 
-        $article = $this->article;
+        $article = $this->article ?? null;
         $user = $_SESSION['user_data'] ?? null;
         $type = $this->action;
         require_once $this->page; // Load page content
