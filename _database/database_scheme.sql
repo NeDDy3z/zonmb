@@ -36,7 +36,7 @@ CREATE TABLE `article` (
   UNIQUE KEY `article_pk_2` (`title`),
   KEY `article_ibfk_1` (`author_id`),
   CONSTRAINT `article_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE SET DEFAULT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +46,36 @@ CREATE TABLE `article` (
 LOCK TABLES `article` WRITE;
 /*!40000 ALTER TABLE `article` DISABLE KEYS */;
 /*!40000 ALTER TABLE `article` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `comment`
+--
+
+DROP TABLE IF EXISTS `comment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `comment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `author_id` int DEFAULT NULL,
+  `article_id` int DEFAULT NULL,
+  `text` varchar(255) DEFAULT NULL,
+  `created_at` date DEFAULT (curdate()),
+  PRIMARY KEY (`id`),
+  KEY `fk_comments_article` (`article_id`),
+  KEY `fk_comments_user` (`author_id`),
+  CONSTRAINT `fk_comments_article` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_comments_user` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comment`
+--
+
+LOCK TABLES `comment` WRITE;
+/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -65,7 +95,7 @@ CREATE TABLE `user` (
   `created_at` date NOT NULL DEFAULT (curdate()),
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_pk` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +104,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'owner','Administrator','$2y$10$/Bk5otGzLoxWwLqdTrpyDOnjlKPCkOzja/ZY1tC0npeO3S.LUm2Pq','assets/uploads/profile_images/admin.jpeg','owner','2024-12-01');
+INSERT INTO `user` VALUES (1,'owner','Administrator','$2y$10$/Bk5otGzLoxWwLqdTrpyDOnjlKPCkOzja/ZY1tC0npeO3S.LUm2Pq','assets/uploads/profile_images/owner.jpeg','owner','2024-12-01');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -87,4 +117,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-25 17:44:37
+-- Dump completed on 2024-12-30 19:15:36
