@@ -168,6 +168,8 @@ function markIncorrect(messages) {
 }
 
 function sendMessageSignal(type, message, container = 'popup') {
+    message = (typeof message === 'string') ? [message] : message;
+
     let customEvent = new CustomEvent('infoMessage', {
         detail: {
             type: type,
