@@ -315,11 +315,10 @@ class ArticleController extends Controller
             }
 
             $imagePaths = ArticleModel::selectArticle(conditions: 'WHERE id = ' . $id)['image_paths'] ?? null;
+            if ($imagePaths) {
+                $imagePaths = explode(',', $imagePaths);
+            }
             try {
-                if ($imagePaths) {
-                    $imagePaths = explode(',', $imagePaths);
-                }
-
                 if (isset($images)) {
                     $lastImageId = 0;
 
