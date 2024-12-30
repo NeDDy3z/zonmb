@@ -55,6 +55,12 @@ function createDeleteButton(table, param) {
                     fetchAndLoadData('articles');
                 }
                 break;
+            case 'comments':
+                if (confirm('Opravdu chcete smazat komentář s ID: ' + param + ' ?')) {
+                    sendRequest('GET', `comments/delete?id=${param}`);
+                    fetchAndLoadData('comments');
+                }
+                break;
         }
     });
 
@@ -85,7 +91,7 @@ function loadData(table, data) {
                         buttonDiv.appendChild(createEditButton(`${table}/edit`, dataItem.id));
                     }
                     buttonDiv.appendChild(createDeleteButton(`${table}`, dataItem.id)); // Append delete button to row
-                // pass
+                    break;
             }
 
             tbody.appendChild(row);
