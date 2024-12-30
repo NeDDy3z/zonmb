@@ -244,7 +244,7 @@ function addEventListenerToSort(table) {
     const sortButtons = document.querySelectorAll(`.table-${table} .sort`);
 
     sortButtons.forEach(button => {
-        button.addEventListener('click', function (e) {
+        button.addEventListener('click', function () {
             toggleSort(button, true);
             toggleSortDirection(button);
 
