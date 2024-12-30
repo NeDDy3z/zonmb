@@ -102,7 +102,7 @@ function validateUsername(username) {
         } else if (data.error) {
             sendErrorSignal(data.error);
         }
-    }, JSON.stringify(payload), {"Content-Type": "application/json"});
+    });
 
     sendErrorSignal(error);
 }
@@ -169,7 +169,7 @@ function validateTitle(title) {
         } else if (data.error) {
             sendErrorSignal(data.error);
         }
-    }, JSON.stringify(payload), {"Content-Type": "application/json"});
+    });
 
     sendErrorSignal(error);
 }
