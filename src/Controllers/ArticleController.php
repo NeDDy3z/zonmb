@@ -396,7 +396,7 @@ class ArticleController extends Controller
                 }
             }
 
-            echo json_encode(['success' => 'articleDelete']);
+            echo json_encode(['success' => 'articleDeleted']);
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
         }

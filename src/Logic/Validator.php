@@ -288,6 +288,8 @@ class Validator
             case ArticleModel::existsArticle($title): // Exists
                 if ($id and (int)ArticleModel::selectArticle('WHERE title LIKE "' . $title . '"')['id'] !== $id) {
                     $error[] = 'titleTaken';
+                } else {
+                    $error[] = 'titleTaken';
                 }
                 break;
 
