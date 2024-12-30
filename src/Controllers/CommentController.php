@@ -50,8 +50,8 @@ class CommentController
                 break;
             case 'get':
                 $this->getComments(
-                    articleId: $_GET['articleId'] ?? null,
-                    userId: $_GET['userId'] ?? null,
+                    articleId: $_GET['article_id'] ?? null,
+                    userId: $_GET['user_id'] ?? null,
                     search: $_GET['search'] ?? null,
                     sort: $_GET['sort'] ?? null,
                     sortDirection: $_GET['sortDirection'] ?? null,
