@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function () {
     addEventListenerToSort('comments');
     addEventListenerToPage('comments');
 
-// Initial load
+    // Initial load
     fetchAndLoadData('users');
     fetchAndLoadData('articles');
     fetchAndLoadData('comments');

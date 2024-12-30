@@ -84,6 +84,10 @@ function displayMessage(type, message, container = 'popup', countdown = 10) {
     // Convert string into an array
     message = (typeof message === 'string') ? [message] : message;
 
+    if (!message) {
+        return;
+    }
+
     // Build messages
     let messages = message.map(msg => {
         let messageElement = document.createElement('p');

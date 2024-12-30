@@ -21,7 +21,7 @@ function newsQuery() {
 function fetchAndLoadArticles() {
     sendRequest('GET', newsQuery(), function (data) {
         loadArticles(JSON.parse(data.response));
-    }, JSON.stringify(payload), {"Content-Type": "application/json"})
+    });
 }
 
 function loadArticles(data) {

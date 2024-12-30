@@ -146,8 +146,8 @@ class Router
         match ($url) {
             'login' => (new LoginController())->login(),
             'register' => (new RegisterController())->register(),
-            'articles/add' => (new ArticleController())->addArticle(),
-            'articles/edit' => (new ArticleController())->editArticle(),
+            'articles/add' => (new ArticleController('add'))->addArticle(),
+            'articles/edit' => (new ArticleController('edit'))->editArticle(),
             'comments/add' => (new CommentController('add'))->addComment(),
             'testing/image-upload' => (new TestingController())->testImageUpload(),
             'users/edit' => (new UserController())->updateUser(),

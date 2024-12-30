@@ -26,7 +26,7 @@ function loadFormDataOnLoad() {
     if (inputs.length === 0) return;
     inputs.forEach(field => {
         let val = sessionStorage.getItem(field.name)
-        if (!field.name.includes('image') && val && window.location.href.includes('error')) {
+        if (!field.name.includes('image') && val) {
             field.value = sessionStorage.getItem(field.name);
         }
     });

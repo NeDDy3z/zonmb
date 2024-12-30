@@ -149,8 +149,12 @@ class ImageHelper {
      *
      * @return array<array<string, string>>|null A simplified array of file entries.
      */
-    public static function getUsableImageArray(array $images): array|null
+    public static function getUsableImageArray(?array $images): array|null
     {
+        if (!$images) {
+            return null;
+        }
+
         $results = [];
         $keys = array_keys($images);
 

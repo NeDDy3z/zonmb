@@ -72,54 +72,56 @@ class ArticleController extends Controller
         $this->validator = new Validator();
         $this->action = $action ?? '';
 
-        // Check for missing ID and redirect
-        if ($this->action === 'edit' or $this->action === 'delete') {
-            if (!isset($_GET['id'])) {
-                Router::redirect(path: 'error', query: ['error' => 'missingID']);
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            // Check for missing ID and redirect
+            if ($this->action === 'edit' or $this->action === 'delete') {
+                if (!isset($_GET['id'])) {
+                    Router::redirect(path: 'error', query: ['error' => 'missingID']);
+                }
             }
-        }
 
-        switch ($this->action) {
-            case 'get':
-                $this->getArticles(
-                    $_GET['search'] ?? null,
-                    $_GET['sort'] ?? null,
-                    $_GET['sortDirection'] ?? null,
-                    $_GET['page'] ?? 1,
-                );
-                break;
-            case 'exists':
-                $this->existsArticleTitle($_GET['title'] ?? null);
-                break;
-            case 'add':
-                $this->privilegeRedirect->redirectUser();
-                $this->page = $this->editorPage;
-                break;
-            case 'edit':
-                $this->article = Article::getArticleById($_GET['id']);
+            switch ($this->action) {
+                case 'get':
+                    $this->getArticles(
+                        $_GET['search'] ?? null,
+                        $_GET['sort'] ?? null,
+                        $_GET['sortDirection'] ?? null,
+                        $_GET['page'] ?? 1,
+                    );
+                    break;
+                case 'exists':
+                    $this->existsArticleTitle($_GET['title'] ?? null);
+                    break;
+                case 'add':
+                    $this->privilegeRedirect->redirectUser();
+                    $this->page = $this->editorPage;
+                    break;
+                case 'edit':
+                    $this->article = Article::getArticleById($_GET['id']);
 
-                if (!isset($this->article)) {
-                    Router::redirect(path: 'error', query: ['error' => 'incorrectID']);
-                }
+                    if (!isset($this->article)) {
+                        Router::redirect(path: 'error', query: ['error' => 'incorrectID']);
+                    }
 
-                $this->privilegeRedirect->redirectUser();
-                $this->page = $this->editorPage;
-                break;
-            case 'delete':
-                $this->privilegeRedirect->redirectUser();
-                if (isset($_GET['image'])) {
-                    $this->deleteArticleImage($_GET['id'], $_GET['image']);
-                } else {
-                    $this->deleteArticle($_GET['id']);
-                }
-                break;
-            default:
-                $this->article = Article::getArticleBySlug($this->action);
+                    $this->privilegeRedirect->redirectUser();
+                    $this->page = $this->editorPage;
+                    break;
+                case 'delete':
+                    $this->privilegeRedirect->redirectUser();
+                    if (isset($_GET['image'])) {
+                        $this->deleteArticleImage($_GET['id'], $_GET['image']);
+                    } else {
+                        $this->deleteArticle($_GET['id']);
+                    }
+                    break;
+                default:
+                    $this->article = Article::getArticleBySlug($this->action);
 
-                if (!isset($this->article)) {
-                    Router::redirect(path: 'error', query: ['error' => 'articleNotFound']);
-                }
-                break;
+                    if (!isset($this->article)) {
+                        Router::redirect(path: 'error', query: ['error' => 'articleNotFound']);
+                    }
+                    break;
+            }
         }
     }
 
@@ -219,10 +221,10 @@ class ArticleController extends Controller
     {
         try {
             // Get data from $_POST
+            $author = $_POST['author'] ?? null;
             $title = $_POST['title'] ?? null;
             $subtitle = $_POST['subtitle'] ?? null;
             $content = $_POST['content'] ?? null;
-            $author = $_POST['author'] ?? null;
             $images = ImageHelper::getUsableImageArray($_FILES['image']) ?? null;
 
             $this->validator->validateArticle(
@@ -240,7 +242,7 @@ class ArticleController extends Controller
 
             if (isset($images) and $images[0]['tmp_name'] !== '') {
                 for ($i = 0; $i < count($images); $i++) {
-                    // Generate thumbnail from first image
+                    // Generate thumbnail from the first image
                     if ($i === 0) {
                         $thumbnailPath = 'assets/uploads/articles/' . $articleId . '_0_thumbnail.jpeg';
                         $imagePaths[] = $thumbnailPath;
@@ -268,10 +270,13 @@ class ArticleController extends Controller
                 authorId: $author,
             );
 
+
             Router::redirect(path: "articles/$slug", query: ['success' => 'articleAdded']);
         } catch (Exception $e) {
             Router::redirect(path: 'articles/add', query: ['error' => $e->getMessage()]);
         }
+
+
     }
 
     /**
@@ -308,6 +313,7 @@ class ArticleController extends Controller
             }
 
             $imagePaths = ArticleModel::selectArticle(conditions: 'WHERE id = ' . $id)['image_paths'] ?? null;
+            $imagePaths = ($imagePaths) ? [$imagePaths] : null;
             try {
                 if ($imagePaths) {
                     $imagePaths = explode(',', $imagePaths);
@@ -461,7 +467,7 @@ class ArticleController extends Controller
      *
      * Generates a thumbnail if necessary.
      *
-     * @param array|null $imagePaths
+     * @param array<string, string>|null $imagePaths
      * @return string|null
      * @throws Exception If deleting the image or updating the database fails
      */
