@@ -45,19 +45,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add event listeners for navigation buttons
     nextButton.addEventListener("click", () => {
         nextSlide();
-        resetAutoSlide();
     });
 
     prevButton.addEventListener("click", () => {
         prevSlide();
-        resetAutoSlide();
     });
-
-    // Reset the auto-slide interval when manually navigating
-    function resetAutoSlide() {
-        clearInterval(autoSlideInterval);
-        autoSlideInterval = setInterval(nextSlide, 5000);
-    }
 });
 
 
