@@ -91,6 +91,32 @@ class Article
     }
 
     /**
+     * Fetch a `Article` object from the database using the id or slug.
+     *
+     * @param int|null $id The id to look up in the database.
+     * @param string|null $slug The slug to look up in the database.
+     *
+     * @return Article|null The user object with the fetched data.
+     *
+     * @throws DatabaseException
+     * @throws Exception
+     */
+    public static function get(?int $id = null, ?string $slug = null): ?Article
+    {
+        $articleData = match (true) {
+            $id !== null => ArticleModel::selectArticle("WHERE id = $id"),
+            $slug !== null => ArticleModel::selectArticle("WHERE slug = '$slug'"),
+            default => null,
+        };
+
+        if (!$articleData) {
+            return null;
+        }
+
+        return self::returnArticleObject($articleData);
+    }
+
+    /**
      * Retrieve an article from the database based on its ID.
      *
      * Uses the `ArticleModel` to fetch the article details and construct an `Article` object.

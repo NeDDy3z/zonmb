@@ -3,7 +3,7 @@ use Helpers\UrlHelper;
 
 $user = $_SESSION['user_data'] ?? null;
 $username = $user?->getUsername();
-$link = isset($user) ? UrlHelper::baseUrl('users/'. $username) : UrlHelper::baseUrl('login');
+$link = isset($user) ? UrlHelper::baseUrl("user") : UrlHelper::baseUrl('login');
 
 ?>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@ $link = isset($user) ? UrlHelper::baseUrl('users/'. $username) : UrlHelper::base
 <header>
     <div>
         <nav>
-            <a href="<?= UrlHelper::baseUrl('/') ?>"><img src="<?= UrlHelper::baseUrl('assets/images/logo-wide.png') ?>" alt="ZONMB"></a>
+            <a href="<?= UrlHelper::baseUrl('/') ?>">ZONMB</a>
             <ul>
                 <li><a href="<?= UrlHelper::baseUrl('news') ?>">Novinky</a></li>
                 <li><a href="<?= $link ?>"><?= $username ?? 'Přihlásit' ?></a></li>

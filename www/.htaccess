@@ -9,10 +9,4 @@ RewriteBase /~vanekeri
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [QSA,L]
-RewriteRule ^/articles/(.+)$ /articles?slug=$1 [L,QSA]
-
-
-
-
-
-
+RewriteRule ^article/([\w-]+)$ /article?slug=$1 [QSA,L]

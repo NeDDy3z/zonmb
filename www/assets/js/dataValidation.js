@@ -16,13 +16,10 @@ const PASSWORD_MAX_LENGTH = 255;
 
 const TITLE_MIN_LENGTH = 10;
 const TITLE_MAX_LENGTH = 100;
-
 const SUBTITLE_MIN_LENGTH = 3;
 const SUBTITLE_MAX_LENGTH = 255;
-
 const CONTENT_MIN_LENGTH = 3;
 const CONTENT_MAX_LENGTH = 5000;
-
 const IMG_SIZE = 2_000_000;
 const IMG_MIN_PX = 200;
 const IMG_MAX_PX = 4000;
@@ -163,7 +160,10 @@ function validateTitle(title) {
     }
 
     // Check if title is taken
-    sendRequest('GET', 'exists?title=' + encodeURIComponent(title), function (data) {
+    let id = document.querySelector('input[name="id"]')?.value;
+    id = (id !== undefined) ? '&id='+id : '';
+
+    sendRequest('GET', `exists?title=${encodeURIComponent(title)}${id}`, function (data) {
         data = JSON.parse(data.response);
         if (data.exists) {
             sendErrorSignal(['titleTaken']);
@@ -250,7 +250,7 @@ function addEventListenerToFormInputs(form) {
     const inputs = [...form.querySelectorAll('input'), ...form.querySelectorAll('textarea')];
 
     inputs.forEach(input => {
-        input.addEventListener('blur', function () { // On unfocus
+        input.addEventListener('blur', function () { // On un-focus
             let value = (input.type === 'file') ? input.files : input.value;
             validate(input.name, value);
         });
@@ -265,12 +265,32 @@ function addEventListenerToFormInputs(form) {
         });
     });
 
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        let form = this;
+        let inputs = [...form.querySelectorAll('input'), ...form.querySelectorAll('textarea')];
+
+        // Check if any input/textarea has the "incorrect" class
+        let hasIncorrectClass = inputs.some(input => input.classList.contains('incorrect'));
+
+        if (hasIncorrectClass) {
+            sendMessageSignal(
+                'error',
+                'Vyplňte všechna pole správně',
+                'popup',
+            );
+        } else {
+            form.submit();
+        }
+    });
 
 }
 
 // Page form
 document.addEventListener('DOMContentLoaded', function () {
     const forms = document.querySelectorAll('form') ?? null;
+    const inputs = document.querySelectorAll('input') ?? null;
 
     forms.forEach(form => {
         addEventListenerToFormInputs(form);

@@ -45,6 +45,7 @@ class PrivilegeRedirect
     public function redirectHost(?array $query = ['error' => 'notAuthorized']): void
     {
         if (!isset($this->user)) {
+            User::logout(false);
             Router::redirect(path: 'login', query: $query);
         }
     }

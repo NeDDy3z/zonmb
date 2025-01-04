@@ -7,7 +7,7 @@ $type ??= 'add';
 
 <main>
     <div class="container editor" id="article-editor">
-        <form action="<?= UrlHelper::baseUrl('articles/' . $type) ?>" method="post" enctype="multipart/form-data"
+        <form action="<?= UrlHelper::baseUrl('article/' . $type) ?>" method="post" enctype="multipart/form-data"
               name="articleForm" class="article-form">
             <label for="author-id">*Autorské ID: </label>
             <input type="text" name="author" id="author-id" value="<?= $_SESSION['user_data']->getId() ?>" hidden
@@ -23,7 +23,7 @@ $type ??= 'add';
             <input type="text" name="title" id="title" placeholder="*Titulek"
                    value="<?= isset($article) ? htmlspecialchars($article->getTitle()) : ''; ?>" required
                    title="Titulek musí mít minimálně 10 a maximálně 100 znaků"
-                   minlength="3" maxlength="100">
+                   minlength="10" maxlength="100">
 
             <label for="subtitle" class="visible">*Podtitulek: </label>
             <input type="text" name="subtitle" id="subtitle" placeholder="*Podtitulek"
@@ -61,6 +61,12 @@ $type ??= 'add';
             <div class="message-container static"></div>
 
             <a href="<?= UrlHelper::baseUrl('admin') ?>">Administrátorská stránka</a>
+            <?php
+                if ($type === 'edit') {
+                    $url = UrlHelper::baseUrl("article/". $article->getSlug());
+                    echo '<a href="'. $url .'">Neupravený článek</a>';
+                }
+            ?>
         </form>
     </div>
 </main>

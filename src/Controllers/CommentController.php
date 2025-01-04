@@ -3,8 +3,10 @@
 namespace Controllers;
 
 use Exception;
+use Helpers\DateHelper;
 use Helpers\PrivilegeRedirect;
 use Logic\User;
+use Logic\Validator;
 use Models\CommentModel;
 
 /**
@@ -26,42 +28,66 @@ class CommentController
     private PrivilegeRedirect $privilegeRedirect;
 
     /**
+     * @var Validator $validator The validator instance for validating user inputs
+     */
+    private Validator $validator;
+    /**
      * Constructor
      *
-     * Initializes the controller based on the provided action.
-     * Handles routing and checks for user privileges for certain actions.
-     *
-     * @param string|null $action The action to be performed (e.g., 'get', 'add', 'edit', 'delete', etc.)
-     * @throws Exception
+     * Initializes the controller.
      */
-    public function __construct(?string $action = null)
+    public function __construct()
     {
         $this->privilegeRedirect = new PrivilegeRedirect();
+        $this->validator = new Validator();
+    }
 
-        switch ($action) {
-            case 'add':
-                break;
-            case 'delete':
-                $this->privilegeRedirect->redirectHost();
+    /**
+     * Get all comments based on articleId or userId
+     *
+     * Build a query and call database
+     *
+     * @return void
+     */
+    public function getComments(): void
+    {
+        $articleId = $_GET['article_id'] ?? null;
+        $userId = $_GET['user_id'] ?? null;
 
-                $this->deleteComment(
-                    id: $_GET['id'] ?? null,
-                );
-                break;
-            case 'get':
-                $this->getComments(
-                    articleId: $_GET['article_id'] ?? null,
-                    userId: $_GET['user_id'] ?? null,
-                    search: $_GET['search'] ?? null,
-                    sort: $_GET['sort'] ?? null,
-                    sortDirection: $_GET['sortDirection'] ?? null,
-                    page: $_GET['page'] ?? 1,
-                );
-                break;
-            default:
-                echo json_encode(['error' => 'Invalid action.']);
-                break;
+        $search = $_GET['search'] ?? null;
+        $sort = $_GET['sort'] ?? null;
+        $sortDirection = $_GET['sortDirection'] ?? null;
+        $page = $_GET['page'] ?? 1;
+
+        // Create a query
+        try {
+            if ($articleId or $userId) {
+                $conditions = ($articleId) ? "WHERE article_id = $articleId" : "";
+                $conditions .= ($userId) ? (($articleId) ? " AND WHERE user_id = $userId" : "WHERE user_id = $userId") : '';
+            } elseif ($search) {
+                // Convert date format
+                $search = DateHelper::ifPrettyConvertToISO($search);
+                $conditions = "WHERE comment.id like '%$search%' or comment.text LIKE '%$search%' OR comment.article_id LIKE '%$search%' OR comment.author_id LIKE '%$search%' OR comment.created_at LIKE '%$search%'";
+            }
+
+            if (!isset($conditions)) {
+                $conditions = "";
+            }
+
+            $conditions .= ($sort) ? " ORDER BY $sort" : "";
+            $conditions .= ($sortDirection) ? " $sortDirection" : "";
+            $conditions .= " LIMIT 10 OFFSET " . ($page - 1) * 10;
+
+            $commentData = CommentModel::selectComments(
+                conditions: $conditions,
+            );
+
+            echo json_encode($commentData);
+        } catch (Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
         }
+
+        exit();
     }
 
     /**
@@ -71,24 +97,22 @@ class CommentController
      *
      * @return void
      */
-    public function addComment(): void
+    public function add(): void
     {
+        $this->privilegeRedirect->redirectUser();
+
         $text = $_POST['comment'] ?? null;
-        $articleId = (int)$_POST['article'] ?? null;
-        $authorId = (int)$_POST['author'] ?? (int)$_SESSION['user_data']['id'];
+        (int)$articleId = $_POST['article'] ?? null;
+        (int)$authorId = $_SESSION['user_data']->getId();
 
-        if (!$text) {
-            echo json_encode(['error' => 'missingComment']);
+        try {
+            $this->validator->validateComment(
+                articleId: $articleId,
+                text: $text,
+            );
+        } catch (Exception $e) {
+            echo json_encode(['error' => explode('-', $e->getMessage())]);
             exit();
-        }
-
-        if (!$articleId) {
-            echo json_encode(['error' => 'missingID']);
-            exit();
-        }
-
-        if (strlen($text) < 1 or strlen($text) > 255) {
-            echo json_encode(['error' => 'commentSize']);
         }
 
         try {
@@ -97,6 +121,8 @@ class CommentController
                 articleId: $articleId,
                 authorId: $authorId,
             );
+
+            echo json_encode(['success' => 'commentAdded']);
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
         }
@@ -107,17 +133,19 @@ class CommentController
     /**
      * Delete a comment from database
      *
-     * @param int|null $id
      * @return void
      */
-    private function deleteComment(?int $id): void
+    public function delete(): void
     {
-        if (!isset($id)) {
-            echo json_encode(['error' => 'missingID']);
-            exit();
-        }
+        $this->privilegeRedirect->redirectHost();
 
         try {
+            $id = $_GET['id'] ?? null;
+            if (!isset($id)) {
+                echo json_encode(['error' => 'missingID']);
+                exit();
+            }
+
             // Check if user is author of the comment or admin
             /** @var User $user */
             $user = $_SESSION['user_data'];
@@ -141,50 +169,6 @@ class CommentController
             echo json_encode(['error' => 'commentDeleteError']);
         }
 
-        exit();
-    }
-
-    /**
-     * Get all comments based on articleId or userId
-     *
-     * Build a query and call database
-     *
-     * @param int|null $articleId
-     * @param int|null $userId
-     * @return void
-     */
-    private function getComments(?int $articleId, ?int $userId, ?string $search, ?string $sort, ?string $sortDirection, ?int $page = 1): void
-    {
-        // Create a query
-        try {
-            if ($articleId or $userId) {
-                $conditions = ($articleId) ? "WHERE article_id = $articleId" : "";
-                $conditions .= ($userId) ? (($articleId) ? " AND WHERE user_id = $userId" : "WHERE user_id = $userId") : '';
-            } elseif ($search) {
-                $conditions = "WHERE comment.id like '%$search%' or comment.text LIKE '%$search%' OR comment.article_id LIKE '%$search%' OR comment.author_id LIKE '%$search%' OR comment.created_at LIKE '%$search%'";
-            }
-
-            if (!isset($conditions)) {
-                $conditions = "";
-            }
-
-            $conditions .= ($sort) ? " ORDER BY $sort" : "";
-            $conditions .= ($sortDirection) ? " $sortDirection" : "";
-            $conditions .= " LIMIT 10 OFFSET " . ($page - 1) * 10;
-
-            $commentData = CommentModel::selectComments(
-                conditions: $conditions,
-            );
-
-            if (!$commentData) {
-                throw new Exception('Žádné komentáře nebyly nalezeny');
-            }
-        } catch (Exception $e) {
-            echo json_encode(['error' => $e->getMessage()]);
-            exit();
-        }
-
-        echo json_encode($commentData);
         exit();
     }
 }

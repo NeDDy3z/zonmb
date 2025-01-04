@@ -145,7 +145,7 @@ class ImageHelper {
      * This method converts the complex `$_FILES` array structure into an
      * easier-to-use representation.
      *
-     * @param array $images The uploaded files array (from `$_FILES`).
+     * @param array|null $images The uploaded files array (from `$_FILES`).
      *
      * @return array<array<string, string>>|null A simplified array of file entries.
      */

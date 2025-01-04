@@ -1,3 +1,11 @@
+const BASE_URL = window.location.href.includes('/~vanekeri') ? '/~vanekeri' : '';
+
+// Get base URL
+function baseUrl(url) {
+    return BASE_URL + '/' + url.replace(/^\//, '');
+}
+
+
 // JS version of htmlspecialchars
 function encodeHtml(str) {
     const element = document.createElement("p");
@@ -13,4 +21,5 @@ function prettyDate(date) {
 }
 
 
-export {encodeHtml, prettyDate};
+
+export {baseUrl, encodeHtml, prettyDate};

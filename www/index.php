@@ -2,7 +2,7 @@
 /**
  * ZONMB - website for local deaf community in Mlada Boleslav
  * @author Erik Vaněk <erikvanek0@gmail.com>
- * @version 1.0
+ * @version 1.1
  */
 
 declare(strict_types=1);
@@ -38,18 +38,18 @@ try {
     DatabaseConnector::init();
 } catch (DatabaseException $e) {
     // Redirect to an error page if a database exception occurs.
-    $error_msg = 'Database Error 500. Error message: ' . $e->getMessage();
+    $error_msg = 'Database Error. Error message: ' . $e->getMessage();
     Router::redirect(path: '', query: ['error' => $error_msg]);
 }
+
 
 // Process the requested URL.
 $url = substr(strval(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)), 1);
 
-// Check if the URL contains a specific prefix (e.g., "vanekeri") and remove it if needed.
+// Check if the URL contains a specific prefix (e.g., "vanekeri") and remove it
 $url = str_contains(haystack: $url, needle: '~vanekeri/')
     ? str_replace(search: '~vanekeri/', replace: '', subject: $url)
     : $url;
-//$pages = explode('/', $url);
 
 
 // Routing

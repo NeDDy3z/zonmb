@@ -5,7 +5,7 @@ import {encodeHtml, prettyDate} from "./utils.js";
 
 // Get and assign user data
 let user;
-sendRequest('GET', 'users/me', function (data) {
+sendRequest('GET', 'user/me', function (data) {
     if (data.status === 200) {
         user = JSON.parse(data.responseText);
     }
@@ -27,12 +27,9 @@ function addOpenOverlay() {
 function createEditButton(table, param) {
     let editLink = document.createElement('a');
     editLink.href = table + '?id=' + param;
-    editLink.classList.add('edit');
+    editLink.classList.add('edit', 'btn');
+    editLink.innerText = 'Upravit';
 
-    let editButton = document.createElement('button');
-    editButton.innerText = 'Upravit';
-
-    editLink.appendChild(editButton);
     return editLink;
 }
 
@@ -44,13 +41,13 @@ function createDeleteButton(table, param) {
     deleteButton.addEventListener('click', function () {
         let item;
         switch (table) {
-            case 'users':
+            case 'user':
                 item = 'uživatele';
                 break;
-            case 'articles':
+            case 'article':
                 item = 'článek';
                 break;
-            case 'comments':
+            case 'comment':
                 item = 'komentář';
                 break;
         }
@@ -82,7 +79,7 @@ function loadData(table, data) {
 
     if (data instanceof Array) {
         data.forEach(dataItem => {
-            let row = (table === 'users') ? userRow(dataItem) : (table === 'articles') ? articleRow(dataItem) : commentsRow(dataItem);
+            let row = (table === 'user') ? userRow(dataItem) : (table === 'article') ? articleRow(dataItem) : commentsRow(dataItem);
 
             switch (true) {
                 case dataItem.role === 'owner': // Skip on owner
@@ -121,7 +118,7 @@ function tableQuery(table) {
     const sortDirection = (sortField.classList.contains('asc')) ? 'asc' : 'desc' ?? null;
     const page = tableSection.querySelector(`#page-${table}`).querySelector('span').textContent ?? 1;
 
-    let query = `${table}/get?`;
+    let query = `${table}s?`;
     query += (search) ? `search=${search.value}` : '';
     query += (sortField) ? `&sort=${sortField.id.split('-')[1]}` : '';
     query += (sortDirection) ? `&sortDirection=${sortDirection}` : '';
@@ -163,7 +160,7 @@ function userRow(user) {
 function articleRow(article) {
     let row = document.createElement('tr');
     row.innerHTML = `
-            <td><a href="./articles/${article.slug}">${encodeHtml(article.id)}</a></td>
+            <td><a href="./article/${article.slug}">${encodeHtml(article.id)}</a></td>
             <td class="overlay-item">${encodeHtml(article.title)}</td>
             <td class="overlay-item" >${encodeHtml(article.subtitle)}</td>
             <td class="overlay-item" >${encodeHtml(article.content)}</td>
@@ -297,21 +294,21 @@ function addEventListenerToPage(table) {
 
 // Add Event listeners
 document.addEventListener('DOMContentLoaded', function () {
-    addEventListenerToSearch('users');
-    addEventListenerToSort('users');
-    addEventListenerToPage('users');
+    addEventListenerToSearch('user');
+    addEventListenerToSort('user');
+    addEventListenerToPage('user');
 
-    addEventListenerToSearch('articles');
-    addEventListenerToSort('articles');
-    addEventListenerToPage('articles');
+    addEventListenerToSearch('article');
+    addEventListenerToSort('article');
+    addEventListenerToPage('article');
 
-    addEventListenerToSearch('comments');
-    addEventListenerToSort('comments');
-    addEventListenerToPage('comments');
+    addEventListenerToSearch('comment');
+    addEventListenerToSort('comment');
+    addEventListenerToPage('comment');
 
     // Initial load
-    fetchAndLoadData('users');
-    fetchAndLoadData('articles');
-    fetchAndLoadData('comments');
+    fetchAndLoadData('user');
+    fetchAndLoadData('article');
+    fetchAndLoadData('comment');
 });
 

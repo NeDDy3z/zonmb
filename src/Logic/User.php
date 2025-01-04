@@ -71,61 +71,30 @@ class User
         $this->createdAt = $createdAt;
     }
 
-
     /**
-     * Fetch a `User` object from the database using the username.
+     *  Fetch a `User` object from the database using the id or username.
      *
+     * @param int|null $id The id to look up in the database.
      * @param string|null $username The username to look up in the database.
      *
      * @return User|null The user object with the fetched data.
      *
-     * @throws Exception If the user cannot be retrieved.
+     * @throws DatabaseException
+     * @throws Exception
      */
-    public static function getUserByUsername(?string $username): ?User
+    public static function get(?int $id = null, ?string $username = null): ?User
     {
-        if ($username === null) {
+        $userData = match (true) {
+            $id !== null => UserModel::selectUser(id: $id),
+            $username !== null => UserModel::selectUser(username: $username),
+            default => null,
+        };
+
+        if (!$userData) {
             return null;
         }
 
-        try {
-            $userData = UserModel::selectUser(username: $username);
-
-            if (!$userData) {
-                return null;
-            } else {
-                return self::returnUserObject($userData);
-            }
-        } catch (Exception $e) {
-            throw new Exception('Error while fetching user from database with username');
-        }
-    }
-
-    /**
-     * Fetch a `User` object from the database using the user's ID.
-     *
-     * @param int|null $id The user's ID to look up in the database.
-     *
-     * @return User|null The user object with the fetched data.
-     *
-     * @throws Exception If the user cannot be retrieved.
-     */
-    public static function getUserById(?int $id): ?User
-    {
-        if ($id === null) {
-            return null;
-        }
-
-        try {
-            $userData = UserModel::selectUser(id: $id);
-
-            if (!$userData) {
-                return null;
-            } else {
-                return self::returnUserObject($userData);
-            }
-        } catch (Exception $e) {
-            throw new Exception('Error while fetching user from database with id');
-        }
+        return self::returnUserObject($userData);
     }
 
     /**
@@ -148,6 +117,23 @@ class User
             );
         } catch (Exception $e) {
             throw new Exception('Error while creating User object');
+        }
+    }
+
+    /**
+     * Log out the user.
+     *
+     * Destroys the session and redirects the user to the home page with a logout confirmation message.
+     *
+     * @return void
+     */
+    public static function logout(?bool $redirect = true): void
+    {
+        session_unset();
+        session_destroy();
+
+        if ($redirect) {
+            Router::redirect(path: '', query: ['success' => 'logout']);
         }
     }
 
@@ -204,31 +190,11 @@ class User
     }
 
     /**
-     * @param string $fullname The new full name of the user
-     */
-    public function setFullname(string $fullname): void
-    {
-        $this->fullname = $fullname;
-    }
-
-    /**
      * @return string The path to the user's profile image
      */
     public function getImage(): string
     {
         return $this->image;
-    }
-
-    /**
-     * Update the path of the user's profile image.
-     *
-     * @param string $imagePath The new path to the user's profile image.
-     *
-     * @return void
-     */
-    public function setImage(string $imagePath): void
-    {
-        $this->image = $imagePath;
     }
 
     /**

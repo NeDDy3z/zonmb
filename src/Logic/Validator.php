@@ -31,14 +31,15 @@ class Validator
     const PASSWOR_MIN_LENGTH = 5;
     const PASSWORD_MAX_LENGTH = 255;
 
-    const IMAGE_REGEX = '/^image\/(png|jpg|jpeg)$/';
-
     const TITLE_MIN_LENGTH = 10;
     const TITLE_MAX_LENGTH = 100;
     const SUBTITLE_MIN_LENGTH = 3;
     const SUBTITLE_MAX_LENGTH = 255;
     const CONTENT_MIN_LENGTH = 3;
     const CONTENT_MAX_LENGTH = 5_000;
+    const IMAGE_REGEX = '/^image\/(png|jpg|jpeg)$/';
+    const COMMENT_MIN_LENGTH = 5;
+    const COMMENT_MAX_LENGTH = 255;
 
     /**
      * Throw an exception if there are validation errors.
@@ -286,10 +287,14 @@ class Validator
                 break;
 
             case ArticleModel::existsArticle($title): // Exists
-                if ($id and (int)ArticleModel::selectArticle('WHERE title LIKE "' . $title . '"')['id'] !== $id) {
-                    $error[] = 'titleTaken';
-                } else {
-                    $error[] = 'titleTaken';
+                // Check if ID is provided, if so, check if the provided title matches the title under the ID from database
+                if (isset($id)) {
+                    /** @var Article $article */
+                    $article = Article::get(id: $id);
+
+                    if ($article->getTitle() !== $title) {
+                        $error[] = 'titleTaken';
+                    }
                 }
                 break;
 
@@ -307,6 +312,36 @@ class Validator
 
             case strlen($content) < self::CONTENT_MIN_LENGTH || strlen($content) > self::CONTENT_MAX_LENGTH: // Length
                 $error[] = 'contentSize';
+                break;
+        }
+
+        // Throw exception on any error
+        return $this->throwExceptionOnError($error);
+    }
+
+    /**
+     * Validate a comment text and if it has an id of article to be associated with
+     *
+     *  This method ensures that inputs for all fields meet length requirements
+     *  and are not empty.
+     *
+     * @param int|null $articleId
+     * @param string|null $text
+     * @return bool
+     * @throws IncorrectInputException
+     */
+    public function validateComment(?int $articleId, ?string $text)
+    {
+        $error = null;
+        switch (true) {
+            case $articleId === null:
+                $error[] = 'missingArticleID';
+                // no break
+            case $text == null || $text == '': // Empty
+                $error[] = 'commentEmpty';
+                break;
+            case strlen($text) < self::COMMENT_MIN_LENGTH || strlen($text) > self::COMMENT_MAX_LENGTH: // Length
+                $error[] = 'commentSize';
                 break;
         }
 

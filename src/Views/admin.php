@@ -8,7 +8,7 @@ use Models\DatabaseConnector;
     <div class="tables">
         <h1>Administrace</h1>
         <p id="warning-display">Tato stránka není podporovaná v portrétním režimu, prosím, zkuste otočtit zařízení na šířku, nebo použijte počítač.</p>
-        <section class="table-data table-users">
+        <section class="table-data table-user">
             <div class="table-header">
                 <h2>Uživatelé</h2>
                 <label for="search-users">Vyhledat uživatele</label>
@@ -27,19 +27,22 @@ use Models\DatabaseConnector;
                 </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td colspan="7" class="empty">Načítání...</td>
+                    </tr>
                 </tbody>
             </table>
             <div class="table-footer">
                 <button class="prev-page">&#10094;</button>
-                <p id="page-users"><span>1</span>/<?= ceil(DatabaseConnector::count('user') / 10) ?></p>
+                <p id="page-user"><span>1</span>/<?= ceil(DatabaseConnector::count('user') / 10) ?></p>
                 <button class="next-page">&#10095;</button>
             </div>
         </section>
-        <section class="table-data table-articles">
+        <section class="table-data table-article">
             <div class="table-header">
                 <h2>Články</h2>
                 <div>
-                    <a href="<?= UrlHelper::baseUrl('articles/add') ?>" class="btn">Přidat článek</a>
+                    <a href="<?= UrlHelper::baseUrl('article/add') ?>" class="btn">Přidat článek</a>
                     <label for="search-articles">Vyhledat článek</label>
                     <input type="text" name="search-articles" id="search-articles" class="search" placeholder="Vyhledat článek...">
                 </div>
@@ -59,15 +62,18 @@ use Models\DatabaseConnector;
                 </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td colspan="8" class="empty">Načítání...</td>
+                    </tr>
                 </tbody>
             </table>
             <div class="table-footer">
                 <button class="prev-page">&#10094;</button>
-                <p id="page-articles"><span>1</span>/<?= ceil(DatabaseConnector::count('article') / 10) ?></p>
+                <p id="page-article"><span>1</span>/<?= ceil(DatabaseConnector::count('article') / 10) ?></p>
                 <button class="next-page">&#10095;</button>
             </div>
         </section>
-        <section class="table-data table-comments">
+        <section class="table-data table-comment">
             <div class="table-header">
                 <h2>Komentáře</h2>
                 <div>
@@ -87,11 +93,14 @@ use Models\DatabaseConnector;
                 </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td colspan="6" class="empty">Načítání...</td>
+                    </tr>
                 </tbody>
             </table>
             <div class="table-footer">
                 <button class="prev-page">&#10094;</button>
-                <p id="page-comments"><span>1</span>/<?= ceil(DatabaseConnector::count('comment') / 10) ?></p>
+                <p id="page-comment"><span>1</span>/<?= ceil(DatabaseConnector::count('comment') / 10) ?></p>
                 <button class="next-page">&#10095;</button>
             </div>
         </section>

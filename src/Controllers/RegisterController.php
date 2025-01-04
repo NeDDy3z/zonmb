@@ -7,6 +7,7 @@ namespace Controllers;
 use Exception;
 use Helpers\ImageHelper;
 use Logic\Router;
+use Logic\User;
 use Logic\Validator;
 use Models\UserModel;
 
@@ -94,8 +95,7 @@ class RegisterController extends Controller
             $fullname = $_POST['fullname'] ?? null;
             $password = $_POST['password'] ?? null;
             $passConf = $_POST['password-confirm'] ?? null;
-            $pfpImage = ImageHelper::getUsableImageArray($_FILES['image'])[0] ?? null;
-
+            $pfpImage = ImageHelper::getUsableImageArray($_FILES['image'] ?? null)[0] ?? null;
 
             // Validate every input
             $this->validator->validateUsername($username);
@@ -130,7 +130,7 @@ class RegisterController extends Controller
             );
 
             // Redirect to login page
-            Router::redirect(path: 'login', query: ['success' => 'register']);
+            Router::redirect(path: 'login', query: ['success' => 'registered']);
         } catch (Exception $e) {
             Router::redirect(path: 'register', query: ['error' => $e->getMessage()]);
         }

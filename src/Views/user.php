@@ -39,7 +39,7 @@ $user = $_SESSION['user_data'];
                             <span class="grayed-out">*<?= DateHelper::toPrettyFormat($user->getCreatedAt()) ?></span>
                         </li>
                     </ul>
-                    <a href="<?= UrlHelper::baseUrl('users/logout') ?>" class="btn danger">Odhlásit se</a>
+                    <a href="<?= UrlHelper::baseUrl('logout') ?>" class="btn danger">Odhlásit se</a>
                 </div>
             </div>
 
@@ -47,7 +47,7 @@ $user = $_SESSION['user_data'];
     </section>
     <section class="userpage">
         <div class="user-container user-change">
-            <form action="<?= UrlHelper::baseUrl('users/edit/fullname') ?>" method="post" class="one-line-form">
+            <form action="<?= UrlHelper::baseUrl('user/edit/fullname') ?>" method="post" class="one-line-form">
                 <h2>Změna celého jména</h2>
                 <label for="fullname">Celé jméno</label>
                 <input type="text" id="fullname" name="fullname"
@@ -61,7 +61,7 @@ $user = $_SESSION['user_data'];
     </section>
     <section class="userpage">
         <div class="user-container user-change">
-            <form action="<?= UrlHelper::baseUrl('users/edit/image') ?>" method="post" enctype="multipart/form-data" class="one-line-form">
+            <form action="<?= UrlHelper::baseUrl('user/edit/image') ?>" method="post" enctype="multipart/form-data" class="one-line-form">
                 <h2>Změna profilové fotky</h2>
                 <label for="image">Profilová fotka</label>
                 <input type="file" id="image" name="image" accept="image/png, image/jpeg"
@@ -74,7 +74,7 @@ $user = $_SESSION['user_data'];
     </section>
     <section class="userpage">
         <div class="user-container user-change">
-            <form action="<?= UrlHelper::baseUrl('users/edit/password') ?>" method="post" enctype="multipart/form-data">
+            <form action="<?= UrlHelper::baseUrl('user/edit/password') ?>" method="post" enctype="multipart/form-data">
                 <h2>Změna hesla</h2>
 
                 <label for="password-old" class="visible">*Staré heslo</label>

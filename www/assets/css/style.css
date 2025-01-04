@@ -215,6 +215,10 @@ label.visible {
 
 .incorrect {
     outline: var(--danger) 2px solid;
+
+    &:hover {
+        outline: var(--danger) 2px solid;
+    }
 }
 
 span.grayed-out {

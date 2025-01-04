@@ -16,7 +16,7 @@ if (!isset($article)) {
         if (isset($_SESSION['user_data'])) {
             $user = $_SESSION['user_data'];
             if ($user->isEditor()) {
-                echo '<a href="' . UrlHelper::baseUrl('articles/edit?id=' . $article->getId()) . '">Upravit článek</a>';
+                echo '<a href="' . UrlHelper::baseUrl('article/edit?id=' . $article->getId()) . '">Upravit článek</a>';
             }
         }
         ?>
@@ -52,7 +52,7 @@ if (!isset($article)) {
                     </span>
                     <?php
                     try {
-                        echo htmlspecialchars(User::getUserById($article->getAuthorId())->getFullname());
+                        echo htmlspecialchars(User::get(id: $article->getAuthorId())->getFullname());
                     } catch (Exception $e) {
                         echo htmlspecialchars('Autor nenalezen');
                     }
@@ -64,14 +64,16 @@ if (!isset($article)) {
         <section class="comments-section">
             <h1>Komentáře</h1>
             <div>
-                <form action="<?= UrlHelper::baseUrl('./comments/add') ?>" method="post" name="commentForm">
+                <form action="<?= UrlHelper::baseUrl('comment/add') ?>" method="post" name="commentForm">
                     <label for="article">ID Článku</label>
                     <input type="text" id="article" name="article" value="<?= $article->getId(); ?>" hidden readonly>
                     <label for="author">ID Autora</label>
                     <input type="text" id="author" name="author" value="<?= $user->getId(); ?>" hidden readonly>
 
                     <label for="comment">*Komentář</label>
-                    <textarea name="comment" id="comment" cols="100" rows="10" minlength="1" maxlength="255" placeholder="*komentář"></textarea>
+                    <textarea name="comment" id="comment" cols="100" rows="10" minlength="5" maxlength="255"
+                              title="Komentář může obsahovat jakékoliv znaky, musí mít délku minimálně 5 a maximálně 255 znaků."
+                              placeholder="*Přidat komentář"></textarea>
 
                     <button type="submit">Odeslat</button>
                 </form>

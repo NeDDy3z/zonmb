@@ -102,7 +102,7 @@ class ArticleModel
         $exists = DatabaseConnector::select(
             table: 'article',
             items: ['title'],
-            conditions: 'WHERE title LIKE "' . $title . '"',
+            conditions: "WHERE title LIKE '$title'",
         );
 
         return (count($exists) > 0);

@@ -13,6 +13,7 @@ $user = $_SESSION['user_data'] ?? null;
         <div class="news-search">
             <label for="search-articles">Vyhledat článek</label>
             <input type="text" class="search" id="search-articles" name="search-articles" placeholder="Vyhledat článek...">
+            <button class="search-button">Hledat</button>
             <label for="sorter">Seradit</label>
             <select name="sort" id="sorter" class="sort">
                 <option value="" disabled selected>Seřadit podle</option>
@@ -23,13 +24,13 @@ $user = $_SESSION['user_data'] ?? null;
             </select>
             <?php
             if (isset($user) && $user->isEditor()) {
-                echo '<a href="'. UrlHelper::baseUrl('articles/add') .'" class="btn">Přidat článek</a>';
+                echo '<a href="'. UrlHelper::baseUrl('article/add') .'" class="btn">Přidat článek</a>';
             }
             ?>
         </div>
     </div>
     <div class="container news-articles">
-        <!--Placeholder div for displaying articles using JS-->
+        <!--Placeholder div for displaying articles using AJAX-->
     </div>
     <div class="news-footer">
         <button class="prev-page">&#10094;</button>

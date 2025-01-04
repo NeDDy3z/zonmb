@@ -20,7 +20,7 @@ class Controller
     /**
      * @var string $page The absolute path to the view file
      */
-    private string $page;
+    private string $page = ROOT . 'src/Views/homepage.php';
 
     /**
      * Render the specified webpage.
@@ -30,7 +30,7 @@ class Controller
      *
      * @return void
      */
-    protected function render(): void
+    public function render(): void
     {
         require_once $this->page;
     }

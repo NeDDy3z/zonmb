@@ -6,7 +6,7 @@ import {encodeHtml} from "./utils.js";
 const newsArticles = document.querySelector('.container.news-articles');
 
 function newsQuery() {
-    let query = 'articles/get?'
+    let query = 'articles?'
     let search = document.querySelector('input.search').value;
     let sort = document.querySelector('.sort').value ?? null;
     let page = document.querySelector('#page-news').querySelector('span').textContent ?? 1;
@@ -33,7 +33,7 @@ function loadArticles(data) {
             articleElement.classList.add('article-news');
             articleElement.innerHTML =
                 `<div class="news-article-text">
-                        <a href="articles/${article.slug}"><h1>${encodeHtml(article.title)}</h1></a>
+                        <a href="article/${article.slug}"><h1>${encodeHtml(article.title)}</h1></a>
                         <h2>${encodeHtml(article.subtitle)}</h2>
                     </div>`;
             if (article.image_paths !== "" && article.image_paths !== null) {
@@ -65,6 +65,32 @@ function loadArticles(data) {
 
 
 // Add event listeners
+function addEventListenerToSearch() {
+    const search = document.querySelector('.search');
+    const searchButton = document.querySelector('.search-button');
+
+    search.addEventListener('input', function (e) { // Wait one second
+        clearTimeout(this.timer);
+
+        this.timer = setTimeout(() => {
+            fetchAndLoadArticles();
+        }, 1000);
+    });
+    search.addEventListener('keydown', function (e) { // On enter search
+        if (e.key === 'Enter') {
+            fetchAndLoadArticles();
+        }
+    });
+    search.addEventListener('blur', function () {
+        fetchAndLoadArticles();
+    }); // On lost focus
+
+    searchButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        fetchAndLoadArticles();
+    });
+}
+
 function addEventListenerToSort() {
     const sortSelect = document.querySelector('.sort');
 
@@ -100,25 +126,10 @@ function addEventListenerToPage() {
     })
 }
 
-addEventListenerToPage();
+
+addEventListenerToSearch();
 addEventListenerToSort();
-
-const search = document.querySelector('.search');
-search.addEventListener('input', function (e) { // Wait one second
-    clearTimeout(this.timer);
-
-    this.timer = setTimeout(() => {
-        fetchAndLoadArticles();
-    }, 1000);
-});
-search.addEventListener('keydown', function (e) { // On enter search
-    if (e.key === 'Enter') {
-        fetchAndLoadArticles();
-    }
-});
-search.addEventListener('blur', function () {
-    fetchAndLoadArticles();
-}); // On lost focus
+addEventListenerToPage();
 
 
 fetchAndLoadArticles();

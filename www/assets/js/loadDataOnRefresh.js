@@ -21,15 +21,18 @@ function enableSavingData() {
     });
 }
 
-// Load data into form
+// Load data into form on error
 function loadFormDataOnLoad() {
-    if (inputs.length === 0) return;
-    inputs.forEach(field => {
-        let val = sessionStorage.getItem(field.name)
-        if (!field.name.includes('image') && val) {
-            field.value = sessionStorage.getItem(field.name);
-        }
-    });
+    if (inputs.length !== 0) return;
+
+    if (window.location.search.includes('error')) {
+        inputs.forEach(field => {
+            let val = sessionStorage.getItem(field.name)
+            if (!field.name.includes('image') && val) {
+                field.value = sessionStorage.getItem(field.name);
+            }
+        });
+    }
 }
 
 // Clear data

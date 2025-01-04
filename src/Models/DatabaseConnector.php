@@ -127,7 +127,7 @@ class DatabaseConnector
         try {
             $result = self::$connection?->query($query)?->fetchAll();
         } catch (PDOException $e) {
-            throw new DatabaseException('Error while loading data from database'. $e->getMessage());
+            throw new DatabaseException('Error while loading data from database' . $e->getMessage());
         }
 
         // Convert into Array<Array<String>>
@@ -180,7 +180,7 @@ class DatabaseConnector
         try {
             self::$connection?->prepare($query)->execute($values);
         } catch (PDOException $e) {
-            throw new DatabaseException('Error while inserting data into database'. $e->getMessage());
+            throw new DatabaseException('Error while inserting data into database' . $e->getMessage());
         }
     }
 
@@ -263,23 +263,24 @@ class DatabaseConnector
      *
      * @param string $table The table to count rows from.
      *
-     * @return int The number of rows in the specified table.
-     * @throws DatabaseException If the query execution fails.
+     * @return int|string The number of rows in the specified table.
+     * @throws DatabaseException
      */
-    public static function count(string $table): int
+    public static function count(string $table): int|string
     {
-        // If connection is null try to create a new connection
-        if (!isset(self::$connection)) {
-            self::connect();
-        }
-
-        $query = "SELECT COUNT(id) as column_count FROM {$table};";
-
-        // Execute query and fetch data
         try {
+            // If connection is null try to create a new connection
+            if (!isset(self::$connection)) {
+                self::connect();
+            }
+
+            $query = "SELECT COUNT(id) as column_count FROM {$table};";
+
+            // Execute query and fetch data
+
             $result = self::$connection->query($query)->fetchAll();
         } catch (PDOException $e) {
-            throw new DatabaseException('Error while loading number of columns from database table');
+            return 'N/A';
         }
 
         return (int)$result[0]['column_count'];

@@ -38,11 +38,6 @@ class ArticleController extends Controller
     private string $editorPage = ROOT . 'src/Views/article-editor.php';
 
     /**
-     * @var string $action The current action being performed
-     */
-    private string $action;
-
-    /**
      * @var PrivilegeRedirect $privilegeRedirect The privilege redirect instance for redirecting users
      */
     private PrivilegeRedirect $privilegeRedirect;
@@ -53,76 +48,14 @@ class ArticleController extends Controller
     private Validator $validator;
 
     /**
-     * @var Article|null $article Article to be manipulated with
-     */
-    private ?Article $article;
-
-    /**
      * Constructor
      *
-     * Initializes the controller based on the provided action.
-     * Handles routing and checks for user privileges for certain actions.
-     *
-     * @param string|null $action The action to be performed (e.g., 'get', 'add', 'edit', 'delete', etc.)
-     * @throws Exception
+     * Initializes the controller.
      */
-    public function __construct(?string $action = '')
+    public function __construct()
     {
         $this->privilegeRedirect = new PrivilegeRedirect();
         $this->validator = new Validator();
-        $this->action = $action ?? '';
-
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            // Check for missing ID and redirect
-            if ($this->action === 'edit' or $this->action === 'delete') {
-                if (!isset($_GET['id'])) {
-                    Router::redirect(path: 'error', query: ['error' => 'missingID']);
-                }
-            }
-
-            switch ($this->action) {
-                case 'get':
-                    $this->getArticles(
-                        $_GET['search'] ?? null,
-                        $_GET['sort'] ?? null,
-                        $_GET['sortDirection'] ?? null,
-                        $_GET['page'] ?? 1,
-                    );
-                    break;
-                case 'exists':
-                    $this->existsArticleTitle($_GET['title'] ?? null);
-                    break;
-                case 'add':
-                    $this->privilegeRedirect->redirectUser();
-                    $this->page = $this->editorPage;
-                    break;
-                case 'edit':
-                    $this->article = Article::getArticleById($_GET['id']);
-
-                    if (!isset($this->article)) {
-                        Router::redirect(path: 'error', query: ['error' => 'incorrectID']);
-                    }
-
-                    $this->privilegeRedirect->redirectUser();
-                    $this->page = $this->editorPage;
-                    break;
-                case 'delete':
-                    $this->privilegeRedirect->redirectUser();
-                    if (isset($_GET['image'])) {
-                        $this->deleteArticleImage($_GET['id'], $_GET['image']);
-                    } else {
-                        $this->deleteArticle($_GET['id']);
-                    }
-                    break;
-                default:
-                    $this->article = Article::getArticleBySlug($this->action);
-
-                    if (!isset($this->article)) {
-                        Router::redirect(path: 'error', query: ['error' => 'articleNotFound']);
-                    }
-                    break;
-            }
-        }
     }
 
     /**
@@ -136,19 +69,48 @@ class ArticleController extends Controller
      */
     public function render(): void
     {
-        switch ($this->action) {
-            case 'add':
-            case 'edit':
-                $this->page = $this->editorPage;
-                break;
+        $slug = $_GET['slug'] ?? null;
+
+        try {
+            $article = Article::get(slug: $slug);
+        } catch (Exception $e) {
+            Router::redirect(path: 'error', query: ['error' => 'articleNotFound']);
         }
 
-        $article = $this->article ?? null;
-        $user = $_SESSION['user_data'] ?? null;
-        $type = $this->action;
         require_once $this->page; // Load page content
     }
 
+    /**
+     * Render the appropriate webpage based on the action.
+     *
+     * Handles rendering of the user editor.
+     * Ensures the data loaded corresponds to the currently edited user.
+     *
+     * @return void
+     * @throws Exception If a user is not authorized or data fails to load.
+     */
+    public function renderEditor(): void
+    {
+        $this->privilegeRedirect->redirectUser();
+        $type = (str_contains(haystack: $_SERVER['REQUEST_URI'], needle: 'add')) ? 'add' : 'edit';
+        $id = $_GET['id'] ?? null;
+
+        // On editing require article ID
+        if ($type === 'edit') {
+            if (!isset($id)) {
+                Router::redirect(path: 'article/add', query: ['error' => 'missingID']);
+            }
+
+            // Get article from DB using ID
+            $article = Article::get(id: $id);
+
+            if (!isset($article)) {
+                Router::redirect(path: 'article/add', query: ['error' => 'incorrectID']);
+            }
+        }
+
+        require_once $this->editorPage; // Load page content
+    }
 
     /**
      * Retrieve articles from the database.
@@ -156,51 +118,68 @@ class ArticleController extends Controller
      * Supports filtering, sorting, and pagination of retrieved articles.
      * Sends the articles as a JSON response.
      *
-     * @param string|null $search
-     * @param string|null $sort
-     * @param string|null $sortDirection
-     * @param int|null $page
      * @return void
      */
-    private function getArticles(?string $search = null, ?string $sort = null, ?string $sortDirection = null, ?int $page = 1): void
+    public function getArticles(): void
     {
-        // Convert date format
-        $search = DateHelper::ifPrettyConvertToISO($search);
-
-        // Create a query
-        $conditions = ($search) ? "WHERE id like '$search%' or title LIKE '%$search%' OR subtitle LIKE '%$search%' OR content LIKE '%$search%' OR created_at LIKE '%$search%'" : "";
-        $conditions .= ($sort) ? " ORDER BY $sort" : "";
-        $conditions .= ($sortDirection) ? " $sortDirection" : "";
-        $conditions .= ($page) ? " LIMIT 10 OFFSET " . ($page - 1) * 10 : "";
-
         try {
+            $search = $_GET['search'] ?? null;
+            $sort = $_GET['sort'] ?? null;
+            $sortDirection = $_GET['sortDirection'] ?? null;
+            (int)$page = $_GET['page'] ?? 1;
+
+            // Convert date format
+            $search = DateHelper::ifPrettyConvertToISO($search);
+
+            // Create a query
+            $conditions = ($search) ? "WHERE id like '$search%' or title LIKE '%$search%' OR subtitle LIKE '%$search%' OR content LIKE '%$search%' OR created_at LIKE '%$search%'" : "";
+            $conditions .= ($sort) ? " ORDER BY $sort" : "";
+            $conditions .= ($sortDirection) ? " $sortDirection" : "";
+            $conditions .= ($page) ? " LIMIT 10 OFFSET " . ($page - 1) * 10 : "";
+
             $articlesData = ArticleModel::selectArticles(
                 conditions: $conditions,
             );
 
-            if (!$articlesData) {
-                throw new Exception('Žádné články nebyly nalezeny');
-            }
+            echo json_encode($articlesData);
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
-            exit();
         }
 
-        echo json_encode($articlesData);
         exit();
     }
 
     /**
      * Check if an article title exists in the database.
      *
-     * @param string $title
      * @return void
      */
-    private function existsArticleTitle(string $title): void
+    public function exists(): void
     {
+        $this->privilegeRedirect->redirectUser();
+
         try {
-            $exists = ArticleModel::existsArticle($title);
-            echo json_encode(['exists' => $exists]);
+            $id = $_GET['id'] ?? null;
+            $title = $_GET['title'] ?? null;
+
+            if (!isset($title)) {
+                echo json_encode(['error' => 'missingTitle']);
+                exit();
+            }
+
+            // Check if ID is provided, if so, check if the provided title matches the title under the ID from database
+            if (isset($id)) {
+                /** @var Article $article */
+                $article = Article::get(id: $id);
+
+                if ($article->getTitle() !== $title) {
+                    echo json_encode(['exists' => true]);
+                }
+            } else {
+                $exists = ArticleModel::existsArticle(title: $title);
+                echo json_encode(['exists' => $exists]);
+            }
+
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
         }
@@ -217,11 +196,13 @@ class ArticleController extends Controller
      * @return void
      * @throws Exception If validation or saving data fails
      */
-    public function addArticle(): void
+    public function add(): void
     {
+        $this->privilegeRedirect->redirectUser();
+
         try {
             // Get data from $_POST
-            $author = $_POST['author'] ?? null;
+            (int)$author = $_POST['author'] ?? null;
             $title = $_POST['title'] ?? null;
             $subtitle = $_POST['subtitle'] ?? null;
             $content = $_POST['content'] ?? null;
@@ -272,12 +253,10 @@ class ArticleController extends Controller
             );
 
 
-            Router::redirect(path: "articles/$slug", query: ['success' => 'articleAdded']);
+            Router::redirect(path: "article/$slug", query: ['success' => 'articleAdded']);
         } catch (Exception $e) {
-            Router::redirect(path: 'articles/add', query: ['error' => $e->getMessage()]);
+            Router::redirect(path: 'article/add', query: ['error' => $e->getMessage()]);
         }
-
-
     }
 
     /**
@@ -289,10 +268,12 @@ class ArticleController extends Controller
      * @return void
      * @throws Exception If validation or saving data fails
      */
-    public function editArticle(): void
+    public function edit(): void
     {
+        $this->privilegeRedirect->redirectUser();
+
         try {
-            $id = (int)$_POST['id'] ?? null;
+            (int)$id = $_POST['id'] ?? null;
             $title = $_POST['title'] ?? null;
             $subtitle = $_POST['subtitle'] ?? null;
             $content = $_POST['content'] ?? null;
@@ -305,7 +286,6 @@ class ArticleController extends Controller
                 subtitle: $subtitle,
                 content: $content,
             );
-
 
             // Check images
             if (isset($images)) {
@@ -363,12 +343,12 @@ class ArticleController extends Controller
                 // Replace slug for a urlfirendlified title
                 $slug = ReplaceHelper::getUrlFriendlyString($title);
 
-                Router::redirect(path: "articles/$slug", query: ['success' => 'articleEdited']);
+                Router::redirect(path: "article/$slug", query: ['success' => 'articleEdited']);
             } catch (Exception $e) {
-                Router::redirect(path: "articles/edit", query: ['id' => $id, 'error' => $e->getMessage()]);
+                Router::redirect(path: "article/edit", query: ['id' => $id, 'error' => $e->getMessage()]);
             }
         } catch (Exception $e) {
-            Router::redirect(path: "articles/edit", query: ['id' => $id, 'error' => $e->getMessage()]);
+            Router::redirect(path: "article/edit", query: ['id' => $id, 'error' => $e->getMessage()]);
         }
     }
 
@@ -378,17 +358,28 @@ class ArticleController extends Controller
      * Ensures that all images related to the article are removed from the server
      * when the article is deleted.
      *
-     * @param int|null $id
+     * Additionally, this method calls for another method if $_GET request contains an image query
+     *
      * @return void
      */
-    public function deleteArticle(?int $id = null): void
+    public function delete(): void
     {
-        if (!isset($id)) {
-            echo json_encode(['error' => 'missingID']);
-            exit();
-        }
+        $this->privilegeRedirect->redirectUser();
 
         try {
+            $id = $_GET['id'] ?? null;
+            $image = $_GET['image'] ?? null;
+
+            if (!isset($id)) {
+                echo json_encode(['error' => 'missingID']);
+                exit();
+            }
+
+            if (isset($image)) {
+                $this->deleteImage($id, $image);
+                exit();
+            }
+
             ArticleModel::removeArticle(id: $id); // Delete article
             foreach ((array)scandir('assets/uploads/articles') as $file) { // Remove all images associated with it
                 if (str_starts_with($file, $id . '_')) { // if the file starts with the article ID remove it
@@ -413,17 +404,16 @@ class ArticleController extends Controller
      * @param string|null $img
      * @return void
      */
-    public function deleteArticleImage(?int $id = null, ?string $img = null): void
+    private function deleteImage(?int $id = null, ?string $img = null): void
     {
-        if (!isset($id) or !isset($img)) {
-            echo json_encode(['error' => 'missingID']);
-            exit();
-        }
-
         try {
+            if (!isset($id) or !isset($img)) {
+                echo json_encode(['error' => 'missingID']);
+                exit();
+            }
+
             $img = substr($img, 1); // Get image path without '/' on the beginning
             $imgId = preg_match('/\/(\d+_\d+)(?:_thumbnail)?\.jpeg$/', $img, $matches) ? $matches[1] : null; // Get img id (35_0, 21_2, ...)
-
 
             // Get image paths from server
             $imagePaths = explode(',', ArticleModel::selectArticle(conditions: 'WHERE id = ' . $id)['image_paths']);
@@ -440,10 +430,10 @@ class ArticleController extends Controller
                 }
             }
 
-            // Create different array where are not removed images
+            // Create a different array where are not removed images
             $newImagePaths = array_values(array_diff($imagePaths, $imagePathsToRemove));
 
-            // If new imagepath is empty fill it with 'null' because of the DB
+            // If new imagepath is empty, fill it with 'null' because of the DB
             if (count($newImagePaths) === 0) {
                 $newImagePaths = null;
             }

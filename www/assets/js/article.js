@@ -1,12 +1,12 @@
 import {sendRequest, sendRequestWithPayload} from "./xhr.js";
 import {sendMessageSignal} from "./messageDisplay.js";
-import {encodeHtml, prettyDate} from "./utils.js";
+import {baseUrl, encodeHtml, prettyDate} from "./utils.js";
 
 const commentsContainer = document.querySelector('.comments-container');
 
 // Get user data
 let user;
-sendRequest('GET', '../users/me', function (data) {
+sendRequest('GET', baseUrl('user/me'), function (data) {
     if (data.status === 200) {
         user = JSON.parse(data.responseText);
     }
@@ -61,7 +61,7 @@ function displayComments(page) {
         page = 1;
     }
 
-    sendRequest('GET', `../comments/get?article_id=${articleId}&page=${page}`, function (data) {
+    sendRequest('GET', baseUrl(`comments?article_id=${articleId}&sort=created_at&sortDirection=desc&page=${page}`), function (data) {
         data = JSON.parse(data.responseText);
 
         if (data.length !== 0 && data instanceof Array) {
@@ -84,7 +84,7 @@ function displayComments(page) {
                     deleteButton.addEventListener('click', function (event) {
                         event.preventDefault();
                         if (confirm('Jste si jistí?')) {
-                            sendRequest('GET', `../comments/delete?id=${comment.id}`, function (data) {
+                            sendRequest('GET', baseUrl(`comment/delete?id=${comment.id}`), function (data) {
                                 let type = (data.response.includes('success')) ? 'success' : 'error';
                                 let response = JSON.parse(data.responseText);
                                 sendMessageSignal(
@@ -110,10 +110,9 @@ function displayComments(page) {
 }
 
 // Send comment
-function sendComment(url, article, author, text) {
+function sendComment(url, article, text) {
     let data = new FormData();
     data.append('article', article);
-    data.append('author', author);
     data.append('comment', text);
 
     sendRequestWithPayload('POST', url, function (data) {
@@ -133,6 +132,26 @@ function sendComment(url, article, author, text) {
         );
         displayComments(1);
     }, data);
+}
+
+// Event listeners
+function addEventListenerToCommentForm() {
+    const commentForm = document.querySelector('form[name="commentForm"]');
+    const commentButton = commentForm.querySelector('button');
+
+    // Handle form submission
+    commentForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        let formData = new FormData(commentForm);
+        sendComment(
+            commentForm.action,
+            formData.get('article'),
+            formData.get('comment'),
+        );
+        commentForm.reset();
+    }, true);
 }
 
 function addEventListenerToPage() {
@@ -165,21 +184,9 @@ function addEventListenerToPage() {
 }
 
 
+// Load comments
 document.addEventListener('DOMContentLoaded', function () {
     addEventListenerToPage();
+    addEventListenerToCommentForm();
     displayComments(1);
 });
-
-document.addEventListener('DOMContentLoaded', () => {
-    const commentForm = document.querySelector('form[name="commentForm"]');
-
-    // Handle form submission
-    commentForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const formData = new FormData(commentForm);
-        sendComment(commentForm.action, formData.get('article'), formData.get('author'), formData.get('comment'));
-        commentForm.reset();
-    });
-});
-

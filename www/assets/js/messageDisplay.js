@@ -4,8 +4,8 @@ const staticMessageContainer = document.querySelector('.message-container.static
 // Success message dictionary
 const successMessages = {
     // General success
-    'login': 'Přihlášení proběhlo úspěšně',
-    'register': 'Registrace proběhla úspěšně',
+    'loggedIn': 'Přihlášení proběhlo úspěšně',
+    'registered': 'Registrace proběhla úspěšně',
     'logout': 'Odhlášení proběhlo úspěšně',
 
     // Data uploads success
@@ -149,18 +149,21 @@ function displayMessage(type, message, container = 'popup', countdown = 10) {
     }
 }
 
+// Mark incorrect input fields
 function markIncorrect(messages) {
     // Reset
     document.querySelectorAll('.incorrect').forEach(element => {
         element.classList.remove('incorrect');
     })
 
-    // Set incorrect ones
+    // Mark incorrect input fields
     messages.forEach(msg => {
+        // Error messages are constructed as such: titleSize or usernameRegex ..., they are split into two by capital
+        // letter where the first part indicates the incorrect input and the second what is incorrect.
         let elementName = msg.split(/(?=[A-Z])/)[0];
         let elements = [
-            ...Array.from(document.querySelectorAll(`input[name*="${elementName}"]`)),
-            ...Array.from(document.querySelectorAll(`textarea[name*="${elementName}"]`)),
+            ...Array.from(document.querySelectorAll(`input[name^="${elementName}"]`)),
+            ...Array.from(document.querySelectorAll(`textarea[name^="${elementName}"]`)),
         ];
 
         if (elements) {
@@ -171,6 +174,7 @@ function markIncorrect(messages) {
     });
 }
 
+// Send message signal to appear
 function sendMessageSignal(type, message, container = 'popup') {
     message = (typeof message === 'string') ? message.split('-') : message;
 
@@ -210,5 +214,3 @@ window.addEventListener('infoMessage', (event) => {
 document.addEventListener('DOMContentLoaded', sendSignalOnURLMessage);
 
 export {sendMessageSignal};
-
-

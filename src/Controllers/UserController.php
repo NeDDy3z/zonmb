@@ -6,11 +6,11 @@ use Exception;
 use Helpers\DateHelper;
 use Helpers\ImageHelper;
 use Helpers\PrivilegeRedirect;
+use Logic\DatabaseException;
 use Logic\Router;
 use Logic\User;
 use Logic\Validator;
 use Models\UserModel;
-
 
 
 /**
@@ -18,7 +18,7 @@ use Models\UserModel;
  *
  * Controller for managing user-related actions including viewing, editing,
  * deleting, and updating user data, as well as handling user-specific operations
- * such as login/logout, profile image updates, and password changes.
+ * such as editing fullname, profile image updates, and password changes.
  *
  * @package Controllers
  * @author Erik Vaněk
@@ -36,19 +36,9 @@ class UserController extends Controller
     private string $editorPage = ROOT . 'src/Views/user-editor.php';
 
     /**
-     * @var string $action The current action being performed
+     * @var User|null $user The user object of the currently logged-in user
      */
-    private string $action;
-
-    /**
-     * @var User $user The user object of the currently logged-in user
-     */
-    private User $user;
-
-    /**
-     * @var User|null $editedUser User to be manipulated with
-     */
-    private ?User $editedUser;
+    private ?User $user;
 
     /**
      * @var Validator $validator Validator instance for validating user data
@@ -76,67 +66,19 @@ class UserController extends Controller
      *
      * Initializes the controller with a given action and ensures only authenticated users can use it.
      * Redirects unauthorized users and handles role-specific restrictions for certain actions.
-     *
-     * @param string|null $action The action to be performed (e.g., 'get', 'edit', 'logout')
-     * @throws Exception
      */
-    public function __construct(?string $action = null)
+    public function __construct()
     {
-        // Declaration
         $this->validator = new Validator();
         $this->privilegeRedirect = new PrivilegeRedirect();
-        $this->action = $action ?? '';
 
-        // Put search in front of everything
-        if (isset($action) and $action === 'exists') {
-            $this->existsUsername($_GET['username'] ?? null);
-        }
-
-        // Check for missing ID and redirect
-        if ($this->action === 'edit' or $this->action === 'delete') {
-            if (!isset($_GET['id'])) {
-                Router::redirect(path: 'admin', query: ['error' => 'missingID']);
-            }
-        }
-
-        // Redirect host user - not logged-in user
+        // Get user data
+        $this->user = $_SESSION['user_data'] ?? null;
         $this->privilegeRedirect->redirectHost();
 
-        // Get userdata
-        $this->user = $_SESSION['user_data'];
-
-        // Proceed based on action
-        switch ($this->action) {
-            case 'get': // Return all users - used for admin page
-                $this->privilegeRedirect->redirectEditor();
-                $this->getUsers();
-                break;
-            case 'me':
-                $this->getSelf();
-                break;
-            case 'edit': // Redirect to editing page - for admins
-                $this->editedUser = User::getUserById($_GET['id']);
-
-                if (!isset($this->editedUser)) {
-                    Router::redirect(path: 'admin', query: ['error' => 'incorrectID']);
-                }
-
-                $this->privilegeRedirect->redirectEditor();
-                $this->page = $this->editorPage;
-                break;
-            case 'delete':
-                $this->privilegeRedirect->redirectEditor();
-                if (isset($_GET['image'])) {
-                    $this->deleteUserProfileImage($_GET['id'], $_GET['image']);
-                } else {
-                    $this->deleteUser($_GET['id']);
-                }
-                break;
-            case 'logout':
-                $this->logout();
-                break;
-            default:
-                break;
+        if (!isset($this->user)) {
+            User::logout(false);
+            Router::redirect(path: 'login', query: ['error' => 'notLoggedIn']);
         }
     }
 
@@ -147,26 +89,46 @@ class UserController extends Controller
      * Ensures the data loaded corresponds to the currently authenticated user.
      *
      * @return void
-     * @throws Exception If user is not authorized or data fails to load.
+     * @throws Exception If a user is not authorized or data fails to load.
      */
     public function render(): void
     {
-        switch ($this->action) {
-            case 'edit':
-                /** @var User $editedUser */
-                $editedUser = $this->editedUser;
-                $this->privilegeRedirect->redirectUserEditing($editedUser);
-                break;
-            default: // Render logged in user data
-                $user = $this->loadUserData();
-                $userRoles = $this->userRole;
-                break;
+        if (isset($this->user)) {
+            $user = $this->loadUserData();
+        } else {
+            User::logout(false);
+            Router::redirect(path: 'login', query: ['error' => 'notLoggedIn']);
         }
 
-        $userRole = $this->userRole;
-
-        // Check if a user is logged in & load data
+        $userRoles = $this->userRole;
         require_once $this->page; // Load page content
+    }
+
+    /**
+     * Render the appropriate webpage based on the action.
+     *
+     * Handles rendering of the user editor.
+     * Ensures the data loaded corresponds to the currently edited user.
+     *
+     * @return void
+     * @throws Exception If a user is not authorized or data fails to load.
+     */
+    public function renderEditor(): void
+    {
+        $this->privilegeRedirect->redirectEditor();
+
+        if (!isset($_GET['id'])) {
+            Router::redirect(path: 'admin', query: ['error' => 'missingID']);
+        }
+
+        $editedUser = User::get(id: $_GET['id']);
+
+        if (!isset($editedUser)) {
+            Router::redirect(path: 'admin', query: ['error' => 'incorrectID']);
+        }
+
+        $this->privilegeRedirect->redirectUserEditing($editedUser);
+        require_once $this->editorPage;
     }
 
     /**
@@ -174,10 +136,15 @@ class UserController extends Controller
      *
      * Fetches a user role, and outputs the data as a JSON response.
      *
-     * @return string
+     * @return void
      */
-    public function getSelf(): string
+    public function getMe(): void
     {
+        if ($this->user === null) {
+            echo json_encode(['error' => 'notLoggedIn']);
+            exit();
+        }
+
         echo json_encode([
             'id' => $this->user->getId(),
             'username' => $this->user->getUsername(),
@@ -234,14 +201,19 @@ class UserController extends Controller
     }
 
     /**
-     * Check if username exists in the database.
+     * Check if the username exists in the database.
      *
-     * @param string $username
      * @return void
      */
-    private function existsUsername(string $username): void
+    public function existsUsername(): void
     {
         try {
+            $username = $_GET['username'] ?? null;
+
+            if (!isset($username)) {
+                throw new Exception('missingUsername');
+            }
+
             $exists = UserModel::existsUser($username);
             echo json_encode(['exists' => $exists]);
         } catch (Exception $e) {
@@ -261,16 +233,14 @@ class UserController extends Controller
     private function loadUserData(): ?User
     {
         // If a user is logged in proceed, else redirect to login page
-        if (isset($_SESSION['user_data'])) {
+        if (isset($this->user) and $_SESSION['user_data']) {
             $_SESSION['cache_time'] = $_SESSION['cache_time'] ?? 0;
 
             // If user_data have been set and aren't older more than ~30 minutes, load them, else pull new from a database
-            if (time() - $_SESSION['cache_time'] < 1800) {
-                $user = $_SESSION['user_data'];
-            } else {
+            if (time() - $_SESSION['cache_time'] > 1800) {
                 try {
-                    // Set user data to session and set expiration
-                    $user = User::getUserByUsername($_SESSION['user_data']->getUsername() ?? null);
+                    // Re-set user data to session and set expiration
+                    $user = User::get(id: $this->user->getId());
 
                     if (!$user) {
                         Router::redirect(path: 'login', query: ['error' => 'Could not load user data']);
@@ -282,14 +252,14 @@ class UserController extends Controller
                     return $user;
 
                 } catch (Exception $e) {
-                    Router::redirect(path: 'login', query: ['error' => 'login']);
+                    Router::redirect(path: 'login', query: ['error' => 'notLoggedIn']);
                 }
             }
         } else {
-            Router::redirect(path: 'login', query: ['error' => 'not-logged-in']);
+            Router::redirect(path: 'login', query: ['error' => 'notLoggedIn']);
         }
 
-        return $user ?? null;
+        return $this->user;
     }
 
     /**
@@ -445,19 +415,7 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Log out the user.
-     *
-     * Destroys the session and redirects the user to the home page with a logout confirmation message.
-     *
-     * @return void
-     */
-    public function logout(): void
-    {
-        session_unset();
-        session_destroy();
-        Router::redirect(path: '', query: ['success' => 'logout']);
-    }
+
 
     /**
      * Delete a user pfp
@@ -476,7 +434,7 @@ class UserController extends Controller
         }
 
         try {
-            $user = User::getUserById($id);
+            $user = User::get(id: $id);
 
             $this->privilegeRedirect->redirectUserEditing($user);
 
@@ -515,7 +473,7 @@ class UserController extends Controller
         }
 
         try {
-            $user = User::getUserById($id);
+            $user = User::get(id: $id);
 
             $this->privilegeRedirect->redirectUserEditing($user);
 
