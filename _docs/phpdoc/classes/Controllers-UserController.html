@@ -142,7 +142,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
@@ -151,7 +151,7 @@
 
     <section class="phpdocumentor-description"><p>Controller for managing user-related actions including viewing, editing,
 deleting, and updating user data, as well as handling user-specific operations
-such as login/logout, profile image updates, and password changes.</p>
+such as editing fullname, profile image updates, and password changes.</p>
 </section>
 
 
@@ -203,18 +203,6 @@ such as login/logout, profile image updates, and password changes.</p>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a class="" href="classes/Controllers-UserController.html#property_action">$action</a>
-    <span>
-                        &nbsp;: string            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a class="" href="classes/Controllers-UserController.html#property_editedUser">$editedUser</a>
-    <span>
-                        &nbsp;: <a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>|null            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/Controllers-UserController.html#property_editorPage">$editorPage</a>
     <span>
                         &nbsp;: string            </span>
@@ -235,7 +223,7 @@ such as login/logout, profile image updates, and password changes.</p>
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/Controllers-UserController.html#property_user">$user</a>
     <span>
-                        &nbsp;: <a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>|null            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
@@ -260,23 +248,58 @@ such as login/logout, profile image updates, and password changes.</p>
 <dd>Constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Controllers-UserController.html#method_deleteUser">deleteUser()</a>
+    <a class="" href="classes/Controllers-UserController.html#method_delete">delete()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Delete user and all its associated data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Controllers-UserController.html#method_deleteUserProfileImage">deleteUserProfileImage()</a>
+    <a class="" href="classes/Controllers-UserController.html#method_deleteImage">deleteImage()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Delete a user pfp</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Controllers-UserController.html#method_getSelf">getSelf()</a>
+    <a class="" href="classes/Controllers-UserController.html#method_edit">edit()</a>
     <span>
-                                &nbsp;: string    </span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Edit user data.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Controllers-UserController.html#method_editFullname">editFullname()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Update the full name of the logged-in user.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Controllers-UserController.html#method_editImage">editImage()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Update the profile image of the logged-in user.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Controllers-UserController.html#method_editPassword">editPassword()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Update the password of the logged-in user.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Controllers-UserController.html#method_existsUsername">existsUsername()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Check if the username exists in the database.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Controllers-UserController.html#method_getMe">getMe()</a>
+    <span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Retrieve logged-in user data.</dd>
 
@@ -288,13 +311,6 @@ such as login/logout, profile image updates, and password changes.</p>
 <dd>Retrieve users from the database.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Controllers-UserController.html#method_logout">logout()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-<dd>Log out the user.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Controllers-UserController.html#method_render">render()</a>
     <span>
                                 &nbsp;: void    </span>
@@ -302,32 +318,11 @@ such as login/logout, profile image updates, and password changes.</p>
 <dd>Render the appropriate webpage based on the action.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Controllers-UserController.html#method_updateFullname">updateFullname()</a>
+    <a class="" href="classes/Controllers-UserController.html#method_renderEditor">renderEditor()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Update the full name of the logged-in user.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Controllers-UserController.html#method_updatePassword">updatePassword()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-<dd>Update the password of the logged-in user.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Controllers-UserController.html#method_updateProfileImage">updateProfileImage()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-<dd>Update the profile image of the logged-in user.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Controllers-UserController.html#method_updateUser">updateUser()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-<dd>Edit user data.</dd>
+<dd>Render the appropriate webpage based on the action.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/Controllers-UserController.html#method_delteUserImageFromServer">delteUserImageFromServer()</a>
@@ -335,13 +330,6 @@ such as login/logout, profile image updates, and password changes.</p>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Delete user profile image from server file system</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Controllers-UserController.html#method_existsUsername">existsUsername()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-<dd>Check if username exists in the database.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/Controllers-UserController.html#method_loadUserData">loadUserData()</a>
@@ -380,7 +368,7 @@ such as login/logout, profile image updates, and password changes.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">66</span>
+    <span class="phpdocumentor-element-found-in__line">55</span>
 
     </aside>
 
@@ -408,82 +396,6 @@ such as login/logout, profile image updates, and password changes.</p>
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_action">
-        $action
-        <a href="classes/Controllers-UserController.html#property_action" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">41</span>
-
-    </aside>
-
-    
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$action</span>
-    </code>
-
-    
-        <section class="phpdocumentor-description"><p>The current action being performed</p>
-</section>
-
-    
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_editedUser">
-        $editedUser
-        <a href="classes/Controllers-UserController.html#property_editedUser" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">51</span>
-
-    </aside>
-
-    
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>|null</span>
-    <span class="phpdocumentor-signature__name">$editedUser</span>
-    </code>
-
-    
-        <section class="phpdocumentor-description"><p>User to be manipulated with</p>
-</section>
-
-    
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="property_editorPage">
         $editorPage
         <a href="classes/Controllers-UserController.html#property_editorPage" class="headerlink"><i class="fas fa-link"></i></a>
@@ -494,7 +406,7 @@ such as login/logout, profile image updates, and password changes.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
@@ -532,7 +444,7 @@ such as login/logout, profile image updates, and password changes.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
@@ -570,7 +482,7 @@ such as login/logout, profile image updates, and password changes.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 
     </aside>
 
@@ -608,7 +520,7 @@ such as login/logout, profile image updates, and password changes.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
@@ -616,7 +528,7 @@ such as login/logout, profile image updates, and password changes.</p>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a></span>
+        <span class="phpdocumentor-signature__type"><a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$user</span>
     </code>
 
@@ -646,7 +558,7 @@ such as login/logout, profile image updates, and password changes.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
@@ -689,7 +601,7 @@ such as login/logout, profile image updates, and password changes.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">69</span>
 
     </aside>
 
@@ -697,7 +609,7 @@ such as login/logout, profile image updates, and password changes.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$action</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -706,35 +618,8 @@ such as login/logout, profile image updates, and password changes.</p>
 Redirects unauthorized users and handles role-specific restrictions for certain actions.</p>
 </section>
 
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$action</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The action to be performed (e.g., 'get', 'edit', 'logout')</p>
-</section>
-
-            </dd>
-            </dl>
-
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Controllers-UserController.html#method___construct#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
-                                                            
-                                             
-                                    </dd>
-                                            </dl>
+    
 
     
 
@@ -746,15 +631,15 @@ Redirects unauthorized users and handles role-specific restrictions for certain 
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_deleteUser">
-        deleteUser()
-        <a href="classes/Controllers-UserController.html#method_deleteUser" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_delete">
+        delete()
+        <a href="classes/Controllers-UserController.html#method_delete" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">510</span>
+    <span class="phpdocumentor-element-found-in__line">431</span>
 
     </aside>
 
@@ -762,7 +647,7 @@ Redirects unauthorized users and handles role-specific restrictions for certain 
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">deleteUser</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">delete</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -771,17 +656,7 @@ Redirects unauthorized users and handles role-specific restrictions for certain 
 when the user is deleted.</p>
 </section>
 
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$id</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
+    
     
 
     
@@ -794,15 +669,15 @@ when the user is deleted.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_deleteUserProfileImage">
-        deleteUserProfileImage()
-        <a href="classes/Controllers-UserController.html#method_deleteUserProfileImage" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_deleteImage">
+        deleteImage()
+        <a href="classes/Controllers-UserController.html#method_deleteImage" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">471</span>
+    <span class="phpdocumentor-element-found-in__line">480</span>
 
     </aside>
 
@@ -810,7 +685,7 @@ when the user is deleted.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">deleteUserProfileImage</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$image</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">deleteImage</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$image</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -848,15 +723,202 @@ when the user is deleted.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getSelf">
-        getSelf()
-        <a href="classes/Controllers-UserController.html#method_getSelf" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_edit">
+        edit()
+        <a href="classes/Controllers-UserController.html#method_edit" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">179</span>
+    <span class="phpdocumentor-element-found-in__line">275</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Edit user data.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">edit</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Handles uploading, validating, and replacing the user data.
+Validates the data and saves it in the database. Updates data and redirects
+the user with appropriate feedback.</p>
+</section>
+
+    
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_editFullname">
+        editFullname()
+        <a href="classes/Controllers-UserController.html#method_editFullname" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">313</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Update the full name of the logged-in user.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">editFullname</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Validates the new full name and saves it in the database. Updates the session data and redirects
+the user with appropriate feedback.</p>
+</section>
+
+    
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_editImage">
+        editImage()
+        <a href="classes/Controllers-UserController.html#method_editImage" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">351</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Update the profile image of the logged-in user.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">editImage</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Handles uploading, validating, and replacing the user's profile picture. Also
+updates the database and session to reflect the changes.</p>
+</section>
+
+    
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_editPassword">
+        editPassword()
+        <a href="classes/Controllers-UserController.html#method_editPassword" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">393</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Update the password of the logged-in user.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">editPassword</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Handles validating, and replacing the user's password. Alsoupdates the database.</p>
+</section>
+
+    
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_existsUsername">
+        existsUsername()
+        <a href="classes/Controllers-UserController.html#method_existsUsername" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">209</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Check if the username exists in the database.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">existsUsername</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getMe">
+        getMe()
+        <a href="classes/Controllers-UserController.html#method_getMe" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">142</span>
 
     </aside>
 
@@ -864,7 +926,7 @@ when the user is deleted.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getSelf</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getMe</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -877,11 +939,7 @@ when the user is deleted.</p>
 
     
 
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            </section>
-
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -897,7 +955,7 @@ when the user is deleted.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">200</span>
+    <span class="phpdocumentor-element-found-in__line">168</span>
 
     </aside>
 
@@ -927,43 +985,6 @@ and outputs the data as a JSON response.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_logout">
-        logout()
-        <a href="classes/Controllers-UserController.html#method_logout" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">455</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Log out the user.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">logout</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <section class="phpdocumentor-description"><p>Destroys the session and redirects the user to the home page with a logout confirmation message.</p>
-</section>
-
-    
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method_render">
         render()
         <a href="classes/Controllers-UserController.html#method_render" class="headerlink"><i class="fas fa-link"></i></a>
@@ -972,7 +993,7 @@ and outputs the data as a JSON response.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">152</span>
+    <span class="phpdocumentor-element-found-in__line">93</span>
 
     </aside>
 
@@ -1003,7 +1024,7 @@ Ensures the data loaded corresponds to the currently authenticated user.</p>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
                                                             
-                                                 <section class="phpdocumentor-description"><p>If user is not authorized or data fails to load.</p>
+                                                 <section class="phpdocumentor-description"><p>If a user is not authorized or data fails to load.</p>
 </section>
 
                                     </dd>
@@ -1019,147 +1040,50 @@ Ensures the data loaded corresponds to the currently authenticated user.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_updateFullname">
-        updateFullname()
-        <a href="classes/Controllers-UserController.html#method_updateFullname" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_renderEditor">
+        renderEditor()
+        <a href="classes/Controllers-UserController.html#method_renderEditor" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">342</span>
+    <span class="phpdocumentor-element-found-in__line">115</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Update the full name of the logged-in user.</p>
+        <p class="phpdocumentor-summary">Render the appropriate webpage based on the action.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">updateFullname</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">renderEditor</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
-        <section class="phpdocumentor-description"><p>Validates the new full name and saves it in the database. Updates the session data and redirects
-the user with appropriate feedback.</p>
+        <section class="phpdocumentor-description"><p>Handles rendering of the user editor.
+Ensures the data loaded corresponds to the currently edited user.</p>
 </section>
 
     
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Controllers-UserController.html#method_renderEditor#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_updatePassword">
-        updatePassword()
-        <a href="classes/Controllers-UserController.html#method_updatePassword" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">419</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Update the password of the logged-in user.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">updatePassword</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <section class="phpdocumentor-description"><p>Handles validating, and replacing the user's password. Alsoupdates the database.</p>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If a user is not authorized or data fails to load.</p>
 </section>
 
-    
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_updateProfileImage">
-        updateProfileImage()
-        <a href="classes/Controllers-UserController.html#method_updateProfileImage" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">377</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Update the profile image of the logged-in user.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">updateProfileImage</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <section class="phpdocumentor-description"><p>Handles uploading, validating, and replacing the user's profile picture. Also
-updates the database and session to reflect the changes.</p>
-</section>
-
-    
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_updateUser">
-        updateUser()
-        <a href="classes/Controllers-UserController.html#method_updateUser" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">304</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Edit user data.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">updateUser</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <section class="phpdocumentor-description"><p>Handles uploading, validating, and replacing the user data.
-Validates the data saves it in the database. Updates data and redirects
-the user with appropriate feedback.</p>
-</section>
-
-    
-    
+                                    </dd>
+                                            </dl>
 
     
 
@@ -1179,7 +1103,7 @@ the user with appropriate feedback.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">538</span>
+    <span class="phpdocumentor-element-found-in__line">516</span>
 
     </aside>
 
@@ -1216,51 +1140,6 @@ the user with appropriate feedback.</p>
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_existsUsername">
-        existsUsername()
-        <a href="classes/Controllers-UserController.html#method_existsUsername" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">242</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Check if username exists in the database.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">existsUsername</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$username</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$username</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method_loadUserData">
         loadUserData()
         <a href="classes/Controllers-UserController.html#method_loadUserData" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1269,7 +1148,7 @@ the user with appropriate feedback.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/UserController.php"><a href="files/src-controllers-usercontroller.html"><abbr title="src/Controllers/UserController.php">UserController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">261</span>
+    <span class="phpdocumentor-element-found-in__line">234</span>
 
     </aside>
 
@@ -1415,8 +1294,6 @@ it refreshes the user data from the database.</p>
                 <li>
                     <ul class="phpdocumentor-list -clean">
                                                     <li class=""><a href="classes/Controllers-UserController.html#property_userRole">$userRole</a></li>
-                                                    <li class=""><a href="classes/Controllers-UserController.html#property_action">$action</a></li>
-                                                    <li class=""><a href="classes/Controllers-UserController.html#property_editedUser">$editedUser</a></li>
                                                     <li class=""><a href="classes/Controllers-UserController.html#property_editorPage">$editorPage</a></li>
                                                     <li class=""><a href="classes/Controllers-UserController.html#property_page">$page</a></li>
                                                     <li class=""><a href="classes/Controllers-UserController.html#property_privilegeRedirect">$privilegeRedirect</a></li>
@@ -1429,18 +1306,18 @@ it refreshes the user data from the database.</p>
             <li>
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/Controllers-UserController.html#method___construct">__construct()</a></li>
-                                            <li class=""><a href="classes/Controllers-UserController.html#method_deleteUser">deleteUser()</a></li>
-                                            <li class=""><a href="classes/Controllers-UserController.html#method_deleteUserProfileImage">deleteUserProfileImage()</a></li>
-                                            <li class=""><a href="classes/Controllers-UserController.html#method_getSelf">getSelf()</a></li>
-                                            <li class=""><a href="classes/Controllers-UserController.html#method_getUsers">getUsers()</a></li>
-                                            <li class=""><a href="classes/Controllers-UserController.html#method_logout">logout()</a></li>
-                                            <li class=""><a href="classes/Controllers-UserController.html#method_render">render()</a></li>
-                                            <li class=""><a href="classes/Controllers-UserController.html#method_updateFullname">updateFullname()</a></li>
-                                            <li class=""><a href="classes/Controllers-UserController.html#method_updatePassword">updatePassword()</a></li>
-                                            <li class=""><a href="classes/Controllers-UserController.html#method_updateProfileImage">updateProfileImage()</a></li>
-                                            <li class=""><a href="classes/Controllers-UserController.html#method_updateUser">updateUser()</a></li>
-                                            <li class=""><a href="classes/Controllers-UserController.html#method_delteUserImageFromServer">delteUserImageFromServer()</a></li>
+                                            <li class=""><a href="classes/Controllers-UserController.html#method_delete">delete()</a></li>
+                                            <li class=""><a href="classes/Controllers-UserController.html#method_deleteImage">deleteImage()</a></li>
+                                            <li class=""><a href="classes/Controllers-UserController.html#method_edit">edit()</a></li>
+                                            <li class=""><a href="classes/Controllers-UserController.html#method_editFullname">editFullname()</a></li>
+                                            <li class=""><a href="classes/Controllers-UserController.html#method_editImage">editImage()</a></li>
+                                            <li class=""><a href="classes/Controllers-UserController.html#method_editPassword">editPassword()</a></li>
                                             <li class=""><a href="classes/Controllers-UserController.html#method_existsUsername">existsUsername()</a></li>
+                                            <li class=""><a href="classes/Controllers-UserController.html#method_getMe">getMe()</a></li>
+                                            <li class=""><a href="classes/Controllers-UserController.html#method_getUsers">getUsers()</a></li>
+                                            <li class=""><a href="classes/Controllers-UserController.html#method_render">render()</a></li>
+                                            <li class=""><a href="classes/Controllers-UserController.html#method_renderEditor">renderEditor()</a></li>
+                                            <li class=""><a href="classes/Controllers-UserController.html#method_delteUserImageFromServer">delteUserImageFromServer()</a></li>
                                             <li class=""><a href="classes/Controllers-UserController.html#method_loadUserData">loadUserData()</a></li>
                                     </ul>
             </li>

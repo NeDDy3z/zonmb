@@ -192,6 +192,18 @@ ensuring that invalid input is properly reported.</p>
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="classes/Logic-Validator.html#constant_COMMENT_MAX_LENGTH">COMMENT_MAX_LENGTH</a>
+    <span>
+        &nbsp;= 255                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="classes/Logic-Validator.html#constant_COMMENT_MIN_LENGTH">COMMENT_MIN_LENGTH</a>
+    <span>
+        &nbsp;= 5                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a class="" href="classes/Logic-Validator.html#constant_CONTENT_MAX_LENGTH">CONTENT_MAX_LENGTH</a>
     <span>
         &nbsp;= 5000                            </span>
@@ -305,6 +317,13 @@ ensuring that invalid input is properly reported.</p>
 <dd>Validate an article&#039;s title, subtitle, and content.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Logic-Validator.html#method_validateComment">validateComment()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Validate a comment text and if it has an id of article to be associated with</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Logic-Validator.html#method_validateFullname">validateFullname()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -358,6 +377,68 @@ ensuring that invalid input is properly reported.</p>
 
         </h3>
                     <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_COMMENT_MAX_LENGTH">
+        COMMENT_MAX_LENGTH
+        <a href="classes/Logic-Validator.html#constant_COMMENT_MAX_LENGTH" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">42</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">COMMENT_MAX_LENGTH</span>
+    = <span class="phpdocumentor-signature__default-value">255</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_COMMENT_MIN_LENGTH">
+        COMMENT_MIN_LENGTH
+        <a href="classes/Logic-Validator.html#constant_COMMENT_MIN_LENGTH" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">41</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">COMMENT_MIN_LENGTH</span>
+    = <span class="phpdocumentor-signature__default-value">5</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_CONTENT_MAX_LENGTH">
         CONTENT_MAX_LENGTH
         <a href="classes/Logic-Validator.html#constant_CONTENT_MAX_LENGTH" class="headerlink"><i class="fas fa-link"></i></a>
@@ -367,7 +448,7 @@ ensuring that invalid input is properly reported.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 
     </aside>
 
@@ -398,7 +479,7 @@ ensuring that invalid input is properly reported.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">38</span>
 
     </aside>
 
@@ -522,7 +603,7 @@ ensuring that invalid input is properly reported.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
@@ -646,7 +727,7 @@ ensuring that invalid input is properly reported.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
@@ -677,7 +758,7 @@ ensuring that invalid input is properly reported.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
@@ -708,7 +789,7 @@ ensuring that invalid input is properly reported.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
@@ -739,7 +820,7 @@ ensuring that invalid input is properly reported.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
@@ -877,7 +958,7 @@ ensuring that invalid input is properly reported.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">275</span>
+    <span class="phpdocumentor-element-found-in__line">277</span>
 
     </aside>
 
@@ -885,7 +966,7 @@ ensuring that invalid input is properly reported.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">validateArticle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subtitle</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$content</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$checkExistence</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">validateArticle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subtitle</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$content</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$checkExistence</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -896,6 +977,13 @@ and are not empty.</p>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$title</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
@@ -977,6 +1065,80 @@ and are not empty.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_validateComment">
+        validateComment()
+        <a href="classes/Logic-Validator.html#method_validateComment" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">333</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Validate a comment text and if it has an id of article to be associated with</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">validateComment</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$articleId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$text</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>This method ensures that inputs for all fields meet length requirements
+and are not empty.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$articleId</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$text</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Logic-Validator.html#method_validateComment#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/Logic-IncorrectInputException.html"><abbr title="\Logic\IncorrectInputException">IncorrectInputException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_validateFullname">
         validateFullname()
         <a href="classes/Logic-Validator.html#method_validateFullname" class="headerlink"><i class="fas fa-link"></i></a>
@@ -985,7 +1147,7 @@ and are not empty.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">149</span>
+    <span class="phpdocumentor-element-found-in__line">150</span>
 
     </aside>
 
@@ -1060,7 +1222,7 @@ format, and character restrictions.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">229</span>
+    <span class="phpdocumentor-element-found-in__line">230</span>
 
     </aside>
 
@@ -1180,7 +1342,7 @@ and width/height constraints.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">184</span>
+    <span class="phpdocumentor-element-found-in__line">185</span>
 
     </aside>
 
@@ -1264,7 +1426,7 @@ matches its confirmation, and falls within acceptable length constraints.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">80</span>
+    <span class="phpdocumentor-element-found-in__line">81</span>
 
     </aside>
 
@@ -1366,7 +1528,7 @@ records in the database.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">114</span>
+    <span class="phpdocumentor-element-found-in__line">115</span>
 
     </aside>
 
@@ -1458,7 +1620,7 @@ allowed characters (regex), and whether the username is already taken.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Validator.php"><a href="files/src-logic-validator.html"><abbr title="src/Logic/Validator.php">Validator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 
     </aside>
 
@@ -1631,6 +1793,8 @@ an <code class="prettyprint">IncorrectInputException</code> if any errors exist.
                             <li class="phpdocumentor-on-this-page-section__title">Constants</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
+                                                    <li class=""><a href="classes/Logic-Validator.html#constant_COMMENT_MAX_LENGTH">COMMENT_MAX_LENGTH</a></li>
+                                                    <li class=""><a href="classes/Logic-Validator.html#constant_COMMENT_MIN_LENGTH">COMMENT_MIN_LENGTH</a></li>
                                                     <li class=""><a href="classes/Logic-Validator.html#constant_CONTENT_MAX_LENGTH">CONTENT_MAX_LENGTH</a></li>
                                                     <li class=""><a href="classes/Logic-Validator.html#constant_CONTENT_MIN_LENGTH">CONTENT_MIN_LENGTH</a></li>
                                                     <li class=""><a href="classes/Logic-Validator.html#constant_FULLNAME_MAX_LENGTH">FULLNAME_MAX_LENGTH</a></li>
@@ -1655,6 +1819,7 @@ an <code class="prettyprint">IncorrectInputException</code> if any errors exist.
             <li>
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/Logic-Validator.html#method_validateArticle">validateArticle()</a></li>
+                                            <li class=""><a href="classes/Logic-Validator.html#method_validateComment">validateComment()</a></li>
                                             <li class=""><a href="classes/Logic-Validator.html#method_validateFullname">validateFullname()</a></li>
                                             <li class=""><a href="classes/Logic-Validator.html#method_validateImage">validateImage()</a></li>
                                             <li class=""><a href="classes/Logic-Validator.html#method_validatePassword">validatePassword()</a></li>

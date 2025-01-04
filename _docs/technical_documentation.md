@@ -58,7 +58,6 @@ The project scripts and folders structure
 │   │   ├── LoginController.php
 │   │   ├── NewsController.php
 │   │   ├── RegisterController.php
-│   │   ├── TestingController.php
 │   │   └── UserController.php
 │   │           
 │   ├── /Helpers
@@ -67,8 +66,7 @@ The project scripts and folders structure
 │   │   ├── PrivilegeHelper.php
 │   │   ├── ReplaceHelper.php
 │   │   └── UrlHelper.php
-│   │                 
-│   │                 
+│   │                           
 │   ├── /Logic
 │   │   ├── Article.php
 │   │   ├── DatabaseException.php
@@ -385,6 +383,52 @@ Examples of algorithms with pseudocode and php snippets
     }
 ```
 
+**Commenting (AJAX)**
+- Gathering comments, adding them and also deleting is managed by CommentController.php
+```
+1. Confirm the user is logged in with proper privileges.
+2. Collect the following inputs from the `POST` request:
+   - `comment`: The comment text.
+   - `article`: The ID of the article for which the comment is being added.
+3. Verify the user input:
+      - Ensure `comment` text is not empty
+      - Check if the article exists in the database
+4. Insert the comment into the database using the **CommentModel**
+5. Return success or error messages as JSON
+```
+```php
+public function add(): void
+{
+    $this->privilegeRedirect->redirectUser(); // Verify user session and privileges.
+
+    $text = $_POST['comment'] ?? null;
+    (int)$articleId = $_POST['article'] ?? null;
+    (int)$authorId = $_SESSION['user_data']->getId();
+
+    try {
+        // Input validation
+        $this->validator->validateComment(articleId: $articleId, text: $text);
+    } catch (Exception $e) {
+        echo json_encode(['error' => explode('-', $e->getMessage())]); // Return errors
+        exit();
+    }
+
+    try {
+        // Insert valid comment into database
+        CommentModel::insertComment(
+            text: $text,
+            articleId: $articleId,
+            authorId: $authorId,
+        );
+
+        echo json_encode(['success' => 'commentAdded']); // Return success
+    } catch (Exception $e) {
+        echo json_encode(['error' => $e->getMessage()]); // Return database insertion errors
+    }
+    exit();
+}
+```
+
 **Search & Sort function for users**
 - Search and sort logic is managed by a specific controller that the user is searching in, in this case UserController.php
 ```
@@ -465,7 +509,7 @@ Backend scripts are divided based on functionality, ensuring a modular and maint
 - **Controllers: ** Handle requests and logic
   - [AdminController.php](../src/Controllers/AdminController.php) - handle rendering of the admin dashboard
   - [ArticleController.php](../src/Controllers/ArticleController.php) - manages CRUD operations for articles, including adding or editing, provides AJAX-based data for admin dashboard and news page
-  - [CommentController.php](../src/Controllers/CommentController.php) - manages operations for comments under articles
+  - [CommentController.php](../src/Controllers/CommentController.php) - manages operations for comments
   - [Controller.php](../src/Controllers/Controller.php) - parent class
   - [ErrorController.php](../src/Controllers/ErrorController.php) - render errors
   - [HomepageController.php](../src/Controllers/HomepageController.php) - render homepage
@@ -589,7 +633,15 @@ More information on how to use the platform is [here](user_documentation.md)
     - returns paginated results as JSON
   - frontend updates the displayed list/table without reloading the entire page
 
-- **News Display with AJAX**
+- **Commenting (AJAX)**
+  - frontend:
+    - sends an AJAX POST request with the data
+  - backend:
+    - processes the request - verifies the validity of comment-text and existence of article with article ID provided
+    - returns success or error message as JSON
+  - frontend dynamically appends the new comment to the comments feed
+
+- **News Display (AJAX)**
   - frontend:
     - sends an AJAX GET request with the query or sorting parameters ...
   - backend:

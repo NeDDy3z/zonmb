@@ -224,6 +224,13 @@ and removing comments from the database. Uses database connectors for data opera
 <dd>Remove a comment from the database</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Controllers-Controller.html#method_render">render()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Render the specified webpage.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Models-CommentModel.html#method_selectComment">selectComment()</a>
     <span>
                                 &nbsp;: array&lt;string|int, string&gt;|null    </span>
@@ -236,13 +243,6 @@ and removing comments from the database. Uses database connectors for data opera
                                 &nbsp;: array&lt;string|int, array&lt;string|int, string&gt;&gt;|null    </span>
 </dt>
 <dd>Retrieve all comments from the database, with optional filtering conditions.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
-    <a class="" href="classes/Controllers-Controller.html#method_render">render()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-<dd>Render the specified webpage.</dd>
 
     </dl>
 
@@ -284,7 +284,7 @@ and removing comments from the database. Uses database connectors for data opera
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">$page</span>
-    </code>
+     = <span class="phpdocumentor-signature__default-value">ROOT . &#039;src/Views/homepage.php&#039;</span></code>
 
     
         <section class="phpdocumentor-description"><p>The absolute path to the view file</p>
@@ -451,6 +451,44 @@ and removing comments from the database. Uses database connectors for data opera
         class="phpdocumentor-element
             -method
             -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_render">
+        render()
+        <a href="classes/Controllers-Controller.html#method_render" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/Controller.php"><a href="files/src-controllers-controller.html"><abbr title="src/Controllers/Controller.php">Controller.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">33</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Render the specified webpage.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">render</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>This method includes the view file specified in the <code class="prettyprint">$page</code> property
+to display the content to the user.</p>
+</section>
+
+    
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                     -static                    "
 >
     <h4 class="phpdocumentor-element__name" id="method_selectComment">
@@ -591,44 +629,6 @@ and removing comments from the database. Uses database connectors for data opera
             </section>
 
 </article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -protected
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_render">
-        render()
-        <a href="classes/Controllers-Controller.html#method_render" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/Controller.php"><a href="files/src-controllers-controller.html"><abbr title="src/Controllers/Controller.php">Controller.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">33</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Render the specified webpage.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">protected</span>
-                    <span class="phpdocumentor-signature__name">render</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <section class="phpdocumentor-description"><p>This method includes the view file specified in the <code class="prettyprint">$page</code> property
-to display the content to the user.</p>
-</section>
-
-    
-    
-
-    
-
-    
-</article>
             </section>
 
         <div class="phpdocumentor-modal" id="source-view">
@@ -751,9 +751,9 @@ to display the content to the user.</p>
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/Models-CommentModel.html#method_insertComment">insertComment()</a></li>
                                             <li class=""><a href="classes/Models-CommentModel.html#method_removeComment">removeComment()</a></li>
+                                            <li class=""><a href="classes/Controllers-Controller.html#method_render">render()</a></li>
                                             <li class=""><a href="classes/Models-CommentModel.html#method_selectComment">selectComment()</a></li>
                                             <li class=""><a href="classes/Models-CommentModel.html#method_selectComments">selectComments()</a></li>
-                                            <li class=""><a href="classes/Controllers-Controller.html#method_render">render()</a></li>
                                     </ul>
             </li>
                     </ul>

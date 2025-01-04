@@ -14,6 +14,7 @@
    - [Admin dashboard](#admin-dashboard)
    - [News](#news)
    - [Article](#article)
+   - [Comments](#comments)
    - [Article add/edit page](#article-add-edit-page)
    - [User editing page](#user-editing-page)
    - [Search and Sort functionality](#search-and-sort-functionality)
@@ -83,7 +84,7 @@ Register form through which you can register on the platform
     - at least 200x200 px and up to 4000x4000px
 - Additionally, there is a login page link
 
-![Register form](simages/register.png)
+![Register form](images/register.png)
 
 
 ### [Login](https://zwa.toad.cz/~vanekeri/login)
@@ -128,12 +129,15 @@ An overview of all users and articles, user can sort (by clicking on any the top
 There are also a page navigation buttons at the bottom, to scroll throughout the pages of each table
 ![Admin dashboard](images/admin.png)
 
-Users table contains an ID, Username, Fullname, Role, Profile picture path, and Date of Registration for each user
+Users' table contains an ID, Username, Fullname, Role, Profile picture path, and Date of Registration for each user
 (Additionally clicking on an image path, user can display an actual image that said an image path points to)
 ![Users table](images/admin_users_table.png)
 
 Articles table contains an ID, Title, Subtitle, Content, Image paths, Author ID and Date of Creation for each article.
 ![Articles table](images/admin_articles_table.png)
+
+Comments table contains an ID, Article ID to which it belongs to and the Author ID of user who commented as well as the comment body text.
+![Comments table]()
 
 By clicking on any item inside the articles table, you can open a detailed overlay to display all data inside the element.
 ![Overlay with images](images/admin_overlayimg.png)
@@ -146,7 +150,6 @@ Page where all published articles are displayed, they can be searched or sorted 
 There are also a page navigation buttons at the bottom, to scroll throughout the articles.
 ![News - articles](images/news.png)
 
-
 ### [Article](https://zwa.toad.cz/~vanekeri/articles/testovaci-clanek)
 Article page where all data of article are displayed, including the title, subtitle, images, content and author name an creation date.
 ![Article page](images/article.png)
@@ -157,7 +160,13 @@ There is also a backlink to news page and a link to directly edit-opened article
 If an article contains multiple images, user can cycle through them using image slide arrows.
 ![Image slides gif](images/article_imageslide.gif)
 
-### [Article add edit page](http://zonmb.local/articles/edit?id=1)
+### [Comments](https://zwa.toad.cz/~vanekeri/article/testing-article)
+Under every article is a comment section located, there users can view and interact with comments related to an article.
+Users can page through comments, and add them using the form
+
+![Comments Section View](images/comments_section.png)
+
+### [Article add edit page](https://zwa.toad.cz/~vanekeri/article/edit?id=1)
 Page for adding or editing articles, any input can contain any character, so feel free to go wild ;)
 - Title
     - must be at least 10 and up to 100 characters long
@@ -174,7 +183,7 @@ Additionally, when editing an article with images, user can click on a small X n
 
 ![Article editing page](images/editor_article.png)
 
-### [User editing page](https://zwa.toad.cz/~vanekeri/users/edit?id=1)
+### [User editing page](https://zwa.toad.cz/~vanekeri/user/edit?id=1)
 Page for editing basic user details, admin can edit users "rank", set user either to user/editor, owner can set any rank except owner.
 - ID
     - informative and cannot be changed

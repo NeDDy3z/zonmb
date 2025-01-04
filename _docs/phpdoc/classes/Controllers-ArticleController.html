@@ -198,18 +198,6 @@ validation and privilege checks where necessary.</p>
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a class="" href="classes/Controllers-ArticleController.html#property_action">$action</a>
-    <span>
-                        &nbsp;: string            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a class="" href="classes/Controllers-ArticleController.html#property_article">$article</a>
-    <span>
-                        &nbsp;: <a href="classes/Logic-Article.html"><abbr title="\Logic\Article">Article</abbr></a>|null            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/Controllers-ArticleController.html#property_editorPage">$editorPage</a>
     <span>
                         &nbsp;: string            </span>
@@ -249,32 +237,39 @@ validation and privilege checks where necessary.</p>
 <dd>Constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Controllers-ArticleController.html#method_addArticle">addArticle()</a>
+    <a class="" href="classes/Controllers-ArticleController.html#method_add">add()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Add a new article to the database.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Controllers-ArticleController.html#method_deleteArticle">deleteArticle()</a>
+    <a class="" href="classes/Controllers-ArticleController.html#method_delete">delete()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Delete an article and all its associated images.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Controllers-ArticleController.html#method_deleteArticleImage">deleteArticleImage()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-<dd>Delete a single image from an article.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Controllers-ArticleController.html#method_editArticle">editArticle()</a>
+    <a class="" href="classes/Controllers-ArticleController.html#method_edit">edit()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Edit an existing article in the database.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Controllers-ArticleController.html#method_exists">exists()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Check if an article title exists in the database.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Controllers-ArticleController.html#method_getArticles">getArticles()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Retrieve articles from the database.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Controllers-ArticleController.html#method_render">render()</a>
@@ -283,12 +278,19 @@ validation and privilege checks where necessary.</p>
 </dt>
 <dd>Render the appropriate webpage based on the action.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Controllers-ArticleController.html#method_existsArticleTitle">existsArticleTitle()</a>
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Controllers-ArticleController.html#method_renderEditor">renderEditor()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Check if an article title exists in the database.</dd>
+<dd>Render the appropriate webpage based on the action.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/Controllers-ArticleController.html#method_deleteImage">deleteImage()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Delete a single image from an article.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/Controllers-ArticleController.html#method_generateThumbnailIfNoneIsPresent">generateThumbnailIfNoneIsPresent()</a>
@@ -296,13 +298,6 @@ validation and privilege checks where necessary.</p>
                                 &nbsp;: string|null    </span>
 </dt>
 <dd>Generate a thumbnail if none is present</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Controllers-ArticleController.html#method_getArticles">getArticles()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-<dd>Retrieve articles from the database.</dd>
 
     </dl>
 
@@ -317,82 +312,6 @@ validation and privilege checks where necessary.</p>
             <a href="classes/Controllers-ArticleController.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_action">
-        $action
-        <a href="classes/Controllers-ArticleController.html#property_action" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">43</span>
-
-    </aside>
-
-    
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$action</span>
-    </code>
-
-    
-        <section class="phpdocumentor-description"><p>The current action being performed</p>
-</section>
-
-    
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_article">
-        $article
-        <a href="classes/Controllers-ArticleController.html#property_article" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">58</span>
-
-    </aside>
-
-    
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/Logic-Article.html"><abbr title="\Logic\Article">Article</abbr></a>|null</span>
-    <span class="phpdocumentor-signature__name">$article</span>
-    </code>
-
-    
-        <section class="phpdocumentor-description"><p>Article to be manipulated with</p>
-</section>
-
-    
-
-    
-
-</article>
                     <article
         class="
             phpdocumentor-element
@@ -486,7 +405,7 @@ validation and privilege checks where necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
@@ -524,7 +443,7 @@ validation and privilege checks where necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">53</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 
     </aside>
 
@@ -567,7 +486,7 @@ validation and privilege checks where necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">55</span>
 
     </aside>
 
@@ -575,44 +494,16 @@ validation and privilege checks where necessary.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$action</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
-        <section class="phpdocumentor-description"><p>Initializes the controller based on the provided action.
-Handles routing and checks for user privileges for certain actions.</p>
+        <section class="phpdocumentor-description"><p>Initializes the controller.</p>
 </section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$action</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The action to be performed (e.g., 'get', 'add', 'edit', 'delete', etc.)</p>
-</section>
-
-            </dd>
-            </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Controllers-ArticleController.html#method___construct#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
-                                                            
-                                             
-                                    </dd>
-                                            </dl>
+    
 
     
 
@@ -624,15 +515,15 @@ Handles routing and checks for user privileges for certain actions.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_addArticle">
-        addArticle()
-        <a href="classes/Controllers-ArticleController.html#method_addArticle" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_add">
+        add()
+        <a href="classes/Controllers-ArticleController.html#method_add" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">218</span>
+    <span class="phpdocumentor-element-found-in__line">199</span>
 
     </aside>
 
@@ -640,7 +531,7 @@ Handles routing and checks for user privileges for certain actions.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">addArticle</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">add</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -653,7 +544,7 @@ Redirects to the created article upon success.</p>
     
     <h5 class="phpdocumentor-tag-list__heading" id="tags">
         Tags
-        <a href="classes/Controllers-ArticleController.html#method_addArticle#tags" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/Controllers-ArticleController.html#method_add#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h5>
     <dl class="phpdocumentor-tag-list">
@@ -679,15 +570,15 @@ Redirects to the created article upon success.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_deleteArticle">
-        deleteArticle()
-        <a href="classes/Controllers-ArticleController.html#method_deleteArticle" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_delete">
+        delete()
+        <a href="classes/Controllers-ArticleController.html#method_delete" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">377</span>
+    <span class="phpdocumentor-element-found-in__line">369</span>
 
     </aside>
 
@@ -695,26 +586,17 @@ Redirects to the created article upon success.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">deleteArticle</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">delete</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
         <section class="phpdocumentor-description"><p>Ensures that all images related to the article are removed from the server
 when the article is deleted.</p>
+<p>Additionally, this method calls for another method if $_GET request contains an image query</p>
 </section>
 
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$id</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
+    
     
 
     
@@ -727,70 +609,15 @@ when the article is deleted.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_deleteArticleImage">
-        deleteArticleImage()
-        <a href="classes/Controllers-ArticleController.html#method_deleteArticleImage" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_edit">
+        edit()
+        <a href="classes/Controllers-ArticleController.html#method_edit" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">409</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Delete a single image from an article.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">deleteArticleImage</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$img</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <section class="phpdocumentor-description"><p>Removes the specified image from the server and updates the database record.
-Regenerates a thumbnail if necessary or adds a placeholder when no images remain.</p>
-</section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$id</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$img</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_editArticle">
-        editArticle()
-        <a href="classes/Controllers-ArticleController.html#method_editArticle" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">286</span>
+    <span class="phpdocumentor-element-found-in__line">271</span>
 
     </aside>
 
@@ -798,7 +625,7 @@ Regenerates a thumbnail if necessary or adds a placeholder when no images remain
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">editArticle</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">edit</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -811,7 +638,7 @@ preserving or updating existing ones.</p>
     
     <h5 class="phpdocumentor-tag-list__heading" id="tags">
         Tags
-        <a href="classes/Controllers-ArticleController.html#method_editArticle#tags" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/Controllers-ArticleController.html#method_edit#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h5>
     <dl class="phpdocumentor-tag-list">
@@ -826,6 +653,79 @@ preserving or updating existing ones.</p>
 
                                     </dd>
                                             </dl>
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_exists">
+        exists()
+        <a href="classes/Controllers-ArticleController.html#method_exists" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">157</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Check if an article title exists in the database.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">exists</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getArticles">
+        getArticles()
+        <a href="classes/Controllers-ArticleController.html#method_getArticles" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">123</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Retrieve articles from the database.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getArticles</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Supports filtering, sorting, and pagination of retrieved articles.
+Sends the articles as a JSON response.</p>
+</section>
+
+    
+    
 
     
 
@@ -845,7 +745,7 @@ preserving or updating existing ones.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">135</span>
+    <span class="phpdocumentor-element-found-in__line">70</span>
 
     </aside>
 
@@ -889,37 +789,102 @@ based on the action and provided data.</p>
                     <article
         class="phpdocumentor-element
             -method
-            -private
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_existsArticleTitle">
-        existsArticleTitle()
-        <a href="classes/Controllers-ArticleController.html#method_existsArticleTitle" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_renderEditor">
+        renderEditor()
+        <a href="classes/Controllers-ArticleController.html#method_renderEditor" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">197</span>
+    <span class="phpdocumentor-element-found-in__line">92</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Check if an article title exists in the database.</p>
+        <p class="phpdocumentor-summary">Render the appropriate webpage based on the action.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">existsArticleTitle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">renderEditor</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
+        <section class="phpdocumentor-description"><p>Handles rendering of the user editor.
+Ensures the data loaded corresponds to the currently edited user.</p>
+</section>
+
     
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Controllers-ArticleController.html#method_renderEditor#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If a user is not authorized or data fails to load.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_deleteImage">
+        deleteImage()
+        <a href="classes/Controllers-ArticleController.html#method_deleteImage" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">419</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Delete a single image from an article.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">deleteImage</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$img</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Removes the specified image from the server and updates the database record.
+Regenerates a thumbnail if necessary or adds a placeholder when no images remain.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$title</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
+                <span class="phpdocumentor-signature__argument__name">$id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$img</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
@@ -945,7 +910,7 @@ based on the action and provided data.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">468</span>
+    <span class="phpdocumentor-element-found-in__line">477</span>
 
     </aside>
 
@@ -953,7 +918,7 @@ based on the action and provided data.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">generateThumbnailIfNoneIsPresent</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$imagePaths</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
+                    <span class="phpdocumentor-signature__name">generateThumbnailIfNoneIsPresent</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string, string&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$imagePaths</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -965,7 +930,7 @@ based on the action and provided data.</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$imagePaths</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string, string&gt;|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -998,75 +963,6 @@ based on the action and provided data.</p>
         <span class="phpdocumentor-signature__response_type">string|null</span>
             </section>
 
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getArticles">
-        getArticles()
-        <a href="classes/Controllers-ArticleController.html#method_getArticles" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/ArticleController.php"><a href="files/src-controllers-articlecontroller.html"><abbr title="src/Controllers/ArticleController.php">ArticleController.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">163</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Retrieve articles from the database.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">getArticles</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$search</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sort</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sortDirection</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$page</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">1</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <section class="phpdocumentor-description"><p>Supports filtering, sorting, and pagination of retrieved articles.
-Sends the articles as a JSON response.</p>
-</section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$search</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$sort</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$sortDirection</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$page</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">1</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
 </article>
             </section>
 
@@ -1181,8 +1077,6 @@ Sends the articles as a JSON response.</p>
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li class=""><a href="classes/Controllers-ArticleController.html#property_action">$action</a></li>
-                                                    <li class=""><a href="classes/Controllers-ArticleController.html#property_article">$article</a></li>
                                                     <li class=""><a href="classes/Controllers-ArticleController.html#property_editorPage">$editorPage</a></li>
                                                     <li class=""><a href="classes/Controllers-ArticleController.html#property_page">$page</a></li>
                                                     <li class=""><a href="classes/Controllers-ArticleController.html#property_privilegeRedirect">$privilegeRedirect</a></li>
@@ -1194,14 +1088,15 @@ Sends the articles as a JSON response.</p>
             <li>
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/Controllers-ArticleController.html#method___construct">__construct()</a></li>
-                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_addArticle">addArticle()</a></li>
-                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_deleteArticle">deleteArticle()</a></li>
-                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_deleteArticleImage">deleteArticleImage()</a></li>
-                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_editArticle">editArticle()</a></li>
-                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_render">render()</a></li>
-                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_existsArticleTitle">existsArticleTitle()</a></li>
-                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_generateThumbnailIfNoneIsPresent">generateThumbnailIfNoneIsPresent()</a></li>
+                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_add">add()</a></li>
+                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_delete">delete()</a></li>
+                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_edit">edit()</a></li>
+                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_exists">exists()</a></li>
                                             <li class=""><a href="classes/Controllers-ArticleController.html#method_getArticles">getArticles()</a></li>
+                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_render">render()</a></li>
+                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_renderEditor">renderEditor()</a></li>
+                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_deleteImage">deleteImage()</a></li>
+                                            <li class=""><a href="classes/Controllers-ArticleController.html#method_generateThumbnailIfNoneIsPresent">generateThumbnailIfNoneIsPresent()</a></li>
                                     </ul>
             </li>
                     </ul>

@@ -187,6 +187,27 @@ and supports redirection to other paths with optional query parameters.</p>
 
 
 
+<h4 id="toc-properties">
+    Properties
+    <a href="classes/Logic-Router.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a class="" href="classes/Logic-Router.html#property_getRoutes">$getRoutes</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;|array&lt;string|int, array&lt;string|int, mixed&gt;&gt;            </span>
+</dt>
+<dd>All routes with specific commands for GET method</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a class="" href="classes/Logic-Router.html#property_postRoutes">$postRoutes</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;|array&lt;string|int, array&lt;string|int, mixed&gt;&gt;            </span>
+</dt>
+<dd>All routes with specific commands for POST method</dd>
+
+    </dl>
 
 <h4 id="toc-methods">
     Methods
@@ -216,11 +237,25 @@ and supports redirection to other paths with optional query parameters.</p>
 <dd>Handle `GET` requests and route them to the appropriate controller.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/Logic-Router.html#method_includeHeaderAndFooter">includeHeaderAndFooter()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Render header and footer views where in between is a page content.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/Logic-Router.html#method_POST">POST()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Handle `POST` requests and route them to the appropriate controller&#039;s method.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/Logic-Router.html#method_rewrite">rewrite()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Rewrite incoming url into a specified format.</dd>
 
     </dl>
 
@@ -229,6 +264,95 @@ and supports redirection to other paths with optional query parameters.</p>
         
 
         
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/Logic-Router.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_getRoutes">
+        $getRoutes
+        <a href="classes/Logic-Router.html#property_getRoutes" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Router.php"><a href="files/src-logic-router.html"><abbr title="src/Logic/Router.php">Router.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">36</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">All routes with specific commands for GET method</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;|array&lt;string|int, array&lt;string|int, mixed&gt;&gt;</span>
+    <span class="phpdocumentor-signature__name">$getRoutes</span>
+     = <span class="phpdocumentor-signature__default-value">[&#039;error&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\ErrorController::class, &#039;action&#039; =&gt; &#039;render&#039;], &#039;&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\HomepageController::class, &#039;action&#039; =&gt; &#039;render&#039;], &#039;login&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\LoginController::class, &#039;action&#039; =&gt; &#039;render&#039;], &#039;logout&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\LoginController::class, &#039;action&#039; =&gt; &#039;logout&#039;], &#039;register&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\RegisterController::class, &#039;action&#039; =&gt; &#039;render&#039;], &#039;user&#039; =&gt; [
+    // this includes user-edit page
+    &#039;class&#039; =&gt; \Controllers\UserController::class,
+    &#039;action&#039; =&gt; &#039;render&#039;,
+], &#039;user/edit&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\UserController::class, &#039;action&#039; =&gt; &#039;renderEditor&#039;], &#039;user/me&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\UserController::class, &#039;action&#039; =&gt; &#039;getMe&#039;], &#039;user/exists&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\UserController::class, &#039;action&#039; =&gt; &#039;existsUsername&#039;], &#039;user/delete&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\UserController::class, &#039;action&#039; =&gt; &#039;delete&#039;], &#039;news&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\NewsController::class, &#039;action&#039; =&gt; &#039;render&#039;], &#039;article&#039; =&gt; [
+    // this includes article/add article/edit
+    &#039;class&#039; =&gt; \Controllers\ArticleController::class,
+    &#039;action&#039; =&gt; &#039;render&#039;,
+], &#039;article/add&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\ArticleController::class, &#039;action&#039; =&gt; &#039;renderEditor&#039;], &#039;article/edit&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\ArticleController::class, &#039;action&#039; =&gt; &#039;renderEditor&#039;], &#039;article/exists&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\ArticleController::class, &#039;action&#039; =&gt; &#039;exists&#039;], &#039;article/delete&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\ArticleController::class, &#039;action&#039; =&gt; &#039;delete&#039;], &#039;comment/delete&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\CommentController::class, &#039;action&#039; =&gt; &#039;delete&#039;], &#039;admin&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\AdminController::class, &#039;action&#039; =&gt; &#039;render&#039;], &#039;users&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\UserController::class, &#039;action&#039; =&gt; &#039;getUsers&#039;], &#039;articles&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\ArticleController::class, &#039;action&#039; =&gt; &#039;getArticles&#039;], &#039;comments&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\CommentController::class, &#039;action&#039; =&gt; &#039;getComments&#039;]]</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_postRoutes">
+        $postRoutes
+        <a href="classes/Logic-Router.html#property_postRoutes" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Router.php"><a href="files/src-logic-router.html"><abbr title="src/Logic/Router.php">Router.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">134</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">All routes with specific commands for POST method</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;|array&lt;string|int, array&lt;string|int, mixed&gt;&gt;</span>
+    <span class="phpdocumentor-signature__name">$postRoutes</span>
+     = <span class="phpdocumentor-signature__default-value">[&#039;login&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\LoginController::class, &#039;action&#039; =&gt; &#039;login&#039;], &#039;register&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\RegisterController::class, &#039;action&#039; =&gt; &#039;register&#039;], &#039;user/edit&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\UserController::class, &#039;action&#039; =&gt; &#039;edit&#039;], &#039;user/edit/fullname&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\UserController::class, &#039;action&#039; =&gt; &#039;editFullname&#039;], &#039;user/edit/image&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\UserController::class, &#039;action&#039; =&gt; &#039;editImage&#039;], &#039;user/edit/password&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\UserController::class, &#039;action&#039; =&gt; &#039;editPassword&#039;], &#039;article/add&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\ArticleController::class, &#039;action&#039; =&gt; &#039;add&#039;], &#039;article/edit&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\ArticleController::class, &#039;action&#039; =&gt; &#039;edit&#039;], &#039;comment/add&#039; =&gt; [&#039;class&#039; =&gt; \Controllers\CommentController::class, &#039;action&#039; =&gt; &#039;add&#039;]]</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+            </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
@@ -250,7 +374,7 @@ and supports redirection to other paths with optional query parameters.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Router.php"><a href="files/src-logic-router.html"><abbr title="src/Logic/Router.php">Router.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">185</span>
 
     </aside>
 
@@ -317,7 +441,7 @@ and supports redirection to other paths with optional query parameters.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Router.php"><a href="files/src-logic-router.html"><abbr title="src/Logic/Router.php">Router.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+    <span class="phpdocumentor-element-found-in__line">221</span>
 
     </aside>
 
@@ -393,7 +517,7 @@ if the HTTP method is unsupported.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Router.php"><a href="files/src-logic-router.html"><abbr title="src/Logic/Router.php">Router.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">107</span>
+    <span class="phpdocumentor-element-found-in__line">281</span>
 
     </aside>
 
@@ -452,6 +576,51 @@ an error (404) controller is shown.</p>
             -private
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_includeHeaderAndFooter">
+        includeHeaderAndFooter()
+        <a href="classes/Logic-Router.html#method_includeHeaderAndFooter" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Router.php"><a href="files/src-logic-router.html"><abbr title="src/Logic/Router.php">Router.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">260</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Render header and footer views where in between is a page content.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">includeHeaderAndFooter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">callable&nbsp;</span><span class="phpdocumentor-signature__argument__name">$callback</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$callback</span>
+                : <span class="phpdocumentor-signature__argument__return-type">callable</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_POST">
         POST()
         <a href="classes/Logic-Router.html#method_POST" class="headerlink"><i class="fas fa-link"></i></a>
@@ -460,7 +629,7 @@ an error (404) controller is shown.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Router.php"><a href="files/src-logic-router.html"><abbr title="src/Logic/Router.php">Router.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">144</span>
+    <span class="phpdocumentor-element-found-in__line">322</span>
 
     </aside>
 
@@ -522,6 +691,57 @@ If no match is found, an error controller is rendered.</p>
     
 
     
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_rewrite">
+        rewrite()
+        <a href="classes/Logic-Router.html#method_rewrite" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/Router.php"><a href="files/src-logic-router.html"><abbr title="src/Logic/Router.php">Router.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">242</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Rewrite incoming url into a specified format.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">rewrite</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>For example .../article/article-one will be rewritten into .../article?slug=article-one</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$url</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
 </article>
             </section>
 
@@ -628,10 +848,18 @@ If no match is found, an error controller is rendered.</p>
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                                                <li><a href="classes/Logic-Router.html#toc-methods">Methods</a></li>
+                                                            <li><a href="classes/Logic-Router.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/Logic-Router.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
+                            <li class="phpdocumentor-on-this-page-section__title">Properties</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li class=""><a href="classes/Logic-Router.html#property_getRoutes">$getRoutes</a></li>
+                                                    <li class=""><a href="classes/Logic-Router.html#property_postRoutes">$postRoutes</a></li>
+                                            </ul>
+                </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
@@ -639,7 +867,9 @@ If no match is found, an error controller is rendered.</p>
                                             <li class=""><a href="classes/Logic-Router.html#method_redirect">redirect()</a></li>
                                             <li class=""><a href="classes/Logic-Router.html#method_route">route()</a></li>
                                             <li class=""><a href="classes/Logic-Router.html#method_GET">GET()</a></li>
+                                            <li class=""><a href="classes/Logic-Router.html#method_includeHeaderAndFooter">includeHeaderAndFooter()</a></li>
                                             <li class=""><a href="classes/Logic-Router.html#method_POST">POST()</a></li>
+                                            <li class=""><a href="classes/Logic-Router.html#method_rewrite">rewrite()</a></li>
                                     </ul>
             </li>
                     </ul>

@@ -139,7 +139,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CommentController.php"><a href="files/src-controllers-commentcontroller.html"><abbr title="src/Controllers/CommentController.php">CommentController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
@@ -199,6 +199,12 @@ such as retrieving, adding, and deleting comments</p>
                         &nbsp;: <a href="classes/Helpers-PrivilegeRedirect.html"><abbr title="\Helpers\PrivilegeRedirect">PrivilegeRedirect</abbr></a>            </span>
 </dt>
 
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a class="" href="classes/Controllers-CommentController.html#property_validator">$validator</a>
+    <span>
+                        &nbsp;: <a href="classes/Logic-Validator.html"><abbr title="\Logic\Validator">Validator</abbr></a>            </span>
+</dt>
+
     </dl>
 
 <h4 id="toc-methods">
@@ -215,20 +221,20 @@ such as retrieving, adding, and deleting comments</p>
 <dd>Constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Controllers-CommentController.html#method_addComment">addComment()</a>
+    <a class="" href="classes/Controllers-CommentController.html#method_add">add()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Add user comment</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Controllers-CommentController.html#method_deleteComment">deleteComment()</a>
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Controllers-CommentController.html#method_delete">delete()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Delete a comment from database</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Controllers-CommentController.html#method_getComments">getComments()</a>
     <span>
                                 &nbsp;: void    </span>
@@ -265,7 +271,7 @@ such as retrieving, adding, and deleting comments</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CommentController.php"><a href="files/src-controllers-commentcontroller.html"><abbr title="src/Controllers/CommentController.php">CommentController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
@@ -279,6 +285,44 @@ such as retrieving, adding, and deleting comments</p>
 
     
         <section class="phpdocumentor-description"><p>The privilege redirect instance for redirecting users</p>
+</section>
+
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_validator">
+        $validator
+        <a href="classes/Controllers-CommentController.html#property_validator" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CommentController.php"><a href="files/src-controllers-commentcontroller.html"><abbr title="src/Controllers/CommentController.php">CommentController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">33</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/Logic-Validator.html"><abbr title="\Logic\Validator">Validator</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$validator</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"><p>The validator instance for validating user inputs</p>
 </section>
 
     
@@ -308,7 +352,7 @@ such as retrieving, adding, and deleting comments</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CommentController.php"><a href="files/src-controllers-commentcontroller.html"><abbr title="src/Controllers/CommentController.php">CommentController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 
     </aside>
 
@@ -316,44 +360,16 @@ such as retrieving, adding, and deleting comments</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$action</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
-        <section class="phpdocumentor-description"><p>Initializes the controller based on the provided action.
-Handles routing and checks for user privileges for certain actions.</p>
+        <section class="phpdocumentor-description"><p>Initializes the controller.</p>
 </section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$action</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The action to be performed (e.g., 'get', 'add', 'edit', 'delete', etc.)</p>
-</section>
-
-            </dd>
-            </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Controllers-CommentController.html#method___construct#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
-                                                            
-                                             
-                                    </dd>
-                                            </dl>
+    
 
     
 
@@ -365,15 +381,15 @@ Handles routing and checks for user privileges for certain actions.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_addComment">
-        addComment()
-        <a href="classes/Controllers-CommentController.html#method_addComment" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_add">
+        add()
+        <a href="classes/Controllers-CommentController.html#method_add" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CommentController.php"><a href="files/src-controllers-commentcontroller.html"><abbr title="src/Controllers/CommentController.php">CommentController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">74</span>
+    <span class="phpdocumentor-element-found-in__line">100</span>
 
     </aside>
 
@@ -381,7 +397,7 @@ Handles routing and checks for user privileges for certain actions.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">addComment</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">add</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -399,42 +415,32 @@ Handles routing and checks for user privileges for certain actions.</p>
                     <article
         class="phpdocumentor-element
             -method
-            -private
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_deleteComment">
-        deleteComment()
-        <a href="classes/Controllers-CommentController.html#method_deleteComment" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_delete">
+        delete()
+        <a href="classes/Controllers-CommentController.html#method_delete" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CommentController.php"><a href="files/src-controllers-commentcontroller.html"><abbr title="src/Controllers/CommentController.php">CommentController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">113</span>
+    <span class="phpdocumentor-element-found-in__line">138</span>
 
     </aside>
 
         <p class="phpdocumentor-summary">Delete a comment from database</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">deleteComment</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">delete</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
     
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$id</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
+    
     
 
     
@@ -444,7 +450,7 @@ Handles routing and checks for user privileges for certain actions.</p>
                     <article
         class="phpdocumentor-element
             -method
-            -private
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_getComments">
@@ -455,15 +461,15 @@ Handles routing and checks for user privileges for certain actions.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CommentController.php"><a href="files/src-controllers-commentcontroller.html"><abbr title="src/Controllers/CommentController.php">CommentController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">156</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 
     </aside>
 
         <p class="phpdocumentor-summary">Get all comments based on articleId or userId</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">getComments</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$articleId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$search</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sort</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sortDirection</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$page</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">1</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getComments</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -471,52 +477,7 @@ Handles routing and checks for user privileges for certain actions.</p>
         <section class="phpdocumentor-description"><p>Build a query and call database</p>
 </section>
 
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$articleId</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$userId</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$search</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$sort</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$sortDirection</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$page</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">1</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
+    
     
 
     
@@ -637,6 +598,7 @@ Handles routing and checks for user privileges for certain actions.</p>
                 <li>
                     <ul class="phpdocumentor-list -clean">
                                                     <li class=""><a href="classes/Controllers-CommentController.html#property_privilegeRedirect">$privilegeRedirect</a></li>
+                                                    <li class=""><a href="classes/Controllers-CommentController.html#property_validator">$validator</a></li>
                                             </ul>
                 </li>
             
@@ -644,8 +606,8 @@ Handles routing and checks for user privileges for certain actions.</p>
             <li>
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/Controllers-CommentController.html#method___construct">__construct()</a></li>
-                                            <li class=""><a href="classes/Controllers-CommentController.html#method_addComment">addComment()</a></li>
-                                            <li class=""><a href="classes/Controllers-CommentController.html#method_deleteComment">deleteComment()</a></li>
+                                            <li class=""><a href="classes/Controllers-CommentController.html#method_add">add()</a></li>
+                                            <li class=""><a href="classes/Controllers-CommentController.html#method_delete">delete()</a></li>
                                             <li class=""><a href="classes/Controllers-CommentController.html#method_getComments">getComments()</a></li>
                                     </ul>
             </li>

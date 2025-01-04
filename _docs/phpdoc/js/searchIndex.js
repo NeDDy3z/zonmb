@@ -21,16 +21,6 @@ Search.appendIndex(
             "summary": "Render\u0020the\u0020admin\u0020dashboard\u0020page.",
             "url": "classes/Controllers-AdminController.html#method_render"
         },                {
-            "fqsen": "\\Controllers\\AdminController\u003A\u003AloadUsers\u0028\u0029",
-            "name": "loadUsers",
-            "summary": "Load\u0020users\u0020from\u0020the\u0020database.",
-            "url": "classes/Controllers-AdminController.html#method_loadUsers"
-        },                {
-            "fqsen": "\\Controllers\\AdminController\u003A\u003AloadArticles\u0028\u0029",
-            "name": "loadArticles",
-            "summary": "Load\u0020articles\u0020from\u0020the\u0020database.",
-            "url": "classes/Controllers-AdminController.html#method_loadArticles"
-        },                {
             "fqsen": "\\Controllers\\AdminController\u003A\u003A\u0024page",
             "name": "page",
             "summary": "",
@@ -51,35 +41,40 @@ Search.appendIndex(
             "summary": "Render\u0020the\u0020appropriate\u0020webpage\u0020based\u0020on\u0020the\u0020action.",
             "url": "classes/Controllers-ArticleController.html#method_render"
         },                {
+            "fqsen": "\\Controllers\\ArticleController\u003A\u003ArenderEditor\u0028\u0029",
+            "name": "renderEditor",
+            "summary": "Render\u0020the\u0020appropriate\u0020webpage\u0020based\u0020on\u0020the\u0020action.",
+            "url": "classes/Controllers-ArticleController.html#method_renderEditor"
+        },                {
             "fqsen": "\\Controllers\\ArticleController\u003A\u003AgetArticles\u0028\u0029",
             "name": "getArticles",
             "summary": "Retrieve\u0020articles\u0020from\u0020the\u0020database.",
             "url": "classes/Controllers-ArticleController.html#method_getArticles"
         },                {
-            "fqsen": "\\Controllers\\ArticleController\u003A\u003AexistsArticleTitle\u0028\u0029",
-            "name": "existsArticleTitle",
+            "fqsen": "\\Controllers\\ArticleController\u003A\u003Aexists\u0028\u0029",
+            "name": "exists",
             "summary": "Check\u0020if\u0020an\u0020article\u0020title\u0020exists\u0020in\u0020the\u0020database.",
-            "url": "classes/Controllers-ArticleController.html#method_existsArticleTitle"
+            "url": "classes/Controllers-ArticleController.html#method_exists"
         },                {
-            "fqsen": "\\Controllers\\ArticleController\u003A\u003AaddArticle\u0028\u0029",
-            "name": "addArticle",
+            "fqsen": "\\Controllers\\ArticleController\u003A\u003Aadd\u0028\u0029",
+            "name": "add",
             "summary": "Add\u0020a\u0020new\u0020article\u0020to\u0020the\u0020database.",
-            "url": "classes/Controllers-ArticleController.html#method_addArticle"
+            "url": "classes/Controllers-ArticleController.html#method_add"
         },                {
-            "fqsen": "\\Controllers\\ArticleController\u003A\u003AeditArticle\u0028\u0029",
-            "name": "editArticle",
+            "fqsen": "\\Controllers\\ArticleController\u003A\u003Aedit\u0028\u0029",
+            "name": "edit",
             "summary": "Edit\u0020an\u0020existing\u0020article\u0020in\u0020the\u0020database.",
-            "url": "classes/Controllers-ArticleController.html#method_editArticle"
+            "url": "classes/Controllers-ArticleController.html#method_edit"
         },                {
-            "fqsen": "\\Controllers\\ArticleController\u003A\u003AdeleteArticle\u0028\u0029",
-            "name": "deleteArticle",
+            "fqsen": "\\Controllers\\ArticleController\u003A\u003Adelete\u0028\u0029",
+            "name": "delete",
             "summary": "Delete\u0020an\u0020article\u0020and\u0020all\u0020its\u0020associated\u0020images.",
-            "url": "classes/Controllers-ArticleController.html#method_deleteArticle"
+            "url": "classes/Controllers-ArticleController.html#method_delete"
         },                {
-            "fqsen": "\\Controllers\\ArticleController\u003A\u003AdeleteArticleImage\u0028\u0029",
-            "name": "deleteArticleImage",
+            "fqsen": "\\Controllers\\ArticleController\u003A\u003AdeleteImage\u0028\u0029",
+            "name": "deleteImage",
             "summary": "Delete\u0020a\u0020single\u0020image\u0020from\u0020an\u0020article.",
-            "url": "classes/Controllers-ArticleController.html#method_deleteArticleImage"
+            "url": "classes/Controllers-ArticleController.html#method_deleteImage"
         },                {
             "fqsen": "\\Controllers\\ArticleController\u003A\u003AgenerateThumbnailIfNoneIsPresent\u0028\u0029",
             "name": "generateThumbnailIfNoneIsPresent",
@@ -96,11 +91,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Controllers-ArticleController.html#property_editorPage"
         },                {
-            "fqsen": "\\Controllers\\ArticleController\u003A\u003A\u0024action",
-            "name": "action",
-            "summary": "",
-            "url": "classes/Controllers-ArticleController.html#property_action"
-        },                {
             "fqsen": "\\Controllers\\ArticleController\u003A\u003A\u0024privilegeRedirect",
             "name": "privilegeRedirect",
             "summary": "",
@@ -110,11 +100,6 @@ Search.appendIndex(
             "name": "validator",
             "summary": "",
             "url": "classes/Controllers-ArticleController.html#property_validator"
-        },                {
-            "fqsen": "\\Controllers\\ArticleController\u003A\u003A\u0024article",
-            "name": "article",
-            "summary": "",
-            "url": "classes/Controllers-ArticleController.html#property_article"
         },                {
             "fqsen": "\\Controllers\\CommentController",
             "name": "CommentController",
@@ -126,25 +111,30 @@ Search.appendIndex(
             "summary": "Constructor",
             "url": "classes/Controllers-CommentController.html#method___construct"
         },                {
-            "fqsen": "\\Controllers\\CommentController\u003A\u003AaddComment\u0028\u0029",
-            "name": "addComment",
-            "summary": "Add\u0020user\u0020comment",
-            "url": "classes/Controllers-CommentController.html#method_addComment"
-        },                {
-            "fqsen": "\\Controllers\\CommentController\u003A\u003AdeleteComment\u0028\u0029",
-            "name": "deleteComment",
-            "summary": "Delete\u0020a\u0020comment\u0020from\u0020database",
-            "url": "classes/Controllers-CommentController.html#method_deleteComment"
-        },                {
             "fqsen": "\\Controllers\\CommentController\u003A\u003AgetComments\u0028\u0029",
             "name": "getComments",
             "summary": "Get\u0020all\u0020comments\u0020based\u0020on\u0020articleId\u0020or\u0020userId",
             "url": "classes/Controllers-CommentController.html#method_getComments"
         },                {
+            "fqsen": "\\Controllers\\CommentController\u003A\u003Aadd\u0028\u0029",
+            "name": "add",
+            "summary": "Add\u0020user\u0020comment",
+            "url": "classes/Controllers-CommentController.html#method_add"
+        },                {
+            "fqsen": "\\Controllers\\CommentController\u003A\u003Adelete\u0028\u0029",
+            "name": "delete",
+            "summary": "Delete\u0020a\u0020comment\u0020from\u0020database",
+            "url": "classes/Controllers-CommentController.html#method_delete"
+        },                {
             "fqsen": "\\Controllers\\CommentController\u003A\u003A\u0024privilegeRedirect",
             "name": "privilegeRedirect",
             "summary": "",
             "url": "classes/Controllers-CommentController.html#property_privilegeRedirect"
+        },                {
+            "fqsen": "\\Controllers\\CommentController\u003A\u003A\u0024validator",
+            "name": "validator",
+            "summary": "",
+            "url": "classes/Controllers-CommentController.html#property_validator"
         },                {
             "fqsen": "\\Controllers\\Controller",
             "name": "Controller",
@@ -221,6 +211,11 @@ Search.appendIndex(
             "summary": "Process\u0020the\u0020user\u0020login\u0020request.",
             "url": "classes/Controllers-LoginController.html#method_login"
         },                {
+            "fqsen": "\\Controllers\\LoginController\u003A\u003Alogout\u0028\u0029",
+            "name": "logout",
+            "summary": "Logout\u0020currently\u0020logged\u0020in\u0020user",
+            "url": "classes/Controllers-LoginController.html#method_logout"
+        },                {
             "fqsen": "\\Controllers\\LoginController\u003A\u003A\u0024path",
             "name": "path",
             "summary": "",
@@ -276,41 +271,6 @@ Search.appendIndex(
             "summary": "Validator\u0020instance\u0020for\u0020validating\u0020user\u0020input\u0020fields.",
             "url": "classes/Controllers-RegisterController.html#property_validator"
         },                {
-            "fqsen": "\\Controllers\\TestingController",
-            "name": "TestingController",
-            "summary": "TestingController",
-            "url": "classes/Controllers-TestingController.html"
-        },                {
-            "fqsen": "\\Controllers\\TestingController\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "TestingController\u0020constructor",
-            "url": "classes/Controllers-TestingController.html#method___construct"
-        },                {
-            "fqsen": "\\Controllers\\TestingController\u003A\u003Arender\u0028\u0029",
-            "name": "render",
-            "summary": "Render\u0020the\u0020testing\u0020page\u0020view",
-            "url": "classes/Controllers-TestingController.html#method_render"
-        },                {
-            "fqsen": "\\Controllers\\TestingController\u003A\u003AtestImageUpload\u0028\u0029",
-            "name": "testImageUpload",
-            "summary": "Test\u0020image\u0020uploading\u0020functionality",
-            "url": "classes/Controllers-TestingController.html#method_testImageUpload"
-        },                {
-            "fqsen": "\\Controllers\\TestingController\u003A\u003AtestXhr\u0028\u0029",
-            "name": "testXhr",
-            "summary": "Test\u0020XHR\u0020response\u0020for\u0020AJAX\u0020requests",
-            "url": "classes/Controllers-TestingController.html#method_testXhr"
-        },                {
-            "fqsen": "\\Controllers\\TestingController\u003A\u003A\u0024page",
-            "name": "page",
-            "summary": "",
-            "url": "classes/Controllers-TestingController.html#property_page"
-        },                {
-            "fqsen": "\\Controllers\\TestingController\u003A\u003A\u0024subPage",
-            "name": "subPage",
-            "summary": "",
-            "url": "classes/Controllers-TestingController.html#property_subPage"
-        },                {
             "fqsen": "\\Controllers\\UserController",
             "name": "UserController",
             "summary": "UserController",
@@ -326,10 +286,15 @@ Search.appendIndex(
             "summary": "Render\u0020the\u0020appropriate\u0020webpage\u0020based\u0020on\u0020the\u0020action.",
             "url": "classes/Controllers-UserController.html#method_render"
         },                {
-            "fqsen": "\\Controllers\\UserController\u003A\u003AgetSelf\u0028\u0029",
-            "name": "getSelf",
+            "fqsen": "\\Controllers\\UserController\u003A\u003ArenderEditor\u0028\u0029",
+            "name": "renderEditor",
+            "summary": "Render\u0020the\u0020appropriate\u0020webpage\u0020based\u0020on\u0020the\u0020action.",
+            "url": "classes/Controllers-UserController.html#method_renderEditor"
+        },                {
+            "fqsen": "\\Controllers\\UserController\u003A\u003AgetMe\u0028\u0029",
+            "name": "getMe",
             "summary": "Retrieve\u0020logged\u002Din\u0020user\u0020data.",
-            "url": "classes/Controllers-UserController.html#method_getSelf"
+            "url": "classes/Controllers-UserController.html#method_getMe"
         },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003AgetUsers\u0028\u0029",
             "name": "getUsers",
@@ -338,7 +303,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003AexistsUsername\u0028\u0029",
             "name": "existsUsername",
-            "summary": "Check\u0020if\u0020username\u0020exists\u0020in\u0020the\u0020database.",
+            "summary": "Check\u0020if\u0020the\u0020username\u0020exists\u0020in\u0020the\u0020database.",
             "url": "classes/Controllers-UserController.html#method_existsUsername"
         },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003AloadUserData\u0028\u0029",
@@ -346,40 +311,35 @@ Search.appendIndex(
             "summary": "Load\u0020the\u0020currently\u0020authenticated\u0020user\u0027s\u0020data.",
             "url": "classes/Controllers-UserController.html#method_loadUserData"
         },                {
-            "fqsen": "\\Controllers\\UserController\u003A\u003AupdateUser\u0028\u0029",
-            "name": "updateUser",
+            "fqsen": "\\Controllers\\UserController\u003A\u003Aedit\u0028\u0029",
+            "name": "edit",
             "summary": "Edit\u0020user\u0020data.",
-            "url": "classes/Controllers-UserController.html#method_updateUser"
+            "url": "classes/Controllers-UserController.html#method_edit"
         },                {
-            "fqsen": "\\Controllers\\UserController\u003A\u003AupdateFullname\u0028\u0029",
-            "name": "updateFullname",
+            "fqsen": "\\Controllers\\UserController\u003A\u003AeditFullname\u0028\u0029",
+            "name": "editFullname",
             "summary": "Update\u0020the\u0020full\u0020name\u0020of\u0020the\u0020logged\u002Din\u0020user.",
-            "url": "classes/Controllers-UserController.html#method_updateFullname"
+            "url": "classes/Controllers-UserController.html#method_editFullname"
         },                {
-            "fqsen": "\\Controllers\\UserController\u003A\u003AupdateProfileImage\u0028\u0029",
-            "name": "updateProfileImage",
+            "fqsen": "\\Controllers\\UserController\u003A\u003AeditImage\u0028\u0029",
+            "name": "editImage",
             "summary": "Update\u0020the\u0020profile\u0020image\u0020of\u0020the\u0020logged\u002Din\u0020user.",
-            "url": "classes/Controllers-UserController.html#method_updateProfileImage"
+            "url": "classes/Controllers-UserController.html#method_editImage"
         },                {
-            "fqsen": "\\Controllers\\UserController\u003A\u003AupdatePassword\u0028\u0029",
-            "name": "updatePassword",
+            "fqsen": "\\Controllers\\UserController\u003A\u003AeditPassword\u0028\u0029",
+            "name": "editPassword",
             "summary": "Update\u0020the\u0020password\u0020of\u0020the\u0020logged\u002Din\u0020user.",
-            "url": "classes/Controllers-UserController.html#method_updatePassword"
+            "url": "classes/Controllers-UserController.html#method_editPassword"
         },                {
-            "fqsen": "\\Controllers\\UserController\u003A\u003Alogout\u0028\u0029",
-            "name": "logout",
-            "summary": "Log\u0020out\u0020the\u0020user.",
-            "url": "classes/Controllers-UserController.html#method_logout"
-        },                {
-            "fqsen": "\\Controllers\\UserController\u003A\u003AdeleteUserProfileImage\u0028\u0029",
-            "name": "deleteUserProfileImage",
-            "summary": "Delete\u0020a\u0020user\u0020pfp",
-            "url": "classes/Controllers-UserController.html#method_deleteUserProfileImage"
-        },                {
-            "fqsen": "\\Controllers\\UserController\u003A\u003AdeleteUser\u0028\u0029",
-            "name": "deleteUser",
+            "fqsen": "\\Controllers\\UserController\u003A\u003Adelete\u0028\u0029",
+            "name": "delete",
             "summary": "Delete\u0020user\u0020and\u0020all\u0020its\u0020associated\u0020data.",
-            "url": "classes/Controllers-UserController.html#method_deleteUser"
+            "url": "classes/Controllers-UserController.html#method_delete"
+        },                {
+            "fqsen": "\\Controllers\\UserController\u003A\u003AdeleteImage\u0028\u0029",
+            "name": "deleteImage",
+            "summary": "Delete\u0020a\u0020user\u0020pfp",
+            "url": "classes/Controllers-UserController.html#method_deleteImage"
         },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003AdelteUserImageFromServer\u0028\u0029",
             "name": "delteUserImageFromServer",
@@ -396,20 +356,10 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Controllers-UserController.html#property_editorPage"
         },                {
-            "fqsen": "\\Controllers\\UserController\u003A\u003A\u0024action",
-            "name": "action",
-            "summary": "",
-            "url": "classes/Controllers-UserController.html#property_action"
-        },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003A\u0024user",
             "name": "user",
             "summary": "",
             "url": "classes/Controllers-UserController.html#property_user"
-        },                {
-            "fqsen": "\\Controllers\\UserController\u003A\u003A\u0024editedUser",
-            "name": "editedUser",
-            "summary": "",
-            "url": "classes/Controllers-UserController.html#property_editedUser"
         },                {
             "fqsen": "\\Controllers\\UserController\u003A\u003A\u0024validator",
             "name": "validator",
@@ -571,6 +521,11 @@ Search.appendIndex(
             "summary": "Article\u0020constructor.",
             "url": "classes/Logic-Article.html#method___construct"
         },                {
+            "fqsen": "\\Logic\\Article\u003A\u003Aget\u0028\u0029",
+            "name": "get",
+            "summary": "Fetch\u0020a\u0020\u0060Article\u0060\u0020object\u0020from\u0020the\u0020database\u0020using\u0020the\u0020id\u0020or\u0020slug.",
+            "url": "classes/Logic-Article.html#method_get"
+        },                {
             "fqsen": "\\Logic\\Article\u003A\u003AgetArticleById\u0028\u0029",
             "name": "getArticleById",
             "summary": "Retrieve\u0020an\u0020article\u0020from\u0020the\u0020database\u0020based\u0020on\u0020its\u0020ID.",
@@ -701,6 +656,16 @@ Search.appendIndex(
             "summary": "Routes\u0020an\u0020HTTP\u0020request\u0020to\u0020the\u0020appropriate\u0020controller\u0020and\u0020method\u0020based\u0020on\u0020the\u0020URL\u0020and\u0020method.",
             "url": "classes/Logic-Router.html#method_route"
         },                {
+            "fqsen": "\\Logic\\Router\u003A\u003Arewrite\u0028\u0029",
+            "name": "rewrite",
+            "summary": "Rewrite\u0020incoming\u0020url\u0020into\u0020a\u0020specified\u0020format.",
+            "url": "classes/Logic-Router.html#method_rewrite"
+        },                {
+            "fqsen": "\\Logic\\Router\u003A\u003AincludeHeaderAndFooter\u0028\u0029",
+            "name": "includeHeaderAndFooter",
+            "summary": "Render\u0020header\u0020and\u0020footer\u0020views\u0020where\u0020in\u0020between\u0020is\u0020a\u0020page\u0020content.",
+            "url": "classes/Logic-Router.html#method_includeHeaderAndFooter"
+        },                {
             "fqsen": "\\Logic\\Router\u003A\u003AGET\u0028\u0029",
             "name": "GET",
             "summary": "Handle\u0020\u0060GET\u0060\u0020requests\u0020and\u0020route\u0020them\u0020to\u0020the\u0020appropriate\u0020controller.",
@@ -710,6 +675,16 @@ Search.appendIndex(
             "name": "POST",
             "summary": "Handle\u0020\u0060POST\u0060\u0020requests\u0020and\u0020route\u0020them\u0020to\u0020the\u0020appropriate\u0020controller\u0027s\u0020method.",
             "url": "classes/Logic-Router.html#method_POST"
+        },                {
+            "fqsen": "\\Logic\\Router\u003A\u003A\u0024getRoutes",
+            "name": "getRoutes",
+            "summary": "All\u0020routes\u0020with\u0020specific\u0020commands\u0020for\u0020GET\u0020method",
+            "url": "classes/Logic-Router.html#property_getRoutes"
+        },                {
+            "fqsen": "\\Logic\\Router\u003A\u003A\u0024postRoutes",
+            "name": "postRoutes",
+            "summary": "All\u0020routes\u0020with\u0020specific\u0020commands\u0020for\u0020POST\u0020method",
+            "url": "classes/Logic-Router.html#property_postRoutes"
         },                {
             "fqsen": "\\Logic\\User",
             "name": "User",
@@ -721,20 +696,20 @@ Search.appendIndex(
             "summary": "User\u0020constructor.",
             "url": "classes/Logic-User.html#method___construct"
         },                {
-            "fqsen": "\\Logic\\User\u003A\u003AgetUserByUsername\u0028\u0029",
-            "name": "getUserByUsername",
-            "summary": "Fetch\u0020a\u0020\u0060User\u0060\u0020object\u0020from\u0020the\u0020database\u0020using\u0020the\u0020username.",
-            "url": "classes/Logic-User.html#method_getUserByUsername"
-        },                {
-            "fqsen": "\\Logic\\User\u003A\u003AgetUserById\u0028\u0029",
-            "name": "getUserById",
-            "summary": "Fetch\u0020a\u0020\u0060User\u0060\u0020object\u0020from\u0020the\u0020database\u0020using\u0020the\u0020user\u0027s\u0020ID.",
-            "url": "classes/Logic-User.html#method_getUserById"
+            "fqsen": "\\Logic\\User\u003A\u003Aget\u0028\u0029",
+            "name": "get",
+            "summary": "Fetch\u0020a\u0020\u0060User\u0060\u0020object\u0020from\u0020the\u0020database\u0020using\u0020the\u0020id\u0020or\u0020username.",
+            "url": "classes/Logic-User.html#method_get"
         },                {
             "fqsen": "\\Logic\\User\u003A\u003AreturnUserObject\u0028\u0029",
             "name": "returnUserObject",
             "summary": "Return\u0020a\u0020User\u0020object\u0020from\u0020an\u0020array",
             "url": "classes/Logic-User.html#method_returnUserObject"
+        },                {
+            "fqsen": "\\Logic\\User\u003A\u003Alogout\u0028\u0029",
+            "name": "logout",
+            "summary": "Log\u0020out\u0020the\u0020user.",
+            "url": "classes/Logic-User.html#method_logout"
         },                {
             "fqsen": "\\Logic\\User\u003A\u003AisAdmin\u0028\u0029",
             "name": "isAdmin",
@@ -763,7 +738,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Logic\\User\u003A\u003AsetFullname\u0028\u0029",
             "name": "setFullname",
-            "summary": "",
+            "summary": "Set\u0020new\u0020fullname\u0020for\u0020user",
             "url": "classes/Logic-User.html#method_setFullname"
         },                {
             "fqsen": "\\Logic\\User\u003A\u003AgetImage\u0028\u0029",
@@ -773,7 +748,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Logic\\User\u003A\u003AsetImage\u0028\u0029",
             "name": "setImage",
-            "summary": "Update\u0020the\u0020path\u0020of\u0020the\u0020user\u0027s\u0020profile\u0020image.",
+            "summary": "Set\u0020new\u0020image\u0020of\u0020user",
             "url": "classes/Logic-User.html#method_setImage"
         },                {
             "fqsen": "\\Logic\\User\u003A\u003AgetRole\u0028\u0029",
@@ -856,6 +831,11 @@ Search.appendIndex(
             "summary": "Validate\u0020an\u0020article\u0027s\u0020title,\u0020subtitle,\u0020and\u0020content.",
             "url": "classes/Logic-Validator.html#method_validateArticle"
         },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003AvalidateComment\u0028\u0029",
+            "name": "validateComment",
+            "summary": "Validate\u0020a\u0020comment\u0020text\u0020and\u0020if\u0020it\u0020has\u0020an\u0020id\u0020of\u0020article\u0020to\u0020be\u0020associated\u0020with",
+            "url": "classes/Logic-Validator.html#method_validateComment"
+        },                {
             "fqsen": "\\Logic\\Validator\u003A\u003AUSERNAME_REGEX",
             "name": "USERNAME_REGEX",
             "summary": "",
@@ -901,11 +881,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Logic-Validator.html#constant_PASSWORD_MAX_LENGTH"
         },                {
-            "fqsen": "\\Logic\\Validator\u003A\u003AIMAGE_REGEX",
-            "name": "IMAGE_REGEX",
-            "summary": "",
-            "url": "classes/Logic-Validator.html#constant_IMAGE_REGEX"
-        },                {
             "fqsen": "\\Logic\\Validator\u003A\u003ATITLE_MIN_LENGTH",
             "name": "TITLE_MIN_LENGTH",
             "summary": "",
@@ -935,6 +910,21 @@ Search.appendIndex(
             "name": "CONTENT_MAX_LENGTH",
             "summary": "",
             "url": "classes/Logic-Validator.html#constant_CONTENT_MAX_LENGTH"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003AIMAGE_REGEX",
+            "name": "IMAGE_REGEX",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_IMAGE_REGEX"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003ACOMMENT_MIN_LENGTH",
+            "name": "COMMENT_MIN_LENGTH",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_COMMENT_MIN_LENGTH"
+        },                {
+            "fqsen": "\\Logic\\Validator\u003A\u003ACOMMENT_MAX_LENGTH",
+            "name": "COMMENT_MAX_LENGTH",
+            "summary": "",
+            "url": "classes/Logic-Validator.html#constant_COMMENT_MAX_LENGTH"
         },                {
             "fqsen": "\\Models\\ArticleModel",
             "name": "ArticleModel",

@@ -246,6 +246,13 @@ the user's abilities based on their role.</p>
 <dd>User constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Logic-User.html#method_get">get()</a>
+    <span>
+                                &nbsp;: <a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>|null    </span>
+</dt>
+<dd>Fetch a `User` object from the database using the id or username.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Logic-User.html#method_getCreatedAt">getCreatedAt()</a>
     <span>
                                 &nbsp;: string    </span>
@@ -276,20 +283,6 @@ the user's abilities based on their role.</p>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Logic-User.html#method_getUserById">getUserById()</a>
-    <span>
-                                &nbsp;: <a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>|null    </span>
-</dt>
-<dd>Fetch a `User` object from the database using the user&#039;s ID.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/Logic-User.html#method_getUserByUsername">getUserByUsername()</a>
-    <span>
-                                &nbsp;: <a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>|null    </span>
-</dt>
-<dd>Fetch a `User` object from the database using the username.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Logic-User.html#method_getUsername">getUsername()</a>
     <span>
                                 &nbsp;: string    </span>
@@ -310,17 +303,25 @@ the user's abilities based on their role.</p>
 <dd>Check if the user has permission to edit articles.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Logic-User.html#method_logout">logout()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Log out the user.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Logic-User.html#method_setFullname">setFullname()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
+<dd>Set new fullname for user</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Logic-User.html#method_setImage">setImage()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Update the path of the user&#039;s profile image.</dd>
+<dd>Set new image of user</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/Logic-User.html#method_returnUserObject">returnUserObject()</a>
@@ -674,6 +675,93 @@ the user's abilities based on their role.</p>
         class="phpdocumentor-element
             -method
             -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_get">
+        get()
+        <a href="classes/Logic-User.html#method_get" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">85</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Fetch a `User` object from the database using the id or username.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">get</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$username</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The id to look up in the database.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$username</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The username to look up in the database.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Logic-User.html#method_get#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/Logic-DatabaseException.html"><abbr title="\Logic\DatabaseException">DatabaseException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The user object with the fetched data.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_getCreatedAt">
@@ -684,7 +772,7 @@ the user's abilities based on their role.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">245</span>
+    <span class="phpdocumentor-element-found-in__line">231</span>
 
     </aside>
 
@@ -726,7 +814,7 @@ the user's abilities based on their role.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">201</span>
+    <span class="phpdocumentor-element-found-in__line">187</span>
 
     </aside>
 
@@ -768,7 +856,7 @@ the user's abilities based on their role.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">185</span>
+    <span class="phpdocumentor-element-found-in__line">171</span>
 
     </aside>
 
@@ -810,7 +898,7 @@ the user's abilities based on their role.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">217</span>
+    <span class="phpdocumentor-element-found-in__line">205</span>
 
     </aside>
 
@@ -852,7 +940,7 @@ the user's abilities based on their role.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">237</span>
+    <span class="phpdocumentor-element-found-in__line">223</span>
 
     </aside>
 
@@ -884,150 +972,6 @@ the user's abilities based on their role.</p>
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_getUserById">
-        getUserById()
-        <a href="classes/Logic-User.html#method_getUserById" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">112</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Fetch a `User` object from the database using the user&#039;s ID.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getUserById</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>|null</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$id</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The user's ID to look up in the database.</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Logic-User.html#method_getUserById#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
-                                                            
-                                                 <section class="phpdocumentor-description"><p>If the user cannot be retrieved.</p>
-</section>
-
-                                    </dd>
-                                            </dl>
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>|null</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>The user object with the fetched data.</p>
-</section>
-
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_getUserByUsername">
-        getUserByUsername()
-        <a href="classes/Logic-User.html#method_getUserByUsername" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">84</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Fetch a `User` object from the database using the username.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getUserByUsername</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$username</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>|null</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$username</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The username to look up in the database.</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Logic-User.html#method_getUserByUsername#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
-                                                            
-                                                 <section class="phpdocumentor-description"><p>If the user cannot be retrieved.</p>
-</section>
-
-                                    </dd>
-                                            </dl>
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="classes/Logic-User.html"><abbr title="\Logic\User">User</abbr></a>|null</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>The user object with the fetched data.</p>
-</section>
-
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_getUsername">
@@ -1038,7 +982,7 @@ the user's abilities based on their role.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">193</span>
+    <span class="phpdocumentor-element-found-in__line">179</span>
 
     </aside>
 
@@ -1080,7 +1024,7 @@ the user's abilities based on their role.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">159</span>
+    <span class="phpdocumentor-element-found-in__line">145</span>
 
     </aside>
 
@@ -1123,7 +1067,7 @@ the user's abilities based on their role.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">174</span>
+    <span class="phpdocumentor-element-found-in__line">160</span>
 
     </aside>
 
@@ -1158,6 +1102,53 @@ the user's abilities based on their role.</p>
         class="phpdocumentor-element
             -method
             -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_logout">
+        logout()
+        <a href="classes/Logic-User.html#method_logout" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">130</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Log out the user.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">logout</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$redirect</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Destroys the session and redirects the user to the home page with a logout confirmation message.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$redirect</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_setFullname">
@@ -1168,11 +1159,12 @@ the user's abilities based on their role.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">209</span>
+    <span class="phpdocumentor-element-found-in__line">197</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Set new fullname for user</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">setFullname</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fullname</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
@@ -1188,9 +1180,7 @@ the user's abilities based on their role.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The new full name of the user</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -1214,15 +1204,15 @@ the user's abilities based on their role.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">229</span>
+    <span class="phpdocumentor-element-found-in__line">215</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Update the path of the user&#039;s profile image.</p>
+        <p class="phpdocumentor-summary">Set new image of user</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setImage</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$imagePath</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">setImage</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$image</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1231,13 +1221,11 @@ the user's abilities based on their role.</p>
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$imagePath</span>
+                <span class="phpdocumentor-signature__argument__name">$image</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The new path to the user's profile image.</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -1261,7 +1249,7 @@ the user's abilities based on their role.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Logic/User.php"><a href="files/src-logic-user.html"><abbr title="src/Logic/User.php">User.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">138</span>
+    <span class="phpdocumentor-element-found-in__line">107</span>
 
     </aside>
 
@@ -1437,16 +1425,16 @@ the user's abilities based on their role.</p>
             <li>
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/Logic-User.html#method___construct">__construct()</a></li>
+                                            <li class=""><a href="classes/Logic-User.html#method_get">get()</a></li>
                                             <li class=""><a href="classes/Logic-User.html#method_getCreatedAt">getCreatedAt()</a></li>
                                             <li class=""><a href="classes/Logic-User.html#method_getFullname">getFullname()</a></li>
                                             <li class=""><a href="classes/Logic-User.html#method_getId">getId()</a></li>
                                             <li class=""><a href="classes/Logic-User.html#method_getImage">getImage()</a></li>
                                             <li class=""><a href="classes/Logic-User.html#method_getRole">getRole()</a></li>
-                                            <li class=""><a href="classes/Logic-User.html#method_getUserById">getUserById()</a></li>
-                                            <li class=""><a href="classes/Logic-User.html#method_getUserByUsername">getUserByUsername()</a></li>
                                             <li class=""><a href="classes/Logic-User.html#method_getUsername">getUsername()</a></li>
                                             <li class=""><a href="classes/Logic-User.html#method_isAdmin">isAdmin()</a></li>
                                             <li class=""><a href="classes/Logic-User.html#method_isEditor">isEditor()</a></li>
+                                            <li class=""><a href="classes/Logic-User.html#method_logout">logout()</a></li>
                                             <li class=""><a href="classes/Logic-User.html#method_setFullname">setFullname()</a></li>
                                             <li class=""><a href="classes/Logic-User.html#method_setImage">setImage()</a></li>
                                             <li class=""><a href="classes/Logic-User.html#method_returnUserObject">returnUserObject()</a></li>
