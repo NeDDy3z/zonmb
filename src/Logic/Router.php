@@ -299,10 +299,10 @@ class Router
                 // Execute action
                 $controller->$action();
             } else {
-                self::redirect('error', ['error' => 'incorrectRequest'], 404);
+                self::redirect('error', ['error' => 'Bad request'], 404);
             }
         } else {
-            self::redirect('error', ['error' => 'incorrectRequest'], 404);
+            self::redirect('error', ['error' => 'Bad request'], 404);
         }
     }
 
@@ -334,16 +334,7 @@ class Router
             }
         } else {
             // Error on incorrect request
-            self::redirect('error', ['error' => 'incorrectRequest'], 404);
+            self::redirect('error', ['error' => 'Bad request'], 404);
         }
-
-// TODO
-//        match ($url) {
-//            'users/edit' => (new UserController())->updateUser(),
-//            'users/edit/fullname' => (new UserController())->updateFullname(),
-//            'users/edit/image' => (new UserController())->updateProfileImage(),
-//            'users/edit/password' => (new UserController())->updatePassword(),
-//            default => (new ErrorController())->render(),
-//        };
     }
 }

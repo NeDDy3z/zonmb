@@ -6,7 +6,6 @@ use Exception;
 use Helpers\DateHelper;
 use Helpers\ImageHelper;
 use Helpers\PrivilegeRedirect;
-use Logic\DatabaseException;
 use Logic\Router;
 use Logic\User;
 use Logic\Validator;
@@ -128,6 +127,8 @@ class UserController extends Controller
         }
 
         $this->privilegeRedirect->redirectUserEditing($editedUser);
+
+        $userRole = $this->userRole;
         require_once $this->editorPage;
     }
 
@@ -266,12 +267,12 @@ class UserController extends Controller
      * Edit user data.
      *
      * Handles uploading, validating, and replacing the user data.
-     * Validates the data saves it in the database. Updates data and redirects
+     * Validates the data and saves it in the database. Updates data and redirects
      * the user with appropriate feedback.
      *
      * @return void
      */
-    public function updateUser(): void
+    public function edit(): void
     {
         try {
             $id = $_POST['id'] ?? null;
@@ -309,30 +310,33 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function updateFullname(): void
+    public function editFullname(): void
     {
-        $fullname = $_POST['fullname'] ?? null;
-
-        if (!$fullname) {
-            Router::redirect(path: 'users/' . $this->user->getUsername(), query: ['error' => 'missingFullname']);
-        }
-
         try {
+            $fullname = $_POST['fullname'] ?? null;
+
+            if (!$fullname) {
+                Router::redirect(path: 'user', query: ['error' => 'missingFullname']);
+            }
+
             // Validate name
             $this->validator->validateFullname($fullname);
 
+            /** @var User $user */
+            $user = $this->user;
+
             // Insert user into database
             UserModel::updateUserFullname(
-                id: $_SESSION['user_data']->getId(),
+                id: $user->getId(),
                 fullname: $fullname,
             );
 
             // Update user data
-            $_SESSION['user_data']->setFullname($fullname);
+            $user->setFullname($fullname);
 
-            Router::redirect(path: 'users/' . $this->user->getUsername(), query: ['success' => 'fullnameEdited']);
+            Router::redirect(path: 'user', query: ['success' => 'fullnameEdited']);
         } catch (Exception $e) {
-            Router::redirect(path: 'users/' . $this->user->getUsername(), query: ['error' => $e->getMessage()]);
+            Router::redirect(path: 'user', query: ['error' => $e->getMessage()]);
         }
     }
 
@@ -344,7 +348,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function updateProfileImage(): void
+    public function editImage(): void
     {
         try {
             $pfpImage = $image ?? ImageHelper::getUsableImageArray($_FILES['image'])[0] ?? null;
@@ -374,9 +378,9 @@ class UserController extends Controller
             // Update user data
             $_SESSION['user_data']->setImage($pfpImagePath);
 
-            Router::redirect(path: 'users/' . $this->user->getUsername(), query: ['success' => 'imageUpload']);
+            Router::redirect(path: 'user', query: ['success' => 'imageUpload']);
         } catch (Exception $e) {
-            Router::redirect(path: 'users/' . $this->user->getUsername(), query: ['error' => $e->getMessage()]);
+            Router::redirect(path: 'user', query: ['error' => $e->getMessage()]);
         }
     }
 
@@ -386,7 +390,7 @@ class UserController extends Controller
      * Handles validating, and replacing the user's password. Alsoupdates the database.
      * @return void
      */
-    public function updatePassword(): void
+    public function editPassword(): void
     {
         try {
             $oldPassword = $_POST['password-old'] ?? null;
@@ -409,13 +413,60 @@ class UserController extends Controller
                 password: password_hash($newPassword, PASSWORD_DEFAULT),
             );
 
-            Router::redirect(path: 'users/' . $this->user->getUsername(), query: ['success' => 'passwordChanged']);
+            Router::redirect(path: 'user', query: ['success' => 'passwordChanged']);
         } catch (Exception $e) {
-            Router::redirect(path: 'users/' . $this->user->getUsername(), query: ['error' => $e->getMessage()]);
+            Router::redirect(path: 'user', query: ['error' => $e->getMessage()]);
         }
     }
 
 
+    /**
+     * Delete user and all its associated data.
+     *
+     * Ensures that all images related to the user are removed from the server
+     * when the user is deleted.
+     *
+     * @return void
+     */
+    public function delete(): void
+    {
+        $this->privilegeRedirect->redirectEditor();
+
+        try {
+            $id = $_GET['id'] ?? null;
+            $image = $_GET['image'] ?? null;
+
+            if (!isset($id)) {
+                echo json_encode(['error' => 'missingID']);
+                exit();
+            }
+
+            if (isset($image)) {
+                $this->deleteImage($id, $image);
+                exit();
+            }
+
+            /** @var User $user */
+            $user = User::get(id: $id);
+
+            if (!isset($user)) {
+                echo json_encode(['error' => 'incorrectID']);
+                exit();
+            }
+
+            $this->privilegeRedirect->redirectUserEditing($user);
+
+            UserModel::removeUser(id: $id);
+            $this->delteUserImageFromServer($user->getUsername());
+
+            echo json_encode(['success' => 'userDeleted']);
+
+        } catch (Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+
+        exit();
+    }
 
     /**
      * Delete a user pfp
@@ -426,7 +477,7 @@ class UserController extends Controller
      * @param string|null $image
      * @return void
      */
-    public function deleteUserProfileImage(?int $id, ?string $image): void
+    public function deleteImage(?int $id, ?string $image): void
     {
         if (!isset($id) or !isset($image)) {
             echo json_encode(['error' => 'missingID']);
@@ -449,38 +500,7 @@ class UserController extends Controller
                 }
             }
 
-            echo json_encode(['success' => 'userImageDeleted']);
-        } catch (Exception $e) {
-            echo json_encode(['error' => $e->getMessage()]);
-        }
-        exit();
-    }
-
-    /**
-     * Delete user and all its associated data.
-     *
-     * Ensures that all images related to the user are removed from the server
-     * when the user is deleted.
-     *
-     * @param int|null $id
-     * @return void
-     */
-    public function deleteUser(?int $id): void
-    {
-        if (!isset($id)) {
-            echo json_encode(['error' => 'missingID']);
-            exit();
-        }
-
-        try {
-            $user = User::get(id: $id);
-
-            $this->privilegeRedirect->redirectUserEditing($user);
-
-            UserModel::removeUser(id: $id);
-            $this->delteUserImageFromServer($user->getUsername());
-
-            echo json_encode(['success' => 'userDeleted']);
+            echo json_encode(['success' => 'imageDeleted']);
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
         }

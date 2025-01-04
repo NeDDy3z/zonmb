@@ -61,6 +61,7 @@ const errorMessages = {
     'passwordSize': 'Heslo musí mít délku minimálně 8 znaků',
     'passwordRegex': 'Heslo musí obsahovat alespoň jedno velké písmeno a číslici',
     'missingOldPassword': 'Vyplňte staré heslo',
+    'oldPasswordIncorrect': 'Staré heslo je nesprávné',
 
     'imageUploadError': 'Obrázek se nepodařilo nahrát',
     'imageSize': 'Obrázek je příliš velký, max 2MB',
@@ -136,7 +137,7 @@ function displayMessage(type, message, container = 'popup', countdown = 10) {
             messageContainer.remove();
         }, countdown * 1000);
     } else if (container === 'static') {
-        if (staticMessageContainer !== undefined) {
+        if (staticMessageContainer !== null) {
             staticMessageContainer.innerHTML = '';
             messages.forEach(msg => {
                 staticMessageContainer.appendChild(msg);
@@ -196,8 +197,15 @@ function sendSignalOnURLMessage() {
 
     // Construct error event
     if (error) {
+        let details = URL_PARAMS.get('errorDetails') ?? null;
+        if (details) {
+            error += '-' + details;
+        }
+
         sendMessageSignal('error', error, 'popup');
     }
+
+
 
     // Construct success event
     if (success) {

@@ -14,5 +14,6 @@ $error_dictionary = [
 <main>
     <h1>Error <?php echo $error_code; ?></h1>
     <p><b><?php echo $error_dictionary[(int)$error_code]; ?></b></p>
+    <p><span class="grayed-out"><?= $_GET['error'] ?></span></p>
     <p>Vrátit se zpět na <a href="<?= BASE_URL ?>/">domovskou stránku</a></p>
 </main>

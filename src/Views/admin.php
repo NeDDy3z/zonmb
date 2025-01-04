@@ -85,9 +85,9 @@ use Models\DatabaseConnector;
                 <thead>
                 <tr>
                     <th><a href="#" class="sort active asc" id="comments-id">ID<span> &#9650;</span></a></th>
-                    <th><a href="#" class="sort" id="comments-text">Text<span></span></a></th>
                     <th><a href="#" class="sort" id="comments-article_id">ID Článku<span></span></a></th>
                     <th><a href="#" class="sort" id="comments-author_id">ID Autora<span></span></a></th>
+                    <th><a href="#" class="sort" id="comments-text">Text<span></span></a></th>
                     <th><a href="#" class="sort" id="comments-created_at">Datum zveřejnění<span></span></a></th>
                     <th></th>
                 </tr>

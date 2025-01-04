@@ -16,7 +16,7 @@ sendRequest('GET', 'user/me', function (data) {
 function addOpenOverlay() {
     let overlayItems = document.querySelectorAll('.overlay-item');
     overlayItems.forEach(item => {
-        item.addEventListener('click', () => {
+        item.addEventListener('click', (e) => {
             openOverlay(item);
         });
     });

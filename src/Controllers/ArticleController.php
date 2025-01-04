@@ -297,6 +297,10 @@ class ArticleController extends Controller
             $imagePaths = ArticleModel::selectArticle(conditions: 'WHERE id = ' . $id)['image_paths'] ?? null;
             if ($imagePaths !== null) {
                 $imagePaths = explode(',', $imagePaths);
+
+                if ($imagePaths[0] === '') {
+                    $imagePaths = null;
+                }
             }
 
             try {
@@ -380,7 +384,15 @@ class ArticleController extends Controller
                 exit();
             }
 
+            $article = Article::get(id: $id);
+
+            if (!isset($article)) {
+                echo json_encode(['error' => 'incorrectID']);
+                exit();
+            }
+
             ArticleModel::removeArticle(id: $id); // Delete article
+
             foreach ((array)scandir('assets/uploads/articles') as $file) { // Remove all images associated with it
                 if (str_starts_with($file, $id . '_')) { // if the file starts with the article ID remove it
                     unlink('assets/uploads/articles/' . $file);
@@ -446,7 +458,7 @@ class ArticleController extends Controller
             // Update data in DB
             ArticleModel::updateArticle(id: $_GET['id'], imagePaths: $newImagePaths ?? ['null']);
 
-            echo json_encode(['success' => 'imageDelete']);
+            echo json_encode(['success' => 'imageDeleted']);
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
         }

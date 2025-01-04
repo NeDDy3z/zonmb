@@ -37,7 +37,7 @@ function sendErrorSignal(error) {
     sendMessageSignal(
         'error',
         error,
-        (href.includes('/users')) ? 'popup' : 'static',
+        (href.includes('/user')) ? 'popup' : 'static',
     );
 }
 
@@ -93,7 +93,7 @@ function validateUsername(username) {
     }
 
     // Check if username is taken
-    sendRequest('GET', 'users/exists?username=' + encodeURIComponent(username), function (data) {
+    sendRequest('GET', 'user/exists?username=' + encodeURIComponent(username), function (data) {
         data = JSON.parse(data.response);
         if (data.exists) {
             sendErrorSignal(['usernameTaken']);

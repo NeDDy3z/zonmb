@@ -9,6 +9,9 @@ function openOverlay(element) {
     overlay.style.display = 'block';
     overlay.querySelector('p').innerHTML = element.innerHTML;
 
+    // Reset images
+    overlay.querySelectorAll('img').forEach(img => img.remove()); // remove images from overlay
+
     // Display images if there are any
     if (element.classList.contains('overlay-image-item')) {
         let images = element.innerHTML.split(',');

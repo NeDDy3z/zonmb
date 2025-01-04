@@ -6,7 +6,7 @@ use Helpers\UrlHelper;
 
 <main>
     <div class="container editor" id="user-editor">
-        <form action="<?= UrlHelper::baseUrl('users/edit') ?>" method="post" enctype="multipart/form-data"
+        <form action="<?= UrlHelper::baseUrl('user/edit') ?>" method="post" enctype="multipart/form-data"
               name="userEditForm">
             <h1>Úprava uživatele</h1>
 
@@ -54,14 +54,13 @@ use Helpers\UrlHelper;
 
             <h3>Profilový obrázek</h3>
             <div class="user-image editor-images-container">
+                <p><span class="grayed-out">Uživatel nemá nahraný žádný profilový obrázek</span></p>
                 <?php if (isset($editedUser) and $editedUser->getImage() !== DEFAULT_PFP) {
                     $image = $editedUser->getImage();
                     echo '<div class="editor-image">
                                 <button type="button" class="danger remove-image" value="' . UrlHelper::baseUrl($image) . '" id="' . $editedUser->getId() . '">X</button>
                                 <img src="' . UrlHelper::baseUrl($image) . '" alt="Profilový obrázek uživatele">
                           </div>';
-                } else {
-                    echo '<p><span class="grayed-out">Uživatel nemá nahraný žádný profilový obrázek</span></p>';
                 }
                 ?>
             </div>

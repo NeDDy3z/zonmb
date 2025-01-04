@@ -190,11 +190,31 @@ class User
     }
 
     /**
+     * Set new fullname for user
+     * @param string $fullname
+     * @return void
+     */
+    public function setFullname(string $fullname): void
+    {
+        $this->fullname = $fullname;
+    }
+
+    /**
      * @return string The path to the user's profile image
      */
     public function getImage(): string
     {
         return $this->image;
+    }
+
+    /**
+     * Set new image of user
+     * @param string $image
+     * @return void
+     */
+    public function setImage(string $image): void
+    {
+        $this->image = $image;
     }
 
     /**

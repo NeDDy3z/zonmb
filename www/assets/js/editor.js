@@ -1,5 +1,6 @@
 import { sendRequest } from './xhr.js';
 import {sendMessageSignal} from "./messageDisplay.js";
+import {baseUrl} from "./utils.js";
 
 const article = {
     id: (document.querySelector('input[name="id"]')) ? document.querySelector('input[name="id"]').value : null,
@@ -12,11 +13,11 @@ const article = {
 function deleteImage(page, id, src) {
     sendRequest('GET', `${page}/delete?id=${id}&image=${encodeURIComponent(src)}`, function (data) {
         // Construct data for custom event
-        data = JSON.parse(data.response);
-
+        let type = (data.response.includes('success')) ? 'success' : 'error';
+        let response = JSON.parse(data.responseText);
         sendMessageSignal(
-            (data.includes('success')) ? 'success' : 'error',
-            data,
+            type,
+            (type === 'success') ? response.success : response.error,
         );
 
         article.imagesDiv.forEach(div => { // Remove image
@@ -42,8 +43,8 @@ function displayNoImagesMessage() {
 article.imagesRemoveButtons.forEach(button => {
     button.addEventListener('click', () => {
         if (confirm('Opravdu chcete smazat tento obrázek?')) { // Confirm
-            let page = (window.location.href.includes('users')) ? 'users' : 'articles';
-            deleteImage(`../${page}`, button.id, button.value);
+            let page = (window.location.href.includes('user')) ? 'user' : 'article';
+            deleteImage(baseUrl(`${page}`), button.id, button.value);
         }
     });
 });
