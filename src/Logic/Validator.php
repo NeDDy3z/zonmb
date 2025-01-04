@@ -31,6 +31,7 @@ class Validator
     const PASSWOR_MIN_LENGTH = 5;
     const PASSWORD_MAX_LENGTH = 255;
 
+    const TITLE_REGEX = '/^[a-zA-ZáčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ0-9 _,.-]+$/';
     const TITLE_MIN_LENGTH = 10;
     const TITLE_MAX_LENGTH = 100;
     const SUBTITLE_MIN_LENGTH = 3;
@@ -264,7 +265,7 @@ class Validator
      * This method ensures that inputs for all fields meet length requirements
      * and are not empty.
      *
-     * @param int $id
+     * @param int|null $id
      * @param string $title The article title.
      * @param string $subtitle The optional article subtitle.
      * @param string $content The article content.
@@ -284,6 +285,10 @@ class Validator
 
             case strlen($title) < self::TITLE_MIN_LENGTH || strlen($title) > self::TITLE_MAX_LENGTH: // Length
                 $error[] = 'titleSize';
+                break;
+
+            case !preg_match(self::TITLE_REGEX, $title):
+                $error[] = 'titleRegex';
                 break;
 
             case ArticleModel::existsArticle($title): // Exists

@@ -1,6 +1,6 @@
 // Dependencies: xhr.js, utils.js
 import {sendRequest} from "./xhr.js";
-import {encodeHtml} from "./utils.js";
+import {baseUrl, encodeHtml} from "./utils.js";
 
 
 const newsArticles = document.querySelector('.container.news-articles');
@@ -33,7 +33,7 @@ function loadArticles(data) {
             articleElement.classList.add('article-news');
             articleElement.innerHTML =
                 `<div class="news-article-text">
-                        <a href="article/${article.slug}"><h1>${encodeHtml(article.title)}</h1></a>
+                        <a href="${baseUrl('article/') + encodeURIComponent(article.slug)}"><h1>${encodeHtml(article.title)}</h1></a>
                         <h2>${encodeHtml(article.subtitle)}</h2>
                     </div>`;
             if (article.image_paths !== "" && article.image_paths !== null) {

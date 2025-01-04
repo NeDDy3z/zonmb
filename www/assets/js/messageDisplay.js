@@ -68,6 +68,7 @@ const errorMessages = {
     'imageFormat': 'Nahrávejte pouze obrázky ve formátu JPG nebo PNG',
     'imageDimensions': 'Obrázek musí mít minimálně 200x200px a maximálně 4000x4000px',
 
+    'titleRegex': 'Titulek může obsahovat pouze písmena, číslice, mezery, podtržítka, tečky a pomlčky',
     'titleEmpty': 'Vyplňte titulek',
     'titleSize': 'Titulek musí mít délku minimálně 10 a maxilmálně 100 znkaů',
     'titleTaken': 'Článek s tímto titulkem již existuje',

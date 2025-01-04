@@ -22,7 +22,7 @@ $type ??= 'add';
             <label for="title" class="visible">*Titulek: </label>
             <input type="text" name="title" id="title" placeholder="*Titulek"
                    value="<?= isset($article) ? htmlspecialchars($article->getTitle()) : ''; ?>" required
-                   title="Titulek musí mít minimálně 10 a maximálně 100 znaků"
+                   title="Titulek musí mít minimálně 10 a maximálně 100 znaků a může obsahovat pouze písmena, číslice, mezery podtržítka, tečky a pomlčky"
                    minlength="10" maxlength="100">
 
             <label for="subtitle" class="visible">*Podtitulek: </label>

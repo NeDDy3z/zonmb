@@ -1,7 +1,7 @@
 import {sendRequest} from "./xhr.js";
 import {sendMessageSignal} from "./messageDisplay.js";
 import {openOverlay} from "./overlay.js";
-import {encodeHtml, prettyDate} from "./utils.js";
+import {baseUrl, encodeHtml, prettyDate} from "./utils.js";
 
 // Get and assign user data
 let user;
@@ -160,7 +160,7 @@ function userRow(user) {
 function articleRow(article) {
     let row = document.createElement('tr');
     row.innerHTML = `
-            <td><a href="./article/${article.slug}">${encodeHtml(article.id)}</a></td>
+            <td><a href="${baseUrl('article/')+encodeURIComponent(`${article.slug}`)}">${encodeHtml(article.id)}</a></td>
             <td class="overlay-item">${encodeHtml(article.title)}</td>
             <td class="overlay-item" >${encodeHtml(article.subtitle)}</td>
             <td class="overlay-item" >${encodeHtml(article.content)}</td>

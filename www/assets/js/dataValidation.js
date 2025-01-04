@@ -14,6 +14,7 @@ const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*\d).+$/;
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_MAX_LENGTH = 255;
 
+const TITLE_REGEX = /^[a-zA-ZáčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ0-9 _,.-]+$/;
 const TITLE_MIN_LENGTH = 10;
 const TITLE_MAX_LENGTH = 100;
 const SUBTITLE_MIN_LENGTH = 3;
@@ -156,7 +157,11 @@ function validateTitle(title) {
 
         case title.length < TITLE_MIN_LENGTH || title.length > TITLE_MAX_LENGTH: // Length
             error.push('titleSize');
+            break;
 
+        case !TITLE_REGEX.test(title):
+            error.push('titleRegex');
+            break;
     }
 
     // Check if title is taken

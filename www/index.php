@@ -45,6 +45,7 @@ try {
 
 // Process the requested URL.
 $url = substr(strval(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)), 1);
+$url = urldecode($url);
 
 // Check if the URL contains a specific prefix (e.g., "vanekeri") and remove it
 $url = str_contains(haystack: $url, needle: '~vanekeri/')

@@ -243,7 +243,7 @@ class Router
     {
         switch (true) {
             // Case for article page, if url contains article slug that is more than 10 characters long, convert the url into article?slug=<article_slug>
-            case preg_match('#^article/([\w-]+)#', $url, $matches) and strlen($matches[1]) >= 10:
+            case preg_match('#^article/(.+)#', $url, $matches) and strlen($matches[1]) >= 10:
                 $_GET['slug'] = $matches[1];
                 return 'article';
             default:
@@ -291,6 +291,7 @@ class Router
             // Check if method exists in controller and execute it
             if (method_exists($controller, $action)) {
                 // On render action also render header and footer
+
                 if (str_contains(haystack: $action, needle: 'render')) {
                     self::includeHeaderAndFooter(fn() => $controller->$action());
                     return;
